@@ -1,0 +1,7 @@
+<input #searchBox type="text" (keyup)="search(''+searchBox.value)"/>
+<div *ngFor="let item of budgetDocs | async">
+    <div>
+        {{item.source.title}}
+    </div>
+    <pre>{{item | json}}</pre>
+</div>
