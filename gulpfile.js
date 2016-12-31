@@ -14,9 +14,11 @@ var vendorBundleName = bundleHash + '.vendor.bundle.js';
 
 // This is main task for production use
 gulp.task('dist', function(done) {
-  runSequence('clean', 'compile_ts', 'bundle', 'copy_assets', function() {
-    done();
-  });
+  runSequence('clean', 'compile_ts', 'bundle', 'copy_assets', 'copy_common_assets',
+    function() {
+      done();
+    }
+  );
 });
 
 gulp.task('bundle', ['bundle:vendor', 'bundle:app'], function () {
@@ -52,6 +54,12 @@ gulp.task('compile_ts', ['clean:ts'], shell.task([
 
 gulp.task('copy_assets', function() {
   return gulp.src(['./assets/**/*'], {base:"."})
+    .pipe(gulp.dest('./dist'));
+});
+
+gulp.task('copy_common_assets', function() {
+  return gulp.src(['./node_modules/budgetkey-ng2-components/assets/**/*'],
+                  {base:"./node_modules/budgetkey-ng2-components"})
     .pipe(gulp.dest('./dist'));
 });
 

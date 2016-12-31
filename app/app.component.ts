@@ -2,11 +2,23 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'my-app',
+  styles: [`
+    budgetkey-container {
+        background-color: #ccc;
+        display: block;
+    }
+    
+    .container-fluid {
+        padding: 10px;
+        max-width: 1024px;
+    }
+  `],
   template: `
       <budgetkey-container>
-        <h1>Hello {{name}}</h1>
-        <budget-search></budget-search>      
+        <div class="container-fluid">
+            <budget-search></budget-search>              
+        </div>      
       </budgetkey-container>
   `,
 })
-export class AppComponent  { name = 'Angular'; }
+export class AppComponent  { }

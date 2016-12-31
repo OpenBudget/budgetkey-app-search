@@ -17,7 +17,8 @@ export class SearchService {
   kinds = ['exemption', 'budget', 'changes'];
   pageSize = 20;
 
-  constructor(private http : Http) {}
+  constructor(private http : Http) {
+  }
 
   search(term: string): Observable<SearchResults> {
     let kinds = join(this.kinds, ',');

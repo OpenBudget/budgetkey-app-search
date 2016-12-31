@@ -1,5 +1,3 @@
-input {
-    font-size: 2em;
-    background-color: #ddd;
-    width: 50%;
+.search-box {
+    margin: 20px;
 }

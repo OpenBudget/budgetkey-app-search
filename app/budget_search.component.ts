@@ -22,7 +22,8 @@ export class BudgetSearchComponent implements OnInit {
   private budgetDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private searchTerms = new Subject<string>();
 
-  constructor(private searchService: SearchService) { }
+  constructor(private searchService: SearchService) {
+  }
 
   // Push a search term into the observable stream.
   search(term: string): void {
@@ -46,13 +47,13 @@ export class BudgetSearchComponent implements OnInit {
         // TODO: real error handling
         console.log(error);
         return Observable.of<SearchResults>(null);
-      })
-      this.searchResults.subscribe((results) => {
+      });
+    this.searchResults.subscribe((results) => {
         console.log('DASDSADAS', results);
         if (results && results.budget) {
           this.budgetDocs.next(results.budget.docs);
         }
-      })
+      });
   }
 
 }

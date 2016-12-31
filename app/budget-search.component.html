@@ -1,7 +1,15 @@
-<input #searchBox type="text" (keyup)="search(''+searchBox.value)"/>
-<div *ngFor="let item of budgetDocs | async">
-    <div>
-        {{item.source.title}}
+<div class="row">
+    <div class="search-box input-group input-group-lg">
+        <input #searchBox
+               class="form-control"
+               type="text"
+               placeholder="חפשו במפתח"
+               (keyup)="search(searchBox.value)"/>
+        <span class="input-group-addon">
+            <i class="glyphicon glyphicon-search"></i>
+        </span>
     </div>
-    <pre>{{item | json}}</pre>
+</div>
+<div *ngFor="let item of budgetDocs | async">
+    <search-result-budget [item]="item"></search-result-budget>
 </div>
