@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'my-app',
+  encapsulation: ViewEncapsulation.None,
   styles: [`
-    budgetkey-container {
+    budgetkey-container > .app {
         background-color: #ccc;
         display: block;
     }
