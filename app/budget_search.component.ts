@@ -54,6 +54,7 @@ export class BudgetSearchComponent implements OnInit {
           this.budgetDocs.next(results.budget.docs);
         }
       });
+    this.search('חינוך');
   }
 
 }

@@ -1,5 +1,32 @@
+budgetkey-container {
+  background: #F6F6F6;
+  background-image: linear-gradient(-180deg, rgba(0,0,0,0.00) 0%, rgba(0,0,0,0.05) 100%);
+  font-size: 10px;
+}
 h1 {
   color: #369;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 250%;
+}
+search-result-budget {
+  background: #FFFFFF;
+  box-shadow: 0 1px 1px 0 #BEBEBE;
+  border-radius: 6px;
+  min-height: 118px;
+  display: block;
+}
+search-result-budget .header {
+  background: #FEC9C7;
+  border-top: solid 3px #C20A04;
+  color: #C20A04;
+}
+search-result-budget .header .code {
+  font-size: 1.4em;
+}
+search-result-budget .header .title {
+  font-size: 2em;
+}
+search-result-budget .header .amount {
+  font-size: 1.6em;
+  /*color: #C20A04;*/
 }
