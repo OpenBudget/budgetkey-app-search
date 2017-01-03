@@ -1,21 +1,19 @@
   <!-- <pre>{{item.source | json }}</pre> -->
-  <div class="row">
-      <div class="item">
-        <div class="breadcrumbs">סעיף / תחום / תכנית / תקנה</div>
-        <div class="header row">
-          <div class="col-md-8">
-            <span class="code">{{item.source.code}}</span>
-            <span class="title">{{item.source.title}}</span>
-          </div>
-          <div class="col-md-4">
-            <span class="amount pull-left">
-                ₪{{item.source.net_allocated}}
-            </span>
-          </div>
+  <div class="item">
+    <div class="breadcrumbs">סעיף / תחום / תכנית / תקנה</div>
+    <div class="header row">
+      <div class="col-md-8">
+        <span class="code">{{item.source.code}}</span>
+        <span class="title">{{item.source.title}}</span>
       </div>
-      <div class="">
-        תחומים בסעיף זה:
-        {{ details }}
+      <div class="col-md-4">
+        <span class="amount pull-left">
+            ₪{{item.source.net_allocated}}
+        </span>
       </div>
+    </div>
+    <div class="sub-items">
+      תחומים בסעיף זה:
+      {{ details }}
     </div>
   </div>
