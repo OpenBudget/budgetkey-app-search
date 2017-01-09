@@ -9,6 +9,16 @@
             <i class="glyphicon glyphicon-search"></i>
         </span>
     </div>
+    <div class="search-filter">
+      <ul class="row">
+        <li class="active col-xs-3 col-md-2"><a href="#">הכל <span>(1)</span></a></li>
+        <li class="col-xs-3 col-md-2"><a href="#">סעיף תקציבי <span>(1)</span></a></li>
+        <li class="col-xs-3 col-md-2"><a href="#">ארגון <span>(1)</span></a></li>
+        <li class="col-xs-3 col-md-2"><a href="#">העברה תקציבית <span>(1)</span></a></li>
+        <li class="col-xs-3 col-md-2"><a href="#">תמיכה ממשלתית <span>(1)</span></a></li>
+        <li class="col-xs-3 col-md-2"><a href="#">רכש <span>(1)</span></a></li>
+      </ul>
+    </div>
 </div>
 <div *ngFor="let item of budgetDocs | async">
     <search-result-budget [item]="item"></search-result-budget>
