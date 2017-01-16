@@ -53,6 +53,9 @@ h1 {
   color: #4A4A4A;
   font-weight: 700;
 }
+
+/********* search-result-budget *********/
+
 search-result-budget {
   background: #FFFFFF;
   box-shadow: 0 1px 1px 0 #BEBEBE;
@@ -79,14 +82,80 @@ search-result-budget .header {
   margin: 0px;
 }
 search-result-budget .header .code {
-  font-size: 1.4em;
+  font-size: 1.4rem;
   font-weight: 400;
   margin-left: 10px;
+  line-height: 3.6rem;
 }
 search-result-budget .header .title {
-  font-size: 2em;
+  font-size: 2rem;
 }
 search-result-budget .header .amount {
-  font-size: 1.6em;
-  line-height: 2em;
+  font-size: 1.6rem;
+  line-height: 3.6rem;
+  text-align: left;
+  direction: ltr;
+  display: block;
+}
+
+/********* search-result-changes *********/
+
+search-result-changes {
+  background: #F8F7F0;
+  background-image: linear-gradient(-180deg, rgba(255,255,255,0.40) 0%, rgba(255,255,255,0.00) 50%);
+  box-shadow: 0 3px 3px 0 rgba(189,189,189,0.50);
+  min-height: 118px;
+  display: block;
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  color: #9B9B9B;
+  padding-right: 50px;
+  position: relative;
+}
+search-result-changes:before {
+  content: "";
+  background: url(assets/img/paper-hole.svg);
+  width: 49px;
+  height: 100%;
+  border-left: dashed 1px #DCDCDC;
+  display: block;
+  position: absolute;
+  right: 0;
+}
+search-result-changes .header {
+  padding: 10px 15px 0;
+}
+search-result-changes .header > div {
+  border-bottom: dashed 1px #DCDCDC;
+  padding-bottom: 10px;
+}
+search-result-changes .header .title{
+  font-weight: 700;
+  display: block;
+  font-size: 2rem;
+  color: #333333;
+}
+search-result-changes .header .status{
+
+}
+search-result-changes .header .status .date{
+  font-weight: 700;
+}
+search-result-changes .header .amount{
+  font-weight: 700;
+  display: block;
+  font-size: 1.6rem;
+  line-height: 2.8rem;
+  text-align: left;
+  direction: ltr;
+}
+search-result-changes .header .amount.decreased_a{
+  color: #44c4d0;
+}
+search-result-changes .header .relative-to-original{
+  text-align: left;
+  display: block;
+}
+search-result-changes .changes-description{
+  padding: 10px
 }
