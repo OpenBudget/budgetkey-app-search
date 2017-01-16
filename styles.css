@@ -62,11 +62,15 @@ search-result-budget {
   font-size: 1.4em;
   margin-bottom: 20px;
 }
-search-result-budget .breadcrumbs,
+search-result-budget .breadcrumb,
 search-result-budget .sub-items {
   padding: 10px 15px;
 }
-
+search-result-budget .breadcrumb{
+  color: #9B9B9B;
+  margin: 0;
+  background: none;
+}
 search-result-budget .header {
   background: #FEC9C7;
   border-top: solid 3px #C20A04;

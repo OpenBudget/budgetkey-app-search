@@ -1,6 +1,11 @@
   <!-- <pre>{{item.source | json }}</pre> -->
   <div class="item">
-    <div class="breadcrumbs">סעיף / תחום / תכנית / תקנה</div>
+    <ol class="breadcrumb">
+      <li><a href="#">סעיף</a></li>
+      <li><a href="#">תחום</a></li>
+      <li><a href="#">תכנית</a></li>
+      <li><a href="#">תקנה</a></li>
+    </ol>
     <div class="header row">
       <div class="col-md-8">
         <span class="code">{{item.source.code}}</span>
@@ -8,7 +13,7 @@
       </div>
       <div class="col-md-4">
         <span class="amount pull-left">
-          {{item.source.net_allocated}} ₪
+          {{item.source.net_allocated.toLocaleString()}} ₪
         </span>
       </div>
     </div>
