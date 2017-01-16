@@ -12,15 +12,16 @@ import { SearchResults, DocResultEntry }     from './SearchResults'
 @Component({
     moduleId: module.id,
     selector: 'budget-search',
-    template: require('./budget-search.component.html!text'),
-    styles: [ require('./budget-search.component.css!text') ],
+    template: require('./search.component.html!text'),
+    styles: [ require('./search.component.css!text') ],
     providers: [SearchService]
 })
-export class BudgetSearchComponent implements OnInit {
+export class SearchComponent implements OnInit {
 
   searchResults: Observable<SearchResults>;
   private budgetDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private changeDocs = new BehaviorSubject<DocResultEntry[]>([]);
+  private exemptionDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private searchTerms = new Subject<string>();
 
   constructor(private searchService: SearchService) {
@@ -51,12 +52,17 @@ export class BudgetSearchComponent implements OnInit {
       });
     this.searchResults.subscribe((results) => {
         console.log('DASDSADAS', results);
+
         if (results && results.budget) {
           this.budgetDocs.next(results.budget.docs);
         }
         if (results && results.changes) {
           this.changeDocs.next(results.changes.docs);
         }
+      if (results && results.exemption) {
+        this.exemptionDocs.next(results.exemption.docs);
+      }
+
       });
     this.search('חינוך');
   }
