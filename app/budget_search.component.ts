@@ -20,6 +20,7 @@ export class BudgetSearchComponent implements OnInit {
 
   searchResults: Observable<SearchResults>;
   private budgetDocs = new BehaviorSubject<DocResultEntry[]>([]);
+  private changeDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private searchTerms = new Subject<string>();
 
   constructor(private searchService: SearchService) {
@@ -52,6 +53,9 @@ export class BudgetSearchComponent implements OnInit {
         console.log('DASDSADAS', results);
         if (results && results.budget) {
           this.budgetDocs.next(results.budget.docs);
+        }
+        if (results && results.changes) {
+          this.changeDocs.next(results.changes.docs);
         }
       });
     this.search('חינוך');

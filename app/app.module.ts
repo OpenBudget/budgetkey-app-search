@@ -10,6 +10,7 @@ import {BudgetSearchComponent} from "./budget_search.component";
 
 import { BudgetKeyCommonModule } from 'budgetkey-ng2-components';
 import {SearchResultBudgetComponent} from "./search_result_budget.component";
+import {SearchResultChangesComponent} from "./search_result_changes.component";
 
 @NgModule({
   imports:      [
@@ -20,7 +21,8 @@ import {SearchResultBudgetComponent} from "./search_result_budget.component";
   declarations: [
     AppComponent,
     BudgetSearchComponent,
-    SearchResultBudgetComponent
+    SearchResultBudgetComponent,
+    SearchResultChangesComponent
   ],
   providers: [
     SearchService
