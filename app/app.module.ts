@@ -6,11 +6,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent }  from './app.component';
 import {HttpModule} from "@angular/http";
 import {SearchService} from "./search.service";
-import {BudgetSearchComponent} from "./budget_search.component";
+import {SearchComponent} from "./search.component";
 
 import { BudgetKeyCommonModule } from 'budgetkey-ng2-components';
-import {SearchResultBudgetComponent} from "./search_result_budget.component";
-import {SearchResultChangesComponent} from "./search_result_changes.component";
+import {SearchResultBudgetComponent} from "./search_result.component";
+import {SearchResultChangesComponent} from "./search_result.component";
+import {SearchResultExemptionComponent} from "./search_result.component";
 
 @NgModule({
   imports:      [
@@ -20,9 +21,10 @@ import {SearchResultChangesComponent} from "./search_result_changes.component";
   ],
   declarations: [
     AppComponent,
-    BudgetSearchComponent,
+    SearchComponent,
     SearchResultBudgetComponent,
-    SearchResultChangesComponent
+    SearchResultChangesComponent,
+    SearchResultExemptionComponent
   ],
   providers: [
     SearchService

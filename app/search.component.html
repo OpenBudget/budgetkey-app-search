@@ -26,3 +26,6 @@
 <div *ngFor="let item of budgetDocs | async">
     <search-result-budget [item]="item"></search-result-budget>
 </div>
+<div *ngFor="let item of exemptionDocs | async">
+  <search-result-exemption [item]="item"></search-result-exemption>
+</div>
