@@ -129,7 +129,7 @@ search-result-changes {
   search-result-changes .changes-description {
     padding: 10px; }
 
-/******** search-result-exemption + supportss **********/
+/******** search-result-exemption + supports **********/
 .expense {
   background: #F3F8FD;
   border: 1px solid #AEAED7;
@@ -187,6 +187,7 @@ search-result-changes {
   .expense .description {
     background: #FFFFFF;
     border: 1px solid #AEAED7;
+    color: #AEAED7;
     border-width: 1px 1px 0 0;
     box-shadow: inset 0 1px 0 0 #FFFFFF;
     padding: 5px 5px 5px 50px;
@@ -194,7 +195,7 @@ search-result-changes {
     color: #797979;
     min-height: 66px;
     overflow: hidden; }
-    .expense .description .status-stamp {
+    .expense .description .stamp {
       position: absolute;
       width: 60px;
       height: 60px;
@@ -221,7 +222,7 @@ search-result-changes {
           -ms-transform: rotate(5deg);
               transform: rotate(5deg);
       opacity: .5; }
-      .expense .description .status-stamp span {
+      .expense .description .stamp span {
         border: 1px solid #AEAED7;
         color: #AEAED7;
         font-weight: 700;
@@ -229,5 +230,39 @@ search-result-changes {
         text-align: center;
         width: 100%;
         border-width: 1px 0; }
+
+search-result-supports .expense {
+  background: #FEFAF9;
+  border-color: #D7B6AE; }
+  search-result-supports .expense .search-result-type {
+    background: #D7B6AE; }
+  search-result-supports .expense .header .breadcrumb {
+    color: #D7B6AE;
+    margin: 0 30px 0 0;
+    background: none;
+    font-weight: 700;
+    font-size: 1.4em;
+    padding: 5px 0 0;
+    display: block; }
+    search-result-supports .expense .header .breadcrumb li + li::before {
+      color: #D7B6AE; }
+    search-result-supports .expense .header .breadcrumb a {
+      color: #D7B6AE; }
+  search-result-supports .expense .header .title {
+    color: #8A4838; }
+    search-result-supports .expense .header .title span {
+      color: #D7B6AE; }
+  search-result-supports .expense .header .period {
+    color: #D7B6AE; }
+  search-result-supports .expense .header .amount {
+    color: #8A4838; }
+  search-result-supports .expense .description {
+    border-color: #D7B6AE;
+    color: #D7B6AE; }
+    search-result-supports .expense .description .stamp {
+      border-color: #D7B6AE; }
+      search-result-supports .expense .description .stamp span {
+        border-color: #D7B6AE;
+        color: #D7B6AE; }
 
 /*# sourceMappingURL=styles.css.map */
