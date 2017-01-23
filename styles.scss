@@ -1,0 +1,162 @@
+budgetkey-container {
+  background: #F6F6F6 fixed;
+  background-image: linear-gradient(-180deg, rgba(0,0,0,0.00) 0%, rgba(0,0,0,0.05) 100%);
+  font-size: 10px;
+  display: block;
+}
+h1 {
+  color: #369;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 250%;
+}
+.input-group.input-group {
+
+}
+.search-box{
+  input.form-control:first-child {
+    height: 44px;
+    background: #FFFFFF;
+    border: 1px solid #DADADA;
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0 25px 25px 0;
+  }
+  .input-group-addon:last-child {
+    height: auto;
+    padding: 11px 16px 7px;
+    background: #fff;
+    border-radius: 25px 0 0 25px;
+    border-color: #DADADA;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075)
+  }
+}
+.search-filter{
+  margin: 20px;
+
+  >ul{
+    padding: 0;
+    >li {
+      list-style: none;
+      font-size: 1.4em;
+      >a {
+        color: #9B9B9B;
+        display: block;
+        border-radius: 3px;
+        padding: 3px;
+        &:hover {
+          background: #fff;
+          text-decoration: none;
+        }
+      }
+      &.active>a {
+        color: #4A4A4A;
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+/********* search-result-budget *********/
+
+search-result-budget {
+  background: #FFFFFF;
+  box-shadow: 0 1px 1px 0 #BEBEBE;
+  border-radius: 6px;
+  min-height: 118px;
+  display: block;
+  font-size: 1.4em;
+  margin-bottom: 20px;
+  .breadcrumb,
+  search-result-budget .sub-items {
+    padding: 10px 15px;
+  }
+  .breadcrumb{
+    color: #9B9B9B;
+    margin: 0;
+    background: none;
+  }
+  .header {
+    background: #FEC9C7;
+    border-top: solid 3px #C20A04;
+    color: #C20A04;
+    font-weight: 700;
+    margin: 0px;
+    .code {
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-left: 10px;
+      line-height: 3.6rem;
+    }
+    .title {
+      font-size: 2rem;
+    }
+    .amount {
+      font-size: 1.6rem;
+      line-height: 3.6rem;
+      text-align: left;
+      direction: ltr;
+      display: block;
+    }
+  }
+}
+
+/********* search-result-changes *********/
+
+search-result-changes {
+  background: #F8F7F0;
+  background-image: linear-gradient(-180deg, rgba(255,255,255,0.40) 0%, rgba(255,255,255,0.00) 50%);
+  box-shadow: 0 3px 3px 0 rgba(189,189,189,0.50);
+  min-height: 118px;
+  display: block;
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  color: #9B9B9B;
+  padding-right: 50px;
+  position: relative;
+  &:before {
+    content: "";
+    background: url(assets/img/paper-hole.svg);
+    width: 49px;
+    height: 100%;
+    border-left: dashed 1px #DCDCDC;
+    display: block;
+    position: absolute;
+    right: 0;
+  }
+  .header {
+    padding: 10px 15px 0;
+    > div {
+      border-bottom: dashed 1px #DCDCDC;
+      padding-bottom: 10px;
+    }
+    .title{
+      font-weight: 700;
+      display: block;
+      font-size: 2rem;
+      color: #333333;
+    }
+    .status{
+      .date{
+        font-weight: 700;
+      }
+    }
+    .amount{
+      font-weight: 700;
+      display: block;
+      font-size: 1.6rem;
+      line-height: 2.8rem;
+      text-align: left;
+      direction: ltr;
+      &.decreased_a{
+        color: #44c4d0;
+      }
+    }
+    .relative-to-original{
+      text-align: left;
+      display: block;
+    }
+  }
+  .changes-description{
+    padding: 10px
+  }
+}
