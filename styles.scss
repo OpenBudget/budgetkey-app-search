@@ -195,11 +195,13 @@ $expense-color-bg: #F3F8FD;
   }
   .header {
     .meta {
-      font-weight: 700;
       font-size: 1.4em;
       color: $expense-color-secondary;
       padding-top: 5px;
       display: block;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
     .title {
       margin: 0 30px 0 0;
@@ -210,6 +212,7 @@ $expense-color-bg: #F3F8FD;
         font-weight: 400;
         font-size: 1.6rem;
         color: $expense-color-secondary;
+        display: inline-block;
       }
     }
     .period{

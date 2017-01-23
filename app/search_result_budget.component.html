@@ -13,7 +13,7 @@
       </div>
       <div class="col-md-4">
         <span class="amount">
-           ₪ {{item.source.net_allocated.toLocaleString()}}
+          {{item.source.volume ? item.source.volume.toLocaleString() + " ₪" : '--'}}
         </span>
       </div>
     </div>

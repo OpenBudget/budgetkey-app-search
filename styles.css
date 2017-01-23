@@ -157,11 +157,13 @@ search-result-changes {
   .expense .meta, .expense .title, .expense .description {
     margin-right: 30px; }
   .expense .header .meta {
-    font-weight: 700;
     font-size: 1.4em;
     color: #AEAED7;
     padding-top: 5px;
-    display: block; }
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden; }
   .expense .header .title {
     margin: 0 30px 0 0;
     font-weight: 700;
@@ -170,7 +172,8 @@ search-result-changes {
     .expense .header .title span {
       font-weight: 400;
       font-size: 1.6rem;
-      color: #AEAED7; }
+      color: #AEAED7;
+      display: inline-block; }
   .expense .header .period {
     text-align: left;
     font-size: 1.4em;
