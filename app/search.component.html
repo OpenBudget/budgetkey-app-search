@@ -20,11 +20,11 @@
       </ul>
     </div>
 </div>
-<div *ngFor="let item of exemptionDocs | async">
-  <search-result-exemption [item]="item"></search-result-exemption>
-</div>
 <div *ngFor="let item of supportsDocs | async">
   <search-result-supports [item]="item"></search-result-supports>
+</div>
+<div *ngFor="let item of exemptionDocs | async">
+  <search-result-exemption [item]="item"></search-result-exemption>
 </div>
 <div *ngFor="let item of changeDocs | async">
     <search-result-changes [item]="item"></search-result-changes>

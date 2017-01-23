@@ -1,29 +1,30 @@
-<!-- <pre>{{supports.source | json }}</pre> -->
+<!-- <pre>{{item.source | json }}</pre> -->
 <div class="expense">
   <div class="search-result-type">תמיכה ממשלתית</div>
   <div class="header row">
     <div class="col-md-8">
       <!-- <span class="meta"><span class="date">17.2.2014</span> — ע״י משרד המשפטים על סמך מכרז סגור</span> -->
       <ol class="breadcrumb">
-        <li><a href="#">שנה</a></li>
-        <li><a href="#">סעיף</a></li>
+        <li><a href="#">{{item.source.year}}</a></li>
+        <li><a href="#">[סעיף]</a></li>
         <li><a href="#">…</a></li>
         <li><a href="#">…</a></li>
-        <li><a href="#">תקנה</a></li>
+        <li><a href="#">{{item.source.title}}</a></li>
       </ol>
-      <h3 class="title">אולפנת רעות המרכז לחינוך בנות בית <span>580095669</span></h3>
+      <h3 class="title">{{item.source.recipient}} <span>{{item.source.entity_id}}</span></h3>
     </div>
     <div class="col-md-4">
       <span class="period supports-period">
-        זוכה לתמיכות מאז 2011
+        זוכה לתמיכות מאז
+        [year]
       </span>
       <span class="amount">
-        2,160,000 ₪
+        {{item.source.amount_supported ? item.source.amount_supported.toLocaleString() + " ₪" : '--'}}
       </span>
     </div>
   </div>
   <div class="description">
-    <strong>מטרות:</strong> לייסד, לקיים, לבסס, להרחיב ולפתח מוסד דתי תורני תיכוני חינוכי.
-    <div class="stamp"><span>הקצבה</span></div>
+    <strong>מטרות:</strong> [לייסד, לקיים, לבסס, להרחיב ולפתח מוסד דתי תורני תיכוני חינוכי.]
+    <div class="stamp"><span>[הקצבה]</span></div>
   </div>
 </div>
