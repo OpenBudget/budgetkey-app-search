@@ -160,3 +160,97 @@ search-result-changes {
     padding: 10px
   }
 }
+
+/******** search-result-exemption + supports **********/
+
+.expense{
+  background: #F3F8FD;
+  border: 1px solid rgba(136,158,181,0.50);
+  box-shadow: 0 2px 4px 0 rgba(135,157,181,0.50), inset 0 1px 0 0 #FFFFFF;
+  min-height: 116px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 10px;
+  .search-result-type{
+    background: #AEAED7;
+    color: #fff;
+    transform: rotate(90deg);
+    width: 118px;
+    height: 18px;
+    position: absolute;
+    display: block;
+    right: -50px;
+    top: 50px;
+    text-align: center;
+    font-size: 1.2em;
+    line-height: 1.4em;
+  }
+  .meta, .title, .description {
+    margin-right: 30px;
+  }
+  .header {
+    .meta {
+      font-weight: 700;
+      font-size: 1.4em;
+      color: #AEAED7;
+      padding-top: 5px;
+      display: block;
+    }
+    .title {
+      margin: 0 30px 0 0;
+      font-weight: 700;
+      font-size: 2em;
+      color: #38388A;
+    }
+    .period{
+      text-align: left;
+      font-size: 1.4em;
+      color: #AEAED7;
+      padding: 5px 0 0 10px;
+      display: block;
+    }
+    .amount {
+      text-align: left;
+      padding: 0px 0 5px 10px;
+      display: block;
+      font-weight: 700;
+      font-size: 1.6em;
+      color: #38388A;
+    }
+  }
+  .description {
+    background: #FFFFFF;
+    border: 1px solid rgba(136,158,181,0.50);
+    border-width: 1px 1px 0 0;
+    box-shadow: inset 0 1px 0 0 #FFFFFF;
+    padding: 5px 5px 5px 50px;
+    font-size: 1.4em;
+    color: #797979;
+    min-height: 66px;
+    overflow: hidden;
+    .status-stamp {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      bottom: -10px;
+      left: -10px;
+      border-radius: 50%;
+      border: 2px solid #889EB5;
+      overflow: hidden;
+      display:flex;
+      align-items: center; /* Vertical center alignment */
+      justify-content: center; /* Horizontal center alignment */
+      transform: rotate(5deg);
+      opacity: .5;
+      span{
+        border: 1px solid #889EB5;
+        color: #889EB5;
+        font-weight: 700;
+        display: block;
+        text-align: center;
+        width: 100%;
+        border-width: 1px 0;
+      }
+    }
+  }
+}
