@@ -1,10 +1,10 @@
   <!-- <pre>{{item.source | json }}</pre> -->
   <div class="item">
     <ol class="breadcrumb">
-      <li><a href="#">סעיף</a></li>
-      <li><a href="#">תחום</a></li>
-      <li><a href="#">תכנית</a></li>
-      <li><a href="#">תקנה</a></li>
+      <li><a href="#">[סעיף]</a></li>
+      <li><a href="#">[תחום]</a></li>
+      <li><a href="#">[תכנית]</a></li>
+      <li><a href="#">[תקנה]</a></li>
     </ol>
     <div class="header row">
       <div class="col-md-8">
@@ -13,12 +13,12 @@
       </div>
       <div class="col-md-4">
         <span class="amount">
-          {{item.source.volume ? item.source.volume.toLocaleString() + " ₪" : '--'}}
+          {{item.source.net_allocated ? item.source.net_allocated.toLocaleString() + " ₪" : '--'}}
         </span>
       </div>
     </div>
     <div class="sub-items">
       תחומים בסעיף זה:
-      {{ details }}
+      [details]
     </div>
   </div>
