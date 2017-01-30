@@ -70,7 +70,27 @@ export class SearchResultExemptionComponent implements OnInit {
   template: require('./search_result_supports.component.html!text'),
 })
 
-export class SearchResultsupportsComponent implements OnInit {
+export class SearchResultSupportsComponent implements OnInit {
+
+  @Input() item: DocResultEntry;
+
+  details: string;
+
+  constructor() {}
+
+  ngOnInit() {
+    this.details = "לורם איפסום " + this.item.source.title;
+  }
+
+}
+
+@Component({
+  moduleId: module.id,
+  selector: 'search-result-entities',
+  template: require('./search_result_entities.component.html!text'),
+})
+
+export class SearchResultEntitiesComponent implements OnInit {
 
   @Input() item: DocResultEntry;
 

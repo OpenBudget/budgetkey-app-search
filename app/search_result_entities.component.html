@@ -1,0 +1,35 @@
+<!-- <pre>{{item.source | json }}</pre> -->
+<div class="association">
+  <div class="header row">
+    <div class="col-md-8">
+      <h3 class="title">{{item.source.name}}</h3>
+    </div>
+    <div class="col-md-4 figures">
+      <span class="period">
+        [start_year]-[end_year]
+      </span>
+      <span class="amount">
+        {{item.source.amount_received ? item.source.amount_received.toLocaleString() + " ₪" : '--'}}
+      </span>
+    </div>
+  </div>
+  <div class="body">
+    <div class="description">
+      <strong>מטרות:</strong> [לייסד, לקיים, לבסס, להרחיב ולפתח מוסד דתי תורני תיכוני חינוכי.]
+    </div>
+    <div class="stamp" [ngSwitch]="item.source.kind">
+      <div *ngSwitchCase="association">
+        <span>עמותה</span>
+        ע״ר {{item.source.id}}
+      </div>
+      <div *ngSwitchCase="company">
+        <span>חברה</span>
+        מ.ח. {{item.source.id}}
+      </div>
+      <div *ngSwitchDefault>
+        <span>{{item.source.kind}}</span>
+        מ.ר. {{item.source.id}}
+      </div>
+    </div>
+  </div>
+</div>

@@ -24,5 +24,6 @@ export class SearchResults {
   budget: KindResults;
   exemption: KindResults;
   supports: KindResults;
+  entities: KindResults;
   changes: KindResults;
 }

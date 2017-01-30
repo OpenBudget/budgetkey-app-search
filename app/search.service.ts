@@ -14,7 +14,7 @@ import {SearchResults} from "./SearchResults";
 export class SearchService {
   startTime = '1992-01-01';
   endTime = '2019-01-01';
-  kinds = ['supports', 'exemption', 'budget', 'changes'];
+  kinds = ['entities', 'supports', 'exemption', 'budget', 'changes'];
   pageSize = 20;
 
   constructor(private http : Http) {
