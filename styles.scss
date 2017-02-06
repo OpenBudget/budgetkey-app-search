@@ -76,9 +76,9 @@ search-result-budget {
     background: none;
   }
   .header {
-    background: #FEC9C7;
-    border-top: solid 3px #C20A04;
-    color: #C20A04;
+    background: transparentize(#CCCCCC, 0.8);
+    border-top: solid 3px #CCCCCC;
+    color: #CCCCCC;
     font-weight: 700;
     margin: 0px;
     .code {
@@ -98,6 +98,28 @@ search-result-budget {
       display: block;
     }
   }
+
+  @each $change, $change-text, $change-bg in
+        (inc4, #C20801, lighten(#C20801, 40%)),
+        (inc3, #FB3F06, lighten(#FB3F06, 40%)),
+        (inc2, #F58F17, lighten(#F58F17, 40%)),
+        (inc1, #EAAF03, lighten(#EAAF03, 40%)),
+        (even, #CCCCCC, lighten(#CCCCCC, 30%)),
+        (dec1, #6DD1DA, lighten(#6DD1DA, 40%)),
+        (dec2, #32A4F9, lighten(#32A4F9, 40%)),
+        (dec3, #0065DE, lighten(#0065DE, 40%)),
+        (dec4, #01329C, lighten(#01329C, 40%)){
+
+    .#{$change} {
+      .header {
+        background: transparentize($change-text, 0.8);
+        color: $change-text;
+        border-top-color: $change-text;
+      }
+    }
+
+  }
+
 }
 
 /********* search-result-changes *********/
@@ -325,14 +347,13 @@ search-result-supports {
   }
 }
 
-
-
 // @each $kind in company, association {
 
 @each $kind, $entity-color-bg, $entity-color-border, $entity-color-text , $entity-color-text-light in
-                                  (association, #F2E5BE, #D7B494, #512C0A, #8A4838),
-                                  (company, #C4D4DF, #8BB2CC, #093551, #38698A),
-                                  (entity, #DEDEDE, #CCC, #515151, #8A8A8A) {
+      (entity, #DEDEDE, #CCC, #515151, #8A8A8A),  //Gray
+      (association, #D1DFC4, #A9CC8B, #2B5109, #5E8A38), //Green
+      (company, #C4D4DF, #8BB2CC, #093551, #38698A), //Blue
+      (gov, #F2E5BE, #D7B494, #512C0A, #8A4838){ //Yellow
 
   search-result-entities {
     margin-bottom: 20px;

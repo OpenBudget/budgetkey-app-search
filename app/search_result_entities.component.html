@@ -1,5 +1,9 @@
 <!-- <pre>{{item.source | json }}</pre> -->
-<div class="association">
+<div [ngClass]="{
+    'entity':      true,
+    'association': item.source.kind == 'association' || item.source.kind == 'university',
+    'company':     item.source.kind == 'company',
+    'gov':         item.source.kind == 'municipality'}">
   <div class="header row">
     <div class="col-md-8">
       <h3 class="title">{{item.source.name}}</h3>
@@ -18,17 +22,25 @@
       <strong>מטרות:</strong> [לייסד, לקיים, לבסס, להרחיב ולפתח מוסד דתי תורני תיכוני חינוכי.]
     </div>
     <div class="stamp" [ngSwitch]="item.source.kind">
-      <div *ngSwitchCase="association">
+      <div *ngSwitchCase="'association'">
         <span>עמותה</span>
         ע״ר {{item.source.id}}
       </div>
-      <div *ngSwitchCase="company">
+      <div *ngSwitchCase="'university'">
+        <span>אוניברסיטה</span>
+        ע״ר {{item.source.id}}
+      </div>
+      <div *ngSwitchCase="'company'">
         <span>חברה</span>
         מ.ח. {{item.source.id}}
       </div>
+      <div *ngSwitchCase="'municipality'">
+        <span>רשות מקומית</span>
+        מ.ח. {{item.source.id}}
+      </div>
       <div *ngSwitchDefault>
-        <span>{{item.source.kind}}</span>
-        מ.ר. {{item.source.id}}
+        <span>{{item.source.kind ? item.source.kind : '[--]'}}</span>
+        #{{item.source.id}}
       </div>
     </div>
   </div>

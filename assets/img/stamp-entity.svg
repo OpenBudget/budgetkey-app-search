@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="115px" height="58px" viewBox="0 0 115 58" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
-    <title>stamp-association</title>
+    <title>stamp-entity</title>
     <desc>Created with Sketch.</desc>
     <defs>
         <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-1">
@@ -28,14 +28,14 @@
         </mask>
     </defs>
     <g id="Search" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="search_all" transform="translate(-140.000000, -1190.000000)">
+        <g id="search_all" transform="translate(-140.000000, -1320.000000)">
             <g id="Group-4" transform="translate(113.000000, 230.000000)">
-                <g id="result:association" filter="url(#filter-1)" transform="translate(7.000000, 914.000000)">
+                <g id="result:association-copy" filter="url(#filter-1)" transform="translate(7.000000, 1044.000000)">
                     <g id="Group-5" transform="translate(24.805302, 48.835053)">
-                        <g id="stamp-association">
+                        <g id="stamp-entity">
                             <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
-                            <use stroke="#4A4A4A" mask="url(#mask-4)" stroke-width="6" fill="#ACE67A" fill-rule="evenodd" xlink:href="#path-2"></use>
-                            <use stroke="#ACE67A" mask="url(#mask-5)" stroke-width="2" xlink:href="#path-2"></use>
+                            <use stroke="#4A4A4A" mask="url(#mask-4)" stroke-width="6" fill="#CCCCCC" fill-rule="evenodd" xlink:href="#path-2"></use>
+                            <use stroke="#CCCCCC" mask="url(#mask-5)" stroke-width="2" xlink:href="#path-2"></use>
                         </g>
                     </g>
                 </g>

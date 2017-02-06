@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="33px" height="40px" viewBox="0 0 33 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
-    <title>association_angle</title>
+    <title>municipality_angle</title>
     <desc>Created with Sketch.</desc>
     <defs>
         <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-1">
             <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
             <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
-            <feColorMatrix values="0 0 0 0 0.0352941176   0 0 0 0 0.207843137   0 0 0 0 0.317647059  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feColorMatrix values="0 0 0 0 0.44   0 0 0 0 0.369526667   0 0 0 0 0.3036  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
             <feMerge>
                 <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
                 <feMergeNode in="SourceGraphic"></feMergeNode>
             </feMerge>
         </filter>
-        <path d="M426.142857,33 L8.00201998,33 C6.33634486,33 5,34.3475213 5,36.009773 L5,112.246094 L780,112.246094 L780,35.4992686 L780,-4.00250782 C780,-5.10333966 779.105789,-6 778.002724,-6 L456.99364,-6 C455.347833,-6 453.219812,-4.90773743 452.257402,-3.56036326 L426.142857,33 Z" id="path-2"></path>
+        <path d="M491.142857,1 L3.00201998,1 C1.33634486,1 0,2.34752125 0,4.00977295 L0,80.2460938 L775,80.2460938 L775,3.49926864 L775,-36.0025078 C775,-37.1033397 774.102408,-38 772.995171,-38 L522.008276,-38 C520.346675,-38 518.219812,-36.9077374 517.257402,-35.5603633 L491.142857,1 Z" id="path-2"></path>
         <mask id="mask-3" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="775" height="80.2460938" fill="white">
             <use xlink:href="#path-2"></use>
         </mask>
     </defs>
     <g id="Search" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="search_all" transform="translate(-544.000000, -1138.000000)" stroke="#A9CC8B" stroke-width="2" fill="#D1DFC4">
+        <g id="search_all" transform="translate(-614.000000, -878.000000)" stroke="#D7B494" stroke-width="2" fill="#F2E5BE">
             <g id="Group-4" transform="translate(113.000000, 230.000000)">
-                <g id="result:association" filter="url(#filter-1)" transform="translate(7.000000, 914.000000)">
-                    <use id="Combined-Shape" mask="url(#mask-3)" xlink:href="#path-2"></use>
+                <g id="result:municipality" filter="url(#filter-1)" transform="translate(7.000000, 654.000000)">
+                    <g id="Group-8" transform="translate(5.000000, 32.000000)">
+                        <use id="Combined-Shape" mask="url(#mask-3)" xlink:href="#path-2"></use>
+                    </g>
                 </g>
             </g>
         </g>

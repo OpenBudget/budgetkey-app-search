@@ -1,5 +1,16 @@
-  <!-- <pre>{{item.source | json }}</pre> -->
-  <div class="item">
+<!-- <pre>{{item.source | json }}</pre> -->
+<pre>{{changePerc}}</pre>
+  <div [ngClass]="{
+      'item':     true,
+      'inc4':     changePerc > 300,
+      'inc3':     changePerc > 150 && changePerc <= 300,
+      'inc2':     changePerc > 120 && changePerc <= 150,
+      'inc1':     changePerc > 100  && changePerc <= 120,
+      'even':     changePerc == 100,
+      'dec1':     changePerc < 100  && changePerc >= 80,
+      'dec2':     changePerc < 80 && changePerc >= 50,
+      'dec3':     changePerc < 50 && changePerc >= 10,
+      'dec4':     changePerc < 10}">
     <ol class="breadcrumb">
       <li><a href="#">[סעיף]</a></li>
       <li><a href="#">[תחום]</a></li>

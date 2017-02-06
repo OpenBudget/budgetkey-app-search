@@ -61,9 +61,9 @@ search-result-budget {
     margin: 0;
     background: none; }
   search-result-budget .header {
-    background: #FEC9C7;
-    border-top: solid 3px #C20A04;
-    color: #C20A04;
+    background: rgba(204, 204, 204, 0.2);
+    border-top: solid 3px #CCCCCC;
+    color: #CCCCCC;
     font-weight: 700;
     margin: 0px; }
     search-result-budget .header .code {
@@ -79,6 +79,42 @@ search-result-budget {
       text-align: left;
       direction: ltr;
       display: block; }
+  search-result-budget .inc4 .header {
+    background: rgba(194, 8, 1, 0.2);
+    color: #C20801;
+    border-top-color: #C20801; }
+  search-result-budget .inc3 .header {
+    background: rgba(251, 63, 6, 0.2);
+    color: #FB3F06;
+    border-top-color: #FB3F06; }
+  search-result-budget .inc2 .header {
+    background: rgba(245, 143, 23, 0.2);
+    color: #F58F17;
+    border-top-color: #F58F17; }
+  search-result-budget .inc1 .header {
+    background: rgba(234, 175, 3, 0.2);
+    color: #EAAF03;
+    border-top-color: #EAAF03; }
+  search-result-budget .even .header {
+    background: rgba(204, 204, 204, 0.2);
+    color: #CCCCCC;
+    border-top-color: #CCCCCC; }
+  search-result-budget .dec1 .header {
+    background: rgba(109, 209, 218, 0.2);
+    color: #6DD1DA;
+    border-top-color: #6DD1DA; }
+  search-result-budget .dec2 .header {
+    background: rgba(50, 164, 249, 0.2);
+    color: #32A4F9;
+    border-top-color: #32A4F9; }
+  search-result-budget .dec3 .header {
+    background: rgba(0, 101, 222, 0.2);
+    color: #0065DE;
+    border-top-color: #0065DE; }
+  search-result-budget .dec4 .header {
+    background: rgba(1, 50, 156, 0.2);
+    color: #01329C;
+    border-top-color: #01329C; }
 
 /********* search-result-changes *********/
 search-result-changes {
@@ -272,8 +308,95 @@ search-result-supports .expense {
 search-result-entities {
   margin-bottom: 20px;
   display: block; }
+  search-result-entities .entity {
+    color: #515151;
+    display: block;
+    background-color: #FEFAF9;
+    border: 1px solid #DBDBDB;
+    height: 110px;
+    position: relative; }
+    search-result-entities .entity::before, search-result-entities .entity::after {
+      content: "";
+      display: block;
+      top: -5px;
+      background-color: #FEFAF9;
+      border: 1px solid #DBDBDB;
+      position: absolute;
+      width: 100%;
+      height: 3px;
+      left: 4px; }
+    search-result-entities .entity::after {
+      top: -3px;
+      left: 2px; }
+    search-result-entities .entity .header {
+      z-index: 1;
+      position: relative; }
+      search-result-entities .entity .header h3 {
+        font-size: 2em;
+        display: inline-block;
+        border-radius: 3px 2px 0 0;
+        background: #DEDEDE;
+        border: 1px solid #CCC;
+        border-width: 1px 1px 0 0;
+        padding: 10px 10px 7px;
+        position: relative;
+        margin: -10px 0 0; }
+        search-result-entities .entity .header h3::after {
+          content: "";
+          background: url(assets/img/entity_angle.svg);
+          height: 40px;
+          width: 33px;
+          display: block;
+          position: absolute;
+          top: -1px;
+          left: -31px; }
+    search-result-entities .entity .figures {
+      text-align: left;
+      height: 100px;
+      font-size: 1.4rem;
+      padding-top: 5px;
+      color: #8A8A8A; }
+      search-result-entities .entity .figures .amount {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-left: 10px; }
+    search-result-entities .entity .body {
+      height: 80px;
+      margin-top: -71px;
+      margin-left: 10px;
+      border-radius: 2px;
+      background: #DEDEDE;
+      border: 1px solid #CCC;
+      position: relative; }
+      search-result-entities .entity .body .description {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        padding: 10px;
+        font-size: 1.4em; }
+      search-result-entities .entity .body .stamp {
+        line-height: 1.4em;
+        width: 114px;
+        height: 55px;
+        position: absolute;
+        top: 15px;
+        left: 30px;
+        background: url(assets/img/stamp-entity.svg);
+        -webkit-transform: rotate(2deg);
+            -ms-transform: rotate(2deg);
+                transform: rotate(2deg);
+        text-align: center;
+        font-size: 1.2em; }
+        search-result-entities .entity .body .stamp span {
+          padding-top: 10px;
+          display: block;
+          font-weight: 700; }
+
+search-result-entities {
+  margin-bottom: 20px;
+  display: block; }
   search-result-entities .association {
-    color: #512C0A;
+    color: #2B5109;
     display: block;
     background-color: #FEFAF9;
     border: 1px solid #DBDBDB;
@@ -299,8 +422,8 @@ search-result-entities {
         font-size: 2em;
         display: inline-block;
         border-radius: 3px 2px 0 0;
-        background: #F2E5BE;
-        border: 1px solid #D7B494;
+        background: #D1DFC4;
+        border: 1px solid #A9CC8B;
         border-width: 1px 1px 0 0;
         padding: 10px 10px 7px;
         position: relative;
@@ -319,7 +442,7 @@ search-result-entities {
       height: 100px;
       font-size: 1.4rem;
       padding-top: 5px;
-      color: #8A4838; }
+      color: #5E8A38; }
       search-result-entities .association .figures .amount {
         font-size: 1.6rem;
         font-weight: 700;
@@ -329,8 +452,8 @@ search-result-entities {
       margin-top: -71px;
       margin-left: 10px;
       border-radius: 2px;
-      background: #F2E5BE;
-      border: 1px solid #D7B494;
+      background: #D1DFC4;
+      border: 1px solid #A9CC8B;
       position: relative; }
       search-result-entities .association .body .description {
         position: absolute;
@@ -446,14 +569,14 @@ search-result-entities {
 search-result-entities {
   margin-bottom: 20px;
   display: block; }
-  search-result-entities .entity {
-    color: #515151;
+  search-result-entities .gov {
+    color: #512C0A;
     display: block;
     background-color: #FEFAF9;
     border: 1px solid #DBDBDB;
     height: 110px;
     position: relative; }
-    search-result-entities .entity::before, search-result-entities .entity::after {
+    search-result-entities .gov::before, search-result-entities .gov::after {
       content: "";
       display: block;
       top: -5px;
@@ -463,69 +586,69 @@ search-result-entities {
       width: 100%;
       height: 3px;
       left: 4px; }
-    search-result-entities .entity::after {
+    search-result-entities .gov::after {
       top: -3px;
       left: 2px; }
-    search-result-entities .entity .header {
+    search-result-entities .gov .header {
       z-index: 1;
       position: relative; }
-      search-result-entities .entity .header h3 {
+      search-result-entities .gov .header h3 {
         font-size: 2em;
         display: inline-block;
         border-radius: 3px 2px 0 0;
-        background: #DEDEDE;
-        border: 1px solid #CCC;
+        background: #F2E5BE;
+        border: 1px solid #D7B494;
         border-width: 1px 1px 0 0;
         padding: 10px 10px 7px;
         position: relative;
         margin: -10px 0 0; }
-        search-result-entities .entity .header h3::after {
+        search-result-entities .gov .header h3::after {
           content: "";
-          background: url(assets/img/entity_angle.svg);
+          background: url(assets/img/gov_angle.svg);
           height: 40px;
           width: 33px;
           display: block;
           position: absolute;
           top: -1px;
           left: -31px; }
-    search-result-entities .entity .figures {
+    search-result-entities .gov .figures {
       text-align: left;
       height: 100px;
       font-size: 1.4rem;
       padding-top: 5px;
-      color: #8A8A8A; }
-      search-result-entities .entity .figures .amount {
+      color: #8A4838; }
+      search-result-entities .gov .figures .amount {
         font-size: 1.6rem;
         font-weight: 700;
         margin-left: 10px; }
-    search-result-entities .entity .body {
+    search-result-entities .gov .body {
       height: 80px;
       margin-top: -71px;
       margin-left: 10px;
       border-radius: 2px;
-      background: #DEDEDE;
-      border: 1px solid #CCC;
+      background: #F2E5BE;
+      border: 1px solid #D7B494;
       position: relative; }
-      search-result-entities .entity .body .description {
+      search-result-entities .gov .body .description {
         position: absolute;
         bottom: 0;
         right: 0;
         padding: 10px;
         font-size: 1.4em; }
-      search-result-entities .entity .body .stamp {
+      search-result-entities .gov .body .stamp {
         line-height: 1.4em;
         width: 114px;
         height: 55px;
         position: absolute;
         top: 15px;
         left: 30px;
-        background: url(assets/img/stamp-entity.svg);
+        background: url(assets/img/stamp-gov.svg);
         -webkit-transform: rotate(2deg);
             -ms-transform: rotate(2deg);
                 transform: rotate(2deg);
         text-align: center;
         font-size: 1.2em; }
-        search-result-entities .entity .body .stamp span {
+        search-result-entities .gov .body .stamp span {
           padding-top: 10px;
           display: block;
           font-weight: 700; }
