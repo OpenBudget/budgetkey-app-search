@@ -96,9 +96,9 @@ search-result-budget {
     color: #EAAF03;
     border-top-color: #EAAF03; }
   search-result-budget .even .header {
-    background: rgba(204, 204, 204, 0.2);
-    color: #CCCCCC;
-    border-top-color: #CCCCCC; }
+    background: rgba(119, 119, 119, 0.2);
+    color: #777777;
+    border-top-color: #777777; }
   search-result-budget .dec1 .header {
     background: rgba(109, 209, 218, 0.2);
     color: #6DD1DA;

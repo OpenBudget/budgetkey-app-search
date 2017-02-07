@@ -99,16 +99,16 @@ search-result-budget {
     }
   }
 
-  @each $change, $change-text, $change-bg in
-        (inc4, #C20801, lighten(#C20801, 40%)),
-        (inc3, #FB3F06, lighten(#FB3F06, 40%)),
-        (inc2, #F58F17, lighten(#F58F17, 40%)),
-        (inc1, #EAAF03, lighten(#EAAF03, 40%)),
-        (even, #CCCCCC, lighten(#CCCCCC, 30%)),
-        (dec1, #6DD1DA, lighten(#6DD1DA, 40%)),
-        (dec2, #32A4F9, lighten(#32A4F9, 40%)),
-        (dec3, #0065DE, lighten(#0065DE, 40%)),
-        (dec4, #01329C, lighten(#01329C, 40%)){
+  @each $change, $change-text in
+        (inc4,   #C20801),
+        (inc3,   #FB3F06),
+        (inc2,   #F58F17),
+        (inc1,   #EAAF03),
+        (even,   #777777),
+        (dec1,   #6DD1DA),
+        (dec2,   #32A4F9),
+        (dec3,   #0065DE),
+        (dec4,   #01329C){
 
     .#{$change} {
       .header {
