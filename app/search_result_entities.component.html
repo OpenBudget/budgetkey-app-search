@@ -3,7 +3,7 @@
     'entity':      true,
     'association': item.source.kind == 'association' || item.source.kind == 'university',
     'company':     item.source.kind == 'company',
-    'gov':         item.source.kind == 'municipality'}">
+    'gov':         item.source.kind == 'municipality'}" [ngSwitch]="item.source.kind">
   <div class="header row">
     <div class="col-md-8">
       <h3 class="title">{{item.source.name}}</h3>
@@ -17,28 +17,86 @@
       </span>
     </div>
   </div>
-  <div class="body">
-    <div class="description">
-      <strong>מטרות:</strong> [לייסד, לקיים, לבסס, להרחיב ולפתח מוסד דתי תורני תיכוני חינוכי.]
+  <div class="body" *ngSwitchCase="'association'">
+    <div class="row">
+      <div class="description col-md-8">
+        <div>
+          <p class="row"><strong>כתובת:</strong> <span>[השוחט 15, גבעת חביבה]</span></p>
+          <p class="row"><strong>מטרות:</strong> <span>[לייסד, לקיים, לבסס, להרחיב ולפתח מוסד דתי תורני תיכוני חינוכי.]</span></p>
+          <!-- <p class="row"><strong>מטרות:</strong> <span>[לייסד, לקיים, לבסס, להרחיב ולפתח מוסד דתי תורני תיכוני חינוכי.]</span></p> -->
+        </div>
+      </div>
     </div>
-    <div class="stamp" [ngSwitch]="item.source.kind">
-      <div *ngSwitchCase="'association'">
+    <div class="stamp">
+      <div>
         <span>עמותה</span>
         ע״ר {{item.source.id}}
       </div>
-      <div *ngSwitchCase="'university'">
+    </div>
+  </div>
+  <div class="body" *ngSwitchCase="'university'">
+    <div class="row">
+      <div class="description col-md-8">
+        <div>
+          <p class="row"><strong>מטרות:</strong> <span>[לייסד, לקיים, לבסס, להרחיב ולפתח מוסד דתי תורני תיכוני חינוכי.]</span></p>
+          <p class="row"><strong>מטרות:</strong> <span>[לייסד, לקיים, לבסס, להרחיב ולפתח מוסד דתי תורני תיכוני חינוכי.]</span></p>
+          <p class="row"><strong>מטרות:</strong> <span>[לייסד, לקיים, לבסס, להרחיב ולפתח מוסד דתי תורני תיכוני חינוכי.]</span></p>
+        </div>
+      </div>
+    </div>
+    <div class="stamp">
+      <div>
         <span>אוניברסיטה</span>
         ע״ר {{item.source.id}}
       </div>
-      <div *ngSwitchCase="'company'">
+    </div>
+  </div>
+  <div class="body" *ngSwitchCase="'company'">
+    <div class="row">
+      <div class="description col-md-8">
+        <div>
+          <p class="row"><strong>כתובת:</strong> <span>[רחוב הגזל 35, רמת הכובש]</span></p>
+          <p class="row"><strong>תיאור:</strong> <span>[מתן תמיכה ועזרה, כלכלית, תורנית ומקצועית למכללה התורנית בירושלים - מרחבים. עידוד וקידום הכשרת מורים, בני תורה.]</span></p>
+          <!-- <p class="row"><strong>מטרות:</strong> <span>[לייסד, לקיים, לבסס, להרחיב ולפתח מוסד דתי תורני תיכוני חינוכי.]</span></p> -->
+        </div>
+      </div>
+    </div>
+    <div class="stamp">
+      <div>
         <span>חברה</span>
         מ.ח. {{item.source.id}}
       </div>
-      <div *ngSwitchCase="'municipality'">
+    </div>
+  </div>
+  <div class="body" *ngSwitchCase="'municipality'">
+    <div class="row">
+      <div class="description col-md-8">
+        <div>
+          <p class="row"><strong>מחוז:</strong> <span>[אזור יהודה ושמרון]</span></p>
+          <p class="row"><strong>כלכלה:</strong> <span>[אשכול סוציו אקונומי 5/10, 3% מחוסרי עבודה (נמוך)]</span></p>
+          <p class="row"><strong>תושבים:</strong> <span>[כ-3,600, רובם ככולם יהודים, צעירים באופן יחסי]</span></p>
+        </div>
+      </div>
+    </div>
+    <div class="stamp">
+      <div>
         <span>רשות מקומית</span>
         מ.ח. {{item.source.id}}
       </div>
-      <div *ngSwitchDefault>
+    </div>
+  </div>
+  <div class="body" *ngSwitchDefault>
+    <div class="row">
+      <div class="description col-md-8">
+        <div>
+          <p class="row"><strong>מטרות:</strong> <span>[לייסד, לקיים, לבסס, להרחיב ולפתח מוסד דתי תורני תיכוני חינוכי.]</span></p>
+          <p class="row"><strong>אחר:</strong> <span>[...]</span></p>
+          <p class="row"><strong>אחר:</strong> <span>[...]</span></p>
+        </div>
+      </div>
+    </div>
+    <div class="stamp">
+      <div>
         <span>{{item.source.kind ? item.source.kind : '[--]'}}</span>
         #{{item.source.id}}
       </div>
