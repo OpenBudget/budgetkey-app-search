@@ -192,7 +192,8 @@ search-result-changes {
     text-align: center;
     font-size: 1.2em;
     line-height: 1.4em;
-    margin-right: 9px; }
+    margin-right: 9px;
+    margin-top: -5px; }
   .expense .meta, .expense .title, .expense .description {
     margin-right: 30px; }
   .expense .header .meta {
