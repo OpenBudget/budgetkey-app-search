@@ -5,16 +5,18 @@
     'company':     item.source.kind == 'company',
     'gov':         item.source.kind == 'municipality'}" [ngSwitch]="item.source.kind">
   <div class="header row">
-    <div class="col-md-8">
+    <div class="col-md-8 title">
       <h3 class="title">{{item.source.name}}</h3>
     </div>
     <div class="col-md-4 figures">
-      <span class="period">
-        [start_year]-[end_year]
-      </span>
-      <span class="amount">
-        {{item.source.amount_received ? item.source.amount_received.toLocaleString() + " ₪" : '--'}}
-      </span>
+      <div>
+        <span class="period">
+          [start_year]-[end_year]
+        </span>
+        <span class="amount">
+          {{item.source.amount_received ? item.source.amount_received.toLocaleString() + " ₪" : '--'}}
+        </span>
+      </div>
     </div>
   </div>
   <div class="body" *ngSwitchCase="'association'">
