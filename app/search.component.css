@@ -1,3 +1,7 @@
 .search-box {
     margin: 20px;
 }
+
+a.activeclass {
+    color: #F00 !important;
+}

@@ -1,13 +1,13 @@
 /**
  * Created by adam on 18/12/2016.
  */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Observable }        from 'rxjs/Observable';
 import { Subject }           from 'rxjs/Subject';
 import { BehaviorSubject }           from 'rxjs/BehaviorSubject';
 
 import { SearchService }     from './search.service'
-import { SearchResults, DocResultEntry }     from './SearchResults'
+import { SearchResults, DocResultEntry}     from './SearchResults'
 
 @Component({
     moduleId: module.id,
@@ -17,7 +17,15 @@ import { SearchResults, DocResultEntry }     from './SearchResults'
     providers: [SearchService]
 })
 export class SearchComponent implements OnInit {
-
+  
+  resultCount: {total: number;
+                entities: number;
+                exemption: number;
+                budget: number;
+                supports: number;
+                changes: number;}
+  private displayDocs: string = 'all';
+  // resultCount: Object;
   searchResults: Observable<SearchResults>;
   private budgetDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private changeDocs = new BehaviorSubject<DocResultEntry[]>([]);
@@ -27,14 +35,26 @@ export class SearchComponent implements OnInit {
   private searchTerms = new Subject<string>();
 
   constructor(private searchService: SearchService) {
+    // for (let key in this.resultCount){
+    //   console.log(key);
+      // this.resultCount[key]= 0
+    // }
+    this.resultCount = { total:0,   
+                       entities: 0,
+                       exemption: 0, 
+                       budget: 0,
+                       supports : 0,
+                       changes: 0}
   }
 
+  
   // Push a search term into the observable stream.
   search(term: string): void {
     this.searchTerms.next(term);
   }
 
   doRequest(term: string) {
+    console.log(term);
     if (term) {
       return this.searchService.search(term);
     } else {
@@ -53,24 +73,21 @@ export class SearchComponent implements OnInit {
         return Observable.of<SearchResults>(null);
       });
     this.searchResults.subscribe((results) => {
-        console.log('DASDSADAS', results);
-
-        if (results && results.budget) {
-          this.budgetDocs.next(results.budget.docs);
-        }
-        if (results && results.changes) {
-          this.changeDocs.next(results.changes.docs);
-        }
-        if (results && results.exemption) {
-          this.exemptionDocs.next(results.exemption.docs);
-        }
-        if (results && results.supports) {
-          this.supportsDocs.next(results.supports.docs);
-        }
-        if (results && results.entities) {
-          this.entitiesDocs.next(results.entities.docs);
-        }
-
+        console.log('DASDASDAS', results);
+        
+        if (results){
+          this.resultCount.total = 0;
+            for (let key in results){
+              if (key){
+                var tmpResults = results[key];
+                var tmpDocs = key+'Docs';
+                this.resultCount.total += Number(tmpResults.total_overall);
+                this.resultCount[key] = Number(tmpResults.total_overall);
+                this[tmpDocs].next(tmpResults.docs)
+              }
+            }
+          }
+          console.log(this.resultCount);
       });
     this.search('חינוך');
   }

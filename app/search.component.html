@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" >
     <div class="search-box input-group input-group-lg">
         <input #searchBox
                class="form-control"
@@ -11,27 +11,79 @@
     </div>
     <div class="search-filter">
       <ul class="row">
-        <li class="active col-xs-3 col-md-2"><a href="#">הכל <span>(1)</span></a></li>
-        <li class="col-xs-3 col-md-2"><a href="#">סעיף תקציבי <span>(1)</span></a></li>
-        <li class="col-xs-3 col-md-2"><a href="#">ארגון <span>(1)</span></a></li>
-        <li class="col-xs-3 col-md-2"><a href="#">העברה תקציבית <span>(1)</span></a></li>
-        <li class="col-xs-3 col-md-2"><a href="#">תמיכה ממשלתית <span>(1)</span></a></li>
-        <li class="col-xs-3 col-md-2"><a href="#">רכש <span>(1)</span></a></li>
+        <li class="active col-xs-3 col-md-2">
+          <a href="#" (click)="resultCount.total ? displayDocs  = 'all' : ''"
+              [class]= "displayDocs  === 'all' ? 'activeclass'  : ''" >הכל 
+            <span>
+                ({{resultCount.total ? resultCount.total.toLocaleString()  : '0'}})
+            </span>
+          </a>
+        </li>
+        <li class="active col-xs-3 col-md-2">
+          <a href="#" (click)="resultCount.budget ? displayDocs  = 'budget' : '' " 
+            [class]= "displayDocs  === 'budget' ? 'activeclass'  : ''">סעיף תקציבי 
+            <span>
+                ({{resultCount.budget ? resultCount.budget.toLocaleString()  : '0'}})
+            </span>
+          </a>
+        </li>
+        <li class="active col-xs-3 col-md-2">
+          <a href="#" (click)="resultCount.entities ? displayDocs  = 'entities'  : '' "
+            [class]= "displayDocs  === 'entities' ? 'activeclass'  : ''">ארגון 
+            <span>
+                ({{resultCount.entities ? resultCount.entities.toLocaleString()  : '0'}})
+            </span>
+          </a>
+        </li>
+        <li class="active col-xs-3 col-md-2">
+          <a href="#" (click)="resultCount.changes ?  displayDocs  = 'change' : ''"
+            [class]= "displayDocs  === 'change' ? 'activeclass'  : ''" >העברה תקציבית  
+            <span>
+                ({{resultCount.changes ? resultCount.changes.toLocaleString()  : '0'}})
+            </span>
+          </a>
+        </li>
+        <li class="active col-xs-3 col-md-2">
+          <a href="#" (click)= "resultCount.supports ? displayDocs  = 'supports' : ''" 
+            [class]= "displayDocs  === 'supports' ? 'activeclass'  : ''">תמיכה ממשלתית 
+            <span>
+                ({{resultCount.supports ? resultCount.supports.toLocaleString()  : '0'}})
+            </span>
+          </a>
+        </li>
+        <li class="active col-xs-3 col-md-2">
+          <a href="#"  (click)="resultCount.exemption ? displayDocs  = 'exemptions' : '' "
+            [class]= "displayDocs  === 'exemptions' ? 'activeclass'  : ''">רכש 
+            <span>
+                ({{resultCount.exemption ? resultCount.exemption.toLocaleString()  : '0'}})
+            </span>
+          </a>
+        </li>
       </ul>
     </div>
 </div>
-<div *ngFor="let item of entitiesDocs | async">
-  <search-result-entities [item]="item"></search-result-entities>
+<div *ngIf="displayDocs === 'entities' || displayDocs  === 'all'">
+  <div *ngFor="let item of entitiesDocs | async" >
+    <search-result-entities [item]="item"></search-result-entities>
+  </div>
 </div>
-<div *ngFor="let item of budgetDocs | async">
-    <search-result-budget [item]="item"></search-result-budget>
+<div *ngIf="displayDocs === 'budget' || displayDocs  === 'all'">
+  <div *ngFor="let item of budgetDocs | async">
+      <search-result-budget [item]="item"></search-result-budget>
+  </div>
 </div>
-<div *ngFor="let item of changeDocs | async">
-    <search-result-changes [item]="item"></search-result-changes>
+<div *ngIf="displayDocs === 'change' || displayDocs  === 'all'">
+  <div *ngFor="let item of changeDocs | async">
+      <search-result-changes [item]="item"></search-result-changes>
+  </div>
 </div>
-<div *ngFor="let item of supportsDocs | async">
-  <search-result-supports [item]="item"></search-result-supports>
+<div *ngIf="displayDocs === 'supports' || displayDocs  === 'all'">
+  <div *ngFor="let item of supportsDocs | async">
+    <search-result-supports [item]="item"></search-result-supports>
+  </div>
 </div>
-<div *ngFor="let item of exemptionDocs | async">
-  <search-result-exemption [item]="item"></search-result-exemption>
+<div *ngIf="displayDocs === 'exemptions' || displayDocs  === 'all'">
+  <div *ngFor="let item of exemptionDocs | async">
+    <search-result-exemption [item]="item"></search-result-exemption>
+  </div>
 </div>

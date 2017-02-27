@@ -23,9 +23,17 @@
     <div class="row">
       <div class="description col-md-8">
         <div>
-          <p class="row"><strong>כתובת:</strong> <span>[השוחט 15, גבעת חביבה]</span></p>
-          <p class="row"><strong>מטרות:</strong> <span>[לייסד, לקיים, לבסס, להרחיב ולפתח מוסד דתי תורני תיכוני חינוכי.]</span></p>
-          <!-- <p class="row"><strong>מטרות:</strong> <span>[לייסד, לקיים, לבסס, להרחיב ולפתח מוסד דתי תורני תיכוני חינוכי.]</span></p> -->
+          <p class="row"><strong>כתובת:</strong>
+             <span>
+               {{item.source.company_address ? item.source.company_address.toLocaleString()  : '--'}}
+            </span>
+          </p>
+          <p class="row"><strong>מטרות:</strong>
+            <!--change key!!!!-->
+            <span>
+               {{item.source.company_name ? item.source.company_name.toLocaleString()  : '--'}}
+            </span>
+          </p>
         </div>
       </div>
     </div>

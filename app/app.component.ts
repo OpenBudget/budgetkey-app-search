@@ -5,12 +5,6 @@ import { Colors } from './config';
   selector: 'my-app',
   encapsulation: ViewEncapsulation.None,
   styles: [ require('styles.css!text') ],
-  template: `
-      <budgetkey-container>
-        <div class="container-fluid">
-            <budget-search></budget-search>
-        </div>
-      </budgetkey-container>
-  `,
+  template: require('./app.component.html!text'),
 })
 export class AppComponent  { }
