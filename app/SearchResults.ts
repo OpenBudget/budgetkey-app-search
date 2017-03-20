@@ -28,3 +28,4 @@ export class SearchResults {
   changes: KindResults;
   procurement: KindResults;
 }
+
