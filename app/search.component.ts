@@ -30,6 +30,7 @@ export class SearchComponent implements OnInit {
   private budgetDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private changeDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private exemptionDocs = new BehaviorSubject<DocResultEntry[]>([]);
+  private procurementDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private supportsDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private entitiesDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private searchTerms = new Subject<string>();
@@ -73,6 +74,7 @@ export class SearchComponent implements OnInit {
         return Observable.of<SearchResults>(null);
       });
     this.searchResults.subscribe((results) => {
+
         console.log('DASDASDAS', results);
         
         if (results){
@@ -88,6 +90,27 @@ export class SearchComponent implements OnInit {
             }
           }
           console.log(this.resultCount);
+
+
+        if (results && results.budget) {
+          this.budgetDocs.next(results.budget.docs);
+        }
+        if (results && results.changes) {
+          this.changeDocs.next(results.changes.docs);
+        }
+        if (results && results.exemption) {
+          this.exemptionDocs.next(results.exemption.docs);
+        }
+        if (results && results.procurement) {
+          this.procurementDocs.next(results.procurement.docs);
+        }
+        if (results && results.supports) {
+          this.supportsDocs.next(results.supports.docs);
+        }
+        if (results && results.entities) {
+          this.entitiesDocs.next(results.entities.docs);
+        }
+
       });
     this.search('חינוך');
   }

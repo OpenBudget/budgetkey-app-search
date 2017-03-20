@@ -26,5 +26,6 @@ export class SearchResults {
   budget: KindResults;
   supports: KindResults;
   changes: KindResults;
+  procurement: KindResults;
 }
 
