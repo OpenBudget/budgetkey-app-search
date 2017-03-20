@@ -22,6 +22,7 @@ export class SearchComponent implements OnInit {
   private budgetDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private changeDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private exemptionDocs = new BehaviorSubject<DocResultEntry[]>([]);
+  private procurementDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private supportsDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private entitiesDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private searchTerms = new Subject<string>();
@@ -63,6 +64,9 @@ export class SearchComponent implements OnInit {
         }
         if (results && results.exemption) {
           this.exemptionDocs.next(results.exemption.docs);
+        }
+        if (results && results.procurement) {
+          this.procurementDocs.next(results.procurement.docs);
         }
         if (results && results.supports) {
           this.supportsDocs.next(results.supports.docs);
