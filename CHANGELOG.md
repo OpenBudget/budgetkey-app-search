@@ -91,7 +91,7 @@ Upgraders: for a fresh start, consider running these commands
 # 0.2.4 (2016-06-21)
 * Angular 2 RC3 version
 * Add new forms and router
-* Add support for TS e2e tests
+* Add supports for TS e2e tests
 
 <a name="0.2.3"></a>
 # 0.2.3 (2016-06-15)
@@ -134,7 +134,7 @@ Upgraders: for a fresh start, consider running these commands
 
  <a name="0.1.15"></a>
 # 0.1.15 (2016-04-13)
-* Add testing support
+* Add testing supports
   * npm scripts
   * karma/jasmine
   * protractor

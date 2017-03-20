@@ -1,24 +1,26 @@
-  <!-- <pre>{{item.source | json }}</pre> -->
-  <div class="item">
-    <ol class="breadcrumb">
-      <li><a href="#">סעיף</a></li>
-      <li><a href="#">תחום</a></li>
-      <li><a href="#">תכנית</a></li>
-      <li><a href="#">תקנה</a></li>
-    </ol>
-    <div class="header row">
-      <div class="col-md-8">
-        <span class="code">{{item.source.publisher}}</span>
-        <span class="title">{{item.source.reason}}</span>
-      </div>
-      <div class="col-md-4">
-        <span class="amount pull-left">
-          {{item.source.revision.toLocaleString()}} ₪
-        </span>
-      </div>
+<!-- <pre>{{item.source | json }}</pre> -->
+<div class="expense">
+  <div class="search-result-type">פטור ממכרז</div>
+  <div class="header row">
+    <div class="col-md-8">
+      <span class="meta"><strong><span class="date">{{item.source.last_update_date | date:'dd.MM.yy'}}</span> — ע״י
+      {{item.source.publisher}}</strong></span>
+      <h3 class="title"><strong>{{item.source.regulation}}</strong>
+        {{item.source.supplier}} <span>{{item.source.supplier_id}}</span>
+      </h3>
     </div>
-    <div class="sub-items">
-      תחומים בסעיף זה:
-      {{ details }}
+    <div class="col-md-4">
+      <span class="period exemption-period">
+        תקופת פטור:
+        {{item.source.start_date | date:'dd.MM.yy'}}-{{item.source.end_date | date:'dd.MM.yy'}}
+      </span>
+      <span class="amount">
+        {{item.source.volume ? item.source.volume.toLocaleString() + " ₪" : '--'}}
+      </span>
     </div>
   </div>
+  <div class="description">
+    {{item.source.description}}
+    <div class="stamp"><span>{{item.source.decision}}</span></div>
+  </div>
+</div>

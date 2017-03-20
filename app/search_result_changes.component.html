@@ -2,17 +2,28 @@
   <div class="changes">
     <div class="header row">
       <div class="col-md-8">
-        <span class="title">קיצוץ במשרד החינוך</span>
-          <span class="status"><span class="date">17.2.2014</span> - העברה 544627 הוגשה</span>
+        <span class="title">{{item.source.req_title}}</span>
+          <span class="status"><span class="date">{{item.source.date}}</span>
+           - העברה
+           {{item.source.revision}}
+           {{item.source.pending ? 'הוגשה' : 'אושרה'}}
+           </span>
       </div>
       <div class="col-md-4">
         <span class="amount decreased_a">
-          ₪ {{(-702109000).toLocaleString()}}
+          {{item.source.net_expense_diff ? item.source.net_expense_diff.toLocaleString() + " ₪" : '--'}}
+
         </span>
-        <span class="relative-to-original">הקיצוץ יותיר 89% מתקציב 2014</span>
+        <span class="relative-to-original">
+          בעקבות
+          {{item.source.net_expense_diff < 0 ? 'הקיצוץ' : 'התוספת'}}
+          {{item.source.pending ? 'יוותר' : 'נותר'}}
+          [89%]
+          מתקציב
+          {{item.source.year}}</span>
       </div>
     </div>
     <div class="changes-description">
-      שר האוצר מתכבד להודיע לועדת הכספים של הכנסת על העברת סכום של 702,109 אלפי שקלים חדשים מסעיף 20: חינוך
+      [שר האוצר מתכבד להודיע לועדת הכספים של הכנסת על העברת סכום של 702,109 אלפי שקלים חדשים מסעיף 20: חינוך]
     </div>
   </div>

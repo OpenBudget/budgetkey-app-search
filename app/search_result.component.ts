@@ -15,11 +15,13 @@ export class SearchResultBudgetComponent implements OnInit {
   @Input() item: DocResultEntry;
 
   details: string;
+  changePerc: number;
 
   constructor() {}
 
   ngOnInit() {
     this.details = "לורם איפסום " + this.item.source.title;
+    this.changePerc = this.item.source.net_revised*100 / this.item.source.net_allocated;
   }
 
 }

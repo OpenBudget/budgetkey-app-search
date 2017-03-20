@@ -21,10 +21,10 @@ class KindResults {
 }
 
 export class SearchResults {
-  budget: KindResults;
+  entities: KindResults;
   exemption: KindResults;
+  budget: KindResults;
+  supports: KindResults;
   changes: KindResults;
   procurement: KindResults;
-  supports: KindResults;
-  entities: KindResults;
 }

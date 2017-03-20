@@ -20,11 +20,17 @@
       </ul>
     </div>
 </div>
-<div *ngFor="let item of changeDocs | async">
-    <search-result-changes [item]="item"></search-result-changes>
+<div *ngFor="let item of entitiesDocs | async">
+  <search-result-entities [item]="item"></search-result-entities>
 </div>
 <div *ngFor="let item of budgetDocs | async">
     <search-result-budget [item]="item"></search-result-budget>
+</div>
+<div *ngFor="let item of changeDocs | async">
+    <search-result-changes [item]="item"></search-result-changes>
+</div>
+<div *ngFor="let item of supportsDocs | async">
+  <search-result-supports [item]="item"></search-result-supports>
 </div>
 <div *ngFor="let item of exemptionDocs | async">
   <search-result-exemption [item]="item"></search-result-exemption>
