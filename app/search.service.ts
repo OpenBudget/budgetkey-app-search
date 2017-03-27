@@ -15,7 +15,7 @@ export class SearchService {
   startTime = '1992-01-01';
   endTime = '2019-01-01';
 
-  kinds = ['exemption', 'budget', 'changes', 'procurement', 'entities', 'supports'];
+  kinds = ['changes','exemption', 'budget', 'procurement', 'entities', 'supports'];
   pageSize = 20;
 
   constructor(private http : Http) {

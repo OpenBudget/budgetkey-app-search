@@ -1,11 +1,10 @@
 /**
  * Created by adam on 18/12/2016.
  */
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit}  from '@angular/core';
 import { Observable }        from 'rxjs/Observable';
 import { Subject }           from 'rxjs/Subject';
-import { BehaviorSubject }           from 'rxjs/BehaviorSubject';
-
+import { BehaviorSubject }   from 'rxjs/BehaviorSubject';
 import { SearchService }     from './search.service'
 import { SearchResults, DocResultEntry}     from './SearchResults'
 
@@ -28,7 +27,7 @@ export class SearchComponent implements OnInit {
   // resultCount: Object;
   searchResults: Observable<SearchResults>;
   private budgetDocs = new BehaviorSubject<DocResultEntry[]>([]);
-  private changeDocs = new BehaviorSubject<DocResultEntry[]>([]);
+  private changesDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private exemptionDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private procurementDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private supportsDocs = new BehaviorSubject<DocResultEntry[]>([]);
@@ -96,7 +95,7 @@ export class SearchComponent implements OnInit {
           this.budgetDocs.next(results.budget.docs);
         }
         if (results && results.changes) {
-          this.changeDocs.next(results.changes.docs);
+          this.changesDocs.next(results.changes.docs);
         }
         if (results && results.exemption) {
           this.exemptionDocs.next(results.exemption.docs);

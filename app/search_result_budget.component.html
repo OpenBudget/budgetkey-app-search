@@ -1,4 +1,3 @@
-<!-- <pre>{{item.source | json }}</pre> -->
 <!-- <pre>{{changePerc}}</pre> -->
   <div [ngClass]="{
       'item':     true,
@@ -11,15 +10,15 @@
       'dec2':     changePerc < 80 && changePerc >= 50,
       'dec3':     changePerc < 50 && changePerc >= 10,
       'dec4':     changePerc < 10}">
-    <ol class="breadcrumb">
-      <li><a href="#">[סעיף]</a></li>
-      <li><a href="#">[תחום]</a></li>
-      <li><a href="#">[תכנית]</a></li>
-      <li><a href="#">[תקנה]</a></li>
-    </ol>
+      <!--what is this for ^ -->
     <div class="header row">
       <div class="col-md-8">
-        <span class="code">{{item.source.code}}</span>
+        <span class="code">
+        <span>{{item.source.code.slice(0,2) ? item.source.code.slice(0,2).toLocaleString() : ''}}</span
+        ><span>{{item.source.code.slice(2,4) ? '.'+ item.source.code.slice(2,4).toLocaleString() : ''}}</span
+        ><span>{{item.source.code.slice(4,6) ? '.'+ item.source.code.slice(4,6).toLocaleString() : ''}}</span
+        ><span>{{item.source.code.slice(6,8) ? '.'+ item.source.code.slice(6,8).toLocaleString() : ''}}</span>
+        </span>
         <span class="title">{{item.source.title}}</span>
       </div>
       <div class="col-md-4">
@@ -30,6 +29,7 @@
     </div>
     <div class="sub-items">
       תחומים בסעיף זה:
-      [details]
+      {{item.source.class_full ? item.source.class_full.toLocaleString() : '--'}}
+      <!--make sure that this is what was intended-->
     </div>
   </div>

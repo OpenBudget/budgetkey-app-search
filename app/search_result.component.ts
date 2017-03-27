@@ -20,7 +20,7 @@ export class SearchResultBudgetComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.details = "לורם איפסום " + this.item.source.title;
+    this.details = "לורם איפסום " || this.item.source.title;
     this.changePerc = this.item.source.net_revised*100 / this.item.source.net_allocated;
   }
 
@@ -37,11 +37,14 @@ export class SearchResultChangesComponent implements OnInit {
   @Input() item: DocResultEntry;
 
   details: string;
+  date: Date;
 
   constructor() {}
 
   ngOnInit() {
-    this.details = "לורם איפסום " + this.item.source.title;
+    this.details = "לורם איפסום " || this.item.source.title;
+    var parts = this.item.source.date.split('/');
+    this.date = new Date(parts[2],parts[1]-1,parts[0]); 
   }
 
 }
@@ -61,7 +64,7 @@ export class SearchResultExemptionComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.details = "לורם איפסום " + this.item.source.title;
+    this.details = "לורם איפסום " || this.item.source.title;
   }
 
 }
@@ -81,7 +84,7 @@ export class SearchResultProcurementComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.details = "לורם איפסום " + this.item.source.title;
+    this.details = "לורם איפסום " || this.item.source.title;
   }
 
 }
@@ -101,7 +104,7 @@ export class SearchResultSupportsComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.details = "לורם איפסום " + this.item.source.title;
+    this.details = "לורם איפסום " || this.item.source.title;
   }
 
 }
@@ -121,7 +124,7 @@ export class SearchResultEntitiesComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.details = "לורם איפסום " + this.item.source.title;
+    this.details = "לורם איפסום " || this.item.source.title;
   }
 
 }

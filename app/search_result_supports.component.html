@@ -1,40 +1,20 @@
-  <!-- <pre>{{item.source | json }}</pre> -->
-  <div class="item">
-    <ol class="breadcrumb">
-      <li><a href="#">סעיף</a></li>
-      <li><a href="#">תחום</a></li>
-      <li><a href="#">תכנית</a></li>
-      <li><a href="#">תקנה</a></li>
-    </ol>
-    <div class="header row">
-      <div class="col-md-8">
-        <span class="code">supports</span>
-        <span class="title">supports</span>
-      </div>
-      <div class="col-md-4">
-        <span class="amount pull-left">
-           lala2
-        </span>
-      </div>
-    </div>
-    <div class="sub-items">
-      תחומים בסעיף זה:
-      {{ details }}
-    </div>
-  </div>
 <!-- <pre>{{item.source | json }}</pre> -->
 <div class="expense">
   <div class="search-result-type">תמיכה ממשלתית</div>
   <div class="header row">
     <div class="col-md-8">
       <!-- <span class="meta"><span class="date">17.2.2014</span> — ע״י משרד המשפטים על סמך מכרז סגור</span> -->
-      <ol class="breadcrumb">
-        <li><a href="#">{{item.source.year}}</a></li>
-        <li><a href="#">[סעיף]</a></li>
-        <li><a href="#">…</a></li>
-        <li><a href="#">…</a></li>
-        <li><a href="#">[##.##.##.##]</a></li>
-      </ol>
+    <ol class="breadcrumb">
+      <li>{{item.source.year}}</li>
+      <li>{{item.source.subject}}</li>
+      <li>...[what suppose to be here?]...</li>
+      <li><span class="code">
+        <span>{{item.source.code.slice(0,2) ? item.source.code.slice(0,2).toLocaleString() : ''}}</span
+        ><span>{{item.source.code.slice(2,4) ? '.'+ item.source.code.slice(2,4).toLocaleString() : ''}}</span
+        ><span>{{item.source.code.slice(4,6) ? '.'+ item.source.code.slice(4,6).toLocaleString() : ''}}</span
+        ><span>{{item.source.code.slice(6,8) ? '.'+ item.source.code.slice(6,8).toLocaleString() : ''}}</span>
+        </span></li>
+    </ol>
       <h3 class="title">
         <strong>{{item.source.title}}</strong>
         {{item.source.recipient}} <span>{{item.source.entity_id}}</span>
@@ -43,7 +23,8 @@
     <div class="col-md-4">
       <span class="period supports-period">
         זוכה לתמיכות מאז
-        [year]
+        {{item.source.year}}
+        <!--is the design example something else is written here-->
       </span>
       <span class="amount">
         {{item.source.amount_supported ? item.source.amount_supported.toLocaleString() + " ₪" : '--'}}
@@ -51,7 +32,7 @@
     </div>
   </div>
   <div class="description others">
-    <strong>עוד נתמכים:</strong> הנוער העובד והלומד, הצופים לישראל, אולפנת צא ולמד, נוער בית״ר
-    <div class="stamp"><span>[הקצבה]</span></div>
+    <strong>עוד נתמכים:</strong> [הנוער העובד והלומד, הצופים לישראל, אולפנת צא ולמד, נוער בית״ר]
+    <div class="stamp"><span>הקצבה</span></div>
   </div>
 </div>

@@ -1,29 +1,5 @@
-  <!-- <pre>{{item.source | json }}</pre> -->
-  <div class="item">
-    <ol class="breadcrumb">
-      <li><a href="#">סעיף</a></li>
-      <li><a href="#">תחום</a></li>
-      <li><a href="#">תכנית</a></li>
-      <li><a href="#">תקנה</a></li>
-    </ol>
-    <div class="header row">
-      <div class="col-md-8">
-        <span class="code">entities</span>
-        <span class="title">entities</span>
-      </div>
-      <div class="col-md-4">
-        <span class="amount pull-left">
-           lala2
-        </span>
-      </div>
-    </div>
-    <div class="sub-items">
-      תחומים בסעיף זה:
-      {{ details }}
-    </div>
-  </div>
-
 <!-- <pre>{{item.source | json }}</pre> -->
+<!--ALL IS MISSING BUT NAME AND KIND!!!!!-->
 <div [ngClass]="{
     'entity':      true,
     'association': item.source.kind == 'association' || item.source.kind == 'university',

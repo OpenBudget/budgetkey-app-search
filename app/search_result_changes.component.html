@@ -2,10 +2,10 @@
   <div class="changes">
     <div class="header row">
       <div class="col-md-8">
-        <span class="title">{{item.source.req_title}}</span>
-          <span class="status"><span class="date">{{item.source.date}}</span>
+        <span class="title">{{item.source.budget_title}}</span>
+          <span class="status"><span class="date">{{date | date:'dd.MM.yy'}}</span>
            - העברה
-           {{item.source.revision}}
+           {{item.source.revision}} [all revisions have similar code?!?]
            {{item.source.pending ? 'הוגשה' : 'אושרה'}}
            </span>
       </div>
@@ -24,6 +24,10 @@
       </div>
     </div>
     <div class="changes-description">
-      [שר האוצר מתכבד להודיע לועדת הכספים של הכנסת על העברת סכום של 702,109 אלפי שקלים חדשים מסעיף 20: חינוך]
+      {{item.source.req_title}}
+      ( סעיף {{item.source.budget_code}})
+       [לוודא שזה המידע הנכון פה]
+       <div class="stamp"><span>{{item.source.pending ? 'טרם אושרה' : 'אושרה'}}</span></div>
     </div>
+    
   </div>

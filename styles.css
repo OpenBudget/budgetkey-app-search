@@ -50,7 +50,7 @@ search-result-budget {
   background: #FFFFFF;
   box-shadow: 0 1px 1px 0 #BEBEBE;
   border-radius: 6px;
-  min-height: 118px;
+  /*min-height: 118px;*/
   display: block;
   font-size: 1.4em;
   margin-bottom: 20px; }
@@ -129,7 +129,8 @@ search-result-changes {
   margin-bottom: 20px;
   color: #9B9B9B;
   padding-right: 50px;
-  position: relative; }
+  position: relative; 
+  overflow: hidden;}
   search-result-changes:before {
     content: "";
     background: url(assets/img/paper-hole.svg);
@@ -163,8 +164,44 @@ search-result-changes {
     search-result-changes .header .relative-to-original {
       text-align: left;
       display: block; }
-  search-result-changes .changes-description {
-    padding: 10px; }
+    search-result-changes .changes-description {
+    padding: 10px; 
+    }
+    search-result-changes .changes-description .stamp {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      bottom: -10px;
+      left: -10px;
+      border-radius: 50%;
+      border: 2px solid #DCDCDC;
+      overflow: hidden;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+          -ms-flex-align: center;
+              align-items: center;
+      /* Vertical center alignment */
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      /* Horizontal center alignment */
+      -webkit-transform: rotate(5deg);
+          -ms-transform: rotate(5deg);
+              transform: rotate(5deg);
+      opacity: .5; }
+      search-result-changes .changes-description .stamp span {
+        border: 1px solid #DCDCDC;
+        color: #DCDCDC;
+        font-weight: 700;
+        display: block;
+        text-align: center;
+        width: 100%;
+        border-width: 1px 0; }
 
 /******** search-result-exemption + supports **********/
 .expense {

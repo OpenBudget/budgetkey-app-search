@@ -69,7 +69,7 @@ search-result-budget {
   background: #FFFFFF;
   box-shadow: 0 1px 1px 0 #BEBEBE;
   border-radius: 6px;
-  min-height: 118px;
+  // min-height: 118px;
   display: block;
   font-size: 1.4em;
   margin-bottom: 20px;
@@ -130,24 +130,28 @@ search-result-budget {
 }
 
 /********* search-result-changes *********/
+$changes-color: #9B9B9B;
+$changes-color-secondary: #DCDCDC;
+$changes-color-bg: #F8F7F0;
 
 search-result-changes {
-  background: #F8F7F0;
+  background: $changes-color-bg;
   background-image: linear-gradient(-180deg, rgba(255,255,255,0.40) 0%, rgba(255,255,255,0.00) 50%);
   box-shadow: 0 3px 3px 0 rgba(189,189,189,0.50);
   min-height: 118px;
   display: block;
   font-size: 1.4rem;
   margin-bottom: 20px;
-  color: #9B9B9B;
+  color: $changes-color;
   padding-right: 50px;
   position: relative;
+  overflow: hidden;
   &:before {
     content: "";
     background: url(assets/img/paper-hole.svg);
     width: 49px;
     height: 100%;
-    border-left: dashed 1px #DCDCDC;
+    border-left: dashed 1px $changes-color-secondary;
     display: block;
     position: absolute;
     right: 0;
@@ -155,7 +159,7 @@ search-result-changes {
   .header {
     padding: 10px 15px 0;
     > div {
-      border-bottom: dashed 1px #DCDCDC;
+      border-bottom: dashed 1px $changes-color-secondary; 
       padding-bottom: 10px;
     }
     .title{
@@ -186,7 +190,30 @@ search-result-changes {
     }
   }
   .changes-description{
-    padding: 10px
+    padding: 10px;
+    .stamp {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      bottom: -10px;
+      left: -10px;
+      border-radius: 50%;
+      border: 2px solid $changes-color-secondary;
+      overflow: hidden;
+      display:flex;
+      align-items: center; /* Vertical center alignment */
+      justify-content: center; /* Horizontal center alignment */
+      transform: rotate(5deg);
+      opacity: .5;
+      span{
+        border: 1px solid  $changes-color-secondary;
+        color: $changes-color-secondary;
+        font-weight: 700;
+        display: block;
+        text-align: center;
+        width: 100%;
+        border-width: 1px 0;
+      }
   }
 }
 

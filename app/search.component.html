@@ -36,8 +36,8 @@
           </a>
         </li>
         <li class="active col-xs-3 col-md-2">
-          <a href="#" (click)="resultCount.changes ?  displayDocs  = 'change' : ''"
-            [class]= "displayDocs  === 'change' ? 'activeclass'  : ''" >העברה תקציבית  
+          <a href="#" (click)="resultCount.changes ?  displayDocs  = 'changes' : ''"
+            [class]= "displayDocs  === 'changes' ? 'activeclass'  : ''" >העברה תקציבית  
             <span>
                 ({{resultCount.changes ? resultCount.changes.toLocaleString()  : '0'}})
             </span>
@@ -72,8 +72,8 @@
       <search-result-budget [item]="item"></search-result-budget>
   </div>
 </div>
-<div *ngIf="displayDocs === 'change' || displayDocs  === 'all'">
-  <div *ngFor="let item of changeDocs | async">
+<div *ngIf="displayDocs === 'changes' || displayDocs  === 'all'">
+  <div *ngFor="let item of changesDocs | async">
       <search-result-changes [item]="item"></search-result-changes>
   </div>
 </div>
@@ -87,13 +87,10 @@
     <search-result-exemption [item]="item"></search-result-exemption>
   </div>
 </div>
-<div *ngFor="let item of procurementDocs | async">
-  <search-result-procurement [item]="item"></search-result-procurement>
+<div *ngIf="displayDocs === 'procurement' || displayDocs  === 'all'">
+  <div *ngFor="let item of procurementDocs | async">
+    <search-result-procurement [item]="item"></search-result-procurement>
+  </div>
 </div>
-<div *ngFor="let item of supportsDocs | async">
-  <search-result-supports [item]="item"></search-result-supports>
-</div>
-<div *ngFor="let item of entitiesDocs | async">
-  <search-result-entities [item]="item"></search-result-entities>
-</div>
+
 
