@@ -5,6 +5,7 @@ RUN apk add --update git
 RUN cd /app/ && \
     npm install && npm install --only=dev && \
     npm run pree2e && npm run tsc
+    
 
 EXPOSE 8000
 
