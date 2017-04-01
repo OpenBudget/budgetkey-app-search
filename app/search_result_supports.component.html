@@ -6,19 +6,21 @@
       <!-- <span class="meta"><span class="date">17.2.2014</span> — ע״י משרד המשפטים על סמך מכרז סגור</span> -->
     <ol class="breadcrumb">
       <li>{{item.source.year}}</li>
-      <li>{{item.source.subject}}</li>
-      <li>...[what suppose to be here?]...</li>
-      <li><span class="code">
-        <span>{{item.source.code.slice(0,2) ? item.source.code.slice(0,2).toLocaleString() : ''}}</span
-        ><span>{{item.source.code.slice(2,4) ? '.'+ item.source.code.slice(2,4).toLocaleString() : ''}}</span
-        ><span>{{item.source.code.slice(4,6) ? '.'+ item.source.code.slice(4,6).toLocaleString() : ''}}</span
-        ><span>{{item.source.code.slice(6,8) ? '.'+ item.source.code.slice(6,8).toLocaleString() : ''}}</span>
-        </span></li>
+      <li>[waiting for adam to implant heirarchy]</li>
+      <li>...</li>
     </ol>
       <h3 class="title">
-        <strong>{{item.source.title}}</strong>
-        {{item.source.recipient}} <span>{{item.source.entity_id}}</span>
-      </h3>
+        <strong><a [attr.href]="link" target="_blank">
+        <span class="code">
+        <span>{{item.source.code.slice(2,4) ? item.source.code.slice(2,4).toLocaleString() : ''}}</span
+        ><span>{{item.source.code.slice(4,6) ? '.'+ item.source.code.slice(4,6).toLocaleString() : ''}}</span
+        ><span>{{item.source.code.slice(6,8) ? '.'+ item.source.code.slice(6,8).toLocaleString() : ''}}</span
+        ><span>{{item.source.code.slice(8,10) ? '.'+ item.source.code.slice(8,10).toLocaleString() : ''}}</span>
+        </span>
+        {{item.source.title}}</a></strong>
+        <a [attr.href]="entity_link" target="_blank">
+          {{item.source.recipient}} <span>{{item.source.entity_id}}</span>
+       </a></h3>
     </div>
     <div class="col-md-4">
       <span class="period supports-period">
@@ -36,3 +38,4 @@
     <div class="stamp"><span>הקצבה</span></div>
   </div>
 </div>
+<!--http://www.obudget.org/#budget/840502/2017/main?focusOn=008405-->

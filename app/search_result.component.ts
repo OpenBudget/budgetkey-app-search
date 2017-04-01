@@ -16,12 +16,15 @@ export class SearchResultBudgetComponent implements OnInit {
 
   details: string;
   changePerc: number;
+  link: string;
 
   constructor() {}
 
   ngOnInit() {
     this.details = "לורם איפסום " || this.item.source.title;
     this.changePerc = this.item.source.net_revised*100 / this.item.source.net_allocated;
+    this.link = "http://www.obudget.org/#budget/"+this.item.source.code.slice(2,10) +"/"+
+                this.item.source.year +"/main";
   }
 
 }
@@ -60,11 +63,17 @@ export class SearchResultExemptionComponent implements OnInit {
   @Input() item: DocResultEntry;
 
   details: string;
+  entity_link: string;
+  valid_link: boolean;
 
   constructor() {}
 
   ngOnInit() {
     this.details = "לורם איפסום " || this.item.source.title;
+    this.entity_link = "http://www.obudget.org/#entity/"+this.item.source.entity_id  +"/2017/main" ;
+    this.valid_link = this.item.source.entity_id !== null ? true : false;
+                      
+
   }
 
 }
@@ -100,11 +109,15 @@ export class SearchResultSupportsComponent implements OnInit {
   @Input() item: DocResultEntry;
 
   details: string;
-
+  link: string;
+  entity_link:  string;
   constructor() {}
 
   ngOnInit() {
     this.details = "לורם איפסום " || this.item.source.title;
+    this.link = "http://www.obudget.org/#budget/"+this.item.source.code.slice(2,10) +"/"+
+                this.item.source.year +"/main";
+    this.entity_link =  "http://www.obudget.org/#entity/"+this.item.source.entity_id  +"/2017/main";
   }
 
 }
@@ -120,11 +133,13 @@ export class SearchResultEntitiesComponent implements OnInit {
   @Input() item: DocResultEntry;
 
   details: string;
+  link: string;
 
   constructor() {}
 
   ngOnInit() {
     this.details = "לורם איפסום " || this.item.source.title;
+    this.link = "http://www.obudget.org/#entity/"+this.item.source.id  +"/2017/main";
   }
 
 }

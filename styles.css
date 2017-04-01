@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Miriam+Libre");
 budgetkey-container {
   background: #F6F6F6 fixed;
-  background-image: -webkit-linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 0.05) 100%);
   background-image: linear-gradient(-180deg, transparent 0%, rgba(0, 0, 0, 0.05) 100%);
+  background-image: -webkit-linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 0.05) 100%);
   font-size: 10px;
   display: block; }
 
@@ -10,6 +10,9 @@ h1 {
   color: #369;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 250%; }
+
+a {
+  text-decoration: none !important; }
 
 .search-box input.form-control:first-child {
   height: 44px;
@@ -50,13 +53,12 @@ search-result-budget {
   background: #FFFFFF;
   box-shadow: 0 1px 1px 0 #BEBEBE;
   border-radius: 6px;
-  /*min-height: 118px;*/
   display: block;
-  font-size: 1.4em;
   margin-bottom: 20px; }
   search-result-budget .breadcrumb,
   search-result-budget .sub-items {
-    padding: 10px 15px; }
+    padding: 10px 15px;
+    font-size: 1.4em; }
   search-result-budget .breadcrumb {
     color: #9B9B9B;
     margin: 0;
@@ -70,16 +72,25 @@ search-result-budget {
     search-result-budget .header .code {
       font-size: 1.4rem;
       font-weight: 400;
-      margin-left: 10px;
+      margin-left: 0px;
       line-height: 3.6rem; }
     search-result-budget .header .title {
-      font-size: 2rem; }
+      margin: 0 0 0 0;
+      font-size: 2em; }
+      search-result-budget .header .title strong {
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; }
+      search-result-budget .header .title span {
+        font-size: 1.6rem;
+        display: inline-block; }
     search-result-budget .header .amount {
-      font-size: 1.6rem;
-      line-height: 3.6rem;
       text-align: left;
-      direction: ltr;
-      display: block; }
+      padding: 0px 0 5px 10px;
+      display: block;
+      font-weight: 700;
+      font-size: 1.6em; }
   search-result-budget .inc4 .header {
     background: rgba(194, 8, 1, 0.2);
     color: #C20801;
@@ -120,7 +131,6 @@ search-result-budget {
 /********* search-result-changes *********/
 search-result-changes {
   background: #F8F7F0;
-  background-image: -webkit-linear-gradient(270deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 50%);
   background-image: linear-gradient(-180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 50%);
   box-shadow: 0 3px 3px 0 rgba(189, 189, 189, 0.5);
   min-height: 118px;
@@ -129,8 +139,8 @@ search-result-changes {
   margin-bottom: 20px;
   color: #9B9B9B;
   padding-right: 50px;
-  position: relative; 
-  overflow: hidden;}
+  position: relative;
+  overflow: hidden; }
   search-result-changes:before {
     content: "";
     background: url(assets/img/paper-hole.svg);
@@ -164,9 +174,8 @@ search-result-changes {
     search-result-changes .header .relative-to-original {
       text-align: left;
       display: block; }
-    search-result-changes .changes-description {
-    padding: 10px; 
-    }
+  search-result-changes .changes-description {
+    padding: 10px; }
     search-result-changes .changes-description .stamp {
       position: absolute;
       width: 60px;
@@ -176,23 +185,12 @@ search-result-changes {
       border-radius: 50%;
       border: 2px solid #DCDCDC;
       overflow: hidden;
-      display: -webkit-box;
-      display: -webkit-flex;
-      display: -ms-flexbox;
       display: flex;
-      -webkit-box-align: center;
-      -webkit-align-items: center;
-          -ms-flex-align: center;
-              align-items: center;
+      align-items: center;
       /* Vertical center alignment */
-      -webkit-box-pack: center;
-      -webkit-justify-content: center;
-          -ms-flex-pack: center;
-              justify-content: center;
+      justify-content: center;
       /* Horizontal center alignment */
-      -webkit-transform: rotate(5deg);
-          -ms-transform: rotate(5deg);
-              transform: rotate(5deg);
+      transform: rotate(5deg);
       opacity: .5; }
       search-result-changes .changes-description .stamp span {
         border: 1px solid #DCDCDC;
@@ -217,9 +215,7 @@ search-result-changes {
   .expense .search-result-type {
     background: #AEAED7;
     color: #fff;
-    -webkit-transform: rotate(90deg);
-        -ms-transform: rotate(90deg);
-            transform: rotate(90deg);
+    transform: rotate(90deg);
     width: 100%;
     height: 18px;
     position: absolute;
@@ -287,23 +283,12 @@ search-result-changes {
       border-radius: 50%;
       border: 2px solid #AEAED7;
       overflow: hidden;
-      display: -webkit-box;
-      display: -webkit-flex;
-      display: -ms-flexbox;
       display: flex;
-      -webkit-box-align: center;
-      -webkit-align-items: center;
-          -ms-flex-align: center;
-              align-items: center;
+      align-items: center;
       /* Vertical center alignment */
-      -webkit-box-pack: center;
-      -webkit-justify-content: center;
-          -ms-flex-pack: center;
-              justify-content: center;
+      justify-content: center;
       /* Horizontal center alignment */
-      -webkit-transform: rotate(5deg);
-          -ms-transform: rotate(5deg);
-              transform: rotate(5deg);
+      transform: rotate(5deg);
       opacity: .5; }
       .expense .description .stamp span {
         border: 1px solid #AEAED7;
@@ -440,7 +425,6 @@ search-result-entities {
         min-height: 80px; }
         search-result-entities .entity .body .description > div {
           background: #FBFBFB;
-          background: -webkit-linear-gradient(top, #FBFBFB, #FBFBFB 95%, #DEE7EF 95%, #DEE7EF);
           background: linear-gradient(to bottom, #FBFBFB, #FBFBFB 95%, #DEE7EF 95%, #DEE7EF);
           background-size: 100% 20px;
           box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
@@ -471,9 +455,7 @@ search-result-entities {
         top: 15px;
         left: 30px;
         background: url(assets/img/stamp-entity.svg);
-        -webkit-transform: rotate(2deg);
-            -ms-transform: rotate(2deg);
-                transform: rotate(2deg);
+        transform: rotate(2deg);
         text-align: center;
         font-size: 1.2em; }
         search-result-entities .entity .body .stamp span {
@@ -589,7 +571,6 @@ search-result-entities {
         min-height: 80px; }
         search-result-entities .association .body .description > div {
           background: #FBFBFB;
-          background: -webkit-linear-gradient(top, #FBFBFB, #FBFBFB 95%, #DEE7EF 95%, #DEE7EF);
           background: linear-gradient(to bottom, #FBFBFB, #FBFBFB 95%, #DEE7EF 95%, #DEE7EF);
           background-size: 100% 20px;
           box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
@@ -620,9 +601,7 @@ search-result-entities {
         top: 15px;
         left: 30px;
         background: url(assets/img/stamp-association.svg);
-        -webkit-transform: rotate(2deg);
-            -ms-transform: rotate(2deg);
-                transform: rotate(2deg);
+        transform: rotate(2deg);
         text-align: center;
         font-size: 1.2em; }
         search-result-entities .association .body .stamp span {
@@ -738,7 +717,6 @@ search-result-entities {
         min-height: 80px; }
         search-result-entities .company .body .description > div {
           background: #FBFBFB;
-          background: -webkit-linear-gradient(top, #FBFBFB, #FBFBFB 95%, #DEE7EF 95%, #DEE7EF);
           background: linear-gradient(to bottom, #FBFBFB, #FBFBFB 95%, #DEE7EF 95%, #DEE7EF);
           background-size: 100% 20px;
           box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
@@ -769,9 +747,7 @@ search-result-entities {
         top: 15px;
         left: 30px;
         background: url(assets/img/stamp-company.svg);
-        -webkit-transform: rotate(2deg);
-            -ms-transform: rotate(2deg);
-                transform: rotate(2deg);
+        transform: rotate(2deg);
         text-align: center;
         font-size: 1.2em; }
         search-result-entities .company .body .stamp span {
@@ -887,7 +863,6 @@ search-result-entities {
         min-height: 80px; }
         search-result-entities .gov .body .description > div {
           background: #FBFBFB;
-          background: -webkit-linear-gradient(top, #FBFBFB, #FBFBFB 95%, #DEE7EF 95%, #DEE7EF);
           background: linear-gradient(to bottom, #FBFBFB, #FBFBFB 95%, #DEE7EF 95%, #DEE7EF);
           background-size: 100% 20px;
           box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
@@ -918,9 +893,7 @@ search-result-entities {
         top: 15px;
         left: 30px;
         background: url(assets/img/stamp-gov.svg);
-        -webkit-transform: rotate(2deg);
-            -ms-transform: rotate(2deg);
-                transform: rotate(2deg);
+        transform: rotate(2deg);
         text-align: center;
         font-size: 1.2em; }
         search-result-entities .gov .body .stamp span {

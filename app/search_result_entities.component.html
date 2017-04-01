@@ -1,5 +1,5 @@
 <!-- <pre>{{item.source | json }}</pre> -->
-<!--ALL IS MISSING BUT NAME AND KIND!!!!!-->
+<!--ALL IS MISSING BUT NAME AND KIND!!!!! -->
 <div [ngClass]="{
     'entity':      true,
     'association': item.source.kind == 'association' || item.source.kind == 'university',
@@ -7,7 +7,11 @@
     'gov':         item.source.kind == 'municipality'}" [ngSwitch]="item.source.kind">
   <div class="header row">
     <div class="col-md-8 title">
-      <h3 class="title">{{item.source.name}}</h3>
+      <h3 class="title">
+        <a [attr.href]="link" target="_blank">
+        {{item.source.name}}
+        </a>
+      </h3>
     </div>
     <div class="col-md-4 figures">
       <div>

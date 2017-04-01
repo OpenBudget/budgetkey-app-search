@@ -11,15 +11,24 @@
       'dec3':     changePerc < 50 && changePerc >= 10,
       'dec4':     changePerc < 10}">
       <!--what is this for ^ -->
+    <ol class="breadcrumb">
+      <li>{{item.source.year}}</li
+      ><li>{{item.source.group_full[0]}}</li
+      ><li>[needs to add heirarchy info to db]</li
+      ><li>....</li>
+    </ol>
     <div class="header row">
       <div class="col-md-8">
+      <h3 class="title">
+        <strong><a [attr.href]="link" target="_blank">
         <span class="code">
-        <span>{{item.source.code.slice(0,2) ? item.source.code.slice(0,2).toLocaleString() : ''}}</span
-        ><span>{{item.source.code.slice(2,4) ? '.'+ item.source.code.slice(2,4).toLocaleString() : ''}}</span
+        <span>{{item.source.code.slice(2,4) ? item.source.code.slice(2,4).toLocaleString() : ''}}</span
         ><span>{{item.source.code.slice(4,6) ? '.'+ item.source.code.slice(4,6).toLocaleString() : ''}}</span
-        ><span>{{item.source.code.slice(6,8) ? '.'+ item.source.code.slice(6,8).toLocaleString() : ''}}</span>
+        ><span>{{item.source.code.slice(6,8) ? '.'+ item.source.code.slice(6,8).toLocaleString() : ''}}</span
+        ><span>{{item.source.code.slice(8,10) ? '.'+ item.source.code.slice(8,10).toLocaleString() : ''}}</span>
         </span>
-        <span class="title">{{item.source.title}}</span>
+        {{item.source.title}}</a></strong>
+      </h3>
       </div>
       <div class="col-md-4">
         <span class="amount">
