@@ -83,7 +83,7 @@
       <search-result-supports [item]="item"></search-result-supports>
     </div>
   </div>
-  <div *ngIf="displayDocs === 'exemptions' || displayDocs  === 'all'" id='view-test'>
+  <div *ngIf="displayDocs === 'exemption' || displayDocs  === 'all'" id='view-test'>
     <div *ngFor="let item of exemptionDocs | async">
       <search-result-exemption [item]="item"></search-result-exemption>
     </div>
