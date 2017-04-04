@@ -15,16 +15,15 @@ export class SearchService {
   startTime = '1992-01-01';
   endTime = '2019-01-01';
 
-  kinds = ['changes','exemption', 'budget', 'procurement', 'entities', 'supports'];
-  pageSize = 20;
+  
 
   constructor(private http : Http) {
   }
 
-  search(term: string): Observable<SearchResults> {
-    let kinds = join(this.kinds, ',');
+  search(term: string, pageSize: Number, kinds: Array<string> ): Observable<SearchResults> {
+    let joinedkinds = join(kinds, ',');
     return this.http
-      .get(`${URL}/${this.kinds}/${term}/${this.startTime}/${this.endTime}/${this.pageSize}/0`)
+      .get(`${URL}/${joinedkinds}/${term}/${this.startTime}/${this.endTime}/${pageSize}/0`)
       .map((r: Response) => {
               return r.json() as SearchResults;
            })

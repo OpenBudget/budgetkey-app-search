@@ -17,15 +17,18 @@ import { SearchResults, DocResultEntry}     from './SearchResults'
 })
 export class SearchComponent implements OnInit {
   
-  resultCount: {total: number;
-                entities: number;
-                exemption: number;
-                budget: number;
-                supports: number;
-                changes: number;}
-  private displayDocs: string = 'all';
-  // resultCount: Object;
-  searchResults: Observable<SearchResults>;
+  private resultCount: {total: number,
+                        entities: number,
+                        exemption: number,
+                        budget: number,
+                        supports: number,
+                        changes: number}
+  private  displayDocs: string;
+  private pageSize: number;
+  private fetchFlag : boolean ;
+  private term : string;
+  private kinds : Array<string>;
+  private searchResults: Observable<SearchResults>;
   private budgetDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private changesDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private exemptionDocs = new BehaviorSubject<DocResultEntry[]>([]);
@@ -35,47 +38,59 @@ export class SearchComponent implements OnInit {
   private searchTerms = new Subject<string>();
 
   constructor(private searchService: SearchService) {
-    // for (let key in this.resultCount){
-    //   console.log(key);
-      // this.resultCount[key]= 0
-    // }
     this.resultCount = { total:0,   
                        entities: 0,
                        exemption: 0, 
                        budget: 0,
                        supports : 0,
-                       changes: 0}
+                       changes: 0};
+    this.displayDocs = 'all';
+    this.pageSize = 20;
+    this.fetchFlag = true;
+    this.kinds = ['changes','exemption', 'budget', 'procurement', 'entities', 'supports'];
   }
 
   
   // Push a search term into the observable stream.
   search(term: string): void {
+    this.term = term;
     this.searchTerms.next(term);
   }
 
-  doRequest(term: string) {
-    console.log(term);
-    if (term) {
-      return this.searchService.search(term);
+  fetchMore(): void{
+    var page = document.body;
+    var view_height = page.scrollHeight;
+    var cur = page.scrollTop;
+    if (cur > 0.2*view_height && this.fetchFlag){
+      this.fetchFlag = false;
+      this.pageSize += 20; 
+      this.searchTerms.next(this.term);
+      console.log(view_height, cur);
+    }
+  }
+
+  doRequest() {    
+    if (this.displayDocs != 'all'){
+      if (this.displayDocs != this.kinds[0]){
+        this.pageSize = 20;
+      }
+      this.kinds = [this.displayDocs];
+    }
+    else{
+      if (this.kinds.length == 1){
+        this.pageSize = 20;
+      }
+      this.kinds = ['changes','exemption', 'budget', 'procurement', 'entities', 'supports'];
+    }
+    if (this.term) {
+      return this.searchService.search(this.term, this.pageSize, this.kinds);
     } else {
       return Observable.of<SearchResults>(null);
     }
   }
-
-  ngOnInit() {
-    this.searchResults = this.searchTerms
-      .debounceTime(300)        // wait for 300ms pause in events
-      .distinctUntilChanged()   // ignore if next search term is same as previous
-      .switchMap(term => this.doRequest(term))
-      .catch(error => {
-        // TODO: real error handling
-        console.log(error);
-        return Observable.of<SearchResults>(null);
-      });
-    this.searchResults.subscribe((results) => {
-
-        console.log('DASDASDAS', results);
-        
+  processResults(results: SearchResults){
+       console.log('DASDASDAS', results);
+        this.fetchFlag = true;
         if (results){
           this.resultCount.total = 0;
             for (let key in results){
@@ -87,10 +102,9 @@ export class SearchComponent implements OnInit {
                 this[tmpDocs].next(tmpResults.docs)
               }
             }
+            // console.log(this.resultCount);
           }
-          console.log(this.resultCount);
-
-
+          
         if (results && results.budget) {
           this.budgetDocs.next(results.budget.docs);
         }
@@ -109,8 +123,21 @@ export class SearchComponent implements OnInit {
         if (results && results.entities) {
           this.entitiesDocs.next(results.entities.docs);
         }
+  }
 
+  ngOnInit() {
+    this.searchResults = this.searchTerms
+      .debounceTime(300)        // wait for 300ms pause in events
+      // .distinctUntilChanged()   // ignore if next search term is same as previous
+      .switchMap(() => this.doRequest())
+      .catch(error => {
+        // TODO: real error handling
+        console.log(error);
+        return Observable.of<SearchResults>(null);
       });
+    this.searchResults.subscribe((results) => {
+      this.processResults(results);});
+     
     this.search('חינוך');
   }
 
