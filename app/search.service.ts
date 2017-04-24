@@ -16,16 +16,22 @@ export class SearchService {
   endTime = '2019-01-01';
 
   
+  private time : Date;
 
   constructor(private http : Http) {
+      this.time = new Date();
+
   }
 
   search(term: string, pageSize: Number, kinds: Array<string> ): Observable<SearchResults> {
+    this.time = new Date();
     let joinedkinds = join(kinds, ',');
     return this.http
       .get(`${URL}/${joinedkinds}/${term}/${this.startTime}/${this.endTime}/${pageSize}/0`)
       .map((r: Response) => {
-              return r.json() as SearchResults;
+        var new_time = new Date();
+        console.log('req time: ', (new_time.getTime()  - this.time.getTime())/1000, 'sec');
+        return r.json() as SearchResults;
            })
       .catch((e, _) => {
         console.log('Failed to perform request', e);

@@ -45,7 +45,7 @@ export class SearchComponent implements OnInit {
                        supports : 0,
                        changes: 0};
     this.displayDocs = 'all';
-    this.pageSize = 20;
+    this.pageSize = 10;
     this.fetchFlag = true;
     this.kinds = ['changes','exemption', 'budget', 'procurement', 'entities', 'supports'];
   }
@@ -71,14 +71,14 @@ export class SearchComponent implements OnInit {
 
   doRequest() {    
     if (this.displayDocs != 'all'){
-      if (this.displayDocs != this.kinds[0]){
-        this.pageSize = 20;
+      if (this.displayDocs != this.kinds[0] && this.pageSize > 40){
+        this.pageSize = 10;
       }
       this.kinds = [this.displayDocs];
     }
     else{
       if (this.kinds.length == 1){
-        this.pageSize = 20;
+        this.pageSize = 10;
       }
       this.kinds = ['changes','exemption', 'budget', 'procurement', 'entities', 'supports'];
     }
@@ -89,7 +89,7 @@ export class SearchComponent implements OnInit {
     }
   }
   processResults(results: SearchResults){
-       console.log('DASDASDAS', results);
+       console.log('results: ', results);
         this.fetchFlag = true;
         if (results){
           this.resultCount.total = 0;
@@ -137,7 +137,6 @@ export class SearchComponent implements OnInit {
       });
     this.searchResults.subscribe((results) => {
       this.processResults(results);});
-     
     this.search('חינוך');
   }
 
