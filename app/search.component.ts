@@ -47,7 +47,8 @@ export class SearchComponent implements OnInit {
     this.displayDocs = 'all';
     this.pageSize = 10;
     this.fetchFlag = true;
-    this.kinds = ['changes','exemption', 'budget', 'procurement', 'entities', 'supports'];
+    // this.kinds = ['changes','exemption', 'budget', 'procurement', 'entities', 'supports'];
+    this.kinds = ['entities'];
   }
 
   
@@ -80,7 +81,8 @@ export class SearchComponent implements OnInit {
       if (this.kinds.length == 1){
         this.pageSize = 10;
       }
-      this.kinds = ['changes','exemption', 'budget', 'procurement', 'entities', 'supports'];
+      // this.kinds = ['changes','exemption', 'budget', 'procurement', 'entities', 'supports'];
+      this.kinds = ['entities'];
     }
     if (this.term) {
       return this.searchService.search(this.term, this.pageSize, this.kinds);
