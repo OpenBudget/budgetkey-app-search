@@ -48,7 +48,7 @@ export class SearchComponent implements OnInit {
     this.pageSize = 10;
     this.fetchFlag = true;
     // this.kinds = ['changes','exemption', 'budget', 'procurement', 'entities', 'supports'];
-    this.kinds = ['entities'];
+    this.kinds = ['all'];
   }
 
   
