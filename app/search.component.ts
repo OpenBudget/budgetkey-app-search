@@ -107,7 +107,9 @@ export class SearchComponent implements OnInit {
       max = 11;
     }
     else if (this.displayDocs == 'all'){
-      max  = Math.max(...Object.values(this.resultTotalCount),21)
+      var result_arr = this.resultTotalCount;
+      var count_arr = Object.keys(result_arr).map(function ( key ) { return result_arr[key]; });
+      max  = Math.max(...count_arr,21)
     }
     else {
       max = this.resultTotalCount[this.currentDocs]; 
@@ -131,7 +133,6 @@ export class SearchComponent implements OnInit {
   }
   processResults(results: SearchResults){
        console.log('results: ', results);
-        this.fetchFlag = true;
         if (results){
           
             for (let key in results){
@@ -150,6 +151,7 @@ export class SearchComponent implements OnInit {
               }
             }
           }
+        this.fetchFlag = true;
         this.resultRenew = false;
 
   }
