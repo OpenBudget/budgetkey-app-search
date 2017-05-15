@@ -17,45 +17,75 @@ import { SearchResults, DocResultEntry}     from './SearchResults'
 })
 export class SearchComponent implements OnInit {
   
-  private resultCount: {total: number,
+  private resultRenew : boolean ;
+  private resultTotal : number;
+  private resultTotalCount: {
                         entities: number,
                         exemption: number,
                         budget: number,
                         supports: number,
-                        changes: number}
-  private  displayDocs: string;
+                        changes: number,
+                        contractspending: number}
+  private resultCurrentCount: {
+                        entities: number,
+                        exemption: number,
+                        budget: number,
+                        supports: number,
+                        changes: number,
+                        contractspending: number}
+  private displayDocs: string;
+  private currentDocs: string;
   private pageSize: number;
   private fetchFlag : boolean ;
   private term : string;
-  private kinds : Array<string>;
   private searchResults: Observable<SearchResults>;
   private budgetDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private changesDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private exemptionDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private procurementDocs = new BehaviorSubject<DocResultEntry[]>([]);
+  private contractspendingDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private supportsDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private entitiesDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private searchTerms = new Subject<string>();
 
   constructor(private searchService: SearchService) {
-    this.resultCount = { total:0,   
+    this.resultTotal = 0;
+    this.resultTotalCount = {    
                        entities: 0,
                        exemption: 0, 
                        budget: 0,
                        supports : 0,
-                       changes: 0};
+                       changes: 0,
+                       contractspending:0};
+    this.resultCurrentCount = {  
+                       entities: 0,
+                       exemption: 0, 
+                       budget: 0,
+                       supports : 0,
+                       changes: 0,
+                       contractspending:0};
     this.displayDocs = 'all';
+    this.currentDocs = 'all';
     this.pageSize = 10;
     this.fetchFlag = true;
-    // this.kinds = ['changes','exemption', 'budget', 'procurement', 'entities', 'supports'];
-    this.kinds = ['all'];
+    this.resultRenew = false;
   }
 
   
   // Push a search term into the observable stream.
   search(term: string): void {
-    this.term = term;
-    this.searchTerms.next(term);
+    if (this.term != term){
+      this.resultTotal = 0;
+      this.pageSize = 10;
+      this.resultRenew = true;
+      this.term = term;
+      this.searchTerms.next(term);
+    }
+    else{
+      this.resultRenew = false;
+      this.term = term;
+      this.searchTerms.next(term);
+    }
   }
 
   fetchMore(): void{
@@ -64,28 +94,37 @@ export class SearchComponent implements OnInit {
     var cur = page.scrollTop;
     if (cur > 0.2*view_height && this.fetchFlag){
       this.fetchFlag = false;
-      this.pageSize += 20; 
+      // this.pageSize += 10; 
       this.searchTerms.next(this.term);
-      console.log(view_height, cur);
+      console.log(this.pageSize);
     }
   }
 
-  doRequest() {    
-    if (this.displayDocs != 'all'){
-      if (this.displayDocs != this.kinds[0] && this.pageSize > 40){
-        this.pageSize = 10;
-      }
-      this.kinds = [this.displayDocs];
+  doRequest() {
+    this.currentDocs = this.displayDocs;
+    var max = 0;
+    if (this.resultRenew){
+      max = 11;
+    }
+    else if (this.displayDocs == 'all'){
+      max  = Math.max(...Object.values(this.resultTotalCount),21)
+    }
+    else {
+      max = this.resultTotalCount[this.currentDocs]; 
+    }
+
+    if (this.pageSize+10 < max){
+        this.pageSize += 10;
+    }
+    else if(this.pageSize != max && max != 0){
+        this.pageSize = max;
     }
     else{
-      if (this.kinds.length == 1){
-        this.pageSize = 10;
-      }
-      // this.kinds = ['changes','exemption', 'budget', 'procurement', 'entities', 'supports'];
-      this.kinds = ['entities'];
+        return Observable.of<SearchResults>(null);
     }
+
     if (this.term) {
-      return this.searchService.search(this.term, this.pageSize, this.kinds);
+      return this.searchService.search(this.term, this.pageSize, [this.currentDocs]);
     } else {
       return Observable.of<SearchResults>(null);
     }
@@ -94,37 +133,25 @@ export class SearchComponent implements OnInit {
        console.log('results: ', results);
         this.fetchFlag = true;
         if (results){
-          this.resultCount.total = 0;
+          
             for (let key in results){
-              if (key){
+              if (key && key != 'error'){
                 var tmpResults = results[key];
-                var tmpDocs = key+'Docs';
-                this.resultCount.total += Number(tmpResults.total_overall);
-                this.resultCount[key] = Number(tmpResults.total_overall);
+                var tmpDocs = key.replace('-','')+'Docs';
+                if (this.resultRenew){
+                  this.resultTotal += Number(tmpResults.total_overall);
+                  this.resultTotalCount[key] = Number(tmpResults.total_overall);
+                  this.resultCurrentCount[key] = this.pageSize;
+                }
+                else{
+                  this.resultCurrentCount[key] = tmpResults.docs.length;
+                }
                 this[tmpDocs].next(tmpResults.docs)
               }
             }
-            // console.log(this.resultCount);
           }
-          
-        if (results && results.budget) {
-          this.budgetDocs.next(results.budget.docs);
-        }
-        if (results && results.changes) {
-          this.changesDocs.next(results.changes.docs);
-        }
-        if (results && results.exemption) {
-          this.exemptionDocs.next(results.exemption.docs);
-        }
-        if (results && results.procurement) {
-          this.procurementDocs.next(results.procurement.docs);
-        }
-        if (results && results.supports) {
-          this.supportsDocs.next(results.supports.docs);
-        }
-        if (results && results.entities) {
-          this.entitiesDocs.next(results.entities.docs);
-        }
+        this.resultRenew = false;
+
   }
 
   ngOnInit() {

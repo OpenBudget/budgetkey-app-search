@@ -12,50 +12,50 @@
     <div class="search-filter">
       <ul class="row">
         <li class="active col-xs-3 col-md-2">
-          <a href="#" (click)="resultCount.total ? displayDocs  = 'all' : ''"
+          <a href="#" (click)="resultTotal ? displayDocs  = 'all' : ''"
               [class]= "displayDocs  === 'all' ? 'activeclass'  : ''" >הכל 
             <span>
-                ({{resultCount.total ? resultCount.total.toLocaleString()  : '0'}})
+                ({{resultTotal ? resultTotal.toLocaleString()  : '0'}})
             </span>
           </a>
         </li>
         <li class="active col-xs-3 col-md-2">
-          <a href="#" (click)="resultCount.budget ? displayDocs  = 'budget' : '' " 
+          <a href="#" (click)="resultTotalCount.budget ? displayDocs  = 'budget' : '' " 
             [class]= "displayDocs  === 'budget' ? 'activeclass'  : ''">סעיף תקציבי 
             <span>
-                ({{resultCount.budget ? resultCount.budget.toLocaleString()  : '0'}})
+                ({{resultTotalCount.budget ? resultTotalCount.budget.toLocaleString()  : '0'}})
             </span>
           </a>
         </li>
         <li class="active col-xs-3 col-md-2">
-          <a href="#" (click)="resultCount.entities ? displayDocs  = 'entities'  : '' "
+          <a href="#" (click)="resultTotalCount.entities ? displayDocs  = 'entities'  : '' "
             [class]= "displayDocs  === 'entities' ? 'activeclass'  : ''">ארגון 
             <span>
-                ({{resultCount.entities ? resultCount.entities.toLocaleString()  : '0'}})
+                ({{resultTotalCount.entities ? resultTotalCount.entities.toLocaleString()  : '0'}})
             </span>
           </a>
         </li>
         <li class="active col-xs-3 col-md-2">
-          <a href="#" (click)="resultCount.changes ?  displayDocs  = 'changes' : ''"
+          <a href="#" (click)="resultTotalCount.changes ?  displayDocs  = 'changes' : ''"
             [class]= "displayDocs  === 'changes' ? 'activeclass'  : ''" >העברה תקציבית  
             <span>
-                ({{resultCount.changes ? resultCount.changes.toLocaleString()  : '0'}})
+                ({{resultTotalCount.changes ? resultTotalCount.changes.toLocaleString()  : '0'}})
             </span>
           </a>
         </li>
         <li class="active col-xs-3 col-md-2">
-          <a href="#" (click)= "resultCount.supports ? displayDocs  = 'supports' : ''" 
+          <a href="#" (click)= "resultTotalCount.supports ? displayDocs  = 'supports' : ''" 
             [class]= "displayDocs  === 'supports' ? 'activeclass'  : ''">תמיכה ממשלתית 
             <span>
-                ({{resultCount.supports ? resultCount.supports.toLocaleString()  : '0'}})
+                ({{resultTotalCount.supports ? resultTotalCount.supports.toLocaleString()  : '0'}})
             </span>
           </a>
         </li>
         <li class="active col-xs-3 col-md-2">
-          <a href="#"  (click)="resultCount.exemption ? displayDocs  = 'exemption' : '' "
+          <a href="#"  (click)="resultTotalCount.exemption ? displayDocs  = 'exemption' : '' "
             [class]= "displayDocs  === 'exemption' ? 'activeclass'  : ''">רכש 
             <span>
-                ({{resultCount.exemption ? resultCount.exemption.toLocaleString()  : '0'}})
+                ({{resultTotalCount.exemption ? resultTotalCount.exemption.toLocaleString()  : '0'}})
             </span>
           </a>
         </li>
