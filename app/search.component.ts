@@ -22,14 +22,14 @@ export class SearchComponent implements OnInit {
   private resultTotalCount: {
                         entities: number,
                         exemption: number,
-                        budget: number,
+                        budgetitems: number,
                         supports: number,
                         changes: number,
                         contractspending: number}
   private resultCurrentCount: {
                         entities: number,
                         exemption: number,
-                        budget: number,
+                        budgetitems: number,
                         supports: number,
                         changes: number,
                         contractspending: number}
@@ -39,7 +39,7 @@ export class SearchComponent implements OnInit {
   private fetchFlag : boolean ;
   private term : string;
   private searchResults: Observable<SearchResults>;
-  private budgetDocs = new BehaviorSubject<DocResultEntry[]>([]);
+  private budgetitemsDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private changesDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private exemptionDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private procurementDocs = new BehaviorSubject<DocResultEntry[]>([]);
@@ -53,14 +53,14 @@ export class SearchComponent implements OnInit {
     this.resultTotalCount = {    
                        entities: 0,
                        exemption: 0, 
-                       budget: 0,
+                       budgetitems: 0,
                        supports : 0,
                        changes: 0,
                        contractspending:0};
     this.resultCurrentCount = {  
                        entities: 0,
                        exemption: 0, 
-                       budget: 0,
+                       budgetitems: 0,
                        supports : 0,
                        changes: 0,
                        contractspending:0};
@@ -138,14 +138,15 @@ export class SearchComponent implements OnInit {
             for (let key in results){
               if (key && key != 'error'){
                 var tmpResults = results[key];
-                var tmpDocs = key.replace('-','')+'Docs';
+                var tmpKey = key.replace('-','')
+                var tmpDocs = tmpKey+'Docs';
                 if (this.resultRenew){
                   this.resultTotal += Number(tmpResults.total_overall);
-                  this.resultTotalCount[key] = Number(tmpResults.total_overall);
-                  this.resultCurrentCount[key] = this.pageSize;
+                  this.resultTotalCount[tmpKey] = Number(tmpResults.total_overall);
+                  this.resultCurrentCount[tmpKey] = this.pageSize;
                 }
                 else{
-                  this.resultCurrentCount[key] = tmpResults.docs.length;
+                  this.resultCurrentCount[tmpKey] = tmpResults.docs.length;
                 }
                 this[tmpDocs].next(tmpResults.docs)
               }

@@ -556,6 +556,10 @@ search-result-supports {
               > span {
                 display: inline-block;
                 float: right;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                width: 90%;
               }
             }
           }

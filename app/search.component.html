@@ -20,10 +20,10 @@
           </a>
         </li>
         <li class="active col-xs-3 col-md-2">
-          <a href="#" (click)="resultTotalCount.budget ? displayDocs  = 'budget' : '' " 
-            [class]= "displayDocs  === 'budget' ? 'activeclass'  : ''">סעיף תקציבי 
+          <a href="#" (click)="resultTotalCount.budgetitems ? displayDocs  = 'budgetitems' : '' " 
+            [class]= "displayDocs  === 'budgetitems' ? 'activeclass'  : ''">סעיף תקציבי 
             <span>
-                ({{resultTotalCount.budget ? resultTotalCount.budget.toLocaleString()  : '0'}})
+                ({{resultTotalCount.budgetitems ? resultTotalCount.budgetitems.toLocaleString()  : '0'}})
             </span>
           </a>
         </li>
@@ -68,8 +68,8 @@
       <search-result-entities [item]="item"></search-result-entities>
     </div>
   </div>
-  <div *ngIf="displayDocs === 'budget' || displayDocs  === 'all'">
-    <div *ngFor="let item of budgetDocs | async">
+  <div *ngIf="displayDocs === 'budgetitems' || displayDocs  === 'all'">
+    <div *ngFor="let item of budgetitemsDocs | async">
         <search-result-budget [item]="item"></search-result-budget>
     </div>
   </div>

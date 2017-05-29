@@ -449,7 +449,11 @@ search-result-entities {
               width: 60px; }
             search-result-entities .entity .body .description > div > p > span {
               display: inline-block;
-              float: right; }
+              float: right;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+              width: 90%; }
       search-result-entities .entity .body .stamp {
         line-height: 1.4em;
         width: 114px;
@@ -595,7 +599,11 @@ search-result-entities {
               width: 60px; }
             search-result-entities .association .body .description > div > p > span {
               display: inline-block;
-              float: right; }
+              float: right;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+              width: 90%; }
       search-result-entities .association .body .stamp {
         line-height: 1.4em;
         width: 114px;
@@ -741,7 +749,11 @@ search-result-entities {
               width: 60px; }
             search-result-entities .company .body .description > div > p > span {
               display: inline-block;
-              float: right; }
+              float: right;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+              width: 90%; }
       search-result-entities .company .body .stamp {
         line-height: 1.4em;
         width: 114px;
@@ -887,7 +899,11 @@ search-result-entities {
               width: 60px; }
             search-result-entities .gov .body .description > div > p > span {
               display: inline-block;
-              float: right; }
+              float: right;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+              width: 90%; }
       search-result-entities .gov .body .stamp {
         line-height: 1.4em;
         width: 114px;
