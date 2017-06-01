@@ -22,14 +22,14 @@ export class SearchComponent implements OnInit {
   private resultTotalCount: {
                         entities: number,
                         exemption: number,
-                        budgetitems: number,
+                        budget: number,
                         supports: number,
                         changes: number,
                         contractspending: number}
   private resultCurrentCount: {
                         entities: number,
                         exemption: number,
-                        budgetitems: number,
+                        budget: number,
                         supports: number,
                         changes: number,
                         contractspending: number}
@@ -39,7 +39,7 @@ export class SearchComponent implements OnInit {
   private fetchFlag : boolean ;
   private term : string;
   private searchResults: Observable<SearchResults>;
-  private budgetitemsDocs = new BehaviorSubject<DocResultEntry[]>([]);
+  private budgetDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private changesDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private exemptionDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private procurementDocs = new BehaviorSubject<DocResultEntry[]>([]);
@@ -53,14 +53,14 @@ export class SearchComponent implements OnInit {
     this.resultTotalCount = {    
                        entities: 0,
                        exemption: 0, 
-                       budgetitems: 0,
+                       budget: 0,
                        supports : 0,
                        changes: 0,
                        contractspending:0};
     this.resultCurrentCount = {  
                        entities: 0,
                        exemption: 0, 
-                       budgetitems: 0,
+                       budget: 0,
                        supports : 0,
                        changes: 0,
                        contractspending:0};
@@ -88,11 +88,12 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  fetchMore(): void{
-    var page = document.body;
-    var view_height = page.scrollHeight;
-    var cur = page.scrollTop;
-    if (cur > 0.2*view_height && this.fetchFlag){
+  fetchMore(term: number): void{
+    console.log(term);
+    var div = document.body.getElementsByClassName('search_body')[0];
+    var cur = div.scrollTop;
+    var divHeight = div.scrollHeight;
+    if (cur > 0.2*divHeight && this.fetchFlag){
       this.fetchFlag = false;
       // this.pageSize += 10; 
       this.searchTerms.next(this.term);
