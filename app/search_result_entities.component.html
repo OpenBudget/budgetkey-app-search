@@ -16,10 +16,14 @@
     <div class="col-md-4 figures">
       <div>
         <span class="period">
-          [start_year]-[end_year]
+          {{item.source.details.year_established ? item.source.details.year_established.toLocaleString() : 
+          (item.source.details.registration_date ? item.source.details.registration_date.toLocaleString().substring(0,4) : '[start_year]')}}
+        </span>
+        <span class="period">
+          {{item.source.details.year_closed ? item.source.details.year_closed.toLocaleString() : '[end_year]'}} -
         </span>
         <span class="amount">
-          {{item.source.amount_received ? item.source.amount_received.toLocaleString() + " ₪" : '--'}}
+          {{item.source.details.amount_received ? item.source.details.amount_received.toLocaleString() + " ₪" : '[amount-recieved]'}}
         </span>
       </div>
     </div>
@@ -72,7 +76,7 @@
         <div>
           <p class="row"><strong>כתובת:</strong>
            <span> 
-             {{item.source.details.street ? item.source.details.street.toLocaleString()+' ' : ''}}
+             {{item.source.details.street ? item.source.details.street.toLocaleString()+' ' : '--'}}
              {{item.source.details.street && item.source.details.street_number ? 
                         item.source.details.street_number.toLocaleString() : ''}}
              {{item.source.details.street && item.source.details.city ? 
@@ -124,7 +128,12 @@
     </div>
     <div class="stamp">
       <div>
-        <span>{{item.source.kind ? item.source.kind : '[--]'}}</span>
+        <span>{{item.source.kind ? 
+          (item.source.kind=="municipal_parties" ? "רשות מוניציפלית" :
+          (item.source.kind=="ottoman-association" ? "אגודה עותמאנית":
+          (item.source.kind=="conurbation" ? "עיירות": 
+          (item.source.kind=="government_office" ? "משרד ממשלתי":   
+          (item.source.kind=="foreign_representative" ? 'ייצוג-חו\"ל': '[--]'))))): '[--]'}}</span>
         #{{item.source.id}}
       </div>
     </div>

@@ -9,7 +9,17 @@ budgetkey-container {
   background-image: linear-gradient(-180deg, rgba(0,0,0,0.00) 0%, rgba(0,0,0,0.05) 100%);
   background-image: -webkit-linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 0.05) 100%);
   font-size: 10px;
+  min-height: 400px;
+  height:  85vh;
+  min-width: 1250px;
   display: block;
+  .search_body{
+    overflow-y: scroll;
+    height: 60vh;
+  }  
+  .search_body::-webkit-scrollbar { 
+    display: none; 
+    }
 }
 
 h1 {
@@ -71,6 +81,7 @@ h1.loading{
     }
   }
 }
+
 
 /********* search-result-budget *********/
 
@@ -302,6 +313,7 @@ $expense-color-bg: #F3F8FD;
       }
     }
     .period {
+      float: left;
       text-align: left;
       font-size: 1.4em;
       color: $expense-color-secondary;
@@ -309,6 +321,7 @@ $expense-color-bg: #F3F8FD;
       display: block;
     }
     .amount {
+      float: left;
       text-align: left;
       padding: 0px 0 5px 10px;
       display: block;
@@ -483,17 +496,29 @@ search-result-supports {
           }
         }
       }
-
       .figures {
         text-align: left;
         height: 100px;
         font-size: 1.4rem;
         padding-top: 5px;
         color: $entity-color-text-light;
-        .amount{
-          font-size: 1.6rem;
+        padding-left: 25px;
+        // .amount{
+        //   font-size: 1.6rem;
+        //   font-weight: 700;
+        //   margin-left: 10px;
+        // }
+        .period {
+          float: left;
+          text-align: left;
+          font-size: 1em;
+        }
+      .amount {
+          float: left;
+          text-align: left;
           font-weight: 700;
-          margin-left: 10px;
+          font-size: 1em;
+          color: $expense-color;
         }
       }
 
