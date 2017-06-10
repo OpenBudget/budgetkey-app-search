@@ -6,8 +6,8 @@ import {Http, Response} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {join} from "lodash";
 
-import {URL} from "./config";
-import {SearchResults} from "./SearchResults";
+import {URL} from "../_config/config";
+import {SearchResults} from "../_model/SearchResults";
 
 
 @Injectable()
@@ -23,11 +23,11 @@ export class SearchService {
 
   }
 
-  search(term: string, pageSize: Number, kinds: Array<string> ): Observable<SearchResults> {
+  search(term: string, pageSize: Number, pageNumber: Number, kinds: Array<string> ): Observable<SearchResults> {
     this.time = new Date();
     let joinedkinds = join(kinds, ',');
     return this.http
-      .get(`${URL}/${joinedkinds}/${term}/${this.startTime}/${this.endTime}/${pageSize}/0`)
+      .get(`${URL}/${joinedkinds}/${term}/${this.startTime}/${this.endTime}/${pageSize}/${pageNumber}`)
       .map((r: Response) => {
         var new_time = new Date();
         console.log('req time: ', (new_time.getTime()  - this.time.getTime())/1000, 'sec');

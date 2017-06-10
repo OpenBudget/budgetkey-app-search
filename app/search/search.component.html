@@ -63,6 +63,31 @@
     </div>
 </div>
 <div class="search_body" (scroll)="fetchMore(searchBox.value)">
+  <div *ngFor="let item of allDocs | async" >
+    <div *ngIf="item.type == 'entities'">
+      <div *ngIf="displayDocs === 'entities' || displayDocs  === 'all'">
+        <search-result-entities [item]="item"></search-result-entities>
+      </div>
+    </div>
+    <div *ngIf="item.type == 'budget'">
+      <div *ngIf="displayDocs === 'budget' || displayDocs  === 'all'">
+          <search-result-budget [item]="item"></search-result-budget>
+      </div>
+    </div>
+    <div *ngIf="item.type == 'changes' && (displayDocs === 'changes' || displayDocs  === 'all')">
+          <search-result-changes [item]="item"></search-result-changes>
+    </div>
+    <div *ngIf="item.type == 'supports' && (displayDocs === 'supports' || displayDocs  === 'all')">
+        <search-result-supports [item]="item"></search-result-supports>
+    </div>
+    <div *ngIf="item.type == 'exemption' && (displayDocs === 'exemption' || displayDocs  === 'all')" id='view-test'>
+        <search-result-exemption [item]="item"></search-result-exemption>
+    </div>
+    <div *ngIf="item.type == 'contractspending' && (displayDocs === 'contractspending' || displayDocs  === 'all')">
+        <search-result-procurement [item]="item"></search-result-procurement>
+    </div>
+  </div>
+<!--<div class="search_body" (scroll)="fetchMore(searchBox.value)">
   <div *ngIf="displayDocs === 'entities' || displayDocs  === 'all'">
     <div *ngFor="let item of entitiesDocs | async" >
       <search-result-entities [item]="item"></search-result-entities>
@@ -92,7 +117,7 @@
     <div *ngFor="let item of procurementDocs | async" >
       <search-result-procurement [item]="item"></search-result-procurement>
     </div>
-  </div>
+  </div>-->
   <h1 class="loading">...LOADING MORE</h1>
 </div>
 

@@ -2,7 +2,7 @@
  * Created by adam on 18/12/2016.
  */
 import {Component, Input, OnInit} from '@angular/core';
-import {DocResultEntry} from "./SearchResults";
+import {DocResultEntry} from "../_model/SearchResults";
 
 @Component({
     moduleId: module.id,

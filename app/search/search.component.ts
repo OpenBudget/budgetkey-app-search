@@ -5,8 +5,8 @@ import { Component, OnInit}  from '@angular/core';
 import { Observable }        from 'rxjs/Observable';
 import { Subject }           from 'rxjs/Subject';
 import { BehaviorSubject }   from 'rxjs/BehaviorSubject';
-import { SearchService }     from './search.service'
-import { SearchResults, DocResultEntry}     from './SearchResults'
+import { SearchService }     from '../_service/search.service'
+import { SearchResults, DocResultEntry}     from '../_model/SearchResults'
 
 @Component({
     moduleId: module.id,
@@ -36,9 +36,12 @@ export class SearchComponent implements OnInit {
   private displayDocs: string;
   private currentDocs: string;
   private pageSize: number;
+  private skip: number;
   private fetchFlag : boolean ;
   private term : string;
   private searchResults: Observable<SearchResults>;
+  private allDocs = new BehaviorSubject<DocResultEntry[]>([]);
+  private allResults = new Array;
   private budgetDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private changesDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private exemptionDocs = new BehaviorSubject<DocResultEntry[]>([]);
@@ -67,19 +70,25 @@ export class SearchComponent implements OnInit {
     this.displayDocs = 'all';
     this.currentDocs = 'all';
     this.pageSize = 10;
+    this.skip = -10;
     this.fetchFlag = true;
     this.resultRenew = false;
+    this.allResults = [];
   }
 
-  
   // Push a search term into the observable stream.
   search(term: string): void {
     if (this.term != term){
       this.resultTotal = 0;
       this.pageSize = 10;
+      this.skip= -10;
       this.resultRenew = true;
+      this.fetchFlag = true;
       this.term = term;
       this.searchTerms.next(term);
+      this.allResults = [];
+      this.displayDocs = 'all';
+      this.currentDocs = 'all';
     }
     else{
       this.resultRenew = false;
@@ -93,11 +102,15 @@ export class SearchComponent implements OnInit {
     var div = document.body.getElementsByClassName('search_body')[0];
     var cur = div.scrollTop;
     var divHeight = div.scrollHeight;
-    if (cur > 0.2*divHeight && this.fetchFlag){
+    if (this.currentDocs != this.displayDocs){
+      this.currentDocs = this.displayDocs;
+      this.fetchFlag = true;
+    }
+    if (cur > 0.3*divHeight && this.fetchFlag){
       this.fetchFlag = false;
       // this.pageSize += 10; 
       this.searchTerms.next(this.term);
-      console.log(this.pageSize);
+      console.log(this.allDocs.value.length);
     }
   }
 
@@ -116,18 +129,18 @@ export class SearchComponent implements OnInit {
       max = this.resultTotalCount[this.currentDocs]; 
     }
 
-    if (this.pageSize+10 < max){
-        this.pageSize += 10;
+    if (this.pageSize + this.skip < max){
+        this.skip += this.pageSize;
     }
-    else if(this.pageSize != max && max != 0){
-        this.pageSize = max;
+    else if(this.pageSize + this.skip < max && max != 0){
+        this.skip = max-this.pageSize;
     }
     else{
         return Observable.of<SearchResults>(null);
     }
 
     if (this.term) {
-      return this.searchService.search(this.term, this.pageSize, [this.currentDocs]);
+      return this.searchService.search(this.term, this.pageSize,this.skip, [this.currentDocs]);
     } else {
       return Observable.of<SearchResults>(null);
     }
@@ -135,12 +148,15 @@ export class SearchComponent implements OnInit {
   processResults(results: SearchResults){
        console.log('results: ', results);
         if (results){
-          
             for (let key in results){
               if (key && key != 'error'){
                 var tmpResults = results[key];
                 var tmpKey = key.replace('-','')
-                var tmpDocs = tmpKey+'Docs';
+                for (let item in tmpResults.docs){
+                    tmpResults.docs[item].type  = tmpKey;
+                }
+                // console.log(tmpResults)
+                // var tmpDocs = tmpKey+'Docs';
                 if (this.resultRenew){
                   this.resultTotal += Number(tmpResults.total_overall);
                   this.resultTotalCount[tmpKey] = Number(tmpResults.total_overall);
@@ -149,13 +165,25 @@ export class SearchComponent implements OnInit {
                 else{
                   this.resultCurrentCount[tmpKey] = tmpResults.docs.length;
                 }
-                this[tmpDocs].next(tmpResults.docs)
+                // this[tmpDocs].next(tmpResults.docs)
+                this.allResults.push(...tmpResults.docs);
+
               }
             }
-          }
-        this.fetchFlag = true;
-        this.resultRenew = false;
-
+          // var uniq = this.allResults.reduce(function(a,b){
+          //           if (a.indexOf(b) < 0 ) a.push(b);
+          //           return a;
+          //           },[]);
+          // this.allResults = uniq; 
+          this.allDocs.next(this.allResults)
+          this.fetchFlag = true;
+          this.resultRenew = false;
+        }
+      else{
+        this.fetchFlag = false;
+      }
+        
+        // console.log('results: ', this.allDocs);
   }
 
   ngOnInit() {
