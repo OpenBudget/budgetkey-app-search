@@ -42,13 +42,13 @@ export class SearchComponent implements OnInit {
   private searchResults: Observable<SearchResults>;
   private allDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private allResults = new Array;
-  private budgetDocs = new BehaviorSubject<DocResultEntry[]>([]);
-  private changesDocs = new BehaviorSubject<DocResultEntry[]>([]);
-  private exemptionDocs = new BehaviorSubject<DocResultEntry[]>([]);
-  private procurementDocs = new BehaviorSubject<DocResultEntry[]>([]);
-  private contractspendingDocs = new BehaviorSubject<DocResultEntry[]>([]);
-  private supportsDocs = new BehaviorSubject<DocResultEntry[]>([]);
-  private entitiesDocs = new BehaviorSubject<DocResultEntry[]>([]);
+  // private budgetDocs = new BehaviorSubject<DocResultEntry[]>([]);
+  // private changesDocs = new BehaviorSubject<DocResultEntry[]>([]);
+  // private exemptionDocs = new BehaviorSubject<DocResultEntry[]>([]);
+  // private procurementDocs = new BehaviorSubject<DocResultEntry[]>([]);
+  // private contractspendingDocs = new BehaviorSubject<DocResultEntry[]>([]);
+  // private supportsDocs = new BehaviorSubject<DocResultEntry[]>([]);
+  // private entitiesDocs = new BehaviorSubject<DocResultEntry[]>([]);
   private searchTerms = new Subject<string>();
 
   constructor(private searchService: SearchService) {

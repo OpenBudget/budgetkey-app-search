@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { Colors } from './config';
+import { Colors } from './_config/config';
 
 @Component({
   selector: 'my-app',
