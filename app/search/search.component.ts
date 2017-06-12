@@ -138,9 +138,12 @@ export class SearchComponent implements OnInit {
     else{
         return Observable.of<SearchResults>(null);
     }
-
+    var doc_term = this.currentDocs;
+    if (doc_term == 'contractspending'){
+        doc_term = 'contract-spending';
+    }
     if (this.term) {
-      return this.searchService.search(this.term, this.pageSize,this.skip, [this.currentDocs]);
+      return this.searchService.search(this.term, this.pageSize,this.skip, [doc_term]);
     } else {
       return Observable.of<SearchResults>(null);
     }

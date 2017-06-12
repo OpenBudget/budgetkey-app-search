@@ -1,24 +1,34 @@
-  <!-- <pre>{{item.source | json }}</pre> -->
-  <div class="item">
-    <ol class="breadcrumb">
-      <li><a href="#">סעיף</a></li>
-      <li><a href="#">תחום</a></li>
-      <li><a href="#">תכנית</a></li>
-      <li><a href="#">תקנה</a></li>
-    </ol>
-    <div class="header row">
-      <div class="col-md-8">
-        <span class="code">procurement</span>
-        <span class="title">procurement</span>
-      </div>
-      <div class="col-md-4">
-        <span class="amount pull-left">
-          lala2
+<!-- <pre>{{item.source | json }}</pre> -->
+<div class="expense">
+  <div class="search-result-type">
+    {{item.source.exemption_reason != '' ? 'רכש בפטור' : 'התקשרויות רכש' }}</div>
+  <div class="header row">
+    <div class="col-md-8">
+      <span class="meta"><strong>
+        <span class="date">{{item.source.order_date ? item.source.order_date.toLocaleString(): ''}}</span>
+        {{item.source.publisher ? ' — ע״י': ''}}
+        {{item.source.publisher ? item.source.publisher : '' }}
+        {{item.source.purchase_method ? 'על סמך': ''}}
+        {{item.source.purchase_method ? item.source.purchase_method : '' }}
+        </strong>
         </span>
-      </div>
+      <h3 class="title"><strong>התקשרויות עם ספק יחיד:</strong>
+      <a *ngIf="valid_link" [attr.href]="entity_link" target="_blank">
+        {{item.source.supplier_name}} <span>{{item.source.supplier_code}}</span>
+      </a>
+      <a *ngIf="!valid_link">
+        {{item.source.supplier_name}} <span>{{item.source.supplier_code}}</span>
+      </a>
+      </h3>
     </div>
-    <div class="sub-items">
-      תחומים בסעיף זה:
-      {{ details }}
+    <div class="col-md-4">
+      <span class="amount">
+        {{item.source.volume ? item.source.volume.toLocaleString() + " ₪" : '--'}}
+      </span>
     </div>
   </div>
+  <div class="description">
+    {{item.source.purpose}}
+    <div class="stamp"><span>{{item.source.decision ? 'בהמתנה' : 'אושר'}}</span></div>
+  </div>
+</div>
