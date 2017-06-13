@@ -120,25 +120,25 @@ export class SearchComponent implements OnInit {
     if (this.resultRenew){
       max = 11;
     }
-    else if (this.displayDocs == 'all'){
+    else if (this.displayDocs === 'all'){
       var result_arr = this.resultTotalCount;
       var count_arr = Object.keys(result_arr).map(function ( key ) { return result_arr[key]; });
       max  = Math.max(...count_arr,21)
     }
     else {
-      max = this.resultTotalCount[this.currentDocs]; 
+      max = this.resultTotalCount[this.currentDocs];
     }
 
     if (this.pageSize + this.skip < max){
         this.skip += this.pageSize;
     }
-    else if(this.pageSize + this.skip < max && max != 0){
+    else if(this.pageSize + this.skip < max && max !== 0){
         this.skip = max-this.pageSize;
     }
     else{
         return Observable.of<SearchResults>(null);
     }
-    var doc_term = this.currentDocs;
+    let doc_term = this.currentDocs;
     if (doc_term == 'contractspending'){
         doc_term = 'contract-spending';
     }
@@ -153,8 +153,8 @@ export class SearchComponent implements OnInit {
         if (results){
             for (let key in results){
               if (key && key != 'error'){
-                var tmpResults = results[key];
-                var tmpKey = key.replace('-','')
+                let tmpResults = results[key];
+                let tmpKey = key.replace('-', '')
                 for (let item in tmpResults.docs){
                     tmpResults.docs[item].type  = tmpKey;
                 }
@@ -177,7 +177,7 @@ export class SearchComponent implements OnInit {
           //           if (a.indexOf(b) < 0 ) a.push(b);
           //           return a;
           //           },[]);
-          // this.allResults = uniq; 
+          // this.allResults = uniq;
           this.allDocs.next(this.allResults)
           this.fetchFlag = true;
           this.resultRenew = false;
@@ -185,7 +185,7 @@ export class SearchComponent implements OnInit {
       else{
         this.fetchFlag = false;
       }
-        
+
         // console.log('results: ', this.allDocs);
   }
 
@@ -200,7 +200,7 @@ export class SearchComponent implements OnInit {
         return Observable.of<SearchResults>(null);
       });
     this.searchResults.subscribe((results) => {
-      this.processResults(results);});
+      this.processResults(results); });
     this.search('חינוך');
   }
 

@@ -2,23 +2,23 @@
  * Created by adam on 18/12/2016.
  */
 import { Injectable } from '@angular/core';
-import {Http, Response} from "@angular/http";
-import {Observable} from "rxjs/Observable";
-import {join} from "lodash";
+import {Http, Response} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
+import {join} from 'lodash';
 
-import {URL} from "../_config/config";
-import {SearchResults} from "../_model/SearchResults";
+import {URL} from '../_config/config';  // 'http://next.obudget.org/search';
+import {SearchResults} from '../_model/SearchResults';
 
 
 @Injectable()
 export class SearchService {
   startTime = '1992-01-01';
-  endTime = '2019-01-01';
+  endTime   = '2019-01-01';
 
-  
-  private time : Date;
 
-  constructor(private http : Http) {
+  private time: Date;
+
+  constructor(private http: Http) {
       this.time = new Date();
 
   }
@@ -29,8 +29,8 @@ export class SearchService {
     return this.http
       .get(`${URL}/${joinedkinds}/${term}/${this.startTime}/${this.endTime}/${pageSize}/${pageNumber}`)
       .map((r: Response) => {
-        var new_time = new Date();
-        console.log('req time: ', (new_time.getTime()  - this.time.getTime())/1000, 'sec');
+        let new_time = new Date();
+        console.log('req time: ', (new_time.getTime()  - this.time.getTime()) / 1000, 'sec');
         return r.json() as SearchResults;
            })
       .catch((e, _) => {
