@@ -98,6 +98,7 @@ export class SearchComponent implements OnInit {
    */
   doRequest(): Observable<SearchResults>{
     this.currentDocs = this.displayDocs;
+<<<<<<< HEAD
 
     let maxRecords = 0;
     if (this.resultRenew) {
@@ -109,10 +110,24 @@ export class SearchComponent implements OnInit {
       maxRecords  = Math.max(...count_arr, 21);
     } else {// if specific category is selected - maxRecords is the totalCount of that category(currentDocs)
       maxRecords  = this.resultTotalCount[this.currentDocs];
+=======
+    var max = 0;
+    if (this.resultRenew){
+      max = 11;
+    }
+    else if (this.displayDocs === 'all'){
+      var result_arr = this.resultTotalCount;
+      var count_arr = Object.keys(result_arr).map(function ( key ) { return result_arr[key]; });
+      max  = Math.max(...count_arr,21)
+    }
+    else {
+      max = this.resultTotalCount[this.currentDocs];
+>>>>>>> 1bf4c0ee29887a94b7e5547c93e4cf7b523daabd
     }
 
     if (this.pageSize + this.skip < maxRecords) {
         this.skip += this.pageSize;
+<<<<<<< HEAD
     } else if (this.pageSize + this.skip < maxRecords && maxRecords !== 0) {
         this.skip = maxRecords - this.pageSize;
     } else {
@@ -122,6 +137,18 @@ export class SearchComponent implements OnInit {
     let category = this.currentDocs;
     if (category === 'contractspending') {
         category = 'contract-spending';
+=======
+    }
+    else if(this.pageSize + this.skip < max && max !== 0){
+        this.skip = max-this.pageSize;
+    }
+    else{
+        return Observable.of<SearchResults>(null);
+    }
+    let doc_term = this.currentDocs;
+    if (doc_term == 'contractspending'){
+        doc_term = 'contract-spending';
+>>>>>>> 1bf4c0ee29887a94b7e5547c93e4cf7b523daabd
     }
 
     if (this.term) {
@@ -130,6 +157,7 @@ export class SearchComponent implements OnInit {
       return Observable.of<SearchResults>(null);
     }
   }
+<<<<<<< HEAD
   /**
    * processResults()
    * creates adds the current results to allResults
@@ -147,6 +175,17 @@ export class SearchComponent implements OnInit {
                     if (item) {
                       tmpResults.docs[item].type  = tmpKey;
                     }
+=======
+  processResults(results: SearchResults){
+       console.log('results: ', results);
+        if (results){
+            for (let key in results){
+              if (key && key != 'error'){
+                let tmpResults = results[key];
+                let tmpKey = key.replace('-', '')
+                for (let item in tmpResults.docs){
+                    tmpResults.docs[item].type  = tmpKey;
+>>>>>>> 1bf4c0ee29887a94b7e5547c93e4cf7b523daabd
                 }
                 // console.log(tmpResults)
                 // var tmpDocs = tmpKey+'Docs';
@@ -172,6 +211,7 @@ export class SearchComponent implements OnInit {
         } else {
         this.fetchFlag     = false;
       }
+<<<<<<< HEAD
         // console.log('results: ', this.allDocs);
   }
   /**
@@ -194,5 +234,24 @@ export class SearchComponent implements OnInit {
       this.searchTerms.next(this.term);
       console.log(this.allDocs.value.length);
     }
+=======
+
+        // console.log('results: ', this.allDocs);
+  }
+
+  ngOnInit() {
+    this.searchResults = this.searchTerms
+      .debounceTime(300)        // wait for 300ms pause in events
+      // .distinctUntilChanged()   // ignore if next search term is same as previous
+      .switchMap(() => this.doRequest())
+      .catch(error => {
+        // TODO: real error handling
+        console.log(error);
+        return Observable.of<SearchResults>(null);
+      });
+    this.searchResults.subscribe((results) => {
+      this.processResults(results); });
+    this.search('חינוך');
+>>>>>>> 1bf4c0ee29887a94b7e5547c93e4cf7b523daabd
   }
 }

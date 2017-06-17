@@ -9,7 +9,6 @@ import { join } from 'lodash';
 import { URL } from '../_config/config';  // 'http://next.obudget.org/search';
 import { SearchResults } from '../_model/SearchResults';
 
-
 @Injectable()
 export class SearchService {
   startRange = '1992-01-01';
@@ -25,7 +24,7 @@ export class SearchService {
    * @param {Array<string>} kindsList - category to query - specific or all
    * @returns {Observable<SearchResults>} 
    */
-  
+
   search(term: string, pageSize: Number, pageNumber: Number, kindsList: Array<string> ): Observable<SearchResults> {
     let startTime: Date = new Date(); // update time-stamp
     let joinedkinds = join(kindsList, ',');
