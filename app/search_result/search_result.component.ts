@@ -26,7 +26,9 @@ export class SearchResultBudgetComponent implements OnInit {
               + '/'
               + this.item.source.year
               + '/main';
-    this.yearRange = Object.keys(this.item.source.history)[0] + '-' + this.item.source.year;
+    
+    this.yearRange =
+      (this.item.source.history ? Object.keys(this.item.source.history)[0] + '-' : '') + this.item.source.year;
   }
 }
 
