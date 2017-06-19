@@ -15,6 +15,7 @@ export class SearchResultBudgetComponent implements OnInit {
   details: string;
   changePerc: number;
   link: string;
+  yearRange: string;
 
   constructor() {}
   ngOnInit() {
@@ -25,6 +26,7 @@ export class SearchResultBudgetComponent implements OnInit {
               + '/'
               + this.item.source.year
               + '/main';
+    this.yearRange = Object.keys(this.item.source.history)[0] + '-' + this.item.source.year;
   }
 }
 
