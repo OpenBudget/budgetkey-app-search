@@ -11,8 +11,8 @@ import { SearchResults, DocResultEntry, SearchResultsCounter} from '../_model/Se
 @Component({
     moduleId: module.id,
     selector: 'budget-search',
-    styleUrls: [ './search.component.css' ],
-    templateUrl: './search.component.html',
+    template: require('./search.component.html!text'),
+    styles: [ require('./search.component.css!text') ],
     providers: [ SearchService ]
 })
 export class SearchComponent implements OnInit {
@@ -137,7 +137,6 @@ export class SearchComponent implements OnInit {
    */
   processResults(results: SearchResults): void {
        console.log('results: '   , results);
-       console.log('allResults: ', this.allResults);
         if (results) {
             for (let key in results) {
               if (key && key !== 'error') {
@@ -180,7 +179,6 @@ export class SearchComponent implements OnInit {
    * @param {number} term 
    */
   fetchMore(term: number): void {
-    console.log(term);
     const div = document.body.getElementsByClassName('search_body')[0];
     const cur = div.scrollTop;
     const divHeight = div.scrollHeight;
