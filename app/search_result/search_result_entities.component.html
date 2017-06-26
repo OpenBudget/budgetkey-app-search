@@ -9,7 +9,7 @@
     <div class="col-md-8 title">
       <h3 class="title">
         <a [attr.href]="link" target="_blank">
-        {{item.source.name}}
+        <search-text-highlighter [titleText]="titleText" [indexesToHighlight]="indexesToHighlight" [isTitleTextMatched]="isTitleTextMatched"></search-text-highlighter>
         </a>
       </h3>
     </div>

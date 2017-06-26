@@ -14,10 +14,12 @@
         </span>
       <h3 class="title"><strong>התקשרויות עם ספק יחיד:</strong>
       <a *ngIf="valid_link" [attr.href]="entity_link" target="_blank">
-        {{item.source.supplier_name}} <span>{{item.source.supplier_code}}</span>
+        <search-text-highlighter [titleText]="titleText" [indexesToHighlight]="indexesToHighlight" [isTitleTextMatched]="isTitleTextMatched"></search-text-highlighter> <span>{{item.source.supplier_code}}</span>
+        <!--{{item.source.supplier_name}} <span>{{item.source.supplier_code}}</span>-->
       </a>
       <a *ngIf="!valid_link">
-        {{item.source.supplier_name}} <span>{{item.source.supplier_code}}</span>
+        <search-text-highlighter [titleText]="titleText" [indexesToHighlight]="indexesToHighlight" [isTitleTextMatched]="isTitleTextMatched"></search-text-highlighter> <span>{{item.source.supplier_code}}</span>
+        <!--{{item.source.supplier_name}} <span>{{item.source.supplier_code}}</span>-->
       </a>
       </h3>
     </div>
