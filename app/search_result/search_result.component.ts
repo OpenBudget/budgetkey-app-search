@@ -3,6 +3,7 @@
  */
 import { Component, Input, OnInit } from '@angular/core';
 import { DocResultEntry } from '../_model/SearchResults';
+var _ = require("lodash");
 
 // budget Component
 @Component({
@@ -19,16 +20,15 @@ export class SearchResultBudgetComponent implements OnInit {
 
   constructor() {}
   ngOnInit() {
-    this.details = 'לורם איפסום ' || this.item.source.title;
-    this.changePerc = this.item.source.net_revised * 100 / this.item.source.net_allocated;
-    this.link = 'http://www.obudget.org/#budget/'
-              + this.item.source.code.slice(2, 10)
-              + '/'
-              + this.item.source.year
-              + '/main';
-    
-    this.yearRange =
-      (this.item.source.history ? Object.keys(this.item.source.history)[0] + '-' : '') + this.item.source.year;
+    var source = this.item.source;
+    this.details = 'לורם איפסום ' || source.title;
+    this.changePerc = source.net_revised * 100 / source.net_allocated;
+    this.link = ['http://www.obudget.org/#budget/',
+        source.code.slice(2, 10),
+        '/',
+        source.year,
+        '/main'].join();
+    this.yearRange = [ _.get(_.keys(source.history) 0), source.year].join("-");
   }
 }
 
