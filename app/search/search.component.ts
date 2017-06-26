@@ -75,7 +75,6 @@ export class SearchComponent implements OnInit {
    */
   search(term: string): void { // keyUp()
     if (this.term !== term) { // initiate a new search
-      this.resultTotal = 0;
       this.pageSize = 10;
       this.skip = -10;
       this.resultRenew = true;
@@ -83,8 +82,9 @@ export class SearchComponent implements OnInit {
       this.term = term;
       this.searchTerms.next(term);
       this.allResults = [];
-      this.displayDocs = 'all';
-      this.currentDocs = 'all';
+      // this.displayDocs = 'all';
+      // this.currentDocs = 'all';
+
     } else {
       this.resultRenew = false;
       this.term = term;
@@ -120,7 +120,10 @@ export class SearchComponent implements OnInit {
     }
 
     let category = this.currentDocs;
-    if (category === 'contractspending') {
+    if (this.resultRenew){
+      category = 'all';
+    }
+    else if (category === 'contractspending') {
         category = 'contract-spending';
     }
 
@@ -138,6 +141,9 @@ export class SearchComponent implements OnInit {
   processResults(results: SearchResults): void {
        console.log('results: '   , results);
         if (results) {
+          if (this.resultRenew){
+            this.resultTotal = 0;
+          }
             for (let key in results) {
               if (key && key !== 'error') {
                 let tmpResults = results[key];
