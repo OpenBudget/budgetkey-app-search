@@ -31,13 +31,7 @@ export class SearchComponent implements OnInit {
   private skip: number;  // how many records to skip from recently fetched query (when appending to the list)
   private fetchFlag: boolean ;
   private resultRenew: boolean ; // 
-  // private budgetDocs = new BehaviorSubject<DocResultEntry[]>([]);
-  // private changesDocs = new BehaviorSubject<DocResultEntry[]>([]);
-  // private exemptionDocs = new BehaviorSubject<DocResultEntry[]>([]);
-  // private procurementDocs = new BehaviorSubject<DocResultEntry[]>([]);
-  // private contractspendingDocs = new BehaviorSubject<DocResultEntry[]>([]);
-  // private supportsDocs = new BehaviorSubject<DocResultEntry[]>([]);
-  // private entitiesDocs = new BehaviorSubject<DocResultEntry[]>([]);
+  private headerBottomBorder: boolean;
 
   constructor(private searchService: SearchService) {}
 
@@ -55,6 +49,7 @@ export class SearchComponent implements OnInit {
     this.fetchFlag = true;
     this.resultRenew = false;
     this.allResults = [];
+    this.headerBottomBorder = false;
     // ^ moved from constructor ^
 
     this.searchResults = this.searchTerms // open a stream
@@ -186,6 +181,7 @@ export class SearchComponent implements OnInit {
    */
   fetchMore(term: number): void {
     const div = document.body.getElementsByClassName('search_body')[0];
+    this.headerBottomBorder  = true;
     const cur = div.scrollTop;
     const divHeight = div.scrollHeight;
     if (this.currentDocs !== this.displayDocs){
