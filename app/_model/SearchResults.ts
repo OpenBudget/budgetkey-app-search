@@ -3,7 +3,7 @@
  */
 
 class TimeDistributionEntry {
-  doc_count : number;
+  doc_count: number;
   key: number;
   key_as_string: string;
 }
@@ -29,3 +29,11 @@ export class SearchResults {
   procurement: KindResults;
 }
 
+export class SearchResultsCounter{
+  entities:  number;
+  exemption: number;
+  budget:    number;
+  supports:  number;
+  changes:   number;
+  contractspending: number;
+}
