@@ -2,7 +2,7 @@
 
 This is the search interface budgetkey app.
 
-It currently can be accessed at [next.obudget.org/app/search](next.obudget.org/app/search).
+It currently can be accessed at http://next.obudget.org/app/search/
 
 **Basic functionality:**
 
