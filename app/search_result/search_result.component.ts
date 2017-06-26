@@ -68,23 +68,8 @@ export class SearchResultChangesComponent implements OnInit {
   details: string;
   date: Date;
 
-  // Vars for Highlight component
-  titleText: string;
-  indexesToHighlight: number[];
-  titleTextMatch: boolean;
-
   constructor() {}
   ngOnInit() {
-    debugger;
-    this.details = 'לורם איפסום ' || this.item.source.title;
-    let parts = this.item.source.date.split('/');
-    this.date = new Date(parts[2], parts[1] - 1, parts[0]);
-
-    this.titleTextMatch = true;
-    this.titleText = this.item.source.title;
-    if (this.titleTextMatch){
-      this.indexesToHighlight = this.item.highlight.title[0];
-    }
     this.details = 'לורם איפסום ' || this.item.source.title;
     let parts = this.item.source.date.split('/');
     this.date = new Date(parts[2], parts[1] - 1, parts[0]);
@@ -165,6 +150,8 @@ export class SearchResultEntitiesComponent implements OnInit {
 
   constructor() {}
   ngOnInit() {
+    debugger;
+
     this.details = 'לורם איפסום ' || this.item.source.title;
     this.link = 'http://www.obudget.org/#entity/'+this.item.source.id  + '/2017/main';
   }
