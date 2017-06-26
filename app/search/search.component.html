@@ -1,4 +1,6 @@
-<div class="row" >
+<div [ngClass]="{
+  row : true,
+  headerBottomBorder : headerBottomBorder}" >
     <div class="search-box input-group input-group-lg">
         <input #searchBox
                class="form-control"

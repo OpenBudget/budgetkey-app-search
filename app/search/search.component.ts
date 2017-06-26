@@ -31,13 +31,7 @@ export class SearchComponent implements OnInit {
   private skip: number;  // how many records to skip from recently fetched query (when appending to the list)
   private fetchFlag: boolean ;
   private resultRenew: boolean ; // 
-  // private budgetDocs = new BehaviorSubject<DocResultEntry[]>([]);
-  // private changesDocs = new BehaviorSubject<DocResultEntry[]>([]);
-  // private exemptionDocs = new BehaviorSubject<DocResultEntry[]>([]);
-  // private procurementDocs = new BehaviorSubject<DocResultEntry[]>([]);
-  // private contractspendingDocs = new BehaviorSubject<DocResultEntry[]>([]);
-  // private supportsDocs = new BehaviorSubject<DocResultEntry[]>([]);
-  // private entitiesDocs = new BehaviorSubject<DocResultEntry[]>([]);
+  private headerBottomBorder: boolean;
 
   constructor(private searchService: SearchService) {}
 
@@ -55,6 +49,7 @@ export class SearchComponent implements OnInit {
     this.fetchFlag = true;
     this.resultRenew = false;
     this.allResults = [];
+    this.headerBottomBorder = false;
     // ^ moved from constructor ^
 
     this.searchResults = this.searchTerms // open a stream
@@ -75,7 +70,6 @@ export class SearchComponent implements OnInit {
    */
   search(term: string): void { // keyUp()
     if (this.term !== term) { // initiate a new search
-      this.resultTotal = 0;
       this.pageSize = 10;
       this.skip = -10;
       this.resultRenew = true;
@@ -83,8 +77,9 @@ export class SearchComponent implements OnInit {
       this.term = term;
       this.searchTerms.next(term);
       this.allResults = [];
-      this.displayDocs = 'all';
-      this.currentDocs = 'all';
+      // this.displayDocs = 'all';
+      // this.currentDocs = 'all';
+
     } else {
       this.resultRenew = false;
       this.term = term;
@@ -120,7 +115,10 @@ export class SearchComponent implements OnInit {
     }
 
     let category = this.currentDocs;
-    if (category === 'contractspending') {
+    if (this.resultRenew){
+      category = 'all';
+    }
+    else if (category === 'contractspending') {
         category = 'contract-spending';
     }
 
@@ -138,6 +136,9 @@ export class SearchComponent implements OnInit {
   processResults(results: SearchResults): void {
        console.log('results: '   , results);
         if (results) {
+          if (this.resultRenew){
+            this.resultTotal = 0;
+          }
             for (let key in results) {
               if (key && key !== 'error') {
                 let tmpResults = results[key];
@@ -180,6 +181,7 @@ export class SearchComponent implements OnInit {
    */
   fetchMore(term: number): void {
     const div = document.body.getElementsByClassName('search_body')[0];
+    this.headerBottomBorder  = true;
     const cur = div.scrollTop;
     const divHeight = div.scrollHeight;
     if (this.currentDocs !== this.displayDocs){
