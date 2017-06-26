@@ -16,6 +16,8 @@ import {SearchResultProcurementComponent} from "./search_result/search_result.co
 import {SearchResultSupportsComponent} from "./search_result/search_result.component";
 import {SearchResultEntitiesComponent} from "./search_result/search_result.component";
 
+import {Highlighter} from "./highlighter/search.highlighter";
+
 @NgModule({
   imports:      [
     BrowserModule,
@@ -30,7 +32,8 @@ import {SearchResultEntitiesComponent} from "./search_result/search_result.compo
     SearchResultExemptionComponent,
     SearchResultProcurementComponent,
     SearchResultSupportsComponent,
-    SearchResultEntitiesComponent
+    SearchResultEntitiesComponent,
+    Highlighter
   ],
   providers: [
     SearchService
