@@ -12,10 +12,10 @@
       'dec4':     changePerc < 10}">
       <!--what is this for ^ -->
     <ol class="breadcrumb">
-      <li>{{item.source.year}}</li
-      ><li>{{item.source.func_cls_title_1.join(', ') + ' / ' + item.source.func_cls_title_2.join(', ')}}</li
-      ><li>{{item.source.hierarchy}}</li
-      ><li>....</li>
+      <li><a>{{yearRange}}</a></li
+      ><li *ngFor="let hierarchyItem of item.source.hierarchy.slice(1);">
+        <a [attr.href]="'http://www.obudget.org/#budget/' + hierarchyItem[0].slice(2) + '/' + item.source.year + '/main'" target="_blank">{{hierarchyItem[1]}}</a>
+      </li>
     </ol>
     <div class="header row">
       <div class="col-md-8">
