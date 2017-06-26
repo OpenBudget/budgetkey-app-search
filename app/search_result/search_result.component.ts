@@ -11,11 +11,21 @@ import { DocResultEntry } from '../_model/SearchResults';
     template: require('./search_result_budget.component.html!text'),
 })
 export class SearchResultBudgetComponent implements OnInit {
+  static readonly categoriesByNumberOfDigits = {
+    0: 'משרדים',
+    2: 'שתי ספרות',
+    4: 'ארבע ספרות',
+    6: 'שש ספרות',
+    8: 'שמונה ספרות',
+    10: 'עשר ספרות'
+  };
+
   @Input() item: DocResultEntry;
   details: string;
   changePerc: number;
   link: string;
   yearRange: string;
+  category: string;
 
   constructor() {}
   ngOnInit() {
@@ -26,9 +36,11 @@ export class SearchResultBudgetComponent implements OnInit {
               + '/'
               + this.item.source.year
               + '/main';
-    
+
     this.yearRange =
       (this.item.source.history ? Object.keys(this.item.source.history)[0] + '-' : '') + this.item.source.year;
+
+    this.category = SearchResultBudgetComponent.categoriesByNumberOfDigits[this.item.source.code.length - 2];
   }
 }
 

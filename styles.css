@@ -25,6 +25,17 @@ a {
 h1.loading {
   text-align: center; }
 
+.sub-items-list {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0px; }
+  .sub-items-list li + li::before {
+    content: ','; }
+
+.sub-item {
+  display: inline-block; }
+
 .search-box input.form-control:first-child {
   height: 44px;
   background: #FFFFFF;
@@ -81,7 +92,6 @@ search-result-budget {
     font-weight: 700;
     margin: 0px; }
     search-result-budget .header .code {
-      direction: ltr;
       font-size: 1.4rem;
       font-weight: 400;
       margin-left: 0px;
