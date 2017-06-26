@@ -4,8 +4,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {DocResultEntry} from "../_model/SearchResults";
 import {Highlighter} from "../highlighter/search.highlighter";
-import { Component, Input, OnInit } from '@angular/core';
-import { DocResultEntry } from '../_model/SearchResults';
 
 // budget Component
 @Component({
@@ -24,7 +22,7 @@ export class SearchResultBudgetComponent implements OnInit {
   // Vars for Highlight component
   titleText: string;
   indexesToHighlight: number[];
-  titleTextMatch: boolean;
+  isTitleTextMatched: boolean;
 
   constructor() {}
   ngOnInit() {
@@ -39,9 +37,9 @@ export class SearchResultBudgetComponent implements OnInit {
     this.yearRange =
       (this.item.source.history ? Object.keys(this.item.source.history)[0] + '-' : '') + this.item.source.year;
 
-    this.titleTextMatch = this.verifyTitleMatch();
+    this.isTitleTextMatched = this.verifyTitleMatch();
     this.titleText = this.item.source.title;
-    if (this.titleTextMatch){
+    if (this.isTitleTextMatched){
       this.indexesToHighlight = this.item.highlight.title[0];
     }
   }
@@ -107,10 +105,29 @@ export class SearchResultProcurementComponent implements OnInit {
   @Input() item: DocResultEntry;
   details: string;
 
+  // Vars for Highlight component
+  titleText: string;
+  indexesToHighlight: number[];
+  isTitleTextMatched: boolean;
+
   constructor() {}
 
   ngOnInit() {
     this.details = 'לורם איפסום ' || this.item.source.title;
+
+    this.isTitleTextMatched = this.verifyTitleMatch();
+    this.titleText = this.item.source.supplier_name;
+    if (this.isTitleTextMatched){
+      this.indexesToHighlight = this.item.highlight.supplier_name[0];
+    }
+  }
+
+  verifyTitleMatch(){
+    if (this.item.highlight != undefined && this.item.highlight.supplier_name != undefined && this.item.highlight.supplier_name[0].length == 2){
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }
@@ -148,11 +165,29 @@ export class SearchResultEntitiesComponent implements OnInit {
   details: string;
   link: string;
 
+  // Vars for Highlight component
+  titleText: string;
+  indexesToHighlight: number[];
+  isTitleTextMatched: boolean;
+
   constructor() {}
   ngOnInit() {
-    debugger;
 
     this.details = 'לורם איפסום ' || this.item.source.title;
     this.link = 'http://www.obudget.org/#entity/'+this.item.source.id  + '/2017/main';
+
+    this.isTitleTextMatched = this.verifyTitleMatch();
+    this.titleText = this.item.source.name;
+    if (this.isTitleTextMatched){
+      this.indexesToHighlight = this.item.highlight.name[0];
+    }
+  }
+
+  verifyTitleMatch(){
+    if (this.item.highlight != undefined && this.item.highlight.name != undefined && this.item.highlight.name[0].length == 2){
+      return true;
+    } else {
+      return false;
+    }
   }
 }

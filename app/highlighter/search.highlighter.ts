@@ -16,12 +16,12 @@ import {Component, Injectable, Input, OnInit} from '@angular/core';
     `],
     selector: 'search-text-highlighter',
     template: `
-    <div *ngIf="titleTextMatch">
+    <div *ngIf="isTitleTextMatched">
         <span>{{ leftSpanText }}</span>
         <span class="highlight">{{ middleSpanText }}</span>
         <span>{{ rightSpanText }}</span>
     </div>
-    <div *ngIf="!titleTextMatch">
+    <div *ngIf="!isTitleTextMatched">
         <span>{{ titleText }}</span> <span [style.display]="isChildMatch()" [ngClass]="'highlight-child'">{{ textToShowInChildMatch }}</span>
     </div>
     `,
@@ -32,7 +32,7 @@ export class Highlighter implements OnInit{
 
     @Input() titleText : string;
     @Input() indexesToHighlight : number[];  // Search engine returns an ARRAY of 2 - The 1st is the beginning of the highlight position, 2nd is the length of highlight
-    @Input() titleTextMatch: boolean;
+    @Input() isTitleTextMatched: boolean;
 
     highlightLength: number;
 
@@ -43,12 +43,12 @@ export class Highlighter implements OnInit{
     textToShowInChildMatch : string;
 
     constructor(){ 
-        this.titleTextMatch = false;
+        this.isTitleTextMatched = false;
         this.highlightLength = 0;
     }
 
     isChildMatch(){
-        if (this.titleTextMatch){
+        if (this.isTitleTextMatched){
             return "none";
         }
         else {
@@ -60,7 +60,11 @@ export class Highlighter implements OnInit{
         this.titleText = this.titleText;
         this.indexesToHighlight = this.indexesToHighlight;
 
-        if (this.titleTextMatch){
+        if (typeof this.titleText == 'object'){
+            this.titleText = this.titleText.join();
+        }
+
+        if (this.isTitleTextMatched){
 
             // In case of TITLE match
             this.highlightLength = this.indexesToHighlight[0] + this.indexesToHighlight[1];
