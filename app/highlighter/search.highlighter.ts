@@ -30,7 +30,7 @@ import {Component, Injectable, Input, OnInit} from '@angular/core';
 @Injectable()
 export class Highlighter implements OnInit{
 
-    @Input() titleText : string;
+    @Input() titleText : any;
     @Input() indexesToHighlight : number[];  // Search engine returns an ARRAY of 2 - The 1st is the beginning of the highlight position, 2nd is the length of highlight
     @Input() isTitleTextMatched: boolean;
 
