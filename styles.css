@@ -25,6 +25,17 @@ a {
 h1.loading {
   text-align: center; }
 
+.sub-items-list {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0px; }
+  .sub-items-list li + li::before {
+    content: ','; }
+
+.sub-item {
+  display: inline-block; }
+
 .headerBottomBorder {
   border-bottom: 1px solid #4A4A4A; }
 
