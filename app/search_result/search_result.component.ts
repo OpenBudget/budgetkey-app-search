@@ -78,7 +78,7 @@ export class SearchResultChangesComponent implements OnInit {
   constructor() {}
   ngOnInit() {
     this.details = 'לורם איפסום ' || this.item.source.title;
-    let parts = this.item.source.date.split('/');
+    let parts = (this.item.source.date ? this.item.source.date.split('/') : '--');
     this.date = new Date(parts[2], parts[1] - 1, parts[0]);
   }
 

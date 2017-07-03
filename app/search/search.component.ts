@@ -83,8 +83,6 @@ export class SearchComponent implements OnInit {
       this.term = term;
       this.searchTerms.next(term);
       this.allResults = [];
-      // this.displayDocs = 'all';
-      // this.currentDocs = 'all';
 
     } else {
       this.resultRenew = false;
@@ -97,6 +95,7 @@ export class SearchComponent implements OnInit {
    * the main method of the component
    * posts a new query
    */
+  
   doRequest(): Observable<SearchResults>{
     this.currentDocs = this.displayDocs;
 
@@ -127,6 +126,9 @@ export class SearchComponent implements OnInit {
     else if (category === 'contractspending') {
         category = 'contract-spending';
     }
+    else if (category === 'nationalbudgetchanges') {
+        category = 'national-budget-changes';
+    }
 
     if (this.term) {
       this.isSearching = true;
@@ -150,7 +152,8 @@ export class SearchComponent implements OnInit {
             for (let key in results) {
               if (key && key !== 'error') {
                 let tmpResults = results[key];
-                let tmpKey = key.replace('-', '');
+                let tmpKey = key.replace(/-/g, '');
+                console.log(tmpKey);
                 for (let item in tmpResults.docs) {
                     if (item) {
                       tmpResults.docs[item].type  = tmpKey;
