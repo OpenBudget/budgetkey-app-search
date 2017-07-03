@@ -22,7 +22,7 @@ h1 {
 a {
   text-decoration: none !important; }
 
-h1.loading {
+h1.status {
   text-align: center; }
 
 .sub-items-list {

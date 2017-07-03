@@ -16,9 +16,9 @@ budgetkey-container {
   .search_body{
     overflow-y: scroll;
     height: 60vh;
-  }  
-  .search_body::-webkit-scrollbar { 
-    display: none; 
+  }
+  .search_body::-webkit-scrollbar {
+    display: none;
     }
 }
 
@@ -31,7 +31,7 @@ a {
   text-decoration: none !important;
 }
 
-h1.loading{
+h1.status{
   text-align: center;
 }
 
@@ -121,7 +121,7 @@ search-result-budget {
     margin: 0;
     background: none;
   }
-  
+
   .header {
     background: transparentize(#777777, 0.8);
     border-top: solid 3px #777777;
@@ -211,7 +211,7 @@ search-result-changes {
   .header {
     padding: 10px 15px 0;
     > div {
-      border-bottom: dashed 1px $changes-color-secondary; 
+      border-bottom: dashed 1px $changes-color-secondary;
       padding-bottom: 10px;
     }
     .title{

@@ -1,29 +1,33 @@
 <div [ngClass]="{
   row : true,
   headerBottomBorder : headerBottomBorder}" >
+
     <div class="search-box input-group input-group-lg">
         <input #searchBox
                class="form-control"
                type="text"
                placeholder="חפשו במפתח"
                (keyup)="search(searchBox.value)"/>
+        <span *ngIf="isSearching" class="input-group-addon">
+          <i class="glyphicon glyphicon-refresh"></i>
+        </span>
         <span class="input-group-addon">
-            <i class="glyphicon glyphicon-search"></i>
+          <i class="glyphicon glyphicon-search"></i>
         </span>
     </div>
     <div class="search-filter">
       <ul class="row">
         <li class="active col-xs-3 col-md-2">
           <a href="#" (click)="resultTotal ? displayDocs  = 'all' : ''"
-              [class]= "displayDocs  === 'all' ? 'activeclass'  : ''" >הכל 
+              [class]= "displayDocs  === 'all' ? 'activeclass'  : ''" >הכל
             <span>
                 ({{resultTotal ? resultTotal.toLocaleString()  : '0'}})
             </span>
           </a>
         </li>
         <li class="active col-xs-3 col-md-2">
-          <a href="#" (click)="resultTotalCount.budget ? displayDocs  = 'budget' : '' " 
-            [class]= "displayDocs  === 'budget' ? 'activeclass'  : ''">סעיף תקציבי 
+          <a href="#" (click)="resultTotalCount.budget ? displayDocs  = 'budget' : '' "
+            [class]= "displayDocs  === 'budget' ? 'activeclass'  : ''">סעיף תקציבי
             <span>
                 ({{resultTotalCount.budget ? resultTotalCount.budget.toLocaleString()  : '0'}})
             </span>
@@ -31,7 +35,7 @@
         </li>
         <li class="active col-xs-3 col-md-2">
           <a href="#" (click)="resultTotalCount.entities ? displayDocs  = 'entities'  : '' "
-            [class]= "displayDocs  === 'entities' ? 'activeclass'  : ''">ארגון 
+            [class]= "displayDocs  === 'entities' ? 'activeclass'  : ''">ארגון
             <span>
                 ({{resultTotalCount.entities ? resultTotalCount.entities.toLocaleString()  : '0'}})
             </span>
@@ -39,15 +43,15 @@
         </li>
         <li class="active col-xs-3 col-md-2">
           <a href="#" (click)="resultTotalCount.changes ?  displayDocs  = 'changes' : ''"
-            [class]= "displayDocs  === 'changes' ? 'activeclass'  : ''" >העברה תקציבית  
+            [class]= "displayDocs  === 'changes' ? 'activeclass'  : ''" >העברה תקציבית
             <span>
                 ({{resultTotalCount.changes ? resultTotalCount.changes.toLocaleString()  : '0'}})
             </span>
           </a>
         </li>
         <li class="active col-xs-3 col-md-2">
-          <a href="#" (click)= "resultTotalCount.supports ? displayDocs  = 'supports' : ''" 
-            [class]= "displayDocs  === 'supports' ? 'activeclass'  : ''">תמיכה ממשלתית 
+          <a href="#" (click)= "resultTotalCount.supports ? displayDocs  = 'supports' : ''"
+            [class]= "displayDocs  === 'supports' ? 'activeclass'  : ''">תמיכה ממשלתית
             <span>
                 ({{resultTotalCount.supports ? resultTotalCount.supports.toLocaleString()  : '0'}})
             </span>
@@ -55,7 +59,7 @@
         </li>
         <li class="active col-xs-3 col-md-2">
           <a href="#"  (click)="resultTotalCount.contractspending ? displayDocs  = 'contractspending' : '' "
-            [class]= "displayDocs  === 'contractspending' ? 'activeclass'  : ''">רכש 
+            [class]= "displayDocs  === 'contractspending' ? 'activeclass'  : ''">רכש
             <span>
                 ({{resultTotalCount.contractspending ? resultTotalCount.contractspending.toLocaleString()  : '0'}})
             </span>
@@ -120,7 +124,7 @@
       <search-result-procurement [item]="item"></search-result-procurement>
     </div>
   </div>-->
-  <h1 class="loading">...LOADING</h1>
+  <h1 class="status">{{getStatusText()}}</h1>
 </div>
 
 

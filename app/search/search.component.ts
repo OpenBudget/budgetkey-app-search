@@ -30,8 +30,9 @@ export class SearchComponent implements OnInit {
   private pageSize: number; // how many records to load for each scroll
   private skip: number;  // how many records to skip from recently fetched query (when appending to the list)
   private fetchFlag: boolean ;
-  private resultRenew: boolean ; // 
+  private resultRenew: boolean ; //
   private headerBottomBorder: boolean;
+  private isSearching: boolean;
 
   constructor(private searchService: SearchService) {}
 
@@ -50,6 +51,7 @@ export class SearchComponent implements OnInit {
     this.resultRenew = false;
     this.allResults = [];
     this.headerBottomBorder = false;
+    this.isSearching = false;
     // ^ moved from constructor ^
 
     this.searchResults = this.searchTerms // open a stream
@@ -58,10 +60,14 @@ export class SearchComponent implements OnInit {
       .switchMap(() => this.doRequest())
       .catch(error => {
         // TODO: real error handling
+        this.isSearching = false;
         console.log(error);
         return Observable.of<SearchResults>(null);
       });
-    this.searchResults.subscribe((results) => { this.processResults(results); });
+    this.searchResults.subscribe((results) => {
+      this.isSearching = false;
+      this.processResults(results);
+    });
     this.search('חינוך'); // a default search query, to get things started..
   }
 
@@ -83,7 +89,7 @@ export class SearchComponent implements OnInit {
     } else {
       this.resultRenew = false;
       this.term = term;
-      this.searchTerms.next(term); 
+      this.searchTerms.next(term);
     }
   }
   /**
@@ -123,8 +129,10 @@ export class SearchComponent implements OnInit {
     }
 
     if (this.term) {
+      this.isSearching = true;
       return this.searchService.search(this.term, this.pageSize, this.skip, [category]);
     } else {
+      this.isSearching = false;
       return Observable.of<SearchResults>(null);
     }
   }
@@ -177,7 +185,7 @@ export class SearchComponent implements OnInit {
   /**
    * fetchMore()
    * when scrolling, appends more results to the list
-   * @param {number} term 
+   * @param {number} term
    */
   fetchMore(term: number): void {
     const div = document.body.getElementsByClassName('search_body')[0];
@@ -194,5 +202,15 @@ export class SearchComponent implements OnInit {
       this.searchTerms.next(this.term);
       console.log(this.allDocs.value.length);
     }
+  }
+
+  getStatusText() {
+    if (this.isSearching) {
+      return '...LOADING';
+    } else if (this.allResults.length === 0) {
+      return this.term ? 'NO RESULTS' : 'PLEASE SEARCH SOMETHING';
+    }
+
+    return '';
   }
 }
