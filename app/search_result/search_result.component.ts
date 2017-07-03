@@ -4,11 +4,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DocResultEntry } from '../_model/SearchResults';
 var _ = require("lodash");
+import {Highlighter} from "../highlighter/search.highlighter";
 
 // budget Component
 @Component({
     moduleId: module.id,
     selector: 'search-result-budget',
+    providers: [Highlighter],
     template: require('./search_result_budget.component.html!text'),
 })
 export class SearchResultBudgetComponent implements OnInit {
@@ -28,6 +30,11 @@ export class SearchResultBudgetComponent implements OnInit {
   yearRange: string;
   category: string;
 
+  // Vars for Highlight component
+  titleText: string;
+  indexesToHighlight: number[];
+  isTitleTextMatched: boolean;
+
   constructor() {}
   ngOnInit() {
     var source = this.item.source;
@@ -40,6 +47,19 @@ export class SearchResultBudgetComponent implements OnInit {
         '/main'].join();
     this.yearRange = [ _.get(_.keys(source.history), 0), source.year].join("-");
     this.category = SearchResultBudgetComponent.categoriesByNumberOfDigits[this.item.source.code.length - 2];
+     this.isTitleTextMatched = this.verifyTitleMatch();
+    this.titleText = this.item.source.title;
+    if (this.isTitleTextMatched){
+      this.indexesToHighlight = this.item.highlight.title[0];
+    }
+  }
+
+  verifyTitleMatch(){
+    if (this.item.highlight != undefined && this.item.highlight.title != undefined && this.item.highlight.title[0].length == 2){
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 
@@ -47,6 +67,7 @@ export class SearchResultBudgetComponent implements OnInit {
 @Component({
   moduleId: module.id,
   selector: 'search-result-changes',
+  providers: [Highlighter],
   template: require('./search_result_changes.component.html!text'),
 })
 export class SearchResultChangesComponent implements OnInit {
@@ -93,10 +114,29 @@ export class SearchResultProcurementComponent implements OnInit {
   @Input() item: DocResultEntry;
   details: string;
 
+  // Vars for Highlight component
+  titleText: string;
+  indexesToHighlight: number[];
+  isTitleTextMatched: boolean;
+
   constructor() {}
 
   ngOnInit() {
     this.details = 'לורם איפסום ' || this.item.source.title;
+
+    this.isTitleTextMatched = this.verifyTitleMatch();
+    this.titleText = this.item.source.supplier_name;
+    if (this.isTitleTextMatched){
+      this.indexesToHighlight = this.item.highlight.supplier_name[0];
+    }
+  }
+
+  verifyTitleMatch(){
+    if (this.item.highlight != undefined && this.item.highlight.supplier_name != undefined && this.item.highlight.supplier_name[0].length == 2){
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }
@@ -134,9 +174,29 @@ export class SearchResultEntitiesComponent implements OnInit {
   details: string;
   link: string;
 
+  // Vars for Highlight component
+  titleText: string;
+  indexesToHighlight: number[];
+  isTitleTextMatched: boolean;
+
   constructor() {}
   ngOnInit() {
+
     this.details = 'לורם איפסום ' || this.item.source.title;
     this.link = 'http://www.obudget.org/#entity/'+this.item.source.id  + '/2017/main';
+
+    this.isTitleTextMatched = this.verifyTitleMatch();
+    this.titleText = this.item.source.name;
+    if (this.isTitleTextMatched){
+      this.indexesToHighlight = this.item.highlight.name[0];
+    }
+  }
+
+  verifyTitleMatch(){
+    if (this.item.highlight != undefined && this.item.highlight.name != undefined && this.item.highlight.name[0].length == 2){
+      return true;
+    } else {
+      return false;
+    }
   }
 }
