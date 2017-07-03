@@ -122,12 +122,13 @@ export class SearchResultProcurementComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.details = 'לורם איפסום ' || this.item.source.title;
+    let item = this.item, source = item.source;
+    this.details = 'לורם איפסום ' || source.title;
 
     this.isTitleTextMatched = this.verifyTitleMatch();
-    this.titleText = this.item.source.supplier_name;
-    if (this.isTitleTextMatched){
-      this.indexesToHighlight = this.item.highlight.supplier_name[0];
+    this.titleText = source.entity_name || source.supplier_name;
+    if (this.isTitleTextMatched) {
+      this.indexesToHighlight = item.highlight.supplier_name[0];
     }
   }
 
