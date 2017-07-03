@@ -1,10 +1,15 @@
-## BudgetKey Search App
+# BudgetKey Search App
 
 This is the search interface budgetkey app.
 
-It currently can be accessed at [next.obudget.org/app/search](next.obudget.org/app/search).
+It currently can be accessed at http://next.obudget.org/app/search/
 
-**Basic functionality:**
+## Quick Start (Set up a dev server)
+1. Clone && cd into directory
+2. `npm install`
+3. `npm start`
+
+## Basic functionality: ##
 
 - It allows users to type in a free text query and get results from the Budget Key database.
 - Results are received from the Search API.
