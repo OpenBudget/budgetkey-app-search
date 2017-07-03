@@ -22,18 +22,18 @@ class KindResults {
 
 export class SearchResults {
   entities: KindResults;
-  exemption: KindResults;
+  exemptions: KindResults;
   budget: KindResults;
   supports: KindResults;
-  changes: KindResults;
+  nationalbudgetchanges: KindResults;
   procurement: KindResults;
 }
 
 export class SearchResultsCounter{
   entities:  number;
-  exemption: number;
+  exemptions: number;
   budget:    number;
   supports:  number;
-  changes:   number;
+  nationalbudgetchanges : number;
   contractspending: number;
 }

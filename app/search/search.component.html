@@ -38,8 +38,8 @@
           </a>
         </li>
         <li class="active col-xs-3 col-md-2">
-          <a href="#" (click)="resultTotalCount.changes ?  displayDocs  = 'changes' : ''"
-            [class]= "displayDocs  === 'changes' ? 'activeclass'  : ''" >העברה תקציבית  
+          <a href="#" (click)="resultTotalCount.nationalbudgetchanges ?  displayDocs  = 'changes' : ''"
+            [class]= "displayDocs  === 'nationalbudgetchanges' ? 'activeclass'  : ''" >העברה תקציבית  
             <span>
                 ({{resultTotalCount.changes ? resultTotalCount.changes.toLocaleString()  : '0'}})
             </span>
@@ -76,13 +76,13 @@
           <search-result-budget [item]="item"></search-result-budget>
       </div>
     </div>
-    <div *ngIf="item.type == 'changes' && (displayDocs === 'changes' || displayDocs  === 'all')">
+    <div *ngIf="item.type == 'nationalbudgetchanges' && (displayDocs === 'nationalbudgetchanges' || displayDocs  === 'all')">
           <search-result-changes [item]="item"></search-result-changes>
     </div>
     <div *ngIf="item.type == 'supports' && (displayDocs === 'supports' || displayDocs  === 'all')">
         <search-result-supports [item]="item"></search-result-supports>
     </div>
-    <div *ngIf="item.type == 'exemption' && (displayDocs === 'exemption' || displayDocs  === 'all')" id='view-test'>
+    <div *ngIf="item.type == 'exemptions' && (displayDocs === 'exemptions' || displayDocs  === 'all')" id='view-test'>
         <search-result-exemption [item]="item"></search-result-exemption>
     </div>
     <div *ngIf="item.type == 'contractspending' && (displayDocs === 'contractspending' || displayDocs  === 'all')">
