@@ -162,6 +162,7 @@ export class SearchComponent implements OnInit {
                 // console.log(tmpResults)
                 // var tmpDocs = tmpKey+'Docs';
                 if (this.resultRenew) {
+                  console.log(tmpResults.total_overall);
                   this.resultTotal += Number(tmpResults.total_overall);
                   this.resultTotalCount[tmpKey]   = Number(tmpResults.total_overall);
                   this.resultCurrentCount[tmpKey] = this.pageSize;
