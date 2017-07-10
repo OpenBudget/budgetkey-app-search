@@ -16,12 +16,12 @@ import {Component, Injectable, Input, OnInit} from '@angular/core';
     `],
     selector: 'search-text-highlighter',
     template: `
-    <div *ngIf="isTitleTextMatched">
+    <div *ngIf="isTitleTextMatched" style="display:inline-block">
         <span>{{ leftSpanText }}</span>
         <span class="highlight">{{ middleSpanText }}</span>
         <span>{{ rightSpanText }}</span>
     </div>
-    <div *ngIf="!isTitleTextMatched">
+    <div *ngIf="!isTitleTextMatched" style="display:inline-block">
         <span>{{ titleText }}</span> <span [style.display]="isChildMatch()" [ngClass]="'highlight-child'">{{ textToShowInChildMatch }}</span>
     </div>
     `,
