@@ -2,6 +2,11 @@
     margin: 20px;
 }
 
+.search-loader {
+  width: 18px;
+  height: 18px;
+}
+
 a.activeclass {
     color: #F00 !important;
 }

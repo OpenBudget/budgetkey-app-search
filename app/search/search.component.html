@@ -8,11 +8,9 @@
                type="text"
                placeholder="חפשו במפתח"
                (keyup)="search(searchBox.value)"/>
-        <span *ngIf="isSearching" class="input-group-addon">
-          <i class="glyphicon glyphicon-refresh"></i>
-        </span>
         <span class="input-group-addon">
-          <i class="glyphicon glyphicon-search"></i>
+          <i *ngIf="!isSearching" class="glyphicon glyphicon-search"></i>
+          <img *ngIf="isSearching" class="search-loader" src="../../assets/img/loader.svg" />
         </span>
     </div>
     <div class="search-filter">
@@ -43,7 +41,7 @@
         </li>
         <li class="active col-xs-3 col-md-2">
           <a href="#" (click)="resultTotalCount.nationalbudgetchanges ?  displayDocs  = 'nationalbudgetchanges' : ''"
-            [class]= "displayDocs  === 'nationalbudgetchanges' ? 'activeclass'  : ''" >העברה תקציבית  
+            [class]= "displayDocs  === 'nationalbudgetchanges' ? 'activeclass'  : ''" >העברה תקציבית
             <span>
                 ({{resultTotalCount.nationalbudgetchanges ? resultTotalCount.nationalbudgetchanges.toLocaleString()  : '0'}})
             </span>
