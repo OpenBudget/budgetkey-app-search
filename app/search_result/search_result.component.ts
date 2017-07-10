@@ -104,6 +104,31 @@ export class SearchResultExemptionComponent implements OnInit {
   }
 }
 
+function isHighlightValid(highlightArray: number[]) {
+  return (_.size(highlightArray) === 2);
+}
+
+function attrToParams(item: object, attr: string) {
+  let highlightIndexes = _.get(item, ['highlight', attr, 0]),
+    areIndexesValid = isHighlightValid(highlightIndexes);
+  return {
+    titleText: _.get(item, ['source', attr]),
+    isTitleTextMatched: areIndexesValid,
+    indexesToHighlight: areIndexesValid ? highlightIndexes : null
+  };
+}
+
+function searchResultsTemplateParams(item: object) {
+  let titleAttrs = ['entity_name', 'supplier_name'];
+  return _.merge({
+    details: 'לורם איפסום ' || _.get(item, ['source', 'title'])
+  },
+    titleAttrs.
+      map(_.partial(attrToParams, item)).
+      filter(_.property('isTitleTextMatched'))[0]
+  );
+}
+
 // procurement Component
 @Component({
   moduleId: module.id,
@@ -122,24 +147,7 @@ export class SearchResultProcurementComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    let item = this.item, source = item.source;
-    this.details = 'לורם איפסום ' || source.title;
-
-    this.isTitleTextMatched = this.verifyTitleMatch();
-    this.titleText = source.entity_name || source.supplier_name;
-    if (this.isTitleTextMatched) {
-      this.indexesToHighlight = item.highlight.supplier_name[0];
-    }
-  }
-
-  verifyTitleMatch() {
-    if (this.item.highlight !== undefined &&
-        this.item.highlight.supplier_name !== undefined &&
-        this.item.highlight.supplier_name[0].length === 2) {
-      return true;
-    } else {
-      return false;
-    }
+    _.assign(this, searchResultsTemplateParams(this.item));
   }
 
 }
