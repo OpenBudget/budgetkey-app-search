@@ -7,6 +7,10 @@
   height: 18px;
 }
 
+.search-icon {
+  cursor: pointer;
+}
+
 a.activeclass {
     color: #F00 !important;
 }

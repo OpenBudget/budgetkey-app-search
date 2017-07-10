@@ -77,6 +77,7 @@ export class SearchComponent implements OnInit {
    * Push a search term into the observable stream.
    */
   search(term: string): void { // keyUp()
+    this.isSearching = true;
     if (this.term !== term) { // initiate a new search
       this.pageSize = 10;
       this.skip = -10;

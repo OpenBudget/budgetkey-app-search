@@ -9,7 +9,7 @@
                placeholder="חפשו במפתח"
                (keyup)="search(searchBox.value)"/>
         <span class="input-group-addon">
-          <i *ngIf="!isSearching" class="glyphicon glyphicon-search"></i>
+          <i *ngIf="!isSearching" [ngClass]="['glyphicon', 'glyphicon-search', term ? 'search-icon' : '']" (click)="term ? search(term) : undefined"></i>
           <img *ngIf="isSearching" class="search-loader" src="assets/img/loader.svg" />
         </span>
     </div>
