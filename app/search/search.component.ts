@@ -33,6 +33,7 @@ export class SearchComponent implements OnInit {
   private resultRenew: boolean ; //
   private headerBottomBorder: boolean;
   private isSearching: boolean;
+  private isErrorInLastSearch: boolean;
 
   constructor(private searchService: SearchService) {}
 
@@ -52,6 +53,7 @@ export class SearchComponent implements OnInit {
     this.allResults = [];
     this.headerBottomBorder = false;
     this.isSearching = false;
+    this.isErrorInLastSearch = false;
     // ^ moved from constructor ^
 
     this.searchResults = this.searchTerms // open a stream
@@ -59,9 +61,9 @@ export class SearchComponent implements OnInit {
       // .distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap(() => this.doRequest())
       .catch(error => {
-        // TODO: real error handling
         this.isSearching = false;
-        console.log(error);
+        this.isErrorInLastSearch = true;
+        console.log('Error while searching:', error);
         return Observable.of<SearchResults>(null);
       });
     this.searchResults.subscribe((results) => {
@@ -95,7 +97,7 @@ export class SearchComponent implements OnInit {
    * the main method of the component
    * posts a new query
    */
-  
+
   doRequest(): Observable<SearchResults>{
     this.currentDocs = this.displayDocs;
 
@@ -132,6 +134,7 @@ export class SearchComponent implements OnInit {
 
     if (this.term) {
       this.isSearching = true;
+      this.isErrorInLastSearch = false;
       return this.searchService.search(this.term, this.pageSize, this.skip, [category]);
     } else {
       this.isSearching = false;
@@ -146,7 +149,7 @@ export class SearchComponent implements OnInit {
   processResults(results: SearchResults): void {
        console.log('results: '   , results);
         if (results) {
-          if (this.resultRenew){
+          if (this.resultRenew) {
             this.resultTotal = 0;
           }
             for (let key in results) {
@@ -210,9 +213,11 @@ export class SearchComponent implements OnInit {
 
   getStatusText() {
     if (this.isSearching) {
-      return '...LOADING';
+      return 'טוען...';
+    } else if (this.isErrorInLastSearch) {
+      return 'אירעה שגיאה בחיפוש, נסה שוב';
     } else if (this.allResults.length === 0) {
-      return this.term ? 'NO RESULTS' : 'PLEASE SEARCH SOMETHING';
+      return this.term ? 'אין תוצאות' : 'שורת החיפוש ריקה. בצע חיפוש כלשהו';
     }
 
     return '';

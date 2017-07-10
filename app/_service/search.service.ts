@@ -17,12 +17,12 @@ export class SearchService {
   constructor(private http: Http) {}
   /**
    * search()
-   * 
+   *
    * @param {string} term      - new search term
    * @param {Number} pageSize  - how many records to return
    * @param {Number} pageNumber - how many pages to skip?
    * @param {Array<string>} kindsList - category to query - specific or all
-   * @returns {Observable<SearchResults>} 
+   * @returns {Observable<SearchResults>}
    */
 
   search(term: string, pageSize: Number, pageNumber: Number, kindsList: Array<string> ): Observable<SearchResults> {
@@ -34,10 +34,6 @@ export class SearchService {
           let endTime = new Date();
           console.log('req time: ', (endTime.getTime()  - startTime.getTime()) / 1000, 'sec');
           return r.json() as SearchResults;
-      })
-      .catch((e, _) => {
-        console.log('Failed to perform request', e);
-        return Observable.of<SearchResults>(null);
       });
   }
 
