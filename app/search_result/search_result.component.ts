@@ -3,15 +3,15 @@
  */
 import { Component, Input, OnInit } from '@angular/core';
 import { DocResultEntry } from '../_model/SearchResults';
-var _ = require("lodash");
-import {Highlighter} from "../highlighter/search.highlighter";
+let _ = require('lodash');
+import { Highlighter } from '../highlighter/search.highlighter';
 
 // budget Component
 @Component({
-    moduleId: module.id,
-    selector: 'search-result-budget',
-    providers: [Highlighter],
-    template: require('./search_result_budget.component.html!text'),
+  moduleId: module.id,
+  selector: 'search-result-budget',
+  providers: [Highlighter],
+  template: require('./search_result_budget.component.html!text'),
 })
 export class SearchResultBudgetComponent implements OnInit {
   static readonly categoriesByNumberOfDigits = {
@@ -35,27 +35,27 @@ export class SearchResultBudgetComponent implements OnInit {
   indexesToHighlight: number[];
   isTitleTextMatched: boolean;
 
-  constructor() {}
+  constructor() { }
   ngOnInit() {
-    var source = this.item.source;
+    let source = this.item.source;
     this.details = 'לורם איפסום ' || source.title;
     this.changePerc = source.net_revised * 100 / source.net_allocated;
     this.link = ['http://www.obudget.org/#budget/',
-        source.code.slice(2, 10),
-        '/',
-        source.year,
-        '/main'].join();
-    this.yearRange = [ _.get(_.keys(source.history), 0), source.year].join("-");
+      source.code.slice(2, 10),
+      '/',
+      source.year,
+      '/main'].join();
+    this.yearRange = [_.get(_.keys(source.history), 0), source.year].join('-');
     this.category = SearchResultBudgetComponent.categoriesByNumberOfDigits[this.item.source.code.length - 2];
-     this.isTitleTextMatched = this.verifyTitleMatch();
+    this.isTitleTextMatched = this.verifyTitleMatch();
     this.titleText = this.item.source.title;
-    if (this.isTitleTextMatched){
+    if (this.isTitleTextMatched) {
       this.indexesToHighlight = this.item.highlight.title[0];
     }
   }
 
-  verifyTitleMatch(){
-    if (this.item.highlight != undefined && this.item.highlight.title != undefined && this.item.highlight.title[0].length == 2){
+  verifyTitleMatch() {
+    if (this.item.highlight !== undefined && this.item.highlight.title !== undefined && this.item.highlight.title[0].length === 2) {
       return true;
     } else {
       return false;
@@ -75,7 +75,7 @@ export class SearchResultChangesComponent implements OnInit {
   details: string;
   date: Date;
 
-  constructor() {}
+  constructor() { }
   ngOnInit() {
     this.details = 'לורם איפסום ' || this.item.source.title;
     //let parts = (this.item.source.date ? this.item.source.date.split('/') : '--');
@@ -96,12 +96,37 @@ export class SearchResultExemptionComponent implements OnInit {
   entity_link: string;
   valid_link: boolean;
 
-  constructor() {}
+  constructor() { }
   ngOnInit() {
     this.details = 'לורם איפסום ' || this.item.source.title;
-    this.entity_link = 'http://www.obudget.org/#entity/'+this.item.source.entity_id  +'/2017/main' ;
+    this.entity_link = 'http://www.obudget.org/#entity/' + this.item.source.entity_id + '/2017/main';
     this.valid_link = this.item.source.entity_id !== null ? true : false;
   }
+}
+
+function isHighlightValid(highlightArray: number[]) {
+  return (_.size(highlightArray) === 2);
+}
+
+function attrToParams(item: object, attr: string) {
+  let highlightIndexes = _.get(item, ['highlight', attr, 0]),
+    areIndexesValid = isHighlightValid(highlightIndexes);
+  return {
+    titleText: _.get(item, ['source', attr]),
+    isTitleTextMatched: areIndexesValid,
+    indexesToHighlight: areIndexesValid ? highlightIndexes : null
+  };
+}
+
+function searchResultsTemplateParams(item: object) {
+  let titleAttrs = ['entity_name', 'supplier_name'];
+  return _.merge({
+    details: 'לורם איפסום ' || _.get(item, ['source', 'title'])
+  },
+    titleAttrs.
+      map(_.partial(attrToParams, item)).
+      filter(_.property('isTitleTextMatched'))[0]
+  );
 }
 
 // procurement Component
@@ -119,24 +144,10 @@ export class SearchResultProcurementComponent implements OnInit {
   indexesToHighlight: number[];
   isTitleTextMatched: boolean;
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
-    this.details = 'לורם איפסום ' || this.item.source.title;
-
-    this.isTitleTextMatched = this.verifyTitleMatch();
-    this.titleText = this.item.source.supplier_name;
-    if (this.isTitleTextMatched){
-      this.indexesToHighlight = this.item.highlight.supplier_name[0];
-    }
-  }
-
-  verifyTitleMatch(){
-    if (this.item.highlight != undefined && this.item.highlight.supplier_name != undefined && this.item.highlight.supplier_name[0].length == 2){
-      return true;
-    } else {
-      return false;
-    }
+    _.assign(this, searchResultsTemplateParams(this.item));
   }
 
 }
@@ -151,14 +162,14 @@ export class SearchResultSupportsComponent implements OnInit {
   @Input() item: DocResultEntry;
   details: string;
   link: string;
-  entity_link:  string;
+  entity_link: string;
 
-  constructor() {}
+  constructor() { }
   ngOnInit() {
     this.details = 'לורם איפסום ' || this.item.source.title;
-    this.link = 'http://www.obudget.org/#budget/'+this.item.source.code.slice(2,10) +'/'+
-                this.item.source.year + '/main';
-    this.entity_link =  'http://www.obudget.org/#entity/'+this.item.source.entity_id  + '/2017/main';
+    this.link = 'http://www.obudget.org/#budget/' + this.item.source.code.slice(2, 10) + '/' +
+      this.item.source.year + '/main';
+    this.entity_link = 'http://www.obudget.org/#entity/' + this.item.source.entity_id + '/2017/main';
   }
 
 }
@@ -179,21 +190,21 @@ export class SearchResultEntitiesComponent implements OnInit {
   indexesToHighlight: number[];
   isTitleTextMatched: boolean;
 
-  constructor() {}
+  constructor() { }
   ngOnInit() {
 
     this.details = 'לורם איפסום ' || this.item.source.title;
-    this.link = 'http://www.obudget.org/#entity/'+this.item.source.id  + '/2017/main';
+    this.link = 'http://www.obudget.org/#entity/' + this.item.source.id + '/2017/main';
 
     this.isTitleTextMatched = this.verifyTitleMatch();
     this.titleText = this.item.source.name;
-    if (this.isTitleTextMatched){
+    if (this.isTitleTextMatched) {
       this.indexesToHighlight = this.item.highlight.name[0];
     }
   }
 
-  verifyTitleMatch(){
-    if (this.item.highlight != undefined && this.item.highlight.name != undefined && this.item.highlight.name[0].length == 2){
+  verifyTitleMatch() {
+    if (this.item.highlight !== undefined && this.item.highlight.name !== undefined && this.item.highlight.name[0].length === 2) {
       return true;
     } else {
       return false;
