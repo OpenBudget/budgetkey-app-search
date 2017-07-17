@@ -29,11 +29,11 @@ export class SearchResults {
   procurement: KindResults;
 }
 
-export class SearchResultsCounter{
+export class SearchResultsCounter {
   entities:  number;
   exemptions: number;
   budget:    number;
   supports:  number;
-  nationalbudgetchanges : number;
+  nationalbudgetchanges: number;
   contractspending: number;
 }

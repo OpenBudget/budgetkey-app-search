@@ -4,7 +4,7 @@ import { Colors } from './_config/config';
 @Component({
   selector: 'my-app',
   encapsulation: ViewEncapsulation.None,
-  styles: [ require('styles.css!text') ],
-  template: require('./app.component.html!text'),
+  styles: [ require('./styles.scss') ],
+  template: require('./app.component.html'),
 })
 export class AppComponent  { }

@@ -43,7 +43,7 @@ h1.status{
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 0px;
+  padding: 0;
   li+li::before {
     content: ',';
   }
@@ -127,11 +127,11 @@ search-result-budget {
     border-top: solid 3px #777777;
     color: #777777;
     font-weight: 700;
-    margin: 0px;
+    margin: 0;
     .code {
       font-size: 1.4rem;
       font-weight: 400;
-      margin-left: 0px;
+      margin-left: 0;
       line-height: 3.6rem;
     }
     .title {
@@ -150,7 +150,7 @@ search-result-budget {
     }
     .amount {
       text-align: left;
-      padding: 0px 0 5px 10px;
+      padding: 0 0 5px 10px;
       display: block;
       font-weight: 700;
       font-size: 1.6em;
@@ -258,13 +258,14 @@ search-result-changes {
       transform: rotate(5deg);
       opacity: .5;
       span{
-        border: 1px solid  $changes-color-secondary;
+        border-color: $changes-color-secondary;
+        border-style: solid;
+        border-width: 1px 0;
         color: $changes-color-secondary;
         font-weight: 700;
         display: block;
         text-align: center;
         width: 100%;
-        border-width: 1px 0;
       }
   }
 }
@@ -341,7 +342,7 @@ $expense-color-bg: #F3F8FD;
     .amount {
       float: left;
       text-align: left;
-      padding: 0px 0 5px 10px;
+      padding: 0 0 5px 10px;
       display: block;
       font-weight: 700;
       font-size: 1.6em;
@@ -350,8 +351,8 @@ $expense-color-bg: #F3F8FD;
   }
   .description {
     background: #FFFFFF;
-    border: 1px solid $expense-color-secondary;
-    color:$expense-color-secondary;
+    border-style: solid;
+    border-color: $expense-color-secondary;
     border-width: 1px 1px 0 0;
     box-shadow: inset 0 1px 0 0 #FFFFFF;
     padding: 5px 5px 5px 50px;
@@ -374,13 +375,14 @@ $expense-color-bg: #F3F8FD;
       transform: rotate(5deg);
       opacity: .5;
       span{
-        border: 1px solid $expense-color-secondary;
+        border-style: solid;
+        border-color: $expense-color-secondary;
+        border-width: 1px 0;
         color: $expense-color-secondary;
         font-weight: 700;
         display: block;
         text-align: center;
         width: 100%;
-        border-width: 1px 0;
       }
     }
   }
@@ -496,7 +498,8 @@ search-result-supports {
           display: inline-block;
           border-radius: 3px 2px 0 0;
           background: $entity-color-bg;
-          border: 1px solid $entity-color-border;
+          border-style: solid;
+          border-color: $entity-color-border;
           border-width: 1px 1px 0 0;
           padding: 10px 10px 7px;
           position: relative;
@@ -642,7 +645,8 @@ search-result-supports {
             margin: -7px 0 -12px 10px;
             div {
               background: $entity-color-bg;
-              border: 1px solid $entity-color-border;
+              border-style: solid;
+              border-color: $entity-color-border;
               border-width: 1px 1px 0;
             }
           }

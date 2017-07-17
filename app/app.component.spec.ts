@@ -1,8 +1,23 @@
-import { AppComponent } from './app.component';
+import 'karma-test-shim';
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By }           from '@angular/platform-browser';
+import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { AppComponent }  from './app.component';
+import { HttpModule } from '@angular/http';
+import { SearchService } from './_service/search.service';
+import { SearchComponent } from './search/search.component';
+
+import { BudgetKeyCommonModule } from 'budgetkey-ng2-components';
+import { SearchResultBudgetComponent } from './search_result/search_result.component';
+import { SearchResultChangesComponent } from './search_result/search_result.component';
+import { SearchResultExemptionComponent } from './search_result/search_result.component';
+import { SearchResultProcurementComponent } from './search_result/search_result.component';
+import { SearchResultSupportsComponent } from './search_result/search_result.component';
+import { SearchResultEntitiesComponent } from './search_result/search_result.component';
+
+import { Highlighter } from './highlighter/search.highlighter';
 
 describe('AppComponent', function () {
   let de: DebugElement;
@@ -10,8 +25,25 @@ describe('AppComponent', function () {
   let fixture: ComponentFixture<AppComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ AppComponent ]
+    return TestBed.configureTestingModule({
+      imports: [
+        HttpModule,
+        BudgetKeyCommonModule
+      ],
+      declarations: [
+        AppComponent,
+        SearchComponent,
+        SearchResultBudgetComponent,
+        SearchResultChangesComponent,
+        SearchResultExemptionComponent,
+        SearchResultProcurementComponent,
+        SearchResultSupportsComponent,
+        SearchResultEntitiesComponent,
+        Highlighter
+      ],
+      providers: [
+        SearchService
+      ],
     })
     .compileComponents();
   }));
@@ -23,11 +55,4 @@ describe('AppComponent', function () {
   });
 
   it('should create component', () => expect(comp).toBeDefined() );
-
-  it('should have expected <h1> text', () => {
-    fixture.detectChanges();
-    const h1 = de.nativeElement;
-    expect(h1.innerText).toMatch(/angular/i,
-      '<h1> should say something about "Angular"');
-  });
 });
