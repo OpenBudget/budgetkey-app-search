@@ -2,13 +2,12 @@
 import {Component, Injectable, Input, OnInit} from '@angular/core';
 
 @Component({
-    moduleId: module.id,
-    styles:[`
-    .highlight{
+    styles: [`
+    .highlight {
         background-color: yellow;
         display: inline-block !important;
     }
-    .highlight-child{
+    .highlight-child {
         font-size: 13px !important;
         display: inline-block !important;
         font-weight: normal !important;
@@ -22,38 +21,40 @@ import {Component, Injectable, Input, OnInit} from '@angular/core';
         <span>{{ rightSpanText }}</span>
     </div>
     <div *ngIf="!isTitleTextMatched" style="display:inline-block">
-        <span>{{ titleText }}</span> <span [style.display]="isChildMatch()" [ngClass]="'highlight-child'">{{ textToShowInChildMatch }}</span>
+        <span>{{ titleText }}</span> 
+        <span [style.display]="isChildMatch()" [ngClass]="'highlight-child'">{{ textToShowInChildMatch }}</span>
     </div>
     `,
 })
 
 @Injectable()
-export class Highlighter implements OnInit{
+export class Highlighter implements OnInit {
 
 
-    @Input() titleText : any;
-    @Input() indexesToHighlight : number[];  // Search engine returns an ARRAY of 2 - The 1st is the beginning of the highlight position, 2nd is the length of highlight
+    @Input() titleText: any;
+    // Search engine returns an ARRAY of 2 - The 1st is the beginning of the highlight position,
+    // 2nd is the length of highlight
+    @Input() indexesToHighlight: number[];
     @Input() isTitleTextMatched: boolean;
 
     highlightLength: number;
 
-    leftSpanText : string;
-    middleSpanText : string;
-    rightSpanText : string;
+    leftSpanText: string;
+    middleSpanText: string;
+    rightSpanText: string;
 
-    textToShowInChildMatch : string;
+    textToShowInChildMatch: string;
 
-    constructor(){ 
+    constructor() {
         this.isTitleTextMatched = false;
         this.highlightLength = 0;
     }
 
-    isChildMatch(){
-        if (this.isTitleTextMatched){
-            return "none";
-        }
-        else {
-            return "block";
+    isChildMatch() {
+        if (this.isTitleTextMatched) {
+            return 'none';
+        } else {
+            return 'block';
         }
     }
 
@@ -61,11 +62,11 @@ export class Highlighter implements OnInit{
         this.titleText = this.titleText;
         this.indexesToHighlight = this.indexesToHighlight;
 
-        if (typeof this.titleText == 'object'){
+        if (typeof this.titleText === 'object') {
             this.titleText = this.titleText.join();
         }
 
-        if (this.isTitleTextMatched){
+        if (this.isTitleTextMatched) {
 
             // In case of TITLE match
             this.highlightLength = this.indexesToHighlight[0] + this.indexesToHighlight[1];
@@ -76,7 +77,7 @@ export class Highlighter implements OnInit{
         } else {
 
             // In case of CHILD match
-            this.textToShowInChildMatch = "נמצאה התאמה בנתונים פנימיים"; //debugger;
+            this.textToShowInChildMatch = 'נמצאה התאמה בנתונים פנימיים'; // debugger;
 
         }
 

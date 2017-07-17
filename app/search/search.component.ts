@@ -9,10 +9,9 @@ import { SearchService }     from '../_service/search.service';
 import { SearchResults, DocResultEntry, SearchResultsCounter} from '../_model/SearchResults';
 
 @Component({
-    moduleId: module.id,
     selector: 'budget-search',
-    template: require('./search.component.html!text'),
-    styles: [ require('./search.component.css!text') ],
+    template: require('./search.component.html'),
+    styles: [ require('./search.component.css') ],
     providers: [ SearchService ]
 })
 export class SearchComponent implements OnInit {
@@ -40,7 +39,7 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this.searchTerms = new Subject<string>();
     this.allDocs     = new BehaviorSubject<DocResultEntry[]>([]);
-    this.allResults  = new Array;
+    this.allResults  = [];
     this.resultTotal = 0;
     this.resultTotalCount   = new SearchResultsCounter();
     this.resultCurrentCount = new SearchResultsCounter();
@@ -99,7 +98,7 @@ export class SearchComponent implements OnInit {
    * posts a new query
    */
 
-  doRequest(): Observable<SearchResults>{
+  doRequest(): Observable<SearchResults> {
     this.currentDocs = this.displayDocs;
 
     let maxRecords = 0;
@@ -123,13 +122,11 @@ export class SearchComponent implements OnInit {
     }
 
     let category = this.currentDocs;
-    if (this.resultRenew){
+    if (this.resultRenew) {
       category = 'all';
-    }
-    else if (category === 'contractspending') {
+    } else if (category === 'contractspending') {
         category = 'contract-spending';
-    }
-    else if (category === 'nationalbudgetchanges') {
+    } else if (category === 'nationalbudgetchanges') {
         category = 'national-budget-changes';
     }
 
@@ -182,7 +179,7 @@ export class SearchComponent implements OnInit {
           //           return a;
           //           },[]);
           // this.allResults = uniq;
-          this.allDocs.next(this.allResults)
+          this.allDocs.next(this.allResults);
           this.fetchFlag   = true;
           this.resultRenew = false;
         } else {
@@ -200,11 +197,11 @@ export class SearchComponent implements OnInit {
     this.headerBottomBorder  = true;
     const cur = div.scrollTop;
     const divHeight = div.scrollHeight;
-    if (this.currentDocs !== this.displayDocs){
+    if (this.currentDocs !== this.displayDocs) {
       this.currentDocs = this.displayDocs;
       this.fetchFlag   = true;
     }
-    if (cur > 0.3 * divHeight && this.fetchFlag){
+    if (cur > 0.3 * divHeight && this.fetchFlag) {
       this.fetchFlag = false;
       // this.pageSize += 10;
       this.searchTerms.next(this.term);

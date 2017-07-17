@@ -8,10 +8,9 @@ import { Highlighter } from '../highlighter/search.highlighter';
 
 // budget Component
 @Component({
-  moduleId: module.id,
   selector: 'search-result-budget',
   providers: [Highlighter],
-  template: require('./search_result_budget.component.html!text'),
+  template: require('./search_result_budget.component.html'),
 })
 export class SearchResultBudgetComponent implements OnInit {
   static readonly categoriesByNumberOfDigits = {
@@ -55,20 +54,19 @@ export class SearchResultBudgetComponent implements OnInit {
   }
 
   verifyTitleMatch() {
-    if (this.item.highlight !== undefined && this.item.highlight.title !== undefined && this.item.highlight.title[0].length === 2) {
-      return true;
-    } else {
-      return false;
-    }
+    return (
+      (this.item.highlight !== undefined) &&
+      (this.item.highlight.title !== undefined) &&
+      (this.item.highlight.title[0].length === 2)
+    );
   }
 }
 
 // Changes Component
 @Component({
-  moduleId: module.id,
   selector: 'search-result-changes',
   providers: [Highlighter],
-  template: require('./search_result_changes.component.html!text'),
+  template: require('./search_result_changes.component.html'),
 })
 export class SearchResultChangesComponent implements OnInit {
   @Input() item: DocResultEntry;
@@ -78,17 +76,16 @@ export class SearchResultChangesComponent implements OnInit {
   constructor() { }
   ngOnInit() {
     this.details = 'לורם איפסום ' || this.item.source.title;
-    //let parts = (this.item.source.date ? this.item.source.date.split('/') : '--');
-    //this.date = new Date(parts[2], parts[1] - 1, parts[0]);
+    // let parts = (this.item.source.date ? this.item.source.date.split('/') : '--');
+    // this.date = new Date(parts[2], parts[1] - 1, parts[0]);
   }
 
 }
 
 // exemption Component
 @Component({
-  moduleId: module.id,
   selector: 'search-result-exemption',
-  template: require('./search_result_exemption.component.html!text'),
+  template: require('./search_result_exemption.component.html'),
 })
 export class SearchResultExemptionComponent implements OnInit {
   @Input() item: DocResultEntry;
@@ -100,7 +97,7 @@ export class SearchResultExemptionComponent implements OnInit {
   ngOnInit() {
     this.details = 'לורם איפסום ' || this.item.source.title;
     this.entity_link = 'http://www.obudget.org/#entity/' + this.item.source.entity_id + '/2017/main';
-    this.valid_link = this.item.source.entity_id !== null ? true : false;
+    this.valid_link = this.item.source.entity_id !== null;
   }
 }
 
@@ -131,9 +128,8 @@ function searchResultsTemplateParams(item: object) {
 
 // procurement Component
 @Component({
-  moduleId: module.id,
   selector: 'search-result-procurement',
-  template: require('./search_result_procurement.component.html!text'),
+  template: require('./search_result_procurement.component.html'),
 })
 export class SearchResultProcurementComponent implements OnInit {
   @Input() item: DocResultEntry;
@@ -154,9 +150,8 @@ export class SearchResultProcurementComponent implements OnInit {
 
 // supports Component
 @Component({
-  moduleId: module.id,
   selector: 'search-result-supports',
-  template: require('./search_result_supports.component.html!text'),
+  template: require('./search_result_supports.component.html'),
 })
 export class SearchResultSupportsComponent implements OnInit {
   @Input() item: DocResultEntry;
@@ -176,9 +171,8 @@ export class SearchResultSupportsComponent implements OnInit {
 
 // entities Component
 @Component({
-  moduleId: module.id,
   selector: 'search-result-entities',
-  template: require('./search_result_entities.component.html!text'),
+  template: require('./search_result_entities.component.html'),
 })
 export class SearchResultEntitiesComponent implements OnInit {
   @Input() item: DocResultEntry;
@@ -204,10 +198,10 @@ export class SearchResultEntitiesComponent implements OnInit {
   }
 
   verifyTitleMatch() {
-    if (this.item.highlight !== undefined && this.item.highlight.name !== undefined && this.item.highlight.name[0].length === 2) {
-      return true;
-    } else {
-      return false;
-    }
+    return (
+      (this.item.highlight !== undefined) &&
+      (this.item.highlight.name !== undefined) &&
+      (this.item.highlight.name[0].length === 2)
+    );
   }
 }
