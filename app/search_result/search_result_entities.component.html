@@ -23,7 +23,7 @@
           {{item.source.details.last_report_year ? item.source.details.last_report_year.toString() : 'today'}} -
         </span>
         <span class="amount">
-          {{item.source.received_amount ? item.source.received_amount.toLocaleString() + " ₪" : '[amount-recieved]'}}
+          {{item.source.received_amount  ? item.source.received_amount.toLocaleString() + " ₪" : '[amount-recieved]'}}
         </span>
       </div>
     </div>
@@ -156,7 +156,6 @@
           (item.source.kind=="municipal_parties" ? "רשות מוניציפלית" :
           (item.source.kind=="ottoman-association" ? "אגודה עותמאנית":
           (item.source.kind=="conurbation" ? "עיירות":
-          (item.source.kind=="government_office" ? "משרד ממשלתי":
           (item.source.kind=="foreign_representative" ? 'ייצוג-חו\"ל': '[--]'))))): '[--]'}}</span>
         #{{item.source.id}}
       </div>
