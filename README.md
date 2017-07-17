@@ -19,3 +19,4 @@ It currently can be accessed at http://next.obudget.org/app/search/
 Design mockups can be seen in issue [#1](https://github.com/OpenBudget/budgetkey-app-search/issues/1).
 
 Before starting, take a peek in our [documentation](https://github.com/OpenBudget/BudgetKey/blob/master/README.md)
+
