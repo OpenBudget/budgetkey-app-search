@@ -162,8 +162,14 @@ export class SearchResultSupportsComponent implements OnInit {
   constructor() { }
   ngOnInit() {
     this.details = 'לורם איפסום ' || this.item.source.title;
-    this.link = 'http://www.obudget.org/#budget/' + this.item.source.code.slice(2, 10) + '/' +
-      this.item.source.year + '/main';
+    // console.log(this.item.source.budget_code)
+    // if (this.item.source.budget_code){
+    //   this.link = 'http://www.obudget.org/#budget/' + this.item.source.budget_code + '/' +
+    //     this.item.source.year_requested + '/main';
+    // }
+    // else{
+    //   this.link = '';
+    // }
     this.entity_link = 'http://www.obudget.org/#entity/' + this.item.source.entity_id + '/2017/main';
   }
 
