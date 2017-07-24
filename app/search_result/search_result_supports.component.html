@@ -3,34 +3,19 @@
   <div class="search-result-type">תמיכה ממשלתית</div>
   <div class="header row">
     <div class="col-md-8">
-      <!-- <span class="meta"><span class="date">17.2.2014</span> — ע״י משרד המשפטים על סמך מכרז סגור</span> -->
-    <ol class="breadcrumb">
-      <li>{{item.source.year}}</li>
-      <li>[waiting for adam to implant heirarchy]</li>
-      <li>...</li>
-    </ol>
+      <ol class="breadcrumb">
+        <li>2014</li>
+        <li>[מחכים לאדם שיממש את ההיררכיה]</li>
+        <li>...</li>
+      </ol>
       <h3 class="title">
-        <strong><a [attr.href]="link" target="_blank">
-        <span class="code">
-        <span>{{item.source.budget_code.slice(2,4) ? item.source.budget_code.slice(2,4).toLocaleString() : ''}}</span
-        ><span>{{item.source.budget_code.slice(4,6) ? '.'+ item.source.budget_code.slice(4,6).toLocaleString() : ''}}</span
-        ><span>{{item.source.budget_code.slice(6,8) ? '.'+ item.source.budget_code.slice(6,8).toLocaleString() : ''}}</span
-        ><span>{{item.source.budget_code.slice(8,10) ? '.'+ item.source.budget_code.slice(8,10).toLocaleString() : ''}}</span>
-        </span>
-        {{item.source.title}}</a></strong>
-        <a [attr.href]="entity_link" target="_blank">
-          {{item.source.recipient}} <span>{{item.source.entity_id}}</span>
-       </a></h3>
+        <a [attr.href]="entity_link" target="_blank">{{item.source.recipient + ':'}}</a>
+      </h3>
     </div>
     <div class="col-md-4">
-      <span class="period supports-period">
-        זוכה לתמיכות מאז
-        {{item.source.year}}
-        <!--is the design example something else is written here-->
-      </span>
-      <span class="amount">
-        {{item.source.amount_supported ? item.source.amount_supported.toLocaleString() + " ₪" : '--'}}
-      </span>
+      <div class="period supports-period">מתוך תמיכה אפשרית של 18000 ₪</div>
+      <div class="amount">200,000 ₪</div>
+      <div class="period">מ.ר. 12331233</div>
     </div>
   </div>
   <div class="description others">
