@@ -34,7 +34,7 @@ export class SearchComponent implements OnInit {
   private isSearching: boolean;
   private isErrorInLastSearch: boolean;
 
-  @ViewChild('searchBody') 
+  @ViewChild('searchBody')
   private searchBodyEl: ElementRef;
 
   constructor(private searchService: SearchService) {}
@@ -225,7 +225,7 @@ export class SearchComponent implements OnInit {
   }
 
   switchTab(collectionTotal: number, docType: string) {
-    collectionTotal ? this.displayDocs  = docType : ''
+    collectionTotal ? this.displayDocs  = docType : '';
     this.searchBodyEl.nativeElement.scrollTop = 0;
   }
 }
