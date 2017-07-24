@@ -225,7 +225,9 @@ export class SearchComponent implements OnInit {
   }
 
   switchTab(collectionTotal: number, docType: string) {
-    collectionTotal ? this.displayDocs  = docType : '';
-    this.searchBodyEl.nativeElement.scrollTop = 0;
+    if (collectionTotal) {
+      this.displayDocs  = docType;
+      this.searchBodyEl.nativeElement.scrollTop = 0;
+    }
   }
 }
