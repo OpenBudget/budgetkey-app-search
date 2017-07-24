@@ -1,7 +1,7 @@
 /**
  * Created by adam on 18/12/2016.
  */
-import { Component, OnInit}  from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import { Observable }        from 'rxjs/Observable';
 import { Subject }           from 'rxjs/Subject';
 import { BehaviorSubject }   from 'rxjs/BehaviorSubject';
@@ -33,6 +33,9 @@ export class SearchComponent implements OnInit {
   private headerBottomBorder: boolean;
   private isSearching: boolean;
   private isErrorInLastSearch: boolean;
+
+  @ViewChild('searchBody') 
+  private searchBodyEl: ElementRef;
 
   constructor(private searchService: SearchService) {}
 
@@ -219,5 +222,10 @@ export class SearchComponent implements OnInit {
     }
 
     return '';
+  }
+
+  switchTab(collectionTotal: number, docType: string) {
+    collectionTotal ? this.displayDocs  = docType : ''
+    this.searchBodyEl.nativeElement.scrollTop = 0;
   }
 }
