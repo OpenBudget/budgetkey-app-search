@@ -1,47 +1,48 @@
 /**
  * Created by adam on 18/12/2016.
  */
-import { Component, OnInit}  from '@angular/core';
-import { Observable }        from 'rxjs/Observable';
-import { Subject }           from 'rxjs/Subject';
-import { BehaviorSubject }   from 'rxjs/BehaviorSubject';
-import { SearchService }     from '../_service/search.service';
-import { SearchResults, DocResultEntry, SearchResultsCounter} from '../_model/SearchResults';
+import {Component, OnInit}  from '@angular/core';
+import {Observable}        from 'rxjs/Observable';
+import {Subject}           from 'rxjs/Subject';
+import {BehaviorSubject}   from 'rxjs/BehaviorSubject';
+import {SearchService}     from '../_service/search.service';
+import {SearchResults, DocResultEntry, SearchResultsCounter} from '../_model/SearchResults';
 
 @Component({
-    selector: 'budget-search',
-    template: require('./search.component.html'),
-    styles: [ require('./search.component.css') ],
-    providers: [ SearchService ]
+  selector: 'budget-search',
+  template: require('./search.component.html'),
+  styles: [require('./search.component.css')],
+  providers: [SearchService]
 })
 export class SearchComponent implements OnInit {
 
-  private searchTerms:   Subject<string>;
+  private searchTerms: Subject<string>;
   private searchResults: Observable<SearchResults>;
-  private term:          string;
-  private allDocs:       BehaviorSubject<DocResultEntry[]>;
+  private term: string;
+  private allDocs: BehaviorSubject<DocResultEntry[]>;
   private allResults: any;
   private resultTotal: number;
-  private resultTotalCount:   SearchResultsCounter;
+  private resultTotalCount: SearchResultsCounter;
   private resultCurrentCount: SearchResultsCounter;
   private displayDocs: string; // category
   private currentDocs: string; // category
   private pageSize: number; // how many records to load for each scroll
   private skip: number;  // how many records to skip from recently fetched query (when appending to the list)
-  private fetchFlag: boolean ;
-  private resultRenew: boolean ; //
+  private fetchFlag: boolean;
+  private resultRenew: boolean; //
   private headerBottomBorder: boolean;
   private isSearching: boolean;
   private isErrorInLastSearch: boolean;
 
-  constructor(private searchService: SearchService) {}
+  constructor(private searchService: SearchService) {
+  }
 
   ngOnInit() {
     this.searchTerms = new Subject<string>();
-    this.allDocs     = new BehaviorSubject<DocResultEntry[]>([]);
-    this.allResults  = [];
+    this.allDocs = new BehaviorSubject<DocResultEntry[]>([]);
+    this.allResults = [];
     this.resultTotal = 0;
-    this.resultTotalCount   = new SearchResultsCounter();
+    this.resultTotalCount = new SearchResultsCounter();
     this.resultCurrentCount = new SearchResultsCounter();
     this.displayDocs = 'all';
     this.currentDocs = 'all';
@@ -92,6 +93,7 @@ export class SearchComponent implements OnInit {
       this.searchTerms.next(term);
     }
   }
+
   /**
    * doRequest()
    * the main method of the component
@@ -106,28 +108,30 @@ export class SearchComponent implements OnInit {
       maxRecords = 11;
     } else if (this.displayDocs === 'all') {
       let result_arr = this.resultTotalCount;
-      let count_arr  = Object.keys(result_arr)
-                             .map( key  => { return result_arr[key]; } );
-      maxRecords  = Math.max(...count_arr, 21);
+      let count_arr = Object.keys(result_arr)
+        .map(key => {
+          return result_arr[key];
+        });
+      maxRecords = Math.max(...count_arr, 21);
     } else {// if specific category is selected - maxRecords is the totalCount of that category(currentDocs)
-      maxRecords  = this.resultTotalCount[this.currentDocs];
+      maxRecords = this.resultTotalCount[this.currentDocs];
     }
 
     if (this.pageSize + this.skip < maxRecords) {
-        this.skip += this.pageSize;
+      this.skip += this.pageSize;
     } else if (this.pageSize + this.skip < maxRecords && maxRecords !== 0) {
-        this.skip = maxRecords - this.pageSize;
+      this.skip = maxRecords - this.pageSize;
     } else {
-        return Observable.of<SearchResults>(null);
+      return Observable.of<SearchResults>(null);
     }
 
     let category = this.currentDocs;
     if (this.resultRenew) {
       category = 'all';
     } else if (category === 'contractspending') {
-        category = 'contract-spending';
+      category = 'contract-spending';
     } else if (category === 'nationalbudgetchanges') {
-        category = 'national-budget-changes';
+      category = 'national-budget-changes';
     }
 
     if (this.term) {
@@ -139,54 +143,35 @@ export class SearchComponent implements OnInit {
       return Observable.of<SearchResults>(null);
     }
   }
+
   /**
    * processResults()
    * creates adds the current results to allResults
    * @param {SearchResults} results - returned results from query
    */
   processResults(results: SearchResults): void {
-       console.log('results: '   , results);
-        if (results) {
-          if (this.resultRenew) {
-            this.resultTotal = 0;
-          }
-            for (let key in results) {
-              if (key && key !== 'error') {
-                let tmpResults = results[key];
-                let tmpKey = key.replace(/-/g, '');
-                console.log(tmpKey);
-                for (let item in tmpResults.docs) {
-                    if (item) {
-                      tmpResults.docs[item].type  = tmpKey;
-                    }
-                }
-                // console.log(tmpResults)
-                // var tmpDocs = tmpKey+'Docs';
-                if (this.resultRenew) {
-                  console.log(tmpResults.total_overall);
-                  this.resultTotal += Number(tmpResults.total_overall);
-                  this.resultTotalCount[tmpKey]   = Number(tmpResults.total_overall);
-                  this.resultCurrentCount[tmpKey] = this.pageSize;
-                } else {
-                  this.resultCurrentCount[tmpKey] = tmpResults.docs.length;
-                }
-                // this[tmpDocs].next(tmpResults.docs)
-                this.allResults.push(...tmpResults.docs);
-              }
-            }
-          // var uniq = this.allResults.reduce(function(a,b){
-          //           if (a.indexOf(b) < 0 ) a.push(b);
-          //           return a;
-          //           },[]);
-          // this.allResults = uniq;
-          this.allDocs.next(this.allResults);
-          this.fetchFlag   = true;
-          this.resultRenew = false;
-        } else {
-        this.fetchFlag     = false;
+    console.log('results: ', results);
+    if (results) {
+      if (this.resultRenew) {
+        this.resultTotal = 0;
       }
-        // console.log('results: ', this.allDocs);
+      for (let key in results.search_counts) {
+        let tmpResults = results.search_counts[key];
+        console.log(key, tmpResults.total_overall);
+        if (this.resultRenew) {
+          this.resultTotal += tmpResults.total_overall;
+          this.resultTotalCount[key] = tmpResults.total_overall;
+        }
+      }
+      this.allResults.push(...results.search_results);
+      this.allDocs.next(this.allResults);
+      this.fetchFlag = true;
+      this.resultRenew = false;
+    } else {
+      this.fetchFlag = false;
+    }
   }
+
   /**
    * fetchMore()
    * when scrolling, appends more results to the list
@@ -194,12 +179,12 @@ export class SearchComponent implements OnInit {
    */
   fetchMore(term: number): void {
     const div = document.body.getElementsByClassName('search_body')[0];
-    this.headerBottomBorder  = true;
+    this.headerBottomBorder = true;
     const cur = div.scrollTop;
     const divHeight = div.scrollHeight;
     if (this.currentDocs !== this.displayDocs) {
       this.currentDocs = this.displayDocs;
-      this.fetchFlag   = true;
+      this.fetchFlag = true;
     }
     if (cur > 0.3 * divHeight && this.fetchFlag) {
       this.fetchFlag = false;
