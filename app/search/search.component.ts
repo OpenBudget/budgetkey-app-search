@@ -156,11 +156,13 @@ export class SearchComponent implements OnInit {
         this.resultTotal = 0;
       }
       for (let key in results.search_counts) {
-        let tmpResults = results.search_counts[key];
-        console.log(key, tmpResults.total_overall);
-        if (this.resultRenew) {
-          this.resultTotal += tmpResults.total_overall;
-          this.resultTotalCount[key] = tmpResults.total_overall;
+        if (key) {
+          let tmpResults = results.search_counts[key];
+          console.log(key, tmpResults.total_overall);
+          if (this.resultRenew) {
+            this.resultTotal += tmpResults.total_overall;
+            this.resultTotalCount[key] = tmpResults.total_overall;
+          }
         }
       }
       this.allResults.push(...results.search_results);
