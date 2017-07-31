@@ -95,37 +95,6 @@
         <search-result-procurement [item]="item"></search-result-procurement>
     </div>
   </div>
-<!--<div class="search_body" (scroll)="fetchMore(searchBox.value)">
-  <div *ngIf="displayDocs === 'entities' || displayDocs  === 'all'">
-    <div *ngFor="let item of entitiesDocs | async" >
-      <search-result-entities [item]="item"></search-result-entities>
-    </div>
-  </div>
-  <div *ngIf="displayDocs === 'budget' || displayDocs  === 'all'">
-    <div *ngFor="let item of budgetDocs | async">
-        <search-result-budget [item]="item"></search-result-budget>
-    </div>
-  </div>
-  <div *ngIf="displayDocs === 'changes' || displayDocs  === 'all'">
-    <div *ngFor="let item of changesDocs | async">
-        <search-result-changes [item]="item"></search-result-changes>
-    </div>
-  </div>
-  <div *ngIf="displayDocs === 'supports' || displayDocs  === 'all'">
-    <div *ngFor="let item of supportsDocs | async">
-      <search-result-supports [item]="item"></search-result-supports>
-    </div>
-  </div>
-  <div *ngIf="displayDocs === 'exemption' || displayDocs  === 'all'" id='view-test'>
-    <div *ngFor="let item of exemptionDocs | async">
-      <search-result-exemption [item]="item"></search-result-exemption>
-    </div>
-  </div>
-  <div *ngIf="displayDocs === 'procurement' || displayDocs  === 'all'">
-    <div *ngFor="let item of procurementDocs | async" >
-      <search-result-procurement [item]="item"></search-result-procurement>
-    </div>
-  </div>-->
   <h1 class="status">{{getStatusText()}}</h1>
 </div>
 
