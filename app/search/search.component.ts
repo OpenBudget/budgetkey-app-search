@@ -52,7 +52,7 @@ export class SearchComponent implements OnInit {
     this.pageSize = 10;
     this.skip = -10;
     this.fetchFlag = true;
-    this.resultRenew = false;
+    this.resultRenew = true;
     this.allResults = [];
     this.headerBottomBorder = false;
     this.isSearching = false;
@@ -111,11 +111,13 @@ export class SearchComponent implements OnInit {
       maxRecords = 11;
     } else if (this.displayDocs === 'all') {
       let result_arr = this.resultTotalCount;
+      console.log(Object.keys(result_arr));
       let count_arr = Object.keys(result_arr)
         .map(key => {
           return result_arr[key];
         });
       maxRecords = Math.max(...count_arr, 21);
+      console.log(maxRecords)
     } else {// if specific category is selected - maxRecords is the totalCount of that category(currentDocs)
       maxRecords = this.resultTotalCount[this.currentDocs];
     }
@@ -128,19 +130,19 @@ export class SearchComponent implements OnInit {
       return Observable.of<SearchResults>(null);
     }
 
-    let category = this.currentDocs;
+    let category = [this.currentDocs];
     if (this.resultRenew) {
-      category = 'all';
-    } else if (category === 'contractspending') {
-      category = 'contract-spending';
-    } else if (category === 'nationalbudgetchanges') {
-      category = 'national-budget-changes';
+      category = ['all'];
+    } else if (category[0] === 'procurement') {
+      category = ['contract-spending', 'exemptions'];
+    } else if (category[0] === 'nationalbudgetchanges') {
+      category = ['national-budget-changes'];
     }
 
     if (this.term) {
       this.isSearching = true;
       this.isErrorInLastSearch = false;
-      return this.searchService.search(this.term, this.pageSize, this.skip, [category]);
+      return this.searchService.search(this.term, this.pageSize, this.skip, category);
     } else {
       this.isSearching = false;
       return Observable.of<SearchResults>(null);
@@ -156,17 +158,30 @@ export class SearchComponent implements OnInit {
     console.log('results: ', results);
     if (results) {
       if (this.resultRenew) {
+        console.log('renew');
         this.resultTotal = 0;
+        console.log(this.resultCurrentCount)
+
       }
       for (let key in results.search_counts) {
         if (key) {
           let tmpResults = results.search_counts[key];
           console.log(key, tmpResults.total_overall);
+          if (key == 'exemptions' || key == 'contractspending'){
+            key = 'procurement';
+          }
           if (this.resultRenew) {
             this.resultTotal += tmpResults.total_overall;
-            this.resultTotalCount[key] = tmpResults.total_overall;
+            this.resultTotalCount[key] += tmpResults.total_overall;
           }
         }
+      }
+      for (let item of results.search_results){
+        let key = item.type;
+        if (key == 'exemptions' || key == 'contractspending'){
+          key = 'procurement';
+        }
+        this.resultCurrentCount[key] += 1;
       }
       this.allResults.push(...results.search_results);
       this.allDocs.next(this.allResults);
@@ -212,9 +227,13 @@ export class SearchComponent implements OnInit {
   }
 
   switchTab(collectionTotal: number, docType: string) {
+    console.log(this.resultCurrentCount[docType]);
     if (collectionTotal) {
       this.displayDocs  = docType;
       this.searchBodyEl.nativeElement.scrollTop = 0;
+      if (this.resultCurrentCount[docType] < 10){
+        this.searchTerms.next(docType);
+      }
     }
   }
 }
