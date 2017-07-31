@@ -56,10 +56,10 @@
           </a>
         </li>
         <li class="active col-xs-3 col-md-2">
-          <a href="#"  (click)="switchTab(resultTotalCount.contractspending, 'contractspending')"
-            [class]= "displayDocs  === 'contractspending' ? 'activeclass'  : ''">רכש
+          <a href="#"  (click)="switchTab(resultTotalCount.procurement, 'procurement')"
+            [class]= "displayDocs  === 'procurement' ? 'activeclass'  : ''">רכש
             <span>
-                ({{resultTotalCount.contractspending ? resultTotalCount.contractspending.toLocaleString()  : '0'}})
+                ({{resultTotalCount.procurement ? resultTotalCount.procurement.toLocaleString()  : '0'}})
             </span>
           </a>
         </li>
@@ -91,12 +91,13 @@
         <search-result-supports [item]="item"></search-result-supports>
       </div>
     </div>
-    <div *ngIf="item.type == 'exemptions' && (displayDocs === 'exemptions' || displayDocs  === 'all')" id='view-test'>
-        <search-result-exemption [item]="item"></search-result-exemption>
-    </div>
-    <div *ngIf="item.type == 'contractspending' && (displayDocs === 'contractspending' || displayDocs  === 'all')">
+    <div *ngIf="(item.type == 'exemptions' || item.type == 'contractspending')
+      && (displayDocs === 'procurement' || displayDocs  === 'all')" id='view-test'>
         <search-result-procurement [item]="item"></search-result-procurement>
     </div>
+    <!-- <div *ngIf="item.type == 'contractspending' && (displayDocs === 'contractspending' || displayDocs  === 'all')">
+        <search-result-procurement [item]="item"></search-result-procurement>
+    </div> -->
   </div>
   <h1 class="status">{{getStatusText()}}</h1>
 </div>
