@@ -1,12 +1,13 @@
 /**
  * Created by adam on 18/12/2016.
  */
-import {Component, OnInit}  from '@angular/core';
-import {Observable}        from 'rxjs/Observable';
-import {Subject}           from 'rxjs/Subject';
-import {BehaviorSubject}   from 'rxjs/BehaviorSubject';
-import {SearchService}     from '../_service/search.service';
-import {SearchResults, DocResultEntry, SearchResultsCounter} from '../_model/SearchResults';
+import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import { Observable }        from 'rxjs/Observable';
+import { Subject }           from 'rxjs/Subject';
+import { BehaviorSubject }   from 'rxjs/BehaviorSubject';
+import { SearchService }     from '../_service/search.service';
+import { SearchResults, DocResultEntry, SearchResultsCounter} from '../_model/SearchResults';
+
 
 @Component({
   selector: 'budget-search',
@@ -34,8 +35,10 @@ export class SearchComponent implements OnInit {
   private isSearching: boolean;
   private isErrorInLastSearch: boolean;
 
-  constructor(private searchService: SearchService) {
-  }
+  @ViewChild('searchBody')
+  private searchBodyEl: ElementRef;
+
+  constructor(private searchService: SearchService) {}
 
   ngOnInit() {
     this.searchTerms = new Subject<string>();
@@ -206,5 +209,12 @@ export class SearchComponent implements OnInit {
     }
 
     return '';
+  }
+
+  switchTab(collectionTotal: number, docType: string) {
+    if (collectionTotal) {
+      this.displayDocs  = docType;
+      this.searchBodyEl.nativeElement.scrollTop = 0;
+    }
   }
 }
