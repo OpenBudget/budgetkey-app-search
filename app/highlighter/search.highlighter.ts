@@ -21,8 +21,7 @@ import {Component, Injectable, Input, OnInit} from '@angular/core';
         <span>{{ rightSpanText }}</span>
     </div>
     <div *ngIf="!isTitleTextMatched" style="display:inline-block">
-        <span>{{ titleText }}</span> 
-        <span [style.display]="isChildMatch()" [ngClass]="'highlight-child'">{{ textToShowInChildMatch }}</span>
+        <span>{{ titleText }}</span> <span [style.display]="isChildMatch()" [ngClass]="'highlight-child'">{{ textToShowInChildMatch }}</span>
     </div>
     `,
 })
