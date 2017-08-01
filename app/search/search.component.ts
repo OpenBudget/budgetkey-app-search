@@ -35,7 +35,6 @@ export class SearchComponent implements OnInit {
   private headerBottomBorder: boolean;
   private isSearching: boolean;
   private isErrorInLastSearch: boolean;
-  private searchTerm: string;
 
   @ViewChild('searchBody')
   private searchBodyEl: ElementRef;
