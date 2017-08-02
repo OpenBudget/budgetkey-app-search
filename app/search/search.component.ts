@@ -1,12 +1,14 @@
 /**
  * Created by adam on 18/12/2016.
  */
-import {Component, OnInit}  from '@angular/core';
-import {Observable}        from 'rxjs/Observable';
-import {Subject}           from 'rxjs/Subject';
-import {BehaviorSubject}   from 'rxjs/BehaviorSubject';
-import {SearchService}     from '../_service/search.service';
-import {SearchResults, DocResultEntry, SearchResultsCounter} from '../_model/SearchResults';
+import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import { Observable }        from 'rxjs/Observable';
+import { Subject }           from 'rxjs/Subject';
+import { BehaviorSubject }   from 'rxjs/BehaviorSubject';
+import { SearchService }     from '../_service/search.service';
+import { SearchResults, DocResultEntry, SearchResultsCounter} from '../_model/SearchResults';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'budget-search',
@@ -18,7 +20,7 @@ export class SearchComponent implements OnInit {
 
   private searchTerms: Subject<string>;
   private searchResults: Observable<SearchResults>;
-  private term: string;
+  private term: string = '';
   private allDocs: BehaviorSubject<DocResultEntry[]>;
   private allResults: any;
   private resultTotal: number;
@@ -34,8 +36,15 @@ export class SearchComponent implements OnInit {
   private isSearching: boolean;
   private isErrorInLastSearch: boolean;
 
-  constructor(private searchService: SearchService) {
-  }
+  @ViewChild('searchBody')
+  private searchBodyEl: ElementRef;
+
+  constructor(
+    private searchService: SearchService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private location: Location
+  ) {}
 
   ngOnInit() {
     this.searchTerms = new Subject<string>();
@@ -59,7 +68,14 @@ export class SearchComponent implements OnInit {
     this.searchResults = this.searchTerms // open a stream
       .debounceTime(300)        // wait for 300ms pause in events
       // .distinctUntilChanged()   // ignore if next search term is same as previous
-      .switchMap(() => this.doRequest())
+      .switchMap(() => {
+        if (this.term) {
+          this.location.go(`/search?term=${this.term}`);
+        } else {
+          this.location.go(`/search`);
+        }
+        return this.doRequest();
+      })
       .catch(error => {
         this.isSearching = false;
         this.isErrorInLastSearch = true;
@@ -70,7 +86,14 @@ export class SearchComponent implements OnInit {
       this.isSearching = false;
       this.processResults(results);
     });
-    this.search('חינוך'); // a default search query, to get things started..
+
+    this.route.queryParams
+      .subscribe((params: Params) => {
+        if (params.term) {
+          this.search(params.term);
+        }
+        return null;
+      });
   }
 
   /**
@@ -206,5 +229,12 @@ export class SearchComponent implements OnInit {
     }
 
     return '';
+  }
+
+  switchTab(collectionTotal: number, docType: string) {
+    if (collectionTotal) {
+      this.displayDocs  = docType;
+      this.searchBodyEl.nativeElement.scrollTop = 0;
+    }
   }
 }

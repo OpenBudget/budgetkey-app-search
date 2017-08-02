@@ -12,3 +12,6 @@ _test-output
 _temp
 dist/
 .sass-cache/
+
+# Vim temp files
+**/*.swp
