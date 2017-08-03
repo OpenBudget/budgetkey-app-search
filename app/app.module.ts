@@ -19,11 +19,14 @@ import { SearchResultPeopleComponent } from './search_result/search_result.compo
 
 import { Highlighter } from './highlighter/search.highlighter';
 
+import { AppRoutingModule } from './app-routing.module';
+
 @NgModule({
   imports:      [
     BrowserModule,
     HttpModule,
-    BudgetKeyCommonModule
+    BudgetKeyCommonModule,
+    AppRoutingModule
   ],
   declarations: [
     AppComponent,
