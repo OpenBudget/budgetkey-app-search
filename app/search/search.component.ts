@@ -137,7 +137,6 @@ export class SearchComponent implements OnInit {
           return result_arr[key];
         });
       maxRecords = Math.max(...count_arr, 21);
-      console.log(maxRecords)
     } else {// if specific category is selected - maxRecords is the totalCount of that category(currentDocs)
       maxRecords = this.resultTotalCount[this.currentDocs];
     }
@@ -180,14 +179,12 @@ export class SearchComponent implements OnInit {
       if (this.resultRenew) {
         console.log('renew');
         this.resultTotal = 0;
-        console.log(this.resultCurrentCount)
-
       }
       for (let key in results.search_counts) {
         if (key) {
           let tmpResults = results.search_counts[key];
           console.log(key, tmpResults.total_overall);
-          if (key === 'exemptions' || key === 'contractspending'){
+          if (key === 'exemptions' || key === 'contractspending') {
             key = 'procurement';
           }
           if (this.resultRenew) {
@@ -198,7 +195,7 @@ export class SearchComponent implements OnInit {
       }
       for (let item of results.search_results){
         let key = item.type;
-        if (key === 'exemptions' || key === 'contractspending'){
+        if (key === 'exemptions' || key === 'contractspending') {
           key = 'procurement';
         }
         this.resultCurrentCount[key] += 1;
@@ -251,7 +248,7 @@ export class SearchComponent implements OnInit {
     if (collectionTotal) {
       this.displayDocs  = docType;
       this.searchBodyEl.nativeElement.scrollTop = 0;
-      if (this.resultCurrentCount[docType] < 10){
+      if (this.resultCurrentCount[docType] < 10) {
         this.searchTerms.next(docType);
       }
     }
