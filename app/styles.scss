@@ -332,20 +332,18 @@ $expense-color-bg: #F3F8FD;
       }
     }
     .period {
-      float: left;
       text-align: left;
       font-size: 1.4em;
       color: $expense-color-secondary;
-      padding: 5px 0 0 10px;
+      padding: 0 0 0 10px;
       display: block;
     }
     .amount {
-      float: left;
       text-align: left;
-      padding: 0 0 5px 10px;
+      padding: 0 0 0 10px;
       display: block;
       font-weight: 700;
-      font-size: 1.6em;
+      font-size: 2em;
       color: $expense-color;
     }
   }
@@ -389,7 +387,7 @@ $expense-color-bg: #F3F8FD;
 }
 
 $supports-color: #8A4838;
-$supports-color-secondary: #D7B6AE;
+$supports-color-secondary: #CEB9B5;
 $supports-color-bg: #FEFAF9;
 
 search-result-supports {
@@ -530,12 +528,10 @@ search-result-supports {
         //   margin-left: 10px;
         // }
         .period {
-          float: left;
           text-align: left;
           font-size: 1em;
         }
       .amount {
-          float: left;
           text-align: left;
           font-weight: 700;
           font-size: 1em;
