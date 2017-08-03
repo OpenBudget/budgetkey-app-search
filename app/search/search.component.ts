@@ -187,7 +187,7 @@ export class SearchComponent implements OnInit {
         if (key) {
           let tmpResults = results.search_counts[key];
           console.log(key, tmpResults.total_overall);
-          if (key == 'exemptions' || key == 'contractspending'){
+          if (key === 'exemptions' || key === 'contractspending'){
             key = 'procurement';
           }
           if (this.resultRenew) {
@@ -198,7 +198,7 @@ export class SearchComponent implements OnInit {
       }
       for (let item of results.search_results){
         let key = item.type;
-        if (key == 'exemptions' || key == 'contractspending'){
+        if (key === 'exemptions' || key === 'contractspending'){
           key = 'procurement';
         }
         this.resultCurrentCount[key] += 1;
