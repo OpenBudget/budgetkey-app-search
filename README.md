@@ -7,7 +7,7 @@ It currently can be accessed at http://next.obudget.org/app/search/
 ## Quick Start (Set up a dev server)
 1. Clone && cd into directory
 2. `npm install`
-3. `npm start`
+3. `npm run dist-serve`
 
 ## Basic functionality: ##
 
