@@ -6,6 +6,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AppComponent }  from './app.component';
 import { HttpModule } from '@angular/http';
+import { AppRoutingModule } from './app-routing.module';
 import { SearchService } from './_service/search.service';
 import { SearchComponent } from './search/search.component';
 
@@ -28,7 +29,8 @@ describe('AppComponent', function () {
     return TestBed.configureTestingModule({
       imports: [
         HttpModule,
-        BudgetKeyCommonModule
+        BudgetKeyCommonModule,
+        AppRoutingModule,
       ],
       declarations: [
         AppComponent,

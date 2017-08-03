@@ -15,18 +15,22 @@ export class DocResultEntry {
 
 class KindResults {
   data_time_distribution: Array<TimeDistributionEntry>;
-  docs: Array<DocResultEntry>;
   total_in_result: number;
   total_overall: number;
 }
 
-export class SearchResults {
+class SearchResultsCounts {
   entities: KindResults;
   exemptions: KindResults;
   budget: KindResults;
   supports: KindResults;
   nationalbudgetchanges: KindResults;
   procurement: KindResults;
+}
+
+export class SearchResults {
+  search_counts: SearchResultsCounts;
+  search_results: Array<DocResultEntry>;
 }
 
 export class SearchResultsCounter {

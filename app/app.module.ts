@@ -18,11 +18,14 @@ import { SearchResultEntitiesComponent } from './search_result/search_result.com
 
 import { Highlighter } from './highlighter/search.highlighter';
 
+import { AppRoutingModule } from './app-routing.module';
+
 @NgModule({
   imports:      [
     BrowserModule,
     HttpModule,
-    BudgetKeyCommonModule
+    BudgetKeyCommonModule,
+    AppRoutingModule
   ],
   declarations: [
     AppComponent,
