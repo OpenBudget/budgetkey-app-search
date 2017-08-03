@@ -224,5 +224,4 @@ export class SearchResultPeopleComponent implements OnInit {
         this.item.source.year_requested + '/main';
     this.entity_link = 'http://www.obudget.org/#entity/' + this.item.source.entity_id + '/2017/main';
   }
-
 }

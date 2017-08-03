@@ -15,6 +15,7 @@ import { SearchResultExemptionComponent } from './search_result/search_result.co
 import { SearchResultProcurementComponent } from './search_result/search_result.component';
 import { SearchResultSupportsComponent } from './search_result/search_result.component';
 import { SearchResultEntitiesComponent } from './search_result/search_result.component';
+import { SearchResultPeopleComponent } from './search_result/search_result.component';
 
 import { Highlighter } from './highlighter/search.highlighter';
 
@@ -33,6 +34,7 @@ import { Highlighter } from './highlighter/search.highlighter';
     SearchResultProcurementComponent,
     SearchResultSupportsComponent,
     SearchResultEntitiesComponent,
+    SearchResultPeopleComponent,
     Highlighter
   ],
   providers: [
