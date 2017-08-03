@@ -43,5 +43,5 @@ export class SearchResultsCounter {
   nationalbudgetchanges: number = 0;
   // contractspending: number;
   procurement: number = 0;
-  people: number =0;
+  people: number = 0;
 }
