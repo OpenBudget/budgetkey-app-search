@@ -1,12 +1,14 @@
 /**
  * Created by adam on 18/12/2016.
  */
-import {Component, OnInit}  from '@angular/core';
-import {Observable}        from 'rxjs/Observable';
-import {Subject}           from 'rxjs/Subject';
-import {BehaviorSubject}   from 'rxjs/BehaviorSubject';
-import {SearchService}     from '../_service/search.service';
-import {SearchResults, DocResultEntry, SearchResultsCounter} from '../_model/SearchResults';
+import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import { Observable }        from 'rxjs/Observable';
+import { Subject }           from 'rxjs/Subject';
+import { BehaviorSubject }   from 'rxjs/BehaviorSubject';
+import { SearchService }     from '../_service/search.service';
+import { SearchResults, DocResultEntry, SearchResultsCounter} from '../_model/SearchResults';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'budget-search',
@@ -18,7 +20,7 @@ export class SearchComponent implements OnInit {
 
   private searchTerms: Subject<string>;
   private searchResults: Observable<SearchResults>;
-  private term: string;
+  private term: string = '';
   private allDocs: BehaviorSubject<DocResultEntry[]>;
   private allResults: any;
   private resultTotal: number;
@@ -34,8 +36,15 @@ export class SearchComponent implements OnInit {
   private isSearching: boolean;
   private isErrorInLastSearch: boolean;
 
-  constructor(private searchService: SearchService) {
-  }
+  @ViewChild('searchBody')
+  private searchBodyEl: ElementRef;
+
+  constructor(
+    private searchService: SearchService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private location: Location
+  ) {}
 
   ngOnInit() {
     this.searchTerms = new Subject<string>();
@@ -49,7 +58,7 @@ export class SearchComponent implements OnInit {
     this.pageSize = 10;
     this.skip = -10;
     this.fetchFlag = true;
-    this.resultRenew = false;
+    this.resultRenew = true;
     this.allResults = [];
     this.headerBottomBorder = false;
     this.isSearching = false;
@@ -59,7 +68,14 @@ export class SearchComponent implements OnInit {
     this.searchResults = this.searchTerms // open a stream
       .debounceTime(300)        // wait for 300ms pause in events
       // .distinctUntilChanged()   // ignore if next search term is same as previous
-      .switchMap(() => this.doRequest())
+      .switchMap(() => {
+        if (this.term) {
+          this.location.go(`/search?term=${this.term}`);
+        } else {
+          this.location.go(`/search`);
+        }
+        return this.doRequest();
+      })
       .catch(error => {
         this.isSearching = false;
         this.isErrorInLastSearch = true;
@@ -70,7 +86,14 @@ export class SearchComponent implements OnInit {
       this.isSearching = false;
       this.processResults(results);
     });
-    this.search('חינוך'); // a default search query, to get things started..
+
+    this.route.queryParams
+      .subscribe((params: Params) => {
+        if (params.term) {
+          this.search(params.term);
+        }
+        return null;
+      });
   }
 
   /**
@@ -108,6 +131,7 @@ export class SearchComponent implements OnInit {
       maxRecords = 11;
     } else if (this.displayDocs === 'all') {
       let result_arr = this.resultTotalCount;
+      console.log(Object.keys(result_arr));
       let count_arr = Object.keys(result_arr)
         .map(key => {
           return result_arr[key];
@@ -125,19 +149,19 @@ export class SearchComponent implements OnInit {
       return Observable.of<SearchResults>(null);
     }
 
-    let category = this.currentDocs;
+    let category = [this.currentDocs];
     if (this.resultRenew) {
-      category = 'all';
-    } else if (category === 'contractspending') {
-      category = 'contract-spending';
-    } else if (category === 'nationalbudgetchanges') {
-      category = 'national-budget-changes';
+      category = ['all'];
+    } else if (category[0] === 'procurement') {
+      category = ['contract-spending', 'exemptions'];
+    } else if (category[0] === 'nationalbudgetchanges') {
+      category = ['national-budget-changes'];
     }
 
     if (this.term) {
       this.isSearching = true;
       this.isErrorInLastSearch = false;
-      return this.searchService.search(this.term, this.pageSize, this.skip, [category]);
+      return this.searchService.search(this.term, this.pageSize, this.skip, category);
     } else {
       this.isSearching = false;
       return Observable.of<SearchResults>(null);
@@ -153,17 +177,28 @@ export class SearchComponent implements OnInit {
     console.log('results: ', results);
     if (results) {
       if (this.resultRenew) {
+        console.log('renew');
         this.resultTotal = 0;
       }
       for (let key in results.search_counts) {
         if (key) {
           let tmpResults = results.search_counts[key];
           console.log(key, tmpResults.total_overall);
+          if (key === 'exemptions' || key === 'contractspending') {
+            key = 'procurement';
+          }
           if (this.resultRenew) {
             this.resultTotal += tmpResults.total_overall;
-            this.resultTotalCount[key] = tmpResults.total_overall;
+            this.resultTotalCount[key] += tmpResults.total_overall;
           }
         }
+      }
+      for (let item of results.search_results){
+        let key = item.type;
+        if (key === 'exemptions' || key === 'contractspending') {
+          key = 'procurement';
+        }
+        this.resultCurrentCount[key] += 1;
       }
       this.allResults.push(...results.search_results);
       this.allDocs.next(this.allResults);
@@ -206,5 +241,16 @@ export class SearchComponent implements OnInit {
     }
 
     return '';
+  }
+
+  switchTab(collectionTotal: number, docType: string) {
+    console.log(this.resultCurrentCount[docType]);
+    if (collectionTotal) {
+      this.displayDocs  = docType;
+      this.searchBodyEl.nativeElement.scrollTop = 0;
+      if (this.resultCurrentCount[docType] < 10) {
+        this.searchTerms.next(docType);
+      }
+    }
   }
 }
