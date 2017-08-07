@@ -108,7 +108,7 @@ export class SearchComponent implements OnInit {
       this.fetchFlag = true;
       this.term = term;
       this.searchTerms.next(term);
-      this.switchTab(1, 'all');
+      this.doSwitchTab(1, 'all');
       this.allResults = [];
 
     } else {
@@ -242,7 +242,14 @@ export class SearchComponent implements OnInit {
     return '';
   }
 
-  switchTab(collectionTotal: number, docType: string) {
+  switchTab($event: any, collectionTotal: number, docType: string) {
+    $event.stopPropagation();
+    $event.preventDefault();
+
+    this.doSwitchTab(collectionTotal, docType);
+  }
+
+  doSwitchTab(collectionTotal: number, docType: string) {
     if (collectionTotal) {
       this.displayDocs  = docType;
       this.searchBodyEl.nativeElement.scrollTop = 0;
@@ -250,7 +257,8 @@ export class SearchComponent implements OnInit {
         this.searchTerms.next(docType);
       }
     }
-    // this.location.go(`/search?term=${this.term}`);
 
+    // this.location.go(`/search?term=${this.term}`);
   }
+  
 }
