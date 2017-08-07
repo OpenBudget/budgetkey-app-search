@@ -108,7 +108,7 @@ export class SearchComponent implements OnInit {
       this.fetchFlag = true;
       this.term = term;
       this.searchTerms.next(term);
-      this.switchTab(1, 'all')
+      this.switchTab(1, 'all');
       this.allResults = [];
 
     } else {
@@ -162,13 +162,11 @@ export class SearchComponent implements OnInit {
     if (this.term) {
       this.isSearching = true;
       this.isErrorInLastSearch = false;
-      var res = this.searchService.search(this.term, this.pageSize, this.skip, category);
-      return res
+      return this.searchService.search(this.term, this.pageSize, this.skip, category);
     } else {
       this.isSearching = false;
       return Observable.of<SearchResults>(null);
     }
- 
   }
 
   /**
