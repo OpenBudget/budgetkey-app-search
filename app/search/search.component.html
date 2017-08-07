@@ -65,6 +65,14 @@
             </span>
           </a>
         </li>
+        <li class="active col-xs-3 col-md-2">
+          <a href="#"  (click)="switchTab(resultTotalCount.people, 'people')"
+            [class]= "displayDocs  === 'people' ? 'activeclass'  : ''">אנשים
+            <span>
+                ({{resultTotalCount.people ? resultTotalCount.people.toLocaleString()  : '0'}})
+            </span>
+          </a>
+        </li>
       </ul>
     </div>
 </div>
@@ -96,10 +104,13 @@
     <div *ngIf="(item.type == 'exemptions' || item.type == 'contractspending')
       && (displayDocs === 'procurement' || displayDocs  === 'all')" id='view-test'>
         <search-result-procurement [item]="item"></search-result-procurement>
-    </div>
+    </div>    
     <!-- <div *ngIf="item.type == 'contractspending' && (displayDocs === 'contractspending' || displayDocs  === 'all')">
         <search-result-procurement [item]="item"></search-result-procurement>
     </div> -->
+    <div *ngIf="item.type == 'people' && (displayDocs === 'people' || displayDocs  === 'all')">
+        <search-result-people [item]="item"></search-result-people>
+    </div>
   </div>
   <h1 class="status">{{getStatusText()}}</h1>
 </div>
