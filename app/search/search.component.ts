@@ -260,5 +260,4 @@ export class SearchComponent implements OnInit {
 
     // this.location.go(`/search?term=${this.term}`);
   }
-  
 }
