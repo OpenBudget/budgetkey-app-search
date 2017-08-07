@@ -108,6 +108,7 @@ export class SearchComponent implements OnInit {
       this.fetchFlag = true;
       this.term = term;
       this.searchTerms.next(term);
+      this.switchTab(1, 'all');
       this.allResults = [];
 
     } else {
@@ -131,7 +132,7 @@ export class SearchComponent implements OnInit {
       maxRecords = 11;
     } else if (this.displayDocs === 'all') {
       let result_arr = this.resultTotalCount;
-      console.log(Object.keys(result_arr));
+      // console.log(Object.keys(result_arr));
       let count_arr = Object.keys(result_arr)
         .map(key => {
           return result_arr[key];
@@ -177,13 +178,13 @@ export class SearchComponent implements OnInit {
     console.log('results: ', results);
     if (results) {
       if (this.resultRenew) {
-        console.log('renew');
         this.resultTotal = 0;
+        this.resultTotalCount = new SearchResultsCounter();
+        this.resultCurrentCount = new SearchResultsCounter();
       }
       for (let key in results.search_counts) {
         if (key) {
           let tmpResults = results.search_counts[key];
-          console.log(key, tmpResults.total_overall);
           if (key === 'exemptions' || key === 'contractspending') {
             key = 'procurement';
           }
@@ -225,9 +226,7 @@ export class SearchComponent implements OnInit {
     }
     if (cur > 0.3 * divHeight && this.fetchFlag) {
       this.fetchFlag = false;
-      // this.pageSize += 10;
       this.searchTerms.next(this.term);
-      console.log(this.allDocs.value.length);
     }
   }
 
@@ -244,7 +243,6 @@ export class SearchComponent implements OnInit {
   }
 
   switchTab(collectionTotal: number, docType: string) {
-    console.log(this.resultCurrentCount[docType]);
     if (collectionTotal) {
       this.displayDocs  = docType;
       this.searchBodyEl.nativeElement.scrollTop = 0;
@@ -252,5 +250,7 @@ export class SearchComponent implements OnInit {
         this.searchTerms.next(docType);
       }
     }
+    // this.location.go(`/search?term=${this.term}`);
+
   }
 }
