@@ -22,7 +22,6 @@ class KindResults {
 
 class SearchResultsCounts {
   entities: KindResults;
-  // exemptions: KindResults;
   budget: KindResults;
   supports: KindResults;
   nationalbudgetchanges: KindResults;
@@ -37,11 +36,9 @@ export class SearchResults {
 
 export class SearchResultsCounter {
   entities:  number = 0;
-  // exemptions: number;
   budget:    number = 0;
   supports:  number = 0;
   nationalbudgetchanges: number = 0;
-  // contractspending: number;
   procurement: number = 0;
   people: number = 0;
 }

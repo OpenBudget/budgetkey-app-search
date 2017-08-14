@@ -16,8 +16,8 @@
         </span>
     </div>
     <div class="search-filter">
-      <ul class="row">
-        <li class="active col-xs-3 col-md-2">
+      <ul class="row col-xs-3 col-md-2">
+        <li class="active col-xs-12 col-md-12">
           <a (click)="switchTab($event, resultTotal, 'all')"
               [class]= "displayDocs  === 'all' ? 'activeclass'  : ''" >הכל
             <span>
@@ -25,6 +25,8 @@
             </span>
           </a>
         </li>
+      </ul>
+        <ul class='row col-xs-9 col-md-10'>
         <li class="active col-xs-3 col-md-2">
           <a (click)="switchTab($event, resultTotalCount.budget, 'budget')"
             [class]= "displayDocs  === 'budget' ? 'activeclass'  : ''">סעיף תקציבי
@@ -51,7 +53,7 @@
         </li>
         <li class="active col-xs-3 col-md-2">
           <a (click)= "switchTab($event, resultTotalCount.supports, 'supports')"
-            [class]= "displayDocs  === 'supports' ? 'activeclass'  : ''">תמיכה ממשלתית
+            [class]= "displayDocs  === 'supports' ? 'activeclass'  : ''">תמיכות
             <span>
                 ({{resultTotalCount.supports ? resultTotalCount.supports.toLocaleString()  : '0'}})
             </span>
@@ -105,9 +107,6 @@
       && (displayDocs === 'procurement' || displayDocs  === 'all')" id='view-test'>
         <search-result-procurement [item]="item"></search-result-procurement>
     </div>    
-    <!-- <div *ngIf="item.type == 'contractspending' && (displayDocs === 'contractspending' || displayDocs  === 'all')">
-        <search-result-procurement [item]="item"></search-result-procurement>
-    </div> -->
     <div *ngIf="item.type == 'people' && (displayDocs === 'people' || displayDocs  === 'all')">
         <search-result-people [item]="item"></search-result-people>
     </div>
