@@ -14,17 +14,22 @@
       </h3>
     </div>
     <div class="col-md-4 figures">
-      <div>
-        <span class="period">
-          {{item.source.details.year_established ? item.source.details.year_established.toString() :
-          (item.source.details.registration_date ? item.source.details.registration_date.toString().substring(0,4) : '[start_year]')}}
-        </span>
-        <span class="period">
-          {{item.source.details.last_report_year ? item.source.details.last_report_year.toString() : 'today'}} -
-        </span>
-        <span class="amount">
+      <div class="figures-info-line">
+        <span class="amount item">
           {{item.source.received_amount  ? item.source.received_amount.toLocaleString() + " ₪" : '[amount-recieved]'}}
         </span>
+        <div class="date-range item">
+          <span>(</span>
+          <span class="period">
+            {{item.source.details.year_established ? item.source.details.year_established.toString() :
+            (item.source.details.registration_date ? item.source.details.registration_date.toString().substring(0,4) : '[start_year]')}}
+          </span>
+          <span class="period-separator"> - </span>
+          <span class="period">
+            {{item.source.details.last_report_year ? item.source.details.last_report_year.toString() : 'today'}}
+          </span>
+          <span>)</span>
+        </div>
       </div>
     </div>
   </div>
