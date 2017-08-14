@@ -18,7 +18,7 @@
     <div class="search-filter">
       <ul class="row">
         <li class="active col-xs-3 col-md-2">
-          <a href="#" (click)="switchTab(resultTotal, 'all')"
+          <a (click)="switchTab($event, resultTotal, 'all')"
               [class]= "displayDocs  === 'all' ? 'activeclass'  : ''" >הכל
             <span>
                 ({{resultTotal ? resultTotal.toLocaleString()  : '0'}})
@@ -26,7 +26,7 @@
           </a>
         </li>
         <li class="active col-xs-3 col-md-2">
-          <a href="#" (click)="switchTab(resultTotalCount.budget, 'budget')"
+          <a (click)="switchTab($event, resultTotalCount.budget, 'budget')"
             [class]= "displayDocs  === 'budget' ? 'activeclass'  : ''">סעיף תקציבי
             <span>
                 ({{resultTotalCount.budget ? resultTotalCount.budget.toLocaleString()  : '0'}})
@@ -34,7 +34,7 @@
           </a>
         </li>
         <li class="active col-xs-3 col-md-2">
-          <a href="#" (click)="switchTab(resultTotalCount.entities, 'entities')"
+          <a (click)="switchTab($event, resultTotalCount.entities, 'entities')"
             [class]= "displayDocs  === 'entities' ? 'activeclass'  : ''">ארגון
             <span>
                 ({{resultTotalCount.entities ? resultTotalCount.entities.toLocaleString()  : '0'}})
@@ -42,7 +42,7 @@
           </a>
         </li>
         <li class="active col-xs-3 col-md-2">
-          <a href="#" (click)="switchTab(resultTotalCount.nationalbudgetchanges, 'nationalbudgetchanges')"
+          <a (click)="switchTab($event, resultTotalCount.nationalbudgetchanges, 'nationalbudgetchanges')"
             [class]= "displayDocs  === 'nationalbudgetchanges' ? 'activeclass'  : ''" >העברה תקציבית
             <span>
                 ({{resultTotalCount.nationalbudgetchanges ? resultTotalCount.nationalbudgetchanges.toLocaleString()  : '0'}})
@@ -50,7 +50,7 @@
           </a>
         </li>
         <li class="active col-xs-3 col-md-2">
-          <a href="#" (click)= "switchTab(resultTotalCount.supports, 'supports')"
+          <a (click)= "switchTab($event, resultTotalCount.supports, 'supports')"
             [class]= "displayDocs  === 'supports' ? 'activeclass'  : ''">תמיכה ממשלתית
             <span>
                 ({{resultTotalCount.supports ? resultTotalCount.supports.toLocaleString()  : '0'}})
@@ -58,10 +58,18 @@
           </a>
         </li>
         <li class="active col-xs-3 col-md-2">
-          <a href="#"  (click)="switchTab(resultTotalCount.procurement, 'procurement')"
+          <a (click)="switchTab($event, resultTotalCount.procurement, 'procurement')"
             [class]= "displayDocs  === 'procurement' ? 'activeclass'  : ''">רכש
             <span>
                 ({{resultTotalCount.procurement ? resultTotalCount.procurement.toLocaleString()  : '0'}})
+            </span>
+          </a>
+        </li>
+        <li class="active col-xs-3 col-md-2">
+          <a href="#"  (click)="switchTab($event, resultTotalCount.people, 'people')"
+            [class]= "displayDocs  === 'people' ? 'activeclass'  : ''">אנשים
+            <span>
+                ({{resultTotalCount.people ? resultTotalCount.people.toLocaleString()  : '0'}})
             </span>
           </a>
         </li>
@@ -96,10 +104,13 @@
     <div *ngIf="(item.type == 'exemptions' || item.type == 'contractspending')
       && (displayDocs === 'procurement' || displayDocs  === 'all')" id='view-test'>
         <search-result-procurement [item]="item"></search-result-procurement>
-    </div>
+    </div>    
     <!-- <div *ngIf="item.type == 'contractspending' && (displayDocs === 'contractspending' || displayDocs  === 'all')">
         <search-result-procurement [item]="item"></search-result-procurement>
     </div> -->
+    <div *ngIf="item.type == 'people' && (displayDocs === 'people' || displayDocs  === 'all')">
+        <search-result-people [item]="item"></search-result-people>
+    </div>
   </div>
   <h1 class="status">{{getStatusText()}}</h1>
 </div>

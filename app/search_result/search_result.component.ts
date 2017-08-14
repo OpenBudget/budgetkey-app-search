@@ -205,3 +205,23 @@ export class SearchResultEntitiesComponent implements OnInit {
     );
   }
 }
+
+// people Component
+@Component({
+  selector: 'search-result-people',
+  template: require('./search_result_people.component.html'),
+})
+export class SearchResultPeopleComponent implements OnInit {
+  @Input() item: DocResultEntry;
+  details: string;
+  link: string;
+  entity_link: string;
+
+  constructor() { }
+  ngOnInit() {
+    this.details = 'לורם איפסום ' || this.item.source.title;
+    this.link = 'http://www.obudget.org/#budget/' + this.item.source.budget_code.slice(2, 10) + '/' +
+        this.item.source.year_requested + '/main';
+    this.entity_link = 'http://www.obudget.org/#entity/' + this.item.source.entity_id + '/2017/main';
+  }
+}
