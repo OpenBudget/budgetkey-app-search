@@ -527,15 +527,34 @@ search-result-supports {
         //   font-weight: 700;
         //   margin-left: 10px;
         // }
-        .period {
-          text-align: left;
-          font-size: 1em;
+        .figures-info-line {
+          display: flex;
+          direction: ltr;
+          margin: 0 -5px;
+
+          >.item {
+            margin: 0 5px;
+          }
+
+          .date-range {
+            display: flex;
+
+            .period {
+              font-size: 1em;
+            }
+
+            .period-separator {
+              white-space: pre;
+            }
+          }
         }
+
       .amount {
           text-align: left;
           font-weight: 700;
           font-size: 1em;
           color: $expense-color;
+          direction: rtl;
         }
       }
 
@@ -639,7 +658,7 @@ search-result-supports {
           }
           .figures {
             margin: -7px 0 -12px 10px;
-            div {
+            .figures-info-line {
               background: $entity-color-bg;
               border-style: solid;
               border-color: $entity-color-border;
