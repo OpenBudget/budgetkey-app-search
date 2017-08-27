@@ -79,7 +79,7 @@
     </div>
 </div>
 
-<div #searchBody class="search_body" 
+<div #searchBody class="search_body"
   (scroll)="fetchMore(searchBox.value)">
 
   <div *ngFor="let item of allDocs | async" >
@@ -103,10 +103,12 @@
         <search-result-supports [item]="item"></search-result-supports>
       </div>
     </div>
-    <div *ngIf="(item.type == 'exemptions' || item.type == 'contractspending')
-      && (displayDocs === 'procurement' || displayDocs  === 'all')" id='view-test'>
+    <div *ngIf="item.type == 'contractspending' && (displayDocs === 'procurement' || displayDocs  === 'all')" id='view-test'>
         <search-result-procurement [item]="item"></search-result-procurement>
-    </div>    
+    </div>
+    <div *ngIf="item.type == 'exemptions' && (displayDocs === 'procurement' || displayDocs  === 'all')">
+        <search-result-exemption [item]="item"></search-result-exemption>
+    </div>
     <div *ngIf="item.type == 'people' && (displayDocs === 'people' || displayDocs  === 'all')">
         <search-result-people [item]="item"></search-result-people>
     </div>
