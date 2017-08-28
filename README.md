@@ -9,6 +9,11 @@ It currently can be accessed at http://next.obudget.org/app/search/
 2. `npm install`
 3. `npm run dist-serve`
 
+You should make sure you use the correct node version, at time of writing it's v8.3.0.
+
+If you have [nvm](https://github.com/creationix/nvm/blob/master/README.md#installation) installed, 
+you can just run `nvm install` and you will have the correct version.
+
 ## Basic functionality: ##
 
 - It allows users to type in a free text query and get results from the Budget Key database.
