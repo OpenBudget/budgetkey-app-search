@@ -225,9 +225,9 @@ export class SearchResultPeopleComponent implements OnInit {
 
   constructor() { }
   ngOnInit() {
-    this.details = 'לורם איפסום ' || this.item.source.title;
-    this.link = 'http://www.obudget.org/#budget/' + this.item.source.budget_code.slice(2, 10) + '/' +
-        this.item.source.year_requested + '/main';
-    this.entity_link = 'http://www.obudget.org/#entity/' + this.item.source.entity_id + '/2017/main';
+    // this.details = 'לורם איפסום ' || this.item.source.title;
+    // this.link = 'http://www.obudget.org/#budget/' + this.item.source.budget_code.slice(2, 10) + '/' +
+        // this.item.source.year_requested + '/main';
+    // this.entity_link = 'http://www.obudget.org/#entity/' + this.item.source.entity_id + '/2017/main';
   }
 }
