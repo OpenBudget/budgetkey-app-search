@@ -31,7 +31,10 @@
         </a></strong>
       </h3>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-2">
+        <sparkline [dataPoints]="sparklineDataPoints"></sparkline>
+      </div>
+      <div class="col-md-2">
         <span class="amount">
           {{item.source.net_allocated ? item.source.net_allocated.toLocaleString() + " ₪" : '--'}}
         </span>

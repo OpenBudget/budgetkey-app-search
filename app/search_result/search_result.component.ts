@@ -34,6 +34,8 @@ export class SearchResultBudgetComponent implements OnInit {
   indexesToHighlight: number[];
   isTitleTextMatched: boolean;
 
+  sparklineDataPoints: {x: number, y: number}[];
+
   constructor() { }
   ngOnInit() {
     let source = this.item.source;
@@ -51,6 +53,10 @@ export class SearchResultBudgetComponent implements OnInit {
     if (this.isTitleTextMatched) {
       this.indexesToHighlight = this.item.highlight.title[0];
     }
+    this.sparklineDataPoints = Object.keys(this.item.source.history).map(year => ({
+      x: Number(year),
+      y: Number(this.item.source.history[year].net_allocated)
+    }));
   }
 
   verifyTitleMatch() {
