@@ -126,13 +126,11 @@ export class SearchComponent implements OnInit {
 
   doRequest(): Observable<SearchResults> {
     this.currentDocs = this.displayDocs;
-
     let maxRecords = 0;
     if (this.resultRenew) {
       maxRecords = 11;
     } else if (this.displayDocs === 'all') {
       let result_arr = this.resultTotalCount;
-      // console.log(Object.keys(result_arr));
       let count_arr = Object.keys(result_arr)
         .map(key => {
           return result_arr[key];
@@ -146,6 +144,8 @@ export class SearchComponent implements OnInit {
       this.skip += this.pageSize;
     } else if (this.pageSize + this.skip < maxRecords && maxRecords !== 0) {
       this.skip = maxRecords - this.pageSize;
+    } else if (this.resultCurrentCount[this.displayDocs] < 10 && this.resultCurrentCount[this.displayDocs] < maxRecords) {
+      this.skip = 0;
     } else {
       return Observable.of<SearchResults>(null);
     }
@@ -158,7 +158,6 @@ export class SearchComponent implements OnInit {
     } else if (category[0] === 'nationalbudgetchanges') {
       category = ['national-budget-changes'];
     }
-
     if (this.term) {
       this.isSearching = true;
       this.isErrorInLastSearch = false;
@@ -254,10 +253,9 @@ export class SearchComponent implements OnInit {
       this.displayDocs  = docType;
       this.searchBodyEl.nativeElement.scrollTop = 0;
       if (this.resultCurrentCount[docType] < 10) {
-        this.searchTerms.next(docType);
+        this.searchTerms.next(this.term);
       }
     }
 
-    // this.location.go(`/search?term=${this.term}`);
   }
 }
