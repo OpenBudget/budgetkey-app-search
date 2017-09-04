@@ -9,6 +9,9 @@ It currently can be accessed at http://next.obudget.org/app/search/
 2. `npm install`
 3. `npm run dist-serve`
 
+* For Windows users - 1) run on one terminal `npm run dist-serve`
+                      2) run on a  second terminal `npm start`
+
 You should make sure you use the correct node version, at time of writing it's v8.3.0.
 
 If you have [nvm](https://github.com/creationix/nvm/blob/master/README.md#installation) installed, 
