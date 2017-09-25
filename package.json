@@ -7,7 +7,7 @@
     "npm": "^5.2.0"
   },
   "scripts": {
-    "start": "http-server ./dist -p 8000",
+    "start": "http-server ./dist -p 8000 start ng serve && start gulp",
     "pree2e": "node_modules/protractor/bin/webdriver-manager update",
     "e2e": "npm run dist && tsc && concurrently \"npm start -- -s\" \"protractor protractor.config.js\" --kill-others --success first && gulp clean:ts",
     "lint": "tslint ./app/**/*.ts ./e2e/**/*.ts -t verbose",
