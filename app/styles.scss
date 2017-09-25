@@ -14,9 +14,9 @@ budgetkey-container {
   min-width: 1250px;
   display: block;
   .search_body{
-    margin-top: 20px;
-    // overflow-y: scroll;
-    // height: 60vh;
+    // margin-top: 20px;
+    overflow-y: scroll;
+    height: 60vh;
   }
   .search_body::-webkit-scrollbar {
     display: none;
