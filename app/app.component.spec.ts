@@ -1,4 +1,5 @@
 import 'karma-test-shim';
+import './rxjs-extensions';
 
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
