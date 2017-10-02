@@ -27,7 +27,8 @@
         ><span>{{item.source.code.slice(6,8) ? '.'+ item.source.code.slice(6,8).toLocaleString() : ''}}</span
         ><span>{{item.source.code.slice(8,10) ? '.'+ item.source.code.slice(8,10).toLocaleString() : ''}}</span>
         </span>
-        <search-text-highlighter [titleText]="titleText" [indexesToHighlight]="indexesToHighlight" [isTitleTextMatched]="isTitleTextMatched"></search-text-highlighter>
+        <div [innerHTML]=this.highlight></div>
+        <!-- <search-text-highlighter [titleText]="titleText" [indexesToHighlight]="indexesToHighlight" [isTitleTextMatched]="isTitleTextMatched"></search-text-highlighter> -->
         </a></strong>
       </h3>
       </div>

@@ -4,12 +4,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DocResultEntry } from '../_model/SearchResults';
 let _ = require('lodash');
-import { Highlighter } from '../highlighter/search.highlighter';
+// import { Highlighter } from '../highlighter/search.highlighter';
 
 // budget Component
 @Component({
   selector: 'search-result-budget',
-  providers: [Highlighter],
   template: require('./search_result_budget.component.html'),
 })
 export class SearchResultBudgetComponent implements OnInit {
@@ -28,11 +27,7 @@ export class SearchResultBudgetComponent implements OnInit {
   link: string;
   yearRange: string;
   category: string;
-
-  // Vars for Highlight component
-  titleText: string;
-  indexesToHighlight: number[];
-  isTitleTextMatched: boolean;
+  highlight: string;
 
   constructor() { }
   ngOnInit() {
@@ -46,26 +41,14 @@ export class SearchResultBudgetComponent implements OnInit {
       '/main'].join();
     this.yearRange = [_.get(_.keys(source.history), 0), source.year].join('-');
     this.category = SearchResultBudgetComponent.categoriesByNumberOfDigits[this.item.source.code.length - 2];
-    this.isTitleTextMatched = this.verifyTitleMatch();
-    this.titleText = this.item.source.title;
-    if (this.isTitleTextMatched) {
-      this.indexesToHighlight = this.item.highlight.title[0];
-    }
-  }
-
-  verifyTitleMatch() {
-    return (
-      (this.item.highlight !== undefined) &&
-      (this.item.highlight.title !== undefined) &&
-      (this.item.highlight.title[0].length === 2)
-    );
+    
+    this.highlight =  this.item.source.title !== undefined  ? this.item.source.title : '';
   }
 }
 
 // Changes Component
 @Component({
   selector: 'search-result-changes',
-  providers: [Highlighter],
   template: require('./search_result_changes.component.html'),
 })
 export class SearchResultChangesComponent implements OnInit {
@@ -76,8 +59,6 @@ export class SearchResultChangesComponent implements OnInit {
   constructor() { }
   ngOnInit() {
     this.details = 'לורם איפסום ' || this.item.source.title;
-    // let parts = (this.item.source.date ? this.item.source.date.split('/') : '--');
-    // this.date = new Date(parts[2], parts[1] - 1, parts[0]);
   }
 
 }
@@ -101,31 +82,6 @@ export class SearchResultExemptionComponent implements OnInit {
   }
 }
 
-function isHighlightValid(highlightArray: number[]) {
-  return (_.size(highlightArray) === 2);
-}
-
-function attrToParams(item: object, attr: string) {
-  let highlightIndexes = _.get(item, ['highlight', attr, 0]),
-    areIndexesValid = isHighlightValid(highlightIndexes);
-  return {
-    titleText: _.get(item, ['source', attr]),
-    isTitleTextMatched: areIndexesValid,
-    indexesToHighlight: areIndexesValid ? highlightIndexes : null
-  };
-}
-
-function searchResultsTemplateParams(item: object) {
-  let titleAttrs = ['entity_name', 'supplier_name'];
-  return _.merge({
-    details: 'לורם איפסום ' || _.get(item, ['source', 'title'])
-  },
-    titleAttrs.
-      map(_.partial(attrToParams, item)).
-      filter(_.property('isTitleTextMatched'))[0]
-  );
-}
-
 // procurement Component
 @Component({
   selector: 'search-result-procurement',
@@ -135,15 +91,9 @@ export class SearchResultProcurementComponent implements OnInit {
   @Input() item: DocResultEntry;
   details: string;
 
-  // Vars for Highlight component
-  titleText: string;
-  indexesToHighlight: number[];
-  isTitleTextMatched: boolean;
-
   constructor() { }
 
   ngOnInit() {
-    _.assign(this, searchResultsTemplateParams(this.item));
   }
 
 }
@@ -179,31 +129,14 @@ export class SearchResultEntitiesComponent implements OnInit {
   details: string;
   link: string;
 
-  // Vars for Highlight component
-  titleText: string;
-  indexesToHighlight: number[];
-  isTitleTextMatched: boolean;
-
   constructor() { }
   ngOnInit() {
 
     this.details = 'לורם איפסום ' || this.item.source.title;
     this.link = 'http://www.obudget.org/#entity/' + this.item.source.id + '/2017/main';
 
-    this.isTitleTextMatched = this.verifyTitleMatch();
-    this.titleText = this.item.source.name;
-    if (this.isTitleTextMatched) {
-      this.indexesToHighlight = this.item.highlight.name[0];
-    }
   }
 
-  verifyTitleMatch() {
-    return (
-      (this.item.highlight !== undefined) &&
-      (this.item.highlight.name !== undefined) &&
-      (this.item.highlight.name[0].length === 2)
-    );
-  }
 }
 
 // people Component

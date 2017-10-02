@@ -67,14 +67,14 @@
             </span>
           </a>
         </li>
-        <li class="active col-xs-3 col-md-2">
+        <!-- <li class="active col-xs-3 col-md-2">
           <a href="#"  (click)="switchTab($event, resultTotalCount.people, 'people')"
             [class]= "displayDocs  === 'people' ? 'activeclass'  : ''">אנשים
             <span>
                 ({{resultTotalCount.people ? resultTotalCount.people.toLocaleString()  : '0'}})
             </span>
           </a>
-        </li>
+        </li> -->
       </ul>
     </div>
 </div>
@@ -109,9 +109,9 @@
     <div *ngIf="item.type == 'exemptions' && (displayDocs === 'procurement' || displayDocs  === 'all')">
         <search-result-exemption [item]="item"></search-result-exemption>
     </div>
-    <div *ngIf="item.type == 'people' && (displayDocs === 'people' || displayDocs  === 'all')">
+    <!-- <div *ngIf="item.type == 'people' && (displayDocs === 'people' || displayDocs  === 'all')">
         <search-result-people [item]="item"></search-result-people>
-    </div>
+    </div> -->
   </div>
   <h1 class="status">{{getStatusText()}}</h1>
 </div>
