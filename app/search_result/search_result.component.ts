@@ -41,7 +41,6 @@ export class SearchResultBudgetComponent implements OnInit {
       '/main'].join();
     this.yearRange = [_.get(_.keys(source.history), 0), source.year].join('-');
     this.category = SearchResultBudgetComponent.categoriesByNumberOfDigits[this.item.source.code.length - 2];
-    
     this.highlight =  this.item.source.title !== undefined  ? this.item.source.title : '';
   }
 }
