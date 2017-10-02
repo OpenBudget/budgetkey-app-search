@@ -27,8 +27,7 @@
         ><span>{{item.source.code.slice(6,8) ? '.'+ item.source.code.slice(6,8).toLocaleString() : ''}}</span
         ><span>{{item.source.code.slice(8,10) ? '.'+ item.source.code.slice(8,10).toLocaleString() : ''}}</span>
         </span>
-        <div [innerHTML]=this.highlight></div>
-        <!-- <search-text-highlighter [titleText]="titleText" [indexesToHighlight]="indexesToHighlight" [isTitleTextMatched]="isTitleTextMatched"></search-text-highlighter> -->
+        <div [innerHTML]=this.title></div>
         </a></strong>
       </h3>
       </div>
@@ -42,7 +41,8 @@
       <ol class="sub-items-list">
         <span *ngIf="category">{{category}} תחת סעיף זה:</span>
         <li class="sub-item" *ngFor="let child of item.source.children;">
-          <a [attr.href]="'http://www.obudget.org/#budget/' + child.code.slice(2) + '/' + item.source.year + '/main'" target="_blank">{{child.title}}</a>
+          <a [attr.href]="'http://www.obudget.org/#budget/' + child.code.slice(2) + '/' + item.source.year + '/main'" target="_blank">
+            <a [innerHTML]=child.title></a></a>
         </li>
       </ol>
     </div>
