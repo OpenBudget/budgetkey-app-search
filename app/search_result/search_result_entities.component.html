@@ -9,8 +9,9 @@
     <div class="col-md-8 title">
       <h3 class="title">
         <a [attr.href]="link" target="_blank">
-        <search-text-highlighter [titleText]="titleText" [indexesToHighlight]="indexesToHighlight" [isTitleTextMatched]="isTitleTextMatched"></search-text-highlighter>
-        </a>
+        <!-- <search-text-highlighter [titleText]="titleText" [indexesToHighlight]="indexesToHighlight" [isTitleTextMatched]="isTitleTextMatched"></search-text-highlighter> -->
+       {{this.item.source.name  ? this.item.source.name : ''}}
+      </a>
       </h3>
     </div>
     <div class="col-md-4 figures">
