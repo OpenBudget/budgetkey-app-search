@@ -14,7 +14,8 @@
     <ol class="breadcrumb">
       <li><a>{{yearRange}}</a></li
       ><li *ngFor="let hierarchyItem of item.source.hierarchy.slice(1);">
-        <a [attr.href]="'http://www.obudget.org/#budget/' + hierarchyItem[0].slice(2) + '/' + item.source.year + '/main'" target="_blank">{{hierarchyItem[1]}}</a>
+        <a [attr.href]="'http://www.obudget.org/#budget/' + hierarchyItem[0].slice(2) + '/' + item.source.year + '/main'" target="_blank">
+          <a [innerHTML]=hierarchyItem[1]></a></a>
       </li>
     </ol>
     <div class="header row">
