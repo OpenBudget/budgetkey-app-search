@@ -151,18 +151,19 @@ export class SearchComponent implements OnInit {
     }
 
     let category = [this.currentDocs];
-    if (this.resultRenew) {
-      category = ['all'];
-    } else if (category[0] === 'procurement') {
-      category = ['contract-spending', 'exemptions'];
+    if (this.resultRenew || category[0] === 'all') {
+      category = ['budget', 'national-budget-changes', 'contract-spending', 'entities'];
+      // category = ['all'];
+    // } else if (category[0] === 'procurement') {
+    //   category = ['contract-spending', 'exemptions'];
     } else if (category[0] === 'nationalbudgetchanges') {
       category = ['national-budget-changes'];
     }
     if (this.term) {
       this.isSearching = true;
       this.isErrorInLastSearch = false;
-      return this.searchService.search(this.term, this.pageSize, this.skip, ['budget', 'national-budget-changes','contract-spending', 'entities']);
-    } else {
+      return this.searchService.search(this.term, this.pageSize, this.skip, category);
+      } else {
       this.isSearching = false;
       return Observable.of<SearchResults>(null);
     }
