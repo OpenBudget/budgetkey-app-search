@@ -8,10 +8,7 @@
   <div class="header row">
     <div class="col-md-8 title">
       <h3 class="title">
-        <a [attr.href]="link" target="_blank">
-        <!-- <search-text-highlighter [titleText]="titleText" [indexesToHighlight]="indexesToHighlight" [isTitleTextMatched]="isTitleTextMatched"></search-text-highlighter> -->
-       {{this.item.source.name  ? this.item.source.name : ''}}
-      </a>
+        <a [attr.href]="link" target="_blank" [innerHTML]=this.title></a>
       </h3>
     </div>
     <div class="col-md-4 figures">
@@ -43,11 +40,7 @@
                {{item.source.details.address ? item.source.details.address.toLocaleString()  : '--'}}
             </span>
           </p>
-          <p class="row"><strong>מטרות:</strong>
-            <!--change key!!!!-->
-            <span>
-               {{item.source.details.objective ? item.source.details.objective.toLocaleString()  : '--'}}
-            </span>
+          <p class="row"><strong>מטרות:</strong><span [innerHTML]=this.objective></span>
           </p>
         </div>
       </div>
@@ -88,13 +81,8 @@
              {{item.source.details.city ? item.source.details.city.toLocaleString(): ''}}
              {{item.source.details.street || item.source.details.city || item.source.details.street_number ? '' : '--'}}
               </span></p>
-          <p class="row"><strong>תיאור:</strong> <span>
-           {{item.source.details.description ? item.source.details.description.toLocaleString(): '--'}}
-           </span></p>
-           <p class="row"><strong>מטרה:</strong> <span>
-           {{item.source.details.goal ? item.source.details.goal.toLocaleString(): '--'}}
-           </span></p>
-          <!-- <p class="row"><strong>מטרות:</strong> <span>[לייסד, לקיים, לבסס, להרחיב ולפתח מוסד דתי תורני תיכוני חינוכי.]</span></p> -->
+           <p class="row"><strong>תיאור:</strong> <span [innerHTML]=this.description></span></p>
+           <p class="row"><strong>מטרה:</strong> <span [innerHTML]=this.goals> </span></p>
         </div>
       </div>
     </div>

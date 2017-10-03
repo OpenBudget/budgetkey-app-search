@@ -161,7 +161,7 @@ export class SearchComponent implements OnInit {
     if (this.term) {
       this.isSearching = true;
       this.isErrorInLastSearch = false;
-      return this.searchService.search(this.term, this.pageSize, this.skip, ['budget']);
+      return this.searchService.search(this.term, this.pageSize, this.skip, ['budget', 'national-budget-changes','contract-spending', 'entities']);
     } else {
       this.isSearching = false;
       return Observable.of<SearchResults>(null);

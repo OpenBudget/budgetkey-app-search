@@ -127,12 +127,20 @@ export class SearchResultEntitiesComponent implements OnInit {
   @Input() item: DocResultEntry;
   details: string;
   link: string;
+  title: string;
+  description: string;
+  goals: string;
+  objective: string;
 
   constructor() { }
   ngOnInit() {
 
     this.details = 'לורם איפסום ' || this.item.source.title;
     this.link = 'http://www.obudget.org/#entity/' + this.item.source.id + '/2017/main';
+    this.title =  this.item.source.name !== undefined  ? this.item.source.name : '';
+    this.description =  this.item.source.details.description !== undefined ? this.item.source.details.description : '--';
+    this.goals = this.item.source.details.goal !== undefined ? this.item.source.details.goal : '--';
+    this.objective = this.item.source.details.objective !== undefined ? this.item.source.details.objective : '--';
 
   }
 
