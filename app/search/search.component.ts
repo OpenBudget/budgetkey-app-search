@@ -124,7 +124,7 @@ export class SearchComponent implements OnInit {
    * @param {SearchResults} results - returned results from query
    */
   processResults(results: SearchResults): void {
-    if (results) {
+    if (results && results.search_counts && results.search_results) {
       if (this.displayDocs === 'all') {
         this.resultTotal = 0;
         for (let key in results.search_counts) {

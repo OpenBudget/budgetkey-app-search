@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { Colors } from './_config/config';
+import { THEME } from './_config/config';
 
 @Component({
   selector: 'my-app',
@@ -7,4 +7,6 @@ import { Colors } from './_config/config';
   styles: [ require('./styles.scss') ],
   template: require('./app.component.html'),
 })
-export class AppComponent  { }
+export class AppComponent {
+  theme: string = THEME;
+}
