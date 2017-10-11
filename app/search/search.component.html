@@ -18,7 +18,7 @@
     <div class="search-filter">
       <ul class="row col-xs-3 col-md-2">
         <li class="active col-xs-12 col-md-12">
-          <a (click)="switchTab($event, resultTotal, 'all')"
+          <a (click)="switchTab($event, 'all')"
               [class]= "displayDocs  === 'all' ? 'activeclass'  : ''" >הכל
             <span>
                 ({{resultTotal ? resultTotal.toLocaleString()  : '0'}})
@@ -28,7 +28,7 @@
       </ul>
         <ul class='row col-xs-9 col-md-10'>
         <li class="active col-xs-3 col-md-2">
-          <a (click)="switchTab($event, resultTotalCount.budget, 'budget')"
+          <a (click)="switchTab($event, 'budget')"
             [class]= "displayDocs  === 'budget' ? 'activeclass'  : ''">סעיף תקציבי
             <span>
                 ({{resultTotalCount.budget ? resultTotalCount.budget.toLocaleString()  : '0'}})
@@ -36,7 +36,7 @@
           </a>
         </li>
         <li class="active col-xs-3 col-md-2">
-          <a (click)="switchTab($event, resultTotalCount.entities, 'entities')"
+          <a (click)="switchTab($event, 'entities')"
             [class]= "displayDocs  === 'entities' ? 'activeclass'  : ''">ארגון
             <span>
                 ({{resultTotalCount.entities ? resultTotalCount.entities.toLocaleString()  : '0'}})
@@ -44,7 +44,7 @@
           </a>
         </li>
         <li class="active col-xs-3 col-md-2">
-          <a (click)="switchTab($event, resultTotalCount.nationalbudgetchanges, 'nationalbudgetchanges')"
+          <a (click)="switchTab($event, 'national-budget-changes')"
             [class]= "displayDocs  === 'nationalbudgetchanges' ? 'activeclass'  : ''" >העברה תקציבית
             <span>
                 ({{resultTotalCount.nationalbudgetchanges ? resultTotalCount.nationalbudgetchanges.toLocaleString()  : '0'}})
@@ -52,7 +52,7 @@
           </a>
         </li>
         <li class="active col-xs-3 col-md-2">
-          <a (click)= "switchTab($event, resultTotalCount.supports, 'supports')"
+          <a (click)= "switchTab($event, 'supports')"
             [class]= "displayDocs  === 'supports' ? 'activeclass'  : ''">תמיכות
             <span>
                 ({{resultTotalCount.supports ? resultTotalCount.supports.toLocaleString()  : '0'}})
@@ -60,10 +60,10 @@
           </a>
         </li>
         <li class="active col-xs-3 col-md-2">
-          <a (click)="switchTab($event, resultTotalCount.procurement, 'procurement')"
+          <a (click)="switchTab($event, 'tenders,contract-spending')"
             [class]= "displayDocs  === 'procurement' ? 'activeclass'  : ''">רכש
             <span>
-                ({{resultTotalCount.procurement ? resultTotalCount.procurement.toLocaleString()  : '0'}})
+                ({{(resultTotalCount.tenders + resultTotalCount.contractspending) ? (resultTotalCount.tenders + resultTotalCount.contractspending).toLocaleString()  : '0'}})
             </span>
           </a>
         </li>
@@ -79,39 +79,10 @@
     </div>
 </div>
 
-<div #searchBody class="search_body"
-  (scroll)="fetchMore(searchBox.value)">
+<div #searchBody class="search_body">
 
   <div *ngFor="let item of allDocs | async" >
-    <div *ngIf="item.type == 'entities'">
-      <div *ngIf="displayDocs === 'entities' || displayDocs  === 'all'">
-        <search-result-entities [item]="item"></search-result-entities>
-      </div>
-    </div>
-    <div *ngIf="item.type == 'budget'">
-      <div *ngIf="displayDocs === 'budget' || displayDocs  === 'all'">
-          <search-result-budget [item]="item"></search-result-budget>
-      </div>
-    </div>
-    <div *ngIf="item.type == 'nationalbudgetchanges'">
-      <div *ngIf="displayDocs === 'nationalbudgetchanges' || displayDocs  === 'all'">
-          <search-result-changes [item]="item"></search-result-changes>
-      </div>
-    </div>
-    <div *ngIf="item.type == 'supports'">
-      <div *ngIf="displayDocs === 'supports' || displayDocs  === 'all'">
-        <search-result-supports [item]="item"></search-result-supports>
-      </div>
-    </div>
-    <div *ngIf="item.type == 'contractspending' && (displayDocs === 'procurement' || displayDocs  === 'all')" id='view-test'>
-        <search-result-procurement [item]="item"></search-result-procurement>
-    </div>
-    <div *ngIf="item.type == 'exemptions' && (displayDocs === 'procurement' || displayDocs  === 'all')">
-        <search-result-exemption [item]="item"></search-result-exemption>
-    </div>
-    <!-- <div *ngIf="item.type == 'people' && (displayDocs === 'people' || displayDocs  === 'all')">
-        <search-result-people [item]="item"></search-result-people>
-    </div> -->
+    <search-result [item]="item"></search-result>
   </div>
   <h1 class="status">{{getStatusText()}}</h1>
 </div>

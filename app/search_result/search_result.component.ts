@@ -4,164 +4,134 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DocResultEntry } from '../_model/SearchResults';
 let _ = require('lodash');
-// import { Highlighter } from '../highlighter/search.highlighter';
 
-// budget Component
-@Component({
-  selector: 'search-result-budget',
-  template: require('./search_result_budget.component.html'),
-})
-export class SearchResultBudgetComponent implements OnInit {
-  static readonly categoriesByNumberOfDigits = {
-    0: 'משרדים',
-    2: 'שתי ספרות',
-    4: 'ארבע ספרות',
-    6: 'שש ספרות',
-    8: 'שמונה ספרות',
-    10: 'עשר ספרות'
-  };
 
-  @Input() item: DocResultEntry;
-  details: string;
-  changePerc: number;
-  link: string;
-  yearRange: string;
-  category: string;
-  title: string;
-
-  constructor() { }
-  ngOnInit() {
-    let source = this.item.source;
-    this.details = 'לורם איפסום ' || source.title;
-    this.changePerc = source.net_revised * 100 / source.net_allocated;
-    this.link = ['http://www.obudget.org/#budget/',
-      source.code.slice(2, 10),
-      '/',
-      source.year,
-      '/main'].join();
-    this.yearRange = [_.get(_.keys(source.history), 0), source.year].join('-');
-    this.category = SearchResultBudgetComponent.categoriesByNumberOfDigits[this.item.source.code.length - 2];
-    this.title =  this.item.source.title !== undefined  ? this.item.source.title : '';
+let KIND_PARAMETERS = [
+  {
+    docType: 'org/company',
+    label: 'חברה',
+    labelField: 'details.type',
+    mainNameField: 'name',
+    secondaryNameField: 'id',
+    amountField: 'amount_received',
+    firstItemField: 'details.goal',
+    firstItemLabel: 'מטרה',
+    secondItemField: 'details.city',
+    secondItemLabel: 'כתובת'
+  },
+  {
+    docType: 'org/association',
+    label: 'עמותה',
+    labelField: 'details.type',
+    mainNameField: 'name',
+    secondaryNameField: 'id',
+    amountField: 'amount_received',
+    firstItemField: 'details.objective',
+    firstItemLabel: 'מטרה',
+    secondItemField: 'details.address',
+    secondItemLabel: 'כתובת'
+  },
+  {
+    docType: 'org',
+    label: 'ארגון',
+    labelField: 'details.type',
+    mainNameField: 'name',
+    secondaryNameField: 'id',
+    amountField: 'amount_received',
+  },
+  {
+    docType: 'budget',
+    label: 'סעיף תקציבי',
+    breadcrumbsField: 'hierarchy',
+    categoryField: 'func_cls_title_1.0',
+    mainNameField: 'title',
+    secondaryNameField: 'code',
+    amountField: 'net_allocated',
+    firstItemField: 'econ_cls_title_1.0',
+    firstItemLabel: 'מיון כלכלי'
+  },
+  {
+    docType: 'supports',
+    label: 'תמיכה ממשלתית',
+    mainNameField: 'payments.0.support_title',
+    fromField: 'payments.0.supporting_ministry',
+    toField: 'recipient',
+    amountField: 'amount_total',
+    firstItemField: 'year_requested',
+    firstItemLabel: 'שנת בקשה'
+  },
+  {
+    docType: 'contract-spending',
+    label: 'התקשרות',
+    mainNameField: 'purpose',
+    fromField: 'publisher.0',
+    toField: 'supplier_name.0',
+    amountField: 'volume',
+    firstItemField: 'budget_title',
+    firstItemLabel: 'מסעיף תקציבי'
+  },
+  {
+    docType: 'tenders/exemptions',
+    label: 'בקשת פטור ממכרז',
+    mainNameField: 'regulation',
+    secondaryNameField: 'decision',
+    fromField: 'publisher',
+    toField: 'supplier',
+    amountField: 'volume',
+    firstItemField: 'description',
+    firstItemLabel: 'תאור'
+  },
+  {
+    docType: 'tenders/office',
+    label: 'מכרז משרדי',
+    mainNameField: 'subjects',
+    secondaryNameField: 'decision',
+    fromField: 'publisher',
+    toField: 'supplier',
+    amountField: 'volume',
+    firstItemField: 'description',
+    firstItemLabel: 'תאור'
+  },
+  {
+    docType: 'tenders/central',
+    label: 'מכרז מרכזי',
+    mainNameField: 'page_title',
+    secondaryNameField: 'decision',
+    amountField: 'volume',
+    firstItemField: 'subjects',
+    firstItemLabel: 'נושאים'
+  },
+  {
+    docType: '',
+    label: 'אחר?',
+    mainNameField: 'doc_id',
   }
-}
+];
 
-// Changes Component
+// generic Component
 @Component({
-  selector: 'search-result-changes',
-  template: require('./search_result_changes.component.html'),
+  selector: 'search-result',
+  template: require('./search_result.component.html'),
 })
-export class SearchResultChangesComponent implements OnInit {
+export class SearchResultComponent implements OnInit {
   @Input() item: DocResultEntry;
-  details: string;
-  date: Date;
+  @Input() kind: string;
+  parameters: any;
 
   constructor() { }
   ngOnInit() {
-    this.details = 'לורם איפסום ' || this.item.source.title;
-  }
-
-}
-
-// exemption Component
-@Component({
-  selector: 'search-result-exemption',
-  template: require('./search_result_exemption.component.html'),
-})
-export class SearchResultExemptionComponent implements OnInit {
-  @Input() item: DocResultEntry;
-  details: string;
-  entity_link: string;
-  valid_link: boolean;
-
-  constructor() { }
-  ngOnInit() {
-    this.details = 'לורם איפסום ' || this.item.source.title;
-    this.entity_link = 'http://www.obudget.org/#entity/' + this.item.source.entity_id + '/2017/main';
-    this.valid_link = this.item.source.entity_id !== null;
-  }
-}
-
-// procurement Component
-@Component({
-  selector: 'search-result-procurement',
-  template: require('./search_result_procurement.component.html'),
-})
-export class SearchResultProcurementComponent implements OnInit {
-  @Input() item: DocResultEntry;
-  details: string;
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-}
-
-// supports Component
-@Component({
-  selector: 'search-result-supports',
-  template: require('./search_result_supports.component.html'),
-})
-export class SearchResultSupportsComponent implements OnInit {
-  @Input() item: DocResultEntry;
-  details: string;
-  link: string;
-  entity_link: string;
-
-  constructor() { }
-  ngOnInit() {
-    this.details = 'לורם איפסום ' || this.item.source.title;
-    this.link = 'http://www.obudget.org/#budget/' + this.item.source.budget_code.slice(2, 10) + '/' +
-        this.item.source.year_requested + '/main';
-    this.entity_link = 'http://www.obudget.org/#entity/' + this.item.source.entity_id + '/2017/main';
-  }
-
-}
-
-// entities Component
-@Component({
-  selector: 'search-result-entities',
-  template: require('./search_result_entities.component.html'),
-})
-export class SearchResultEntitiesComponent implements OnInit {
-  @Input() item: DocResultEntry;
-  details: string;
-  link: string;
-  title: string;
-  description: string;
-  goals: string;
-  objective: string;
-
-  constructor() { }
-  ngOnInit() {
-
-    this.details = 'לורם איפסום ' || this.item.source.title;
-    this.link = 'http://www.obudget.org/#entity/' + this.item.source.id + '/2017/main';
-    this.title =  this.item.source.name !== undefined  ? this.item.source.name : '';
-    this.description =  this.item.source.details.description !== undefined ? this.item.source.details.description : '--';
-    this.goals = this.item.source.details.goal !== undefined ? this.item.source.details.goal : '--';
-    this.objective = this.item.source.details.objective !== undefined ? this.item.source.details.objective : '--';
-
+    for (let parameters of KIND_PARAMETERS) {
+      if (this.item.source.doc_id.startsWith(parameters.docType)) {
+        this.parameters = parameters;
+        break;
+      }
+    }
   }
 
-}
-
-// people Component
-@Component({
-  selector: 'search-result-people',
-  template: require('./search_result_people.component.html'),
-})
-export class SearchResultPeopleComponent implements OnInit {
-  @Input() item: DocResultEntry;
-  details: string;
-  link: string;
-  entity_link: string;
-
-  constructor() { }
-  ngOnInit() {
-    // this.details = 'לורם איפסום ' || this.item.source.title;
-    // this.link = 'http://www.obudget.org/#budget/' + this.item.source.budget_code.slice(2, 10) + '/' +
-        // this.item.source.year_requested + '/main';
-    // this.entity_link = 'http://www.obudget.org/#entity/' + this.item.source.entity_id + '/2017/main';
+  get(field: string) {
+    if (field) {
+      return _.get(this.item.source, field.split('.'));
+    }
+    return '';
   }
 }
