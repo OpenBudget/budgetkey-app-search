@@ -8,7 +8,10 @@ gulp.task('default', function(done) {
   runSequence('clean', 'assets', done);
 });
 
-gulp.task('assets', ['assets:app', 'assets:vendor']);
+gulp.task('assets', ['assets:app', 'assets:vendor', 'styles:vendor',
+  // temporary fix for problem with some missing or incorrectly referenced fonts in budgetkey-ng2-components css
+  'assets:vendor-fonts', 'assets:app-fonts'
+]);
 
 gulp.task('assets:app', function() {
   return gulp.src([
@@ -27,6 +30,26 @@ gulp.task('assets:vendor', function() {
     base: './node_modules/budgetkey-ng2-components'
   }).pipe(gulp.dest('./dist'));
 });
+
+gulp.task('styles:vendor', function() {
+  return gulp.src([
+    './node_modules/budgetkey-ng2-components/lib/styles/**/*'
+  ], {
+    base: './node_modules/budgetkey-ng2-components/lib/styles/'
+  }).pipe(gulp.dest('./dist'));
+});
+
+// temporary fix for problem with some missing or incorrectly referenced fonts in budgetkey-ng2-components css
+gulp.task('assets:vendor-fonts', function() {return gulp.src([
+  // vendor fonts --> dist/fonts/
+  './node_modules/budgetkey-ng2-components/assets/fonts/*'
+], {base: './node_modules/budgetkey-ng2-components/assets/fonts'})
+  .pipe(gulp.dest('./dist/fonts'));});
+gulp.task('assets:app-fonts', function() {return gulp.src([
+  // app fonts (includes a missing font file) --> dist/fonts/
+  './assets/fonts/*'
+], {base: './assets/fonts'})
+  .pipe(gulp.dest('./dist/fonts'));});
 
 gulp.task('clean', ['clean:dist', 'clean:ts']);
 
