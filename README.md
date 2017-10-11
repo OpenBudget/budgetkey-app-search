@@ -73,3 +73,46 @@ This should add the new `component`, `directive` or `pipe` reference to the `new
 To run the tests import karma-test-shim in the newly created *.spec.ts:
 
 	import 'karma-test-shim';
+
+## Advanced Topics
+
+Some advanced topics, not necessary for regular development.
+
+#### Themes
+
+The core components and apps support themes for reusability of common code.
+
+To run the app with a different theme, set the BUDGETKEY_THEME environment variable before running `dist` or `dist-serve`
+
+E.g., to run the site with OpenProcurement theme:
+
+* `BUDGETKEY_THEME=OpenProcurement npm run dist-serve`
+
+The docker image needs to be built for each theme using build arg:
+
+```
+export BUDGETKEY_THEME=OpenProcurement
+docker build --build-arg "BUDGETKEY_THEME=${BUDGETKEY_THEME}" -t "budgetkey/budgetkey-app-search:${BUDGETKEY_THEME}" .
+docker run -d --rm --name budgetkey-app-search -p8000:8000 "budgetkey/budgetkey-app-search:${BUDGETKEY_THEME}"
+```
+
+#### Building the docker image with custom ng2-components directory
+
+If you want to test the integration with an unpublished build of ng2-components inside docker, you can use this procedure
+
+* User and branch to fetch from
+```
+export GITHUB_USER=OriHoch
+export GITHUB_BRANCH=support-site-customizations
+```
+* Download and extract the branch archive
+```
+rm -rf .budgetkey-ng2-components "budgetkey-ng2-components-${GITHUB_BRANCH}" ${GITHUB_BRANCH}.zip
+wget "https://github.com/${GITHUB_USER}/budgetkey-ng2-components/archive/${GITHUB_BRANCH}.zip"
+unzip "${GITHUB_BRANCH}.zip"
+mv "budgetkey-ng2-components-${GITHUB_BRANCH}" .budgetkey-ng2-components
+```
+* Uncomment the relevant line in the Dockerfile
+* Build and run
+  * `docker build -t budgetkey/budgetkey-app-search:${GITHUB_USER}-${GITHUB_BRANCH} .`
+  * `docker run -d --rm --name budgetkey-app-search -p8000:8000 budgetkey/budgetkey-app-search:${GITHUB_USER}-${GITHUB_BRANCH}`

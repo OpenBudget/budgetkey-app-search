@@ -1,5 +1,4 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { THEME } from './_config/config';
 
 @Component({
   selector: 'my-app',
@@ -7,6 +6,4 @@ import { THEME } from './_config/config';
   styles: [ require('./styles.scss') ],
   template: require('./app.component.html'),
 })
-export class AppComponent {
-  theme: string = THEME;
-}
+export class AppComponent { }
