@@ -9,15 +9,8 @@ import { SearchService } from './_service/search.service';
 import { SearchComponent } from './search/search.component';
 
 import { BudgetKeyCommonModule } from 'budgetkey-ng2-components';
-import { SearchResultBudgetComponent } from './search_result/search_result.component';
-import { SearchResultChangesComponent } from './search_result/search_result.component';
-import { SearchResultExemptionComponent } from './search_result/search_result.component';
-import { SearchResultProcurementComponent } from './search_result/search_result.component';
-import { SearchResultSupportsComponent } from './search_result/search_result.component';
-import { SearchResultEntitiesComponent } from './search_result/search_result.component';
-import { SearchResultPeopleComponent } from './search_result/search_result.component';
+import { SearchResultComponent } from './search_result/search_result.component';
 
-import { Highlighter } from './highlighter/search.highlighter';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -31,14 +24,7 @@ import { AppRoutingModule } from './app-routing.module';
   declarations: [
     AppComponent,
     SearchComponent,
-    SearchResultBudgetComponent,
-    SearchResultChangesComponent,
-    SearchResultExemptionComponent,
-    SearchResultProcurementComponent,
-    SearchResultSupportsComponent,
-    SearchResultEntitiesComponent,
-    SearchResultPeopleComponent,
-    Highlighter
+    SearchResultComponent
   ],
   providers: [
     SearchService
