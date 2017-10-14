@@ -29,11 +29,11 @@
       </div>
       <div class="row bottom-part">
           <div class="col-md-12">
-              <div class="first-line">
+              <div class="first-line" *ngIf="parameters.firstItemLabel">
                   <label>{{parameters.firstItemLabel}}:</label>
                   <span innerHTML="{{get(parameters.firstItemField)}}"></span>
               </div>
-              <div class="second-line">
+              <div class="second-line" *ngIf="parameters.secondItemField">
                   <label>{{parameters.secondItemLabel}}:</label>
                   <span innerHTML="{{get(parameters.secondItemField)}}"></span>
               </div>
