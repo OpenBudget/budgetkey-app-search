@@ -28,7 +28,7 @@ Design mockups can be seen in issue [#1](https://github.com/OpenBudget/budgetkey
 
 Before starting, take a peek in our [documentation](https://github.com/OpenBudget/BudgetKey/blob/master/README.md)
 
-### Generating Components, Directives, Pipes and Services
+## Generating Components, Directives, Pipes and Services
 
 You can use the `ng generate` (or just `ng g`) command to generate Angular components:
 
@@ -68,3 +68,8 @@ angular-cli will add reference to `components`, `directives` and `pipes` automat
  
 This should add the new `component`, `directive` or `pipe` reference to the `new-module` you've created.
 
+### Note
+
+To run the tests import karma-test-shim in the newly created *.spec.ts:
+
+	import 'karma-test-shim';
