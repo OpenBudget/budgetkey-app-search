@@ -1,0 +1,33 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "name": "budgetkey-app-search"
+  },
+  "apps": [
+    {
+      "root": "./",
+      "outDir": "dist",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "prefix": "app",
+      "scripts": []
+    }
+  ],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.config.js"
+    }
+  },
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "defaults": {
+    "component": {}
+  }
+}

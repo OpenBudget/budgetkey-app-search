@@ -43,6 +43,7 @@
     "@types/lodash": "^4.14.43",
     "@types/node": "^6.0.46",
     "@types/selenium-webdriver": "^2.53.33",
+    "angular2-template-loader": "^0.6.2",
     "awesome-typescript-loader": "^3.2.1",
     "browserify": "^13.1.1",
     "canonical-path": "0.0.2",
