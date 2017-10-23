@@ -120,7 +120,7 @@ h1.status{
     background-color: #ffffff;
     border: 1px solid #ccc;
     overflow-y: hidden;
-    height: 100px;
+    min-height: 100px;
   }
 
   .result-label {
