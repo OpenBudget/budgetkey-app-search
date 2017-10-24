@@ -24,6 +24,13 @@
               </a>
           </div>
           <div class="col-md-4 pull-left">
+              <div *ngIf="get(parameters.minYearField) || get(parameters.maxYearField)" class="pay-period">
+                  תקופת תשלום:
+                  <br/>
+                  {{get(parameters.maxYearField, '&nbsp;&nbsp;&nbsp;&nbsp;')}}
+                  -
+                  {{get(parameters.minYearField, '&nbsp;&nbsp;&nbsp;&nbsp;')}}
+              </div>
               <div class="amount">{{get(parameters.amountField) ? '₪ ' + get(parameters.amountField).toLocaleString()  : '-'}}</div>
           </div>
       </div>

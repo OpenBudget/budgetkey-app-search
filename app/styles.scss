@@ -190,13 +190,17 @@ h1.status{
         white-space:nowrap
       }
     }
+    .pay-period {
+      display: inline-block;
+    }
     .amount {
+      display: inline-block;
       font-size: 18px;
       overflow:hidden;
       white-space:nowrap;
       text-align: left;
       direction: ltr;
-      width: 100%;
+      float: left;
     }
   }
   .bottom-part {
