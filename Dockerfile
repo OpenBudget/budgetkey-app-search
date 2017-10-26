@@ -1,20 +1,17 @@
 FROM node:8-alpine
 
+COPY . /app/
 RUN apk add --update git
 
-COPY package.json /app/package.json
-COPY package-lock.json /app/package-lock.json
-
-RUN cd /app && npm install --dev
-
-COPY . /app/
-
 ENV NODE_ENV=production
-WORKDIR /app
 
-# uncomment the following line to enable integration with custom budgetkey-ng2-components, see README for details
-# RUN cd .budgetkey-ng2-components && npm install --dev && npm run prebuild && npm run prepublish && npm run install-into /app
+RUN cd /app/ && \
+    npm install --dev && \
+    # uncomment the following line to enable integration with custom budgetkey-ng2-components
+    # you need to have a copy of budgetkey-ng2-components under .budgetkey-ng2-compoments
+    # cd .budgetkey-ng2-components && npm install --dev && npm run prebuild && npm run prepublish && npm run install-into /app && cd .. &&\
+    npm run dist
 
 EXPOSE 8000
 
-CMD npm start
+CMD cd /app/ && npm start

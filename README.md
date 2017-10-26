@@ -74,11 +74,8 @@ To run the tests import karma-test-shim in the newly created *.spec.ts:
 
 	import 'karma-test-shim';
 
-## Advanced Topics
 
-Some advanced topics, not necessary for regular development.
-
-#### Themes
+## Themes
 
 The core components and apps support themes for reusability of common code.
 
@@ -100,24 +97,3 @@ For example, given a modified theme in ./my-theme.js:
 docker build -t budgetkey-app-search .
 docker run -it -v `pwd`/my-theme.js:/app/dist/assets/theme.js --rm --name budgetkey-app-search -p8000:8000 budgetkey-app-search
 ```
-
-#### Building the docker image with custom ng2-components directory
-
-If you want to test the integration with an unpublished build of ng2-components inside docker, you can use this procedure
-
-* User and branch to fetch from
-```
-export GITHUB_USER=OriHoch
-export GITHUB_BRANCH=support-site-customizations
-```
-* Download and extract the branch archive
-```
-rm -rf .budgetkey-ng2-components "budgetkey-ng2-components-${GITHUB_BRANCH}" ${GITHUB_BRANCH}.zip
-wget "https://github.com/${GITHUB_USER}/budgetkey-ng2-components/archive/${GITHUB_BRANCH}.zip"
-unzip "${GITHUB_BRANCH}.zip"
-mv "budgetkey-ng2-components-${GITHUB_BRANCH}" .budgetkey-ng2-components
-```
-* Uncomment the relevant line in the Dockerfile
-* Build and run
-  * `docker build -t budgetkey-app-search .`
-  * `docker run -it --rm --name budgetkey-app-search -p8000:8000 budgetkey-app-search`
