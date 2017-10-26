@@ -82,18 +82,23 @@ Some advanced topics, not necessary for regular development.
 
 The core components and apps support themes for reusability of common code.
 
-To run the app with a different theme, set the BUDGETKEY_THEME environment variable before running `dist` or `dist-serve`
-
-E.g., to run the site with OpenProcurement theme:
-
-* `BUDGETKEY_THEME=OpenProcurement npm run dist-serve`
-
-The docker image needs to be built for each theme using build arg:
+To run the app with a different theme, you need to set the theme in assets/theme.js, for example:
 
 ```
-export BUDGETKEY_THEME=OpenProcurement
-docker build --build-arg "BUDGETKEY_THEME=${BUDGETKEY_THEME}" -t "budgetkey/budgetkey-app-search:${BUDGETKEY_THEME}" .
-docker run -d --rm --name budgetkey-app-search -p8000:8000 "budgetkey/budgetkey-app-search:${BUDGETKEY_THEME}"
+BUDGETKEY_NG2_COMPONENTS_THEME = {
+  siteName: "רכש פתוח"
+};
+```
+
+Restart the server and it should use this modified theme.
+
+The assets/theme.js file could be overwritten by docker volume - to allow to use the same image to serve the app using different themes.
+
+For example, given a modified theme in ./my-theme.js:
+
+```
+docker build -t budgetkey-app-search .
+docker run -it -v `pwd`/my-theme.js:/app/dist/assets/theme.js --rm --name budgetkey-app-search -p8000:8000 budgetkey-app-search
 ```
 
 #### Building the docker image with custom ng2-components directory
@@ -114,5 +119,5 @@ mv "budgetkey-ng2-components-${GITHUB_BRANCH}" .budgetkey-ng2-components
 ```
 * Uncomment the relevant line in the Dockerfile
 * Build and run
-  * `docker build -t budgetkey/budgetkey-app-search:${GITHUB_USER}-${GITHUB_BRANCH} .`
-  * `docker run -d --rm --name budgetkey-app-search -p8000:8000 budgetkey/budgetkey-app-search:${GITHUB_USER}-${GITHUB_BRANCH}`
+  * `docker build -t budgetkey-app-search .`
+  * `docker run -it --rm --name budgetkey-app-search -p8000:8000 budgetkey-app-search`

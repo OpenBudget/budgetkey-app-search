@@ -15,9 +15,6 @@ WORKDIR /app
 # uncomment the following line to enable integration with custom budgetkey-ng2-components, see README for details
 # RUN cd .budgetkey-ng2-components && npm install --dev && npm run prebuild && npm run prepublish && npm run install-into /app
 
-ARG BUDGETKEY_THEME
-RUN echo " > BUDGETKEY_THEME=${BUDGETKEY_THEME}" && npm run dist
-
 EXPOSE 8000
 
 CMD npm start

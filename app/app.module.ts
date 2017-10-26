@@ -8,11 +8,29 @@ import { HttpModule } from '@angular/http';
 import { SearchService } from './_service/search.service';
 import { SearchComponent } from './search/search.component';
 
-import { BudgetKeyCommonModule } from 'budgetkey-ng2-components';
+import { BudgetKeyCommonModule, THEME_TOKEN as NG_COMPONENTS_THEME_TOKEN } from 'budgetkey-ng2-components';
 import { SearchResultComponent } from './search_result/search_result.component';
 
 
 import { AppRoutingModule } from './app-routing.module';
+
+import { OpaqueToken } from '@angular/core';
+
+let defaultTheme = {
+  // TODO: add default theme values
+};
+
+const THEME_TOKEN = new OpaqueToken('Theme Config');
+declare const BUDGETKEY_NG2_COMPONENTS_THEME: any;
+declare const BUDGETKEY_APP_SEARCH_THEME: any;
+
+let providers: any[] = [
+  SearchService,
+  {provide: THEME_TOKEN, useValue: typeof(BUDGETKEY_APP_SEARCH_THEME) === 'undefined' ? defaultTheme : BUDGETKEY_APP_SEARCH_THEME}
+];
+if (typeof(BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
+  providers.push({provide: NG_COMPONENTS_THEME_TOKEN, useValue: BUDGETKEY_NG2_COMPONENTS_THEME});
+}
 
 @NgModule({
   imports:      [
@@ -26,9 +44,7 @@ import { AppRoutingModule } from './app-routing.module';
     SearchComponent,
     SearchResultComponent
   ],
-  providers: [
-    SearchService
-  ],
-  bootstrap:    [ AppComponent ]
+  providers: providers,
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }
