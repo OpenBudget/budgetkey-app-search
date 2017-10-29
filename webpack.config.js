@@ -7,7 +7,10 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var plugins = [
   new webpack.DefinePlugin({
-    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+    'process.env': {
+      'NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      'BUDGETKEY_GENERIC_ITEM_BASE_URL': JSON.stringify(process.env.BUDGETKEY_GENERIC_ITEM_BASE_URL)
+    }
   }),
   new HtmlWebpackPlugin({
     template: 'index.html'
