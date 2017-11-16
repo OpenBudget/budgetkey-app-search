@@ -5,6 +5,8 @@ RUN apk add --update git
 
 ENV NODE_ENV=production
 
+ARG BUDGETKEY_GENERIC_ITEM_BASE_URL
+
 RUN cd /app/ && \
     npm install --dev && \
     npm run dist

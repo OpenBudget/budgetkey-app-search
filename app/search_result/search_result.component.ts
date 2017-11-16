@@ -4,6 +4,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DocResultEntry } from '../_model/SearchResults';
 import { KIND_PARAMETERS } from './kind_parameters';
+import { GENERIC_ITEM_BASE_URL } from '../_config/config';
 let _ = require('lodash');
 
 
@@ -16,6 +17,7 @@ export class SearchResultComponent implements OnInit {
   @Input() item: DocResultEntry;
   @Input() kind: string;
   parameters: any;
+  genericItemBaseUrl: any = GENERIC_ITEM_BASE_URL;
 
   constructor() { }
   ngOnInit() {

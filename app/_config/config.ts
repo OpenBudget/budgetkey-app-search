@@ -9,3 +9,12 @@ export const URL = REMOTE_URL;
 export let Colors = {
   bgColor: '#ccc'
 };
+
+declare const process: any;
+
+export let GENERIC_ITEM_BASE_URL: any;
+if (process.env.BUDGETKEY_GENERIC_ITEM_BASE_URL) {
+  GENERIC_ITEM_BASE_URL = process.env.BUDGETKEY_GENERIC_ITEM_BASE_URL;
+} else {
+  GENERIC_ITEM_BASE_URL = 'https://next.obudget.org/i/';
+}
