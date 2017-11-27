@@ -73,3 +73,27 @@ This should add the new `component`, `directive` or `pipe` reference to the `new
 To run the tests import karma-test-shim in the newly created *.spec.ts:
 
 	import 'karma-test-shim';
+
+
+## Themes
+
+The core components and apps support themes for reusability of common code.
+
+To run the app with a different theme, you need to set the theme in assets/theme.js, for example:
+
+```
+BUDGETKEY_NG2_COMPONENTS_THEME = {
+  siteName: "רכש פתוח"
+};
+```
+
+Restart the server and it should use this modified theme.
+
+The assets/theme.js file could be overwritten by docker volume - to allow to use the same image to serve the app using different themes.
+
+For example, given a modified theme in ./my-theme.js:
+
+```
+docker build -t budgetkey-app-search .
+docker run -it -v `pwd`/my-theme.js:/app/dist/assets/theme.js --rm --name budgetkey-app-search -p8000:8000 budgetkey-app-search
+```
