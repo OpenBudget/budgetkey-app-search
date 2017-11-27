@@ -33,7 +33,7 @@ em{
 }
 h1 {
   color: #369;
-  font-family: Arial, Helvetica, sans-serif;
+  //font-family: Arial, Helvetica, sans-serif;
   font-size: 250%;
 }
 a {
@@ -318,7 +318,7 @@ search-result-changes {
   overflow: hidden;
   &:before {
     content: "";
-    background: url(assets/img/paper-hole.svg);
+    background: url(../img/paper-hole.svg);
     width: 49px;
     height: 100%;
     border-left: dashed 1px $changes-color-secondary;
