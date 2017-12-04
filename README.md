@@ -12,7 +12,7 @@ It currently can be accessed at http://next.obudget.org/app/search/
 * For Windows users - 1) run on one terminal `npm run dist-serve`
                       2) run on a  second terminal `npm start`
 
-You should make sure you use the correct node version, at time of writing it's v8.3.0.
+You should make sure you use the latest node v8.
 
 If you have [nvm](https://github.com/creationix/nvm/blob/master/README.md#installation) installed, 
 you can just run `nvm install` and you will have the correct version.
@@ -79,21 +79,27 @@ To run the tests import karma-test-shim in the newly created *.spec.ts:
 
 The core components and apps support themes for reusability of common code.
 
-To run the app with a different theme, you need to set the theme in assets/theme.js, for example:
+To run the app with a different theme, you need to set the theme in `theme.THEME_NAME.json`
+
+For example, theme.govbuy.json:
 
 ```
-BUDGETKEY_NG2_COMPONENTS_THEME = {
-  siteName: "רכש פתוח"
-};
+{
+  "BUDGETKEY_NG2_COMPONENTS_THEME": {
+    "siteName": "רכש פתוח"
+  }
+}
 ```
 
-Restart the server and it should use this modified theme.
+To enable a theme, add the `theme` query parameter with a value matching a `theme.THEME_NAME.json` file available at the root of the project.
 
-The assets/theme.js file could be overwritten by docker volume - to allow to use the same image to serve the app using different themes.
+Theme files could be overwritten by docker volume to allow to use the same image to serve the app using different themes.
 
-For example, given a modified theme in ./my-theme.js:
+For example, given a modified theme in ./my-theme.json:
 
 ```
 docker build -t budgetkey-app-search .
-docker run -it -v `pwd`/my-theme.js:/app/dist/assets/theme.js --rm --name budgetkey-app-search -p8000:8000 budgetkey-app-search
+docker run -it -v `pwd`/my-theme.json:/app/theme.my-theme.json --rm --name budgetkey-app-search -p8000:8000 budgetkey-app-search
 ```
+
+You could then add `?theme=my-theme` to enable the theme
