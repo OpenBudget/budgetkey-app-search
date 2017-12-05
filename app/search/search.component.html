@@ -12,7 +12,7 @@
                />
         <span class="input-group-addon">
           <i *ngIf="!isSearching" [ngClass]="['glyphicon', 'glyphicon-search', term ? 'search-icon' : '']" (click)="term ? search(term) : undefined"></i>
-          <img *ngIf="isSearching" class="search-loader" src="assets/img/loader.svg" />
+          <i *ngIf="isSearching" class="fa fa-circle-o-notch fa-spin"></i>
         </span>
     </div>
     <div class="search-filter">
