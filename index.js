@@ -52,7 +52,7 @@ app.get(basePath + '*', function(req, res) {
     }
   }
 
-  res.render('index.html', {themeScript: themeScript});
+  res.render('index.html', {themeScript: themeScript, base: basePath});
 });
 
 app.listen(app.get('port'), function() {
