@@ -11,6 +11,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import {HostListener} from '../../node_modules/@angular/core/src/metadata/directives';
 
+type SearchParams = {term: string, displayDocs: string, offset: number};
+
 @Component({
   selector: 'budget-search',
   template: require('./search.component.html'),
@@ -19,7 +21,7 @@ import {HostListener} from '../../node_modules/@angular/core/src/metadata/direct
 })
 export class SearchComponent implements OnInit {
 
-  private searchTerms: Subject<string>;
+  private searchTerms: Subject<SearchParams>;
   private searchResults: Observable<SearchResults>;
   private term: string = '';
   private allDocs: BehaviorSubject<DocResultEntry[]>;
@@ -41,7 +43,7 @@ export class SearchComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.searchTerms = new Subject<string>();
+    this.searchTerms = new Subject<SearchParams>();
     this.allDocs = new BehaviorSubject<DocResultEntry[]>([]);
 
     this.displayDocs = null;
@@ -59,13 +61,13 @@ export class SearchComponent implements OnInit {
     this.searchResults = this.searchTerms // open a stream
       .debounceTime(300)        // wait for 300ms pause in events
       // .distinctUntilChanged()   // ignore if next search term is same as previous
-      .switchMap(() => {
-        if (this.term) {
-          this.location.go(`/search?term=${this.term}`);
+      .switchMap((sp: SearchParams) => {
+        if (sp.term) {
+          this.location.replaceState(`/?q=${sp.term}&dd=${sp.displayDocs}`);
         } else {
-          this.location.go(`/search`);
+          this.location.replaceState(`/?q=&dd=${sp.displayDocs}`);
         }
-        return this.doRequest();
+        return this.doRequest(sp);
       })
       .catch(error => {
         this.isSearching = false;
@@ -81,8 +83,16 @@ export class SearchComponent implements OnInit {
 
     this.route.queryParams
       .subscribe((params: Params) => {
-        if (params['term']) {
-          this.search(params['term']);
+        if (params['q']) {
+          this.doRequest({term: params['q'], displayDocs: 'all', offset: 0})
+            .subscribe((results) => {
+              this.processResults(results)
+            });
+          if (params['dd']) {
+            this.displayDocs = params['dd'];
+            this.term = params['q'];
+            this.search(this.term);
+          }
         }
         return null;
       });
@@ -97,7 +107,7 @@ export class SearchComponent implements OnInit {
       this.displayDocs = null;
       this.resetState('all');
     } else {
-      this.searchTerms.next(term);
+      this.searchTerms.next({term: term, displayDocs: this.displayDocs, offset: this.allResults.length});
     }
   }
 
@@ -107,11 +117,11 @@ export class SearchComponent implements OnInit {
    * posts a new query
    */
 
-  doRequest(): Observable<SearchResults> {
-    if (this.term) {
+  doRequest(sp: SearchParams): Observable<SearchResults> {
+    if (sp.term) {
       this.isSearching = true;
       this.isErrorInLastSearch = false;
-      return this.searchService.search(this.term, this.pageSize, this.allResults.length, this.displayDocs.split(','));
+      return this.searchService.search(sp.term, this.pageSize, sp.offset, sp.displayDocs.split(','));
     } else {
       this.isSearching = false;
       return Observable.of<SearchResults>(null);
@@ -125,7 +135,7 @@ export class SearchComponent implements OnInit {
    */
   processResults(results: SearchResults): void {
     if (results) {
-      if (this.displayDocs === 'all') {
+      if (results.displayDocs === 'all') {
         this.resultTotal = 0;
         for (let key in results.search_counts) {
           if (key) {
@@ -135,6 +145,7 @@ export class SearchComponent implements OnInit {
           }
         }
       }
+      this.allResults = this.allResults.slice(0, results.offset);
       this.allResults.push(...results.search_results);
     } else {
       this.resetState(null);
@@ -169,7 +180,7 @@ export class SearchComponent implements OnInit {
   fetchMore(): void {
     this.headerBottomBorder = true;
     this.isSearching = true;
-    this.searchTerms.next(this.term);
+    this.searchTerms.next({term: this.term, displayDocs: this.displayDocs, offset: this.allResults.length});
   }
 
   getStatusText() {
@@ -194,7 +205,7 @@ export class SearchComponent implements OnInit {
       }
       if (this.displayDocs && this.term) {
         this.isSearching = true;
-        this.searchTerms.next(this.term);
+        this.searchTerms.next({term: this.term, displayDocs: this.displayDocs, offset: 0});
       }
     }
   }

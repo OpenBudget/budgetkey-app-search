@@ -25,7 +25,7 @@ export class SearchService {
    * @returns {Observable<SearchResults>}
    */
 
-  search(term: string, pageSize: Number, pageNumber: Number, kindsList: Array<string> ): Observable<SearchResults> {
+  search(term: string, pageSize: number, pageNumber: number, kindsList: Array<string> ): Observable<SearchResults> {
     let startTime: Date = new Date(); // update time-stamp
     let joinedkinds = join(kindsList, ',');
     return this.http
@@ -33,7 +33,11 @@ export class SearchService {
       .map((r: Response) => {
           let endTime = new Date();
           console.log('req time: ', (endTime.getTime()  - startTime.getTime()) / 1000, 'sec');
-          return r.json() as SearchResults;
+          let ret: SearchResults = r.json();
+          ret.term = term;
+          ret.displayDocs = kindsList.join(',');
+          ret.offset = pageSize * pageNumber;
+          return ret;
       });
   }
 
