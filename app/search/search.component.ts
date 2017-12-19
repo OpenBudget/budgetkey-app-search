@@ -61,9 +61,9 @@ export class SearchComponent implements OnInit {
       // .distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap(() => {
         if (this.term) {
-          this.location.go(`/search?term=${this.term}`);
+          this.location.replaceState(`/?q=${this.term}&dd=${this.displayDocs}`);
         } else {
-          this.location.go(`/search`);
+          this.location.replaceState(`/`);
         }
         return this.doRequest();
       })
@@ -81,8 +81,11 @@ export class SearchComponent implements OnInit {
 
     this.route.queryParams
       .subscribe((params: Params) => {
-        if (params['term']) {
-          this.search(params['term']);
+        if (params['dd']) {
+          this.displayDocs = params['dd'];
+        }
+        if (params['q']) {
+          this.search(params['q']);
         }
         return null;
       });
