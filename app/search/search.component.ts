@@ -88,11 +88,13 @@ export class SearchComponent implements OnInit {
             .subscribe((results) => {
               this.processResults(results)
             });
+          this.term = params['q'];
           if (params['dd']) {
             this.displayDocs = params['dd'];
-            this.term = params['q'];
-            this.search(this.term);
+          } else {
+            this.displayDocs = 'all';
           }
+          this.search(this.term);
         }
         return null;
       });
