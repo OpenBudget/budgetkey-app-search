@@ -52,7 +52,30 @@ app.get(basePath + '*', function(req, res) {
     }
   }
 
-  res.render('index.html', {themeScript: themeScript, base: basePath});
+  var title = 'חיפוש במפתח התקציב';
+  var term = req.query.q;
+  var kind = req.query.dd;
+  if (term) {
+    if (!kind) {
+      kind = 'all';
+    }
+    if (kind == 'all') {
+      kind = 'כל מה שקשור ל';
+    } else if (kind == 'entities') {
+      kind = 'ארגונים הקשורים ל';
+    } else if (kind == 'tenders,contract-spending') {
+      kind = 'התקשרויות רכש הקשורות ל';
+    } else if (kind == 'supports') {
+      kind = 'תמיכות הקשורות ל';
+    } else if (kind == 'budget') {
+      kind = 'סעיפי תקציב הקשורים ל';
+    } else if (kind == 'national-budget-changes') {
+      kind = 'העברות תקציביות הקשורות ל';
+    }
+    title = 'חיפוש במפתח התקציב ' + kind + term
+  }
+
+  res.render('index.html', {themeScript: themeScript, base: basePath, title: title});
 });
 
 app.listen(app.get('port'), function() {
