@@ -72,7 +72,7 @@ app.get(basePath + '*', function(req, res) {
     } else if (kind == 'national-budget-changes') {
       kind = 'העברות תקציביות הקשורות ל';
     }
-    title = 'חיפוש במפתח התקציב ' + kind + term
+    title = 'חיפוש במפתח התקציב: ' + kind + term
   }
 
   res.render('index.html', {themeScript: themeScript, base: basePath, title: title});
