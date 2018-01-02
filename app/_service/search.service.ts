@@ -29,7 +29,7 @@ export class SearchService {
   search(term: string, pageSize: number, pageNumber: number, kindsList: Array<string> ): Observable<SearchResults> {
     let startTime: Date = new Date(); // update time-stamp
     let joinedkinds = kindsList.join(',');
-    gtag('event', 'srach', {'search_term': term, 'kinds': joinedkinds});
+    gtag('event', 'search', {'search_term': term, 'kinds': joinedkinds});
     return this.http
       .get(`${URL}/${joinedkinds}/${term}/${this.startRange}/${this.endRange}/${pageSize}/${pageNumber}`)
       .map((r: Response) => {
