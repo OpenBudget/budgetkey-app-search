@@ -114,6 +114,16 @@ export let KIND_PARAMETERS = [
     firstItemLabel: 'נושאים'
   },
   {
+    docType: 'national-budget-changes',
+    label: 'העברה תקציבית',
+    mainNameField: 'req_title.0',
+    fromField: 'fromMinistry',
+    toField: 'toMinistry',
+    amountField: 'net_expense_diff',
+    firstItemField: 'change_title.0',
+    firstItemLabel: 'סוג העברה'
+  },
+  {
     docType: '',
     label: 'אחר?',
     mainNameField: 'doc_id',
