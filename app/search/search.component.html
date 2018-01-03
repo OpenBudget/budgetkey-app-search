@@ -82,8 +82,8 @@
 
 <div #searchBody class="search_body">
 
-  <div *ngFor="let item of allDocs | async" >
-    <search-result [item]="item"></search-result>
+  <div *ngFor="let item of allDocs | async; let i = index" >
+    <search-result [item]="item" [index]="i"></search-result>
   </div>
   <h1 class="status">{{getStatusText()}}</h1>
 </div>
