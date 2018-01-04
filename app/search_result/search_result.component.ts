@@ -41,7 +41,7 @@ export class SearchResultComponent implements OnInit {
     let href = 'http://next.obudget.org/i/' + doc_id;
     gtag('event', 'view_item', {
       'event_label': doc_id,
-      'event_value': this.index,
+      'value': this.index,
       'event_callback': () => window.open(href, '_self')
     });
   }
