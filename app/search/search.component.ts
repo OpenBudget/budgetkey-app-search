@@ -86,7 +86,7 @@ export class SearchComponent implements OnInit {
         if (params['q']) {
           this.doRequest({term: params['q'], displayDocs: 'all', offset: 0})
             .subscribe((results) => {
-              this.processResults(results)
+              this.processResults(results);
             });
           this.term = params['q'];
           if (params['dd']) {
