@@ -30,7 +30,13 @@ budgetkey-container {
 
 em{
   background-color: #ffff1a;
+
+  &.result-label {
+    background-color: inherit;
+    font-style: inherit;
+  }
 }
+
 h1 {
   color: #369;
   //font-family: Arial, Helvetica, sans-serif;
