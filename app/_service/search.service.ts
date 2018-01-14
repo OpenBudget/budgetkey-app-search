@@ -33,7 +33,7 @@ export class SearchService {
       gtag('event', 'search', {'search_term': term, 'kinds': joinedkinds});
     }
     return this.http
-      .get(`${URL}/${joinedkinds}/${term}/${this.startRange}/${this.endRange}/${pageSize}/${pageNumber}`)
+      .get(`${URL}/${joinedkinds}/${encodeURIComponent(term)}/${this.startRange}/${this.endRange}/${pageSize}/${pageNumber}`)
       .map((r: Response) => {
           let endTime = new Date();
           console.log('req time: ', (endTime.getTime()  - startTime.getTime()) / 1000, 'sec');
