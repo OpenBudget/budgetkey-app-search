@@ -13,7 +13,7 @@ import { SearchComponent } from './search/search.component';
 
 import { BudgetKeyCommonModule } from 'budgetkey-ng2-components';
 import { SearchResultComponent } from './search_result/search_result.component';
-import {APP_BASE_HREF} from "../node_modules/@angular/common/src/location/location_strategy";
+import {APP_BASE_HREF} from '../node_modules/@angular/common/src/location/location_strategy';
 
 
 describe('AppComponent', function () {

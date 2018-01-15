@@ -16,7 +16,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { OpaqueToken } from '@angular/core';
 
-import {provideAuthService} from 'budgetkey-ng2-auth/lib/services'
+import {provideAuthService} from 'budgetkey-ng2-auth/lib/services';
 
 let defaultTheme = {
   // TODO: add default theme values
