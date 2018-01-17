@@ -37,12 +37,13 @@ export class SearchResultComponent implements OnInit {
     return default_value || '';
   }
 
-  selected(doc_id: string) {
+  selected(doc_id: string, event: any) {
     let href = 'http://next.obudget.org/i/' + doc_id;
     gtag('event', 'view_item', {
       'event_label': doc_id,
       'value': this.index,
       'event_callback': () => window.open(href, '_self')
     });
+    event.stopPropagation();
   }
 }
