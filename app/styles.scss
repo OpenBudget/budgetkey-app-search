@@ -167,6 +167,11 @@ h1.status{
     background-color: #f8f8f8;
     padding-top: 6px;
     .title-right-part {
+      
+      a {
+        cursor: pointer;
+      }
+      
       .title-bit {
         white-space:nowrap;
         overflow:hidden;
