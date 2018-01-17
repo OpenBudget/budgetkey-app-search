@@ -10,6 +10,7 @@ import { SearchComponent } from './search/search.component';
 
 import { BudgetKeyCommonModule, THEME_TOKEN as NG_COMPONENTS_THEME_TOKEN } from 'budgetkey-ng2-components';
 import { SearchResultComponent } from './search_result/search_result.component';
+import { TimelineComponent } from './timeline/timeline.component';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -38,7 +39,7 @@ if (typeof(BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
 }
 
 @NgModule({
-  imports:      [
+  imports: [
     BrowserModule,
     HttpModule,
     BudgetKeyCommonModule,
@@ -47,7 +48,8 @@ if (typeof(BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
   declarations: [
     AppComponent,
     SearchComponent,
-    SearchResultComponent
+    SearchResultComponent,
+    TimelineComponent
   ],
   providers: providers,
   bootstrap: [ AppComponent ]
