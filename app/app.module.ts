@@ -16,8 +16,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { OpaqueToken } from '@angular/core';
 
-import {provideAuthService} from 'budgetkey-ng2-auth/lib/services'
-
 let defaultTheme = {
   // TODO: add default theme values
 };
@@ -30,8 +28,7 @@ declare const authServerUrl: any;
 
 let providers: any[] = [
   SearchService,
-  {provide: THEME_TOKEN, useValue: typeof(BUDGETKEY_APP_SEARCH_THEME) === 'undefined' ? defaultTheme : BUDGETKEY_APP_SEARCH_THEME},
-  provideAuthService(authServerUrl ? authServerUrl : 'https://next.obudget.org')
+  {provide: THEME_TOKEN, useValue: typeof(BUDGETKEY_APP_SEARCH_THEME) === 'undefined' ? defaultTheme : BUDGETKEY_APP_SEARCH_THEME}
 ];
 if (typeof(BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
   providers.push({provide: NG_COMPONENTS_THEME_TOKEN, useValue: BUDGETKEY_NG2_COMPONENTS_THEME});
