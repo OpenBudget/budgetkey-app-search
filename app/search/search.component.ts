@@ -59,7 +59,7 @@ export class SearchComponent implements OnInit {
     // ^ moved from constructor ^
 
     this.searchResults = this.searchTerms // open a stream
-      .debounceTime(300)        // wait for 300ms pause in events
+      .debounceTime(600)        // wait for 300ms pause in events
       // .distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap((sp: SearchParams) => {
         if (sp.term) {
