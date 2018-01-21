@@ -10,6 +10,7 @@ import { SearchResults, DocResultEntry, SearchResultsCounter} from '../_model/Se
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import {HostListener} from '../../node_modules/@angular/core/src/metadata/directives';
+import { CommonModule } from '@angular/common';
 
 type SearchParams = {term: string, displayDocs: string, offset: number};
 
@@ -34,6 +35,13 @@ export class SearchComponent implements OnInit {
   private headerBottomBorder: boolean;
   private isSearching: boolean;
   private isErrorInLastSearch: boolean;
+  private isAllTabSelected: boolean;
+  private selectedTabName: string;
+  private currentNumOfResults: number;
+  private isClickedType: boolean;
+  private currentDocType: string;
+  private isSearchBarHasFocus: boolean;
+  private isSearchBarHasText: boolean;
 
   constructor(
     private searchService: SearchService,
@@ -56,6 +64,12 @@ export class SearchComponent implements OnInit {
     this.headerBottomBorder = false;
     this.isSearching = false;
     this.isErrorInLastSearch = false;
+
+    this.isAllTabSelected = true;
+    this.currentNumOfResults;
+    this.isClickedType = false;
+    this.isSearchBarHasFocus = false;
+    this.isSearchBarHasText = false;
     // ^ moved from constructor ^
 
     this.searchResults = this.searchTerms // open a stream
@@ -100,6 +114,10 @@ export class SearchComponent implements OnInit {
       });
   }
 
+  openSearchTypeDropDown(){
+    document.getElementById("search-types-dropdown-content").classList.toggle("show");
+  }
+
   /**
    * Push a search term into the observable stream.
    */
@@ -110,6 +128,12 @@ export class SearchComponent implements OnInit {
       this.resetState('all');
     } else {
       this.searchTerms.next({term: term, displayDocs: this.displayDocs, offset: this.allResults.length});
+    }
+
+    if(term == ""){
+      this.isSearchBarHasText = false;
+    }else{
+      this.isSearchBarHasText = true;
     }
   }
 
@@ -137,6 +161,7 @@ export class SearchComponent implements OnInit {
    */
   processResults(results: SearchResults): void {
     if (results) {
+      if(this.searchResults)
       if (results.displayDocs === 'all') {
         this.resultTotal = 0;
         for (let key in results.search_counts) {
@@ -144,6 +169,11 @@ export class SearchComponent implements OnInit {
             let tmpResults = results.search_counts[key];
             this.resultTotal += tmpResults.total_overall;
             this.resultTotalCount[key] = tmpResults.total_overall;
+            if(this.currentDocType == key){
+              this.currentNumOfResults = tmpResults.total_overall;
+            }else if(results.displayDocs === 'all'){
+              this.currentNumOfResults = this.resultTotal;
+            }
           }
         }
       }
@@ -212,10 +242,26 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  switchTab($event: any, requestedDocTypes: string) {
+  switchTab($event: any, requestedDocTypes: string, 
+            isAllTabSelected: boolean, selectedTabName: string,
+            numOfResults: number) {
     $event.stopPropagation();
     $event.preventDefault();
 
+    this.isAllTabSelected = isAllTabSelected;
+    this.selectedTabName = selectedTabName;
+    this.currentNumOfResults = numOfResults;
+    this.currentDocType = requestedDocTypes;
+    this.isClickedType = true;
+
     this.resetState(requestedDocTypes);
+  }
+
+  onSeachBarFocus(){
+    this.isSearchBarHasFocus = true;
+  }
+
+  onSeachBarFocusOut(){
+    this.isSearchBarHasFocus = false;
   }
 }
