@@ -9,7 +9,7 @@ import { DocResultEntry } from '../_model/SearchResults';
 export class DownloadService {
 
   exportAsCsv(filename: string, allDocs: BehaviorSubject<DocResultEntry[]> ): void {
-    let addTitle = function (type:string, hdrs: Array<string>) {
+    let addTitle = function (type: string, hdrs: Array<string>) {
       console.log(type);
       let title = type + '\n' + 'type';
 
@@ -54,7 +54,7 @@ export class DownloadService {
     console.log(unique);
 
     for (let key of unique){
-      let headers = headers4type[key]
+      let headers = headers4type[key];
       csvFile += addTitle(key, headers);
       for (let entry of allDocs.value){
         if (entry.type === key) {

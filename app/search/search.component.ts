@@ -117,7 +117,7 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  download(term: string): void{
+  download(term: string): void {
     console.log('hello');
     console.log(this.allDocs);
     this.downloadService.exportAsCsv('export.csv', this.allDocs);
