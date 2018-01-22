@@ -33,6 +33,7 @@ export class SearchService {
       .map((r: Response) => {
           let endTime = new Date();
           console.log('req time: ', (endTime.getTime()  - startTime.getTime()) / 1000, 'sec');
+          console.log(r.json());
           return r.json() as SearchResults;
       });
   }

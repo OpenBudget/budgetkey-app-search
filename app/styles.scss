@@ -74,6 +74,13 @@ h1.status{
     border-right: 0;
     border-radius: 0 25px 25px 0;
   }
+  .downloader {
+    height:44px; 
+    padding: 4px 8px
+  }
+  img.downloader {
+    height:34px
+  }
   .input-group-addon:last-child {
     height: auto;
     padding: 11px 16px 7px;

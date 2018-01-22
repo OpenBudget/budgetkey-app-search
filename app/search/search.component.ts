@@ -6,16 +6,18 @@ import { Observable }        from 'rxjs/Observable';
 import { Subject }           from 'rxjs/Subject';
 import { BehaviorSubject }   from 'rxjs/BehaviorSubject';
 import { SearchService }     from '../_service/search.service';
+import { DownloadService } from '../_service/download.service'
 import { SearchResults, DocResultEntry, SearchResultsCounter} from '../_model/SearchResults';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
-import {HostListener} from '../../node_modules/@angular/core/src/metadata/directives';
+import { HostListener } from '../../node_modules/@angular/core/src/metadata/directives';
+import { Http, Response } from '@angular/http';
 
 @Component({
   selector: 'budget-search',
   template: require('./search.component.html'),
   styles: [require('./search.component.css')],
-  providers: [SearchService]
+  providers: [SearchService, DownloadService]
 })
 export class SearchComponent implements OnInit {
 
@@ -35,9 +37,12 @@ export class SearchComponent implements OnInit {
 
   constructor(
     private searchService: SearchService,
+    private downloadService: DownloadService,
     private route: ActivatedRoute,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private http: Http
+    
   ) {}
 
   ngOnInit() {
@@ -101,6 +106,13 @@ export class SearchComponent implements OnInit {
     }
   }
 
+  
+
+  download(term: string): void{
+    console.log('hello');
+    console.log(this.allDocs);
+    this.downloadService.exportAsCsv('export.csv', this.allDocs)
+  }
   /**
    * doRequest()
    * the main method of the component
