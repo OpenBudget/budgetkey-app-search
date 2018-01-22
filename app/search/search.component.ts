@@ -6,12 +6,12 @@ import { Observable }        from 'rxjs/Observable';
 import { Subject }           from 'rxjs/Subject';
 import { BehaviorSubject }   from 'rxjs/BehaviorSubject';
 import { SearchService }     from '../_service/search.service';
-import { DownloadService } from '../_service/download.service'
+import { DownloadService } from '../_service/download.service';
 import { SearchResults, DocResultEntry, SearchResultsCounter} from '../_model/SearchResults';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { HostListener } from '../../node_modules/@angular/core/src/metadata/directives';
-import { Http, Response } from '@angular/http';
+import { Http } from '@angular/http';
 
 type SearchParams = {term: string, displayDocs: string, offset: number};
 
@@ -44,7 +44,6 @@ export class SearchComponent implements OnInit {
     private router: Router,
     private location: Location,
     private http: Http
-    
   ) {}
 
   ngOnInit() {
@@ -118,12 +117,10 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  
-
   download(term: string): void{
     console.log('hello');
     console.log(this.allDocs);
-    this.downloadService.exportAsCsv('export.csv', this.allDocs)
+    this.downloadService.exportAsCsv('export.csv', this.allDocs);
   }
   /**
    * doRequest()

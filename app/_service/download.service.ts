@@ -2,7 +2,6 @@
  * Created by adam on 18/12/2016.
  */
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject }   from 'rxjs/BehaviorSubject';
 import { DocResultEntry } from '../_model/SearchResults';
 
@@ -10,7 +9,7 @@ import { DocResultEntry } from '../_model/SearchResults';
 export class DownloadService {
 
   exportAsCsv(filename: string, allDocs: BehaviorSubject<DocResultEntry[]> ): void {
-    let addTitle = function (type:string, hdrs: Array<string>){
+    let addTitle = function (type:string, hdrs: Array<string>) {
       console.log(type);
       let title = type + '\n' + 'type';
 
@@ -42,8 +41,8 @@ export class DownloadService {
                         'entities': ['name', 'page_title', 'received_amount', 'address lines',
                                      'details', 'description', 'goal', 'government'],
                         'nationalbudgetchanges': ['explanation', 'page_title', 'budget_code_title', 'amount'],
-                        'supports': ['amount_total', 'entity_kind', 'entity_name', 'page_title', 'request_type', 'year_requested'], 
-                        'contractspending': ['budget_code', 'budget_title', 'buyer_description', 'end_date', 'entity_id', 
+                        'supports': ['amount_total', 'entity_kind', 'entity_name', 'page_title', 'request_type', 'year_requested'],
+                        'contractspending': ['budget_code', 'budget_title', 'buyer_description', 'end_date', 'entity_id',
                                              'entity_kind', 'entity_name', 'executed', 'exemption_reason', 'explanation',
                                              'page_title', 'purchase_method', 'supplier_name']};
     let keys = [];
@@ -56,17 +55,17 @@ export class DownloadService {
 
     for (let key of unique){
       let headers = headers4type[key]
-      csvFile += addTitle(key, headers); 
+      csvFile += addTitle(key, headers);
       for (let entry of allDocs.value){
         if (entry.type === key) {
-          csvFile += key; 
+          csvFile += key;
           for (let h of headers){
-            csvFile += ',' + entry.source[h]; 
+            csvFile += ',' + entry.source[h];
           }
-          csvFile += '\n'; 
+          csvFile += '\n';
         }
       }
-      csvFile += '\n\n'; 
+      csvFile += '\n\n';
     }
     // var csvFile = '';
     // // for (var i = 0; i < rows.length; i++) {
@@ -80,7 +79,7 @@ export class DownloadService {
         let link = document.createElement('a');
         if (link.download !== undefined) { // feature detection
             // Browsers that support HTML5 download attribute
-            var url = URL.createObjectURL(blob);
+            let url = URL.createObjectURL(blob);
             link.setAttribute('href', url);
             link.setAttribute('download', filename);
             link.style.visibility = 'hidden';
