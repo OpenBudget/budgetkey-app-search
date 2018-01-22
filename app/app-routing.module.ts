@@ -4,18 +4,14 @@ import { RouterModule, Routes }  from '@angular/router';
 import { SearchComponent } from './search/search.component';
 
 const appRoutes = [
-  { path: 'search', component: SearchComponent },
-  { path: '',
-    redirectTo: '/search',
-    pathMatch: 'full'
-  }
+  { path: '', component: SearchComponent }
 ];
 
 @NgModule({
   imports: [
     RouterModule.forRoot(
       appRoutes, { 
-        useHash: true
+        useHash: false
       }     
     )
   ],

@@ -2,25 +2,12 @@
  * Created by adam on 18/12/2016.
  */
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { join } from 'lodash';
 import { BehaviorSubject }   from 'rxjs/BehaviorSubject';
-import {DocResultEntry, SearchResultsCounter} from '../_model/SearchResults';
+import { DocResultEntry } from '../_model/SearchResults';
 
 @Injectable()
 export class DownloadService {
-  
-  constructor(private http: Http) {}
-  /**
-   * search()
-   *
-   * @param {string} term      - new search term
-   * @param {Number} pageSize  - how many records to return
-   * @param {Number} pageNumber - how many pages to skip?
-   * @param {Array<string>} kindsList - category to query - specific or all
-   * @returns {Observable<SearchResults>}
-   */
 
   exportAsCsv(filename: string, allDocs: BehaviorSubject<DocResultEntry[]>): void{
     var addTitle = function (type:string, hdrs: Array<string>){

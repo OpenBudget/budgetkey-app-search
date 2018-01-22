@@ -32,6 +32,9 @@ class SearchResultsCounts {
 export class SearchResults {
   search_counts: SearchResultsCounts;
   search_results: Array<DocResultEntry>;
+  term: string;
+  displayDocs: string;
+  offset: number;
 }
 
 export class SearchResultsCounter {

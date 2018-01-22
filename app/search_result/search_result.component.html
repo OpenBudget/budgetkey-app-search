@@ -1,5 +1,5 @@
 <div class="search-result">
-  <div class="result-label">{{get(parameters.labelField) || parameters.label}}</div>
+  <div class="result-label" [innerHTML]="get(parameters.labelField) || parameters.label"></div>
   <div class="container-fluid search-result-body">
       <div class="row top-part" *ngIf="parameters.breadcrumbsField">
           <div class="col-md-8 breadcrumbs">
@@ -11,7 +11,7 @@
       </div>
       <div class="row title-part">
           <div class="col-md-8 title-right-part">
-              <a href="http://next.obudget.org/i/{{get('doc_id')}}">
+              <a (click)="selected(get('doc_id'))">
                   <div class="title-bit">
                       <span class="pretitle" *ngIf="parameters.secondaryNameField" innerHTML="{{get(parameters.secondaryNameField)}}"></span>
                       <span class="title" innerHTML="{{get(parameters.mainNameField)}}"></span>

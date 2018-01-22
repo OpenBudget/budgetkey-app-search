@@ -7,6 +7,7 @@
                class="form-control"
                type="text"
                placeholder="חפשו במפתח"
+               autofocus
                (keyup)="search(searchBox.value)"
                [value]="term"
                />
@@ -22,7 +23,7 @@
       <ul class="row col-xs-3 col-md-2">
         <li class="active col-xs-12 col-md-12">
           <a (click)="switchTab($event, 'all')"
-              [class]= "displayDocs  === 'all' ? 'activeclass'  : ''" >הכל
+              [class.activeclass]= "displayDocs  === 'all'" >הכל
             <span>
                 ({{resultTotal ? resultTotal.toLocaleString()  : '0'}})
             </span>
@@ -32,7 +33,7 @@
         <ul class='row col-xs-9 col-md-10'>
         <li class="active col-xs-3 col-md-2">
           <a (click)="switchTab($event, 'budget')"
-            [class]= "displayDocs  === 'budget' ? 'activeclass'  : ''">סעיף תקציבי
+            [class.activeclass]= "displayDocs  === 'budget'">סעיף תקציבי
             <span>
                 ({{resultTotalCount.budget ? resultTotalCount.budget.toLocaleString()  : '0'}})
             </span>
@@ -40,7 +41,7 @@
         </li>
         <li class="active col-xs-3 col-md-2">
           <a (click)="switchTab($event, 'entities')"
-            [class]= "displayDocs  === 'entities' ? 'activeclass'  : ''">ארגון
+            [class.activeclass]= "displayDocs  === 'entities'">ארגון
             <span>
                 ({{resultTotalCount.entities ? resultTotalCount.entities.toLocaleString()  : '0'}})
             </span>
@@ -48,7 +49,7 @@
         </li>
         <li class="active col-xs-3 col-md-2">
           <a (click)="switchTab($event, 'national-budget-changes')"
-            [class]= "displayDocs  === 'nationalbudgetchanges' ? 'activeclass'  : ''" >העברה תקציבית
+            [class.activeclass]= "displayDocs  === 'national-budget-changes'" >העברה תקציבית
             <span>
                 ({{resultTotalCount.nationalbudgetchanges ? resultTotalCount.nationalbudgetchanges.toLocaleString()  : '0'}})
             </span>
@@ -56,7 +57,7 @@
         </li>
         <li class="active col-xs-3 col-md-2">
           <a (click)= "switchTab($event, 'supports')"
-            [class]= "displayDocs  === 'supports' ? 'activeclass'  : ''">תמיכות
+            [class.activeclass]= "displayDocs  === 'supports'">תמיכות
             <span>
                 ({{resultTotalCount.supports ? resultTotalCount.supports.toLocaleString()  : '0'}})
             </span>
@@ -64,7 +65,7 @@
         </li>
         <li class="active col-xs-3 col-md-2">
           <a (click)="switchTab($event, 'tenders,contract-spending')"
-            [class]= "displayDocs  === 'procurement' ? 'activeclass'  : ''">רכש
+            [class.activeclass]= "displayDocs  === 'procurement'">רכש
             <span>
                 ({{(resultTotalCount.tenders + resultTotalCount.contractspending) ? (resultTotalCount.tenders + resultTotalCount.contractspending).toLocaleString()  : '0'}})
             </span>
@@ -84,8 +85,8 @@
 
 <div #searchBody class="search_body">
 
-  <div *ngFor="let item of allDocs | async" >
-    <search-result [item]="item"></search-result>
+  <div *ngFor="let item of allDocs | async; let i = index" >
+    <search-result [item]="item" [index]="i"></search-result>
   </div>
   <h1 class="status">{{getStatusText()}}</h1>
 </div>

@@ -30,7 +30,13 @@ budgetkey-container {
 
 em{
   background-color: #ffff1a;
+
+  &.result-label {
+    background-color: inherit;
+    font-style: inherit;
+  }
 }
+
 h1 {
   color: #369;
   //font-family: Arial, Helvetica, sans-serif;
@@ -168,6 +174,11 @@ h1.status{
     background-color: #f8f8f8;
     padding-top: 6px;
     .title-right-part {
+      
+      a {
+        cursor: pointer;
+      }
+      
       .title-bit {
         white-space:nowrap;
         overflow:hidden;

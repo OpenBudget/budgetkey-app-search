@@ -6,6 +6,8 @@ import { DocResultEntry } from '../_model/SearchResults';
 import { KIND_PARAMETERS } from './kind_parameters';
 let _ = require('lodash');
 
+const gtag: any = window['gtag'];
+
 
 // generic Component
 @Component({
@@ -15,6 +17,7 @@ let _ = require('lodash');
 export class SearchResultComponent implements OnInit {
   @Input() item: DocResultEntry;
   @Input() kind: string;
+  @Input() index: number;
   parameters: any;
 
   constructor() { }
@@ -32,5 +35,15 @@ export class SearchResultComponent implements OnInit {
       return _.get(this.item.source, field.split('.')) || default_value || '';
     }
     return default_value || '';
+  }
+
+  selected(doc_id: string, event: any) {
+    let href = 'http://next.obudget.org/i/' + doc_id;
+    gtag('event', 'view_item', {
+      'event_label': doc_id,
+      'value': this.index,
+      'event_callback': () => window.open(href, '_self')
+    });
+    event.stopPropagation();
   }
 }

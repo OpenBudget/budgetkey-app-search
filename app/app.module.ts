@@ -24,6 +24,8 @@ const THEME_TOKEN = new OpaqueToken('Theme Config');
 declare const BUDGETKEY_NG2_COMPONENTS_THEME: any;
 declare const BUDGETKEY_APP_SEARCH_THEME: any;
 
+declare const authServerUrl: any;
+
 let providers: any[] = [
   SearchService,
   {provide: THEME_TOKEN, useValue: typeof(BUDGETKEY_APP_SEARCH_THEME) === 'undefined' ? defaultTheme : BUDGETKEY_APP_SEARCH_THEME}
