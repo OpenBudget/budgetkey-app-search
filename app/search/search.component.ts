@@ -114,7 +114,7 @@ export class SearchComponent implements OnInit {
       });
   }
 
-  openSearchTypeDropDown(){
+  openCloseSearchTypeDropDown(){
     document.getElementById("search-types-dropdown-content").classList.toggle("show");
   }
 
@@ -126,6 +126,10 @@ export class SearchComponent implements OnInit {
       this.term = term;
       this.displayDocs = null;
       this.resetState('all');
+      this.isClickedType = true;
+      if(typeof this.selectedTabName === "undefined" || this.selectedTabName == ''){
+        this.selectedTabName = 'הכל';
+      }
     } else {
       this.searchTerms.next({term: term, displayDocs: this.displayDocs, offset: this.allResults.length});
     }
@@ -184,7 +188,6 @@ export class SearchComponent implements OnInit {
       this.resetState('all');
     }
     this.allDocs.next(this.allResults);
-
   }
 
 
@@ -253,6 +256,8 @@ export class SearchComponent implements OnInit {
     this.currentNumOfResults = numOfResults;
     this.currentDocType = requestedDocTypes;
     this.isClickedType = true;
+
+    
 
     this.resetState(requestedDocTypes);
   }

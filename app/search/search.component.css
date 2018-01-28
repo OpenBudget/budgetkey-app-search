@@ -12,11 +12,11 @@
 }
 
 a.activeclass {
-    color: #F00 !important;
+    color: #FF5A5F !important;
 }
 
 .down-arrow-red {
-  border: solid red;
+  border: solid #FF5A5F;
   border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 3px;
@@ -44,6 +44,18 @@ a.activeclass {
 
 .drop-down-caret{
   margin-right: 10px; 
+}
+
+.outer-right-side{
+    background-color: #f1f1f1;
+    height: 46px;
+    padding: 4px 4px;
+}
+
+.inner-right-side{
+    height: 36px;
+    background-color: #FF5A5F;
+    opacity: 0.1;
 }
 
 /* dropdown styles */
@@ -89,23 +101,23 @@ a.activeclass {
 .show {display:block;}
 
 .empty-text-empty-focus{
-    color: red;
+    color: #FF5A5F;
     background-color: white;
 }
 
 .empty-text-has-focus{
-    color: red;
+    color: #FF5A5F;
     background-color: #f1f1f1;
 }
 
 .has-text-all-tab{
-    color:red;
+    color:#FF5A5F;
     background-color: #f1f1f1;
 }
 
 .has-text-not-all-tab{
     color: #f1f1f1;
-    background-color: red;
+    background-color: #FF5A5F;
 }
 
 #type-text-in-search-bar{
@@ -117,17 +129,19 @@ a.activeclass {
 }
 
 .red-text{
-    color: red;
+    color: #FF5A5F;
 }
 
 .oval{
     border-radius: 50%;
 }
 
-.roundCorners-right{
-    border-radius: 0px 35% 35% 0px;
+.roundCorners-right-side{
+    border-top-right-radius: 5em 5em;
+    border-bottom-right-radius: 5em 5em;
 }
 
-.roundCorners-left{
-    border-radius: 35% 0% 0% 35%;
+.roundCorners-left-side{
+    border-top-left-radius: 5em 5em !important;
+    border-bottom-left-radius: 5em 5em !important;
 }
