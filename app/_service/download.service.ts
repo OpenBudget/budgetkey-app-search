@@ -61,7 +61,6 @@ export class DownloadService {
     //     csvFile += processRow(rows[i]);
     // }
     // csvFile += results
-    
     let blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
     if (navigator.msSaveBlob) { // IE 10+
         navigator.msSaveBlob(blob, filename);
