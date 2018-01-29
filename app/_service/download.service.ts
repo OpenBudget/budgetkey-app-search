@@ -54,7 +54,6 @@ export class DownloadService {
           // csvFile += '\n';
         }
         csvFile += Papa.unparse(tmp_json);
-        // console.log(Papa.unparse(tmp_json));
       }
       csvFile += '\n\n';
     }
