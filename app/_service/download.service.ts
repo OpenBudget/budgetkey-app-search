@@ -4,37 +4,24 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject }   from 'rxjs/BehaviorSubject';
 import { DocResultEntry } from '../_model/SearchResults';
+import * as Papa from 'papaparse';
+
 
 @Injectable()
 export class DownloadService {
 
   exportAsCsv(filename: string, allDocs: BehaviorSubject<DocResultEntry[]> ): void {
-    let addTitle = function (type: string, hdrs: Array<string>) {
-      console.log(type);
-      let title = type + '\n' + 'type';
+    // let addTitle = function (type: string, hdrs: Array<string>) {
+    //   console.log(type);
+    //   let title = type + '\n' + 'type';
 
-      for (let h of hdrs){
-        console.log(h);
-        title += ',' + h;
-      }
-      return title + '\n';
-    };
-    // var processRow = function (row) {
-    //     var finalVal = '';
-    //     for (var j = 0; j < row.length; j++) {
-    //         var innerValue = row[j] === null ? '' : row[j].toString();
-    //         if (row[j] instanceof Date) {
-    //             innerValue = row[j].toLocaleString();
-    //         };
-    //         var result = innerValue.replace(/"/g, '""');
-    //         if (result.search(/("|,|\n)/g) >= 0)
-    //             result = '"' + result + '"';
-    //         if (j > 0)
-    //             finalVal += ',';
-    //         finalVal += result;
-    //     }
-    //     return finalVal + '\n';
+    //   for (let h of hdrs){
+    //     console.log(h);
+    //     title += ',' + h;
+    //   }
+    //   return title + '\n';
     // };
+
     let csvFile = '';
     let headers4type = {'budget': ['title', 'page_title', 'amounts_allocated', 'amounts_executed', 'amounts_revised', 'explanation',
                                    'explanation_source', 'nice-breadcrumbs', 'hierarchy'],
@@ -55,23 +42,27 @@ export class DownloadService {
 
     for (let key of unique){
       let headers = headers4type[key];
-      csvFile += addTitle(key, headers);
+      csvFile += Papa.unparse(Array(headers));
+      let tmp_json = Array();
       for (let entry of allDocs.value){
         if (entry.type === key) {
-          csvFile += key;
+          let tmp = Array();
           for (let h of headers){
-            csvFile += ',' + entry.source[h];
+            tmp.push(entry.source[h]);
           }
-          csvFile += '\n';
+          tmp_json.push(tmp);
+          // csvFile += '\n';
         }
+        csvFile += Papa.unparse(tmp_json);
+        // console.log(Papa.unparse(tmp_json));
       }
       csvFile += '\n\n';
     }
-    // var csvFile = '';
-    // // for (var i = 0; i < rows.length; i++) {
-    // //     csvFile += processRow(rows[i]);
-    // // }
-    // // csvFile += results
+    // for (var i = 0; i < rows.length; i++) {
+    //     csvFile += processRow(rows[i]);
+    // }
+    // csvFile += results
+    
     let blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
     if (navigator.msSaveBlob) { // IE 10+
         navigator.msSaveBlob(blob, filename);
