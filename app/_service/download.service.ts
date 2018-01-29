@@ -11,17 +11,6 @@ import * as Papa from 'papaparse';
 export class DownloadService {
 
   exportAsCsv(filename: string, allDocs: BehaviorSubject<DocResultEntry[]> ): void {
-    // let addTitle = function (type: string, hdrs: Array<string>) {
-    //   console.log(type);
-    //   let title = type + '\n' + 'type';
-
-    //   for (let h of hdrs){
-    //     console.log(h);
-    //     title += ',' + h;
-    //   }
-    //   return title + '\n';
-    // };
-
     let csvFile = '';
     let headers4type = {'budget': ['title', 'page_title', 'amounts_allocated', 'amounts_executed', 'amounts_revised', 'explanation',
                                    'explanation_source', 'nice-breadcrumbs', 'hierarchy'],
@@ -32,35 +21,32 @@ export class DownloadService {
                         'contractspending': ['budget_code', 'budget_title', 'buyer_description', 'end_date', 'entity_id',
                                              'entity_kind', 'entity_name', 'executed', 'exemption_reason', 'explanation',
                                              'page_title', 'purchase_method', 'supplier_name']};
+
     let keys = [];
     for (let key of allDocs.value){
       keys.push(key.type);
     }
-
     let unique =  keys.filter((v, i, a) => a.indexOf(v) === i && v !== 'tenders');
-    console.log(unique);
 
     for (let key of unique){
+      csvFile += '\n' + key + '\n'
       let headers = headers4type[key];
-      csvFile += Papa.unparse(Array(headers));
-      let tmp_json = Array();
+      let data_array = new Array();
       for (let entry of allDocs.value){
         if (entry.type === key) {
-          let tmp = Array();
+          let tmp = new Array();
           for (let h of headers){
             tmp.push(entry.source[h]);
           }
-          tmp_json.push(tmp);
-          // csvFile += '\n';
+          data_array.push(tmp);
         }
-        csvFile += Papa.unparse(tmp_json);
       }
-      csvFile += '\n\n';
+      data_array.push(new Array(headers.length).fill(null)); //adds an extra line between types
+      csvFile += Papa.unparse({
+        fields: headers,
+        data: data_array})
     }
-    // for (var i = 0; i < rows.length; i++) {
-    //     csvFile += processRow(rows[i]);
-    // }
-    // csvFile += results
+
     let blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
     if (navigator.msSaveBlob) { // IE 10+
         navigator.msSaveBlob(blob, filename);

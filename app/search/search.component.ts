@@ -117,15 +117,20 @@ export class SearchComponent implements OnInit {
     }
   }
 
+  /**
+   * Converts the current stack of results (allDocs) 
+   * from json to csv 
+   * and opens a download popup for the user
+   */
   download(term: string): void {
     this.downloadService.exportAsCsv(term + '.csv', this.allDocs);
   }
+
   /**
    * doRequest()
    * the main method of the component
    * posts a new query
    */
-
   doRequest(sp: SearchParams): Observable<SearchResults> {
     if (sp.term) {
       this.isSearching = true;
