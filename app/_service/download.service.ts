@@ -29,7 +29,7 @@ export class DownloadService {
     let unique =  keys.filter((v, i, a) => a.indexOf(v) === i && v !== 'tenders');
 
     for (let key of unique){
-      csvFile += '\n' + key + '\n'
+      csvFile += '\n' + key + '\n';
       let headers = headers4type[key];
       let data_array = new Array();
       for (let entry of allDocs.value){
@@ -41,10 +41,10 @@ export class DownloadService {
           data_array.push(tmp);
         }
       }
-      data_array.push(new Array(headers.length).fill(null)); //adds an extra line between types
+      data_array.push(new Array(headers.length).fill(null)); // adds an extra line between types
       csvFile += Papa.unparse({
         fields: headers,
-        data: data_array})
+        data: data_array});
     }
 
     let blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
