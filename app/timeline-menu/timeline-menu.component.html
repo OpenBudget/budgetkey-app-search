@@ -1,3 +1,5 @@
-<div class="timeline-menu">
-  timeline-menu
+<div class="timeline-menu">  
+  <select class="form-control">
+    <option  *ngFor="let item of items" [value]="item.value">{{item.title}}</option>
+  </select>
 </div>

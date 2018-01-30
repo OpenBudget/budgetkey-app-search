@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+const timeline_menu = require('./timeline-menu.json');
 
 @Component({
   selector: 'app-timeline-menu',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styles: [require('./timeline-menu.component.css')]
 })
 export class TimelineMenuComponent implements OnInit {
+
+  private items: any[] = timeline_menu;
 
   constructor() { }
 

@@ -1,5 +1,9 @@
 .timeline-menu {
     float: right;
     width: 25%;
-    border: solid 1px;
+    border: solid 0px;
+}
+
+.timeline-menu select {
+    width: 100%;
 }
