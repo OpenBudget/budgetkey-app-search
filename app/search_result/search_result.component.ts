@@ -1,9 +1,10 @@
 /**
  * Created by adam on 18/12/2016.
  */
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Inject } from '@angular/core';
 import { DocResultEntry } from '../_model/SearchResults';
 import { KIND_PARAMETERS } from './kind_parameters';
+import { THEME_ID_TOKEN } from '../_config/config';
 let _ = require('lodash');
 
 
@@ -18,7 +19,7 @@ export class SearchResultComponent implements OnInit {
   @Input() index: number;
   parameters: any;
 
-  constructor() { }
+  constructor(@Inject(THEME_ID_TOKEN) private theme_id: any) { }
   ngOnInit() {
     for (let parameters of KIND_PARAMETERS) {
       if (this.item.source.doc_id.startsWith(parameters.docType)) {
@@ -36,6 +37,6 @@ export class SearchResultComponent implements OnInit {
   }
 
   href(doc_id: string) {
-    return 'http://next.obudget.org/i/' + doc_id + '?li=' + this.index;
+    return 'http://next.obudget.org/i/' + doc_id + '?li=' + this.index + (this.theme_id ? '&theme=' + this.theme_id : '');
   }
 }
