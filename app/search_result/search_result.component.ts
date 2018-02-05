@@ -6,8 +6,6 @@ import { DocResultEntry } from '../_model/SearchResults';
 import { KIND_PARAMETERS } from './kind_parameters';
 let _ = require('lodash');
 
-const gtag: any = window['gtag'];
-
 
 // generic Component
 @Component({
@@ -37,19 +35,7 @@ export class SearchResultComponent implements OnInit {
     return default_value || '';
   }
 
-  selected(doc_id: string, event: any) {
-    let href = 'http://next.obudget.org/i/' + doc_id;
-    if (gtag) {
-      gtag('event', 'view_item', {
-        'event_label': doc_id,
-        'value': this.index,
-        'event_callback': () => window.open(href, '_self')
-      });  
-    } else {
-      window.open(href, '_self');
-    }
-    if (event && event.stopPropagation) {
-      event.stopPropagation();
-    }
+  href(doc_id: string) {
+    return 'http://next.obudget.org/i/' + doc_id + '?li=' + this.index;
   }
 }
