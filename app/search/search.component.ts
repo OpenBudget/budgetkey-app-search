@@ -10,7 +10,6 @@ import { SearchResults, DocResultEntry, SearchResultsCounter} from '../_model/Se
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import {HostListener} from '../../node_modules/@angular/core/src/metadata/directives';
-import { CommonModule } from '@angular/common';
 
 type SearchParams = {term: string, displayDocs: string, offset: number};
 
@@ -66,7 +65,7 @@ export class SearchComponent implements OnInit {
     this.isErrorInLastSearch = false;
 
     this.isAllTabSelected = true;
-    this.currentNumOfResults;
+    this.currentNumOfResults = 0;
     this.isClickedType = false;
     this.isSearchBarHasFocus = false;
     this.isSearchBarHasText = false;
@@ -100,7 +99,7 @@ export class SearchComponent implements OnInit {
         if (params['q']) {
           this.doRequest({term: params['q'], displayDocs: 'all', offset: 0})
             .subscribe((results) => {
-              this.processResults(results)
+              this.processResults(results);
             });
           this.term = params['q'];
           if (params['dd']) {
@@ -114,8 +113,8 @@ export class SearchComponent implements OnInit {
       });
   }
 
-  openCloseSearchTypeDropDown(){
-    document.getElementById("search-types-dropdown-content").classList.toggle("show");
+  openCloseSearchTypeDropDown() {
+    document.getElementById('search-types-dropdown-content').classList.toggle('show');
   }
 
   /**
@@ -127,16 +126,16 @@ export class SearchComponent implements OnInit {
       this.displayDocs = null;
       this.resetState('all');
       this.isClickedType = true;
-      if(typeof this.selectedTabName === "undefined" || this.selectedTabName == ''){
+      if (typeof this.selectedTabName === 'undefined' || this.selectedTabName === '') {
         this.selectedTabName = 'הכל';
       }
     } else {
       this.searchTerms.next({term: term, displayDocs: this.displayDocs, offset: this.allResults.length});
     }
 
-    if(term == ""){
+    if (term === '') {
       this.isSearchBarHasText = false;
-    }else{
+    } else {
       this.isSearchBarHasText = true;
     }
   }
@@ -165,18 +164,19 @@ export class SearchComponent implements OnInit {
    */
   processResults(results: SearchResults): void {
     if (results) {
-      if(this.searchResults)
-      if (results.displayDocs === 'all') {
-        this.resultTotal = 0;
-        for (let key in results.search_counts) {
-          if (key) {
-            let tmpResults = results.search_counts[key];
-            this.resultTotal += tmpResults.total_overall;
-            this.resultTotalCount[key] = tmpResults.total_overall;
-            if(this.currentDocType == key){
-              this.currentNumOfResults = tmpResults.total_overall;
-            }else if(results.displayDocs === 'all'){
-              this.currentNumOfResults = this.resultTotal;
+      if (this.searchResults) {
+        if (results.displayDocs === 'all') {
+          this.resultTotal = 0;
+          for (let key in results.search_counts) {
+            if (key) {
+              let tmpResults = results.search_counts[key];
+              this.resultTotal += tmpResults.total_overall;
+              this.resultTotalCount[key] = tmpResults.total_overall;
+              if (this.currentDocType === key) {
+                this.currentNumOfResults = tmpResults.total_overall;
+              } else if (results.displayDocs === 'all') {
+                this.currentNumOfResults = this.resultTotal;
+              }
             }
           }
         }
@@ -245,7 +245,7 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  switchTab($event: any, requestedDocTypes: string, 
+  switchTab ($event: any, requestedDocTypes: string, 
             isAllTabSelected: boolean, selectedTabName: string,
             numOfResults: number) {
     $event.stopPropagation();
@@ -256,17 +256,14 @@ export class SearchComponent implements OnInit {
     this.currentNumOfResults = numOfResults;
     this.currentDocType = requestedDocTypes;
     this.isClickedType = true;
-
-    
-
     this.resetState(requestedDocTypes);
   }
 
-  onSeachBarFocus(){
+  onSeachBarFocus() {
     this.isSearchBarHasFocus = true;
   }
 
-  onSeachBarFocusOut(){
+  onSeachBarFocusOut() {
     this.isSearchBarHasFocus = false;
   }
 }
