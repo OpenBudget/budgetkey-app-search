@@ -48,7 +48,7 @@ export class SearchResultComponent implements OnInit {
     } else {
       window.open(href, '_self');
     }
-    if (event.stopPropagation) {
+    if (event && event.stopPropagation) {
       event.stopPropagation();
     }
   }
