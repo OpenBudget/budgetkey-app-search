@@ -11,7 +11,7 @@ describe('TimelineComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ 
+      declarations: [
         TimelineComponent,
         TimelineMenuComponent,
         TimelineScaleComponent

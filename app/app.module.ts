@@ -2,6 +2,7 @@ import './rxjs-extensions';
 
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent }  from './app.component';
 import { HttpModule } from '@angular/http';
@@ -43,6 +44,7 @@ if (typeof(BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
 @NgModule({
   imports: [
     BrowserModule,
+    FormsModule,
     HttpModule,
     BudgetKeyCommonModule,
     AppRoutingModule

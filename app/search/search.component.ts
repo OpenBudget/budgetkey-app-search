@@ -34,6 +34,8 @@ export class SearchComponent implements OnInit {
   private headerBottomBorder: boolean;
   private isSearching: boolean;
   private isErrorInLastSearch: boolean;
+  private startRange = new Date(-8640000000000000).toISOString().substr(0, 13);
+  private endRange = new Date(8640000000000000).toISOString().substr(0, 13);
 
   constructor(
     private searchService: SearchService,
@@ -123,7 +125,7 @@ export class SearchComponent implements OnInit {
     if (sp.term) {
       this.isSearching = true;
       this.isErrorInLastSearch = false;
-      return this.searchService.search(sp.term, this.pageSize, sp.offset, sp.displayDocs.split(','));
+      return this.searchService.search(sp.term, this.startRange, this.endRange, this.pageSize, sp.offset, sp.displayDocs.split(','));
     } else {
       this.isSearching = false;
       return Observable.of<SearchResults>(null);
@@ -218,4 +220,13 @@ export class SearchComponent implements OnInit {
 
     this.resetState(requestedDocTypes);
   }
+
+  onPeriodChangeSearch(period: any) {
+    if (period) {
+      this.startRange = period.start;
+      this.endRange = period.end;
+      this.searchTerms.next({term: this.term, displayDocs: this.displayDocs, offset: 0});
+    }
+  }
+
 }
