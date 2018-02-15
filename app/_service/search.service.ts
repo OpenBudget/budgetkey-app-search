@@ -31,7 +31,9 @@ export class SearchService {
     let startTime: Date = new Date(); // update time-stamp
     let joinedkinds = kindsList.join(',');
     if (pageNumber === 0) {
-      gtag('event', 'search', {'search_term': term, 'kinds': joinedkinds});
+      if (gtag) {
+        gtag('event', 'search', {'search_term': term, 'kinds': joinedkinds});
+      }
     }
     return this.http
       .get(`${URL}/${joinedkinds}/${encodeURIComponent(term)}/${startRange}/${endRange}/${pageSize}/${pageNumber}`)

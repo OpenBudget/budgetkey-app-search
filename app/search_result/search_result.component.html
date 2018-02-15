@@ -11,7 +11,7 @@
       </div>
       <div class="row title-part">
           <div class="col-md-8 title-right-part">
-              <a (click)="selected(get('doc_id'))">
+              <a [href]="href(get('doc_id'))">
                   <div class="title-bit">
                       <span class="pretitle" *ngIf="parameters.secondaryNameField" innerHTML="{{get(parameters.secondaryNameField)}}"></span>
                       <span class="title" innerHTML="{{get(parameters.mainNameField)}}"></span>
