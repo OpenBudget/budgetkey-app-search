@@ -13,7 +13,10 @@ import { SearchComponent } from './search/search.component';
 
 import { BudgetKeyCommonModule } from 'budgetkey-ng2-components';
 import { SearchResultComponent } from './search_result/search_result.component';
-import {APP_BASE_HREF} from "../node_modules/@angular/common/src/location/location_strategy";
+import {APP_BASE_HREF} from '../node_modules/@angular/common/src/location/location_strategy';
+import { TimelineComponent } from './timeline/timeline.component';
+import { TimelineMenuComponent } from './timeline-menu/timeline-menu.component';
+import { TimelineScaleComponent } from './timeline-scale/timeline-scale.component';
 
 
 describe('AppComponent', function () {
@@ -31,7 +34,10 @@ describe('AppComponent', function () {
       declarations: [
         AppComponent,
         SearchComponent,
-        SearchResultComponent
+        SearchResultComponent,
+        TimelineComponent,
+        TimelineMenuComponent,
+        TimelineScaleComponent
       ],
       providers: [
         SearchService,
