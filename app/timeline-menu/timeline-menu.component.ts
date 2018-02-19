@@ -1,11 +1,13 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 let _ = require('lodash');
-const timeline_menu = require('./timeline-menu.json');
+const TIMELINE_MENU_DATA = require('./timeline-menu.json');
+import { SearchService } from '../_service/search.service';
 
 @Component({
   selector: 'timeline-menu',
   template: require('./timeline-menu.component.html'),
-  styles: [require('./timeline-menu.component.css')]
+  styles: [require('./timeline-menu.component.css')],
+  providers: [SearchService]
 })
 export class TimelineMenuComponent implements OnInit {
 
@@ -14,9 +16,8 @@ export class TimelineMenuComponent implements OnInit {
 
   @Output() onPeriodChangeTimeline = new EventEmitter<boolean>();
 
-  constructor() {
-    this.initMenuPeriods(timeline_menu);
-    this.periods = timeline_menu;
+  constructor(private searchService: SearchService) {
+    this.periods = this.initMenuPeriods(TIMELINE_MENU_DATA);
     this.selectedPeriod = this.periods[0];
   }
 
@@ -26,6 +27,7 @@ export class TimelineMenuComponent implements OnInit {
   }
 
   initMenuPeriods(menu: any[]): any {
+    let minDate = this.searchService.MIN_DATE;
     return _.forEach(menu, function(value: any, key: any) {
 
       let now = new Date();
@@ -33,7 +35,7 @@ export class TimelineMenuComponent implements OnInit {
       value.end = new Date();
 
       switch (value.value) {
-        case 'last_weak':
+        case 'last_week':
           value.start.setDate(now.getDate() - 7);
           break;
         case 'last_month':
@@ -45,11 +47,11 @@ export class TimelineMenuComponent implements OnInit {
         case 'last_decade':
           value.start = new Date(Date.UTC(now.getFullYear() - 10, 0, 1));
           break;
-        case 'pre-decade':
-          value.start = new Date(-8640000000000000);
+        case 'pre_decade':
+          value.start = new Date(minDate);
           value.end = new Date(Date.UTC(now.getFullYear() - 10, 0, 1));
           break;
-        case 'custom-period':
+        case 'custom_period':
           break;
         default:
       }

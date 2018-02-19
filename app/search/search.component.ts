@@ -34,15 +34,18 @@ export class SearchComponent implements OnInit {
   private headerBottomBorder: boolean;
   private isSearching: boolean;
   private isErrorInLastSearch: boolean;
-  private startRange = new Date(-8640000000000000).toISOString().substr(0, 13);
-  private endRange = new Date(8640000000000000).toISOString().substr(0, 13);
+  private startRange: string;
+  private endRange: string;
 
   constructor(
     private searchService: SearchService,
     private route: ActivatedRoute,
     private router: Router,
     private location: Location
-  ) {}
+  ) {
+    this.startRange = new Date(this.searchService.MIN_DATE).toISOString().substr(0, 13);
+    this.endRange = new Date(this.searchService.MAX_DATE).toISOString().substr(0, 13);
+  }
 
   ngOnInit() {
     this.searchTerms = new Subject<SearchParams>();

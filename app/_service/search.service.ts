@@ -12,8 +12,10 @@ const gtag: any = window['gtag'];
 
 @Injectable()
 export class SearchService {
+    MIN_DATE = -8640000000000000;
+    MAX_DATE = 8640000000000000;
 
-  constructor(private http: Http) {}
+    constructor(private http: Http) {}
   /**
    * search()
    *
