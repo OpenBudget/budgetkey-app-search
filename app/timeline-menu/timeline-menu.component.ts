@@ -3,7 +3,7 @@ let _ = require('lodash');
 const timeline_menu = require('./timeline-menu.json');
 
 @Component({
-  selector: 'app-timeline-menu',
+  selector: 'timeline-menu',
   template: require('./timeline-menu.component.html'),
   styles: [require('./timeline-menu.component.css')]
 })

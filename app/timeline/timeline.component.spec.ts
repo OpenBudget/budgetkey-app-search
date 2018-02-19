@@ -1,5 +1,6 @@
 import 'karma-test-shim';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { TimelineComponent } from './timeline.component';
 import { TimelineMenuComponent } from '../timeline-menu/timeline-menu.component';
@@ -11,6 +12,7 @@ describe('TimelineComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ FormsModule ],
       declarations: [
         TimelineComponent,
         TimelineMenuComponent,

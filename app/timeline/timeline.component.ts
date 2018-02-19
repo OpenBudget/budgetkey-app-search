@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-timeline',
+  selector: 'timeline',
   template: require('./timeline.component.html'),
   styles: [require('./timeline.component.css')]
 })

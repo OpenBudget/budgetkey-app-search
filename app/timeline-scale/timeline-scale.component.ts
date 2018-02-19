@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-timeline-scale',
+  selector: 'timeline-scale',
   template: require('./timeline-scale.component.html'),
   styles: [require('./timeline-scale.component.css')]
 })

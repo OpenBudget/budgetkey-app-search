@@ -17,6 +17,7 @@ import {APP_BASE_HREF} from '../node_modules/@angular/common/src/location/locati
 import { TimelineComponent } from './timeline/timeline.component';
 import { TimelineMenuComponent } from './timeline-menu/timeline-menu.component';
 import { TimelineScaleComponent } from './timeline-scale/timeline-scale.component';
+import { FormsModule } from '@angular/forms';
 
 
 describe('AppComponent', function () {
@@ -30,6 +31,7 @@ describe('AppComponent', function () {
         HttpModule,
         BudgetKeyCommonModule,
         AppRoutingModule,
+        FormsModule
       ],
       declarations: [
         AppComponent,
