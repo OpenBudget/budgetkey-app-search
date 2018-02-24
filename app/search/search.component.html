@@ -80,7 +80,7 @@
     </div>
 </div>
 
-<timeline (onPeriodChangeSearch)="onPeriodChangeSearch($event)"></timeline>
+<timeline [menuRange]="menuRange" [startRange]="startRange" [endRange]="endRange" (onPeriodChangeSearch)="onPeriodChangeSearch($event)"></timeline>
 
 <div #searchBody class="search_body">
 

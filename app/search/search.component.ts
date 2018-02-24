@@ -96,15 +96,6 @@ export class SearchComponent implements OnInit {
     this.route.queryParams
       .subscribe((params: Params) => {
         if (params['q']) {
-
-          this.menuRange = params['range'] || '';
-          this.startRange = params['from'] || this.searchService.MIN_DATE;
-          this.endRange = params['to'] || this.searchService.MAX_DATE;
-
-          this.doRequest({term: params['q'], startRange: this.startRange, endRange: this.endRange, displayDocs: 'all', offset: 0})
-            .subscribe((results) => {
-              this.processResults(results);
-            });
           this.term = params['q'];
           if (params['dd']) {
             this.displayDocs = params['dd'];
@@ -113,6 +104,10 @@ export class SearchComponent implements OnInit {
           }
           this.search(this.term);
         }
+        this.menuRange = params['range'] || 'custom_range';
+        this.startRange = params['from'] || this.startRange;
+        this.endRange = params['to'] || this.endRange;
+
         return null;
       });
   }

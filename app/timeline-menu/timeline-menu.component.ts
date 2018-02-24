@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 let _ = require('lodash');
 const TIMELINE_MENU_DATA = require('./timeline-menu.json');
 import { SearchService } from '../_service/search.service';
@@ -14,16 +14,24 @@ export class TimelineMenuComponent implements OnInit {
   private periods: any[];
   private selectedPeriod: any;
 
+  @Input() menuRange: string;
+  @Input() startRange: string;
+  @Input() endRange: string;
   @Output() onPeriodChangeTimeline = new EventEmitter<boolean>();
 
   constructor(private searchService: SearchService) {
     this.periods = this.initMenuPeriods(TIMELINE_MENU_DATA);
-    this.selectedPeriod = this.periods[0];
   }
 
   ngOnInit() {
-    //  un-comment the next line for get results after page load
-    //  this.onPeriodChange(this.selectedPeriod);
+    let theItem = _.find(this.periods, ['value', this.menuRange || this.periods[0].value]);
+
+    if (this.menuRange === 'custom_range') {
+      theItem.start = this.startRange || this.searchService.MIN_DATE;
+      theItem.end = this.endRange || this.searchService.MAX_DATE;
+    }
+    
+    this.onPeriodChange(theItem);
   }
 
   initMenuPeriods(menu: any[]): any {
