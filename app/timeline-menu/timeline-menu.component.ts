@@ -41,7 +41,7 @@ export class TimelineMenuComponent implements OnInit {
         case 'last_month':
           value.start.setMonth(now.getMonth() - 1);
         break;
-        case 'this_year':
+        case 'last_year':
           value.start = new Date(Date.UTC(now.getFullYear(), 0, 1));
           break;
         case 'last_decade':
@@ -51,7 +51,7 @@ export class TimelineMenuComponent implements OnInit {
           value.start = new Date(minDate);
           value.end = new Date(Date.UTC(now.getFullYear() - 10, 0, 1));
           break;
-        case 'custom_period':
+        case 'custom_range':
           break;
         default:
       }

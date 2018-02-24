@@ -11,7 +11,9 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import {HostListener} from '../../node_modules/@angular/core/src/metadata/directives';
 
-type SearchParams = {term: string, displayDocs: string, offset: number};
+//const TIMELINE_MENU_DATA = require('../timeline-menu/timeline-menu.json');
+
+type SearchParams = {term: string, startRange: string, endRange: string, displayDocs: string, offset: number};
 
 @Component({
   selector: 'budget-search',
@@ -34,6 +36,7 @@ export class SearchComponent implements OnInit {
   private headerBottomBorder: boolean;
   private isSearching: boolean;
   private isErrorInLastSearch: boolean;
+  private menuRange: string = '';
   private startRange: string;
   private endRange: string;
 
@@ -43,8 +46,8 @@ export class SearchComponent implements OnInit {
     private router: Router,
     private location: Location
   ) {
-    this.startRange = new Date(this.searchService.MIN_DATE).toISOString().substr(0, 13);
-    this.endRange = new Date(this.searchService.MAX_DATE).toISOString().substr(0, 13);
+    // this.startRange = new Date(this.searchService.MIN_DATE).toISOString().substr(0, 13);
+    // this.endRange = new Date(this.searchService.MAX_DATE).toISOString().substr(0, 13);
   }
 
   ngOnInit() {
@@ -67,11 +70,15 @@ export class SearchComponent implements OnInit {
       .debounceTime(300)        // wait for 300ms pause in events
       // .distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap((sp: SearchParams) => {
-        if (sp.term) {
-          this.location.replaceState(`/?q=${sp.term}&dd=${sp.displayDocs}`);
-        } else {
-          this.location.replaceState(`/?q=&dd=${sp.displayDocs}`);
+
+        console.log(`s: ${sp.startRange}, e: ${sp.endRange}`);
+
+        if (this.menuRange &&  this.menuRange === "custom_range") {
+          this.location.replaceState(`/?q=${sp.term||''}&from=${sp.startRange}&to=${sp.endRange}&dd=${sp.displayDocs}`);
+        } else if (this.menuRange) {
+          this.location.replaceState(`/?q=${sp.term||''}&range=${this.menuRange}&dd=${sp.displayDocs}`);
         }
+
         return this.doRequest(sp);
       })
       .catch(error => {
@@ -89,7 +96,12 @@ export class SearchComponent implements OnInit {
     this.route.queryParams
       .subscribe((params: Params) => {
         if (params['q']) {
-          this.doRequest({term: params['q'], displayDocs: 'all', offset: 0})
+
+          this.menuRange = params['range'] || '';
+          this.startRange = params['from'] || this.searchService.MIN_DATE;
+          this.endRange = params['to'] || this.searchService.MAX_DATE;
+
+          this.doRequest({term: params['q'], startRange: this.startRange, endRange: this.endRange, displayDocs: 'all', offset: 0})
             .subscribe((results) => {
               this.processResults(results);
             });
@@ -114,7 +126,8 @@ export class SearchComponent implements OnInit {
       this.displayDocs = null;
       this.resetState('all');
     } else {
-      this.searchTerms.next({term: term, displayDocs: this.displayDocs, offset: this.allResults.length});
+      this.searchTerms.next({term: term, startRange: this.startRange, endRange: this.endRange, 
+        displayDocs: this.displayDocs, offset: this.allResults.length});
     }
   }
 
@@ -128,7 +141,7 @@ export class SearchComponent implements OnInit {
     if (sp.term) {
       this.isSearching = true;
       this.isErrorInLastSearch = false;
-      return this.searchService.search(sp.term, this.startRange, this.endRange, this.pageSize, sp.offset, sp.displayDocs.split(','));
+      return this.searchService.search(sp.term, sp.startRange, sp.endRange, this.pageSize, sp.offset, sp.displayDocs.split(','));
     } else {
       this.isSearching = false;
       return Observable.of<SearchResults>(null);
@@ -187,7 +200,8 @@ export class SearchComponent implements OnInit {
   fetchMore(): void {
     this.headerBottomBorder = true;
     this.isSearching = true;
-    this.searchTerms.next({term: this.term, displayDocs: this.displayDocs, offset: this.allResults.length});
+    this.searchTerms.next({term: this.term, startRange: this.startRange, 
+      endRange: this.endRange, displayDocs: this.displayDocs, offset: this.allResults.length});
   }
 
   getStatusText() {
@@ -212,7 +226,8 @@ export class SearchComponent implements OnInit {
       }
       if (this.displayDocs && this.term) {
         this.isSearching = true;
-        this.searchTerms.next({term: this.term, displayDocs: this.displayDocs, offset: 0});
+        this.searchTerms.next({term: this.term, startRange: this.startRange, 
+          endRange: this.endRange, displayDocs: this.displayDocs, offset: 0});
       }
     }
   }
@@ -228,7 +243,9 @@ export class SearchComponent implements OnInit {
     if (period) {
       this.startRange = period.start;
       this.endRange = period.end;
-      this.searchTerms.next({term: this.term, displayDocs: this.displayDocs, offset: 0});
+      this.menuRange = period.value;
+      this.searchTerms.next({term: this.term, startRange: this.startRange, 
+        endRange: this.endRange, displayDocs: this.displayDocs, offset: 0});
     }
   }
 

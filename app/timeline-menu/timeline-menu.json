@@ -1,8 +1,8 @@
 [
     { "title": "7 ימים אחרונים", "value": "last_week", "start": "", "end": "" },
     { "title": "30 ימים אחרונים", "value": "last_month", "start": "", "end": "" },
-    { "title": "השנה", "value": "this_year", "start": "", "end": "" },
+    { "title": "השנה", "value": "last_year", "start": "", "end": "" },
     { "title": "בעשור האחרון", "value": "last_decade", "start": "", "end": "" },
     { "title": "מלפני עשור ויותר", "value": "pre_decade", "start": "", "end": "" },
-    { "title": "טווח תאריכים לבחירתך", "value": "custom_period", "start": "", "end": "" }
+    { "title": "טווח תאריכים לבחירתך", "value": "custom_range", "start": "", "end": "" }
 ]
