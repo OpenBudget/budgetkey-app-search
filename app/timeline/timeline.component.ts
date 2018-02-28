@@ -8,15 +8,14 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class TimelineComponent implements OnInit {
   private selectedPeriod: any;
 
-@Input() menuRange: string;
-@Input() startRange: string;
-@Input() endRange: string;
-@Output() onPeriodChangeSearch = new EventEmitter<boolean>();
+  @Input() menuRange: string;
+  @Input() startRange: string;
+  @Input() endRange: string;
+  @Output() onPeriodChangeSearch = new EventEmitter<boolean>();
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   onPeriodChangeTimeline(newPeriod: any) {
     this.selectedPeriod = newPeriod;

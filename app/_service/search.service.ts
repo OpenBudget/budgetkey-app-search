@@ -12,21 +12,19 @@ const gtag: any = window['gtag'];
 
 @Injectable()
 export class SearchService {
-    MIN_DATE = -8640000000000000;
-    MAX_DATE = 8640000000000000;
 
-    constructor(private http: Http) {}
-  /**
-   * search()
-   *
-   * @param {string} term      - new search term
-   * @param {string} startRange
-   * @param {string} endRange
-   * @param {Number} pageSize  - how many records to return
-   * @param {Number} pageNumber - how many pages to skip?
-   * @param {Array<string>} kindsList - category to query - specific or all
-   * @returns {Observable<SearchResults>}
-   */
+  constructor(private http: Http) {}
+/**
+ * search()
+ *
+ * @param {string} term      - new search term
+ * @param {string} startRange
+ * @param {string} endRange
+ * @param {Number} pageSize  - how many records to return
+ * @param {Number} pageNumber - how many pages to skip?
+ * @param {Array<string>} kindsList - category to query - specific or all
+ * @returns {Observable<SearchResults>}
+ */
 
   search(term: string, startRange: string, endRange: string, pageSize: number, pageNumber: number,
     kindsList: Array<string> ): Observable<SearchResults> {

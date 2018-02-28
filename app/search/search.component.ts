@@ -9,9 +9,8 @@ import { SearchService }     from '../_service/search.service';
 import { SearchResults, DocResultEntry, SearchResultsCounter} from '../_model/SearchResults';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
-import {HostListener} from '../../node_modules/@angular/core/src/metadata/directives';
-
-//const TIMELINE_MENU_DATA = require('../timeline-menu/timeline-menu.json');
+import { HostListener } from '../../node_modules/@angular/core/src/metadata/directives';
+import { TimelineMenuRange } from '../timeline-menu/timeline-menu';
 
 type SearchParams = {term: string, startRange: string, endRange: string, displayDocs: string, offset: number};
 
@@ -73,10 +72,10 @@ export class SearchComponent implements OnInit {
 
         console.log(`s: ${sp.startRange}, e: ${sp.endRange}`);
 
-        if (this.menuRange &&  this.menuRange === "custom_range") {
-          this.location.replaceState(`/?q=${sp.term||''}&from=${sp.startRange}&to=${sp.endRange}&dd=${sp.displayDocs}`);
+        if (this.menuRange &&  TimelineMenuRange[this.menuRange] === TimelineMenuRange.CustomRange) {
+          this.location.replaceState(`/?q=${sp.term || ''}&from=${sp.startRange}&to=${sp.endRange}&dd=${sp.displayDocs}`);
         } else if (this.menuRange) {
-          this.location.replaceState(`/?q=${sp.term||''}&range=${this.menuRange}&dd=${sp.displayDocs}`);
+          this.location.replaceState(`/?q=${sp.term || ''}&range=${this.menuRange}&dd=${sp.displayDocs}`);
         }
 
         return this.doRequest(sp);
@@ -104,7 +103,7 @@ export class SearchComponent implements OnInit {
           }
           this.search(this.term);
         }
-        this.menuRange = params['range'] || 'custom_range';
+        this.menuRange = params['range'] || TimelineMenuRange[TimelineMenuRange.LastWeek];
         this.startRange = params['from'] || this.startRange;
         this.endRange = params['to'] || this.endRange;
 
@@ -121,7 +120,7 @@ export class SearchComponent implements OnInit {
       this.displayDocs = null;
       this.resetState('all');
     } else {
-      this.searchTerms.next({term: term, startRange: this.startRange, endRange: this.endRange, 
+      this.searchTerms.next({term: term, startRange: this.startRange, endRange: this.endRange,
         displayDocs: this.displayDocs, offset: this.allResults.length});
     }
   }
@@ -195,7 +194,7 @@ export class SearchComponent implements OnInit {
   fetchMore(): void {
     this.headerBottomBorder = true;
     this.isSearching = true;
-    this.searchTerms.next({term: this.term, startRange: this.startRange, 
+    this.searchTerms.next({term: this.term, startRange: this.startRange,
       endRange: this.endRange, displayDocs: this.displayDocs, offset: this.allResults.length});
   }
 
@@ -221,7 +220,7 @@ export class SearchComponent implements OnInit {
       }
       if (this.displayDocs && this.term) {
         this.isSearching = true;
-        this.searchTerms.next({term: this.term, startRange: this.startRange, 
+        this.searchTerms.next({term: this.term, startRange: this.startRange,
           endRange: this.endRange, displayDocs: this.displayDocs, offset: 0});
       }
     }
@@ -239,9 +238,8 @@ export class SearchComponent implements OnInit {
       this.startRange = period.start;
       this.endRange = period.end;
       this.menuRange = period.value;
-      this.searchTerms.next({term: this.term, startRange: this.startRange, 
+      this.searchTerms.next({term: this.term, startRange: this.startRange,
         endRange: this.endRange, displayDocs: this.displayDocs, offset: 0});
     }
   }
-
 }
