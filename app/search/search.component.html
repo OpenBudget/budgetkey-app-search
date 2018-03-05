@@ -2,84 +2,70 @@
   row : true,
   headerBottomBorder : headerBottomBorder}" >
 
-    <div class="search-box input-group input-group-lg">
-        <input #searchBox
-               class="form-control"
-               type="text"
-               placeholder="חפשו במפתח"
-               autofocus
-               (keyup)="search(searchBox.value)"
-               [value]="term"
-               />
-        <span class="input-group-addon downloader">
-            <div class="downloader" (click)="download(term)"></div>      
-        </span>
-        <span class="input-group-addon">
-          <i *ngIf="!isSearching" [ngClass]="['glyphicon', 'glyphicon-search', term ? 'search-icon' : '']" (click)="term ? search(term) : undefined"></i>
+    <div id="whole-searchbox" class="search-box input-group input-group-lg">
+
+      <!-- when you switch sides between the 2 controls, the css works -->
+
+      <div id="seach-box-types-side" [ngClass]="['input-group-addon','outer-right-side', 'roundCorners-right-side' , isSearchBarHasText ? (isAllTabSelected ? 'has-text-all-tab' : 'has-text-not-all-tab') : (isSearchBarHasFocus ? 'empty-text-has-focus' : 'empty-text-empty-focus')]" (click)="openCloseSearchTypeDropDown();">  
+        <div class="inner-right-side roundCorners-right-side">
+          <i *ngIf="!isSearching" [ngClass]="['glyphicon', 'glyphicon-search', term ? 'search-icon' : '']" ></i>
           <i *ngIf="isSearching" class="fa fa-circle-o-notch fa-spin"></i>
-         </span>
-    </div>
-    <div class="search-filter">
-      <ul class="row col-xs-3 col-md-2">
-        <li class="active col-xs-12 col-md-12">
-          <a (click)="switchTab($event, 'all')"
-              [class.activeclass]= "displayDocs  === 'all'" >הכל
-            <span>
-                ({{resultTotal ? resultTotal.toLocaleString()  : '0'}})
-            </span>
-          </a>
-        </li>
-      </ul>
-        <ul class='row col-xs-9 col-md-10'>
-        <li class="active col-xs-3 col-md-2">
-          <a (click)="switchTab($event, 'budget')"
-            [class.activeclass]= "displayDocs  === 'budget'">סעיף תקציבי
-            <span>
-                ({{resultTotalCount.budget ? resultTotalCount.budget.toLocaleString()  : '0'}})
-            </span>
-          </a>
-        </li>
-        <li class="active col-xs-3 col-md-2">
-          <a (click)="switchTab($event, 'entities')"
-            [class.activeclass]= "displayDocs  === 'entities'">ארגון
-            <span>
-                ({{resultTotalCount.entities ? resultTotalCount.entities.toLocaleString()  : '0'}})
-            </span>
-          </a>
-        </li>
-        <li class="active col-xs-3 col-md-2">
-          <a (click)="switchTab($event, 'national-budget-changes')"
-            [class.activeclass]= "displayDocs  === 'national-budget-changes'" >העברה תקציבית
-            <span>
-                ({{resultTotalCount.nationalbudgetchanges ? resultTotalCount.nationalbudgetchanges.toLocaleString()  : '0'}})
-            </span>
-          </a>
-        </li>
-        <li class="active col-xs-3 col-md-2">
-          <a (click)= "switchTab($event, 'supports')"
-            [class.activeclass]= "displayDocs  === 'supports'">תמיכות
-            <span>
-                ({{resultTotalCount.supports ? resultTotalCount.supports.toLocaleString()  : '0'}})
-            </span>
-          </a>
-        </li>
-        <li class="active col-xs-3 col-md-2">
-          <a (click)="switchTab($event, 'tenders,contract-spending')"
-            [class.activeclass]= "displayDocs  === 'procurement'">רכש
-            <span>
-                ({{(resultTotalCount.tenders + resultTotalCount.contractspending) ? (resultTotalCount.tenders + resultTotalCount.contractspending).toLocaleString()  : '0'}})
-            </span>
-          </a>
-        </li>
-        <!-- <li class="active col-xs-3 col-md-2">
-          <a href="#"  (click)="switchTab($event, resultTotalCount.people, 'people')"
-            [class]= "displayDocs  === 'people' ? 'activeclass'  : ''">אנשים
-            <span>
-                ({{resultTotalCount.people ? resultTotalCount.people.toLocaleString()  : '0'}})
-            </span>
-          </a>
-        </li> -->
-      </ul>
+          <span id="drop-down-caret" class="drop-down-caret">  
+            <i [ngClass]="[isSearchBarHasText ? (isAllTabSelected ? 'down-arrow-red' : 'down-arrow-white') : (isSearchBarHasFocus ? 'down-arrow-red' : 'down-arrow-red')]" > </i> <!-- [ngClass]="[ isAllTabSelected ?  'down-arrow-red' : (isSearchBarHasFocus ? 'down-arrow-red' : 'down-arrow-white') ]" -->
+          </span> 
+          <span id="type-text-in-search-bar" *ngIf="isClickedType">
+            {{selectedTabName}}({{currentNumOfResults.toLocaleString()}})
+          </span>
+          
+          <div id="search-types-dropdown-content" class="dropdown-content">
+            <a href="#" (click)="openCloseSearchTypeDropDown(); switchTab($event, 'all', true, 'הכל', resultTotal ? resultTotal.toLocaleString()  : '0' );"> הכל
+              <span>
+                  ({{resultTotal ? resultTotal.toLocaleString()  : '0'}})
+              </span>
+            </a> 
+            <a href="#" (click)="openCloseSearchTypeDropDown(); switchTab($event, 'budget', false, 'סעיף תקציבי', resultTotalCount.budget ? resultTotalCount.budget.toLocaleString()  : '0' );">סעיף תקציבי
+              <span>
+                  ({{resultTotalCount.budget ? resultTotalCount.budget.toLocaleString()  : '0'}})
+              </span>
+            </a>
+            <a href="#" (click)="openCloseSearchTypeDropDown(); switchTab($event, 'entities', false, 'ארגון',resultTotalCount.entities ? resultTotalCount.entities.toLocaleString()  : '0'); ">ארגון
+              <span>
+                  ({{resultTotalCount.entities ? resultTotalCount.entities.toLocaleString()  : '0'}})
+              </span>
+            </a>
+            <a href="#" (click)="openCloseSearchTypeDropDown(); switchTab($event, 'national-budget-changes', false, 'העברה תקציבית', resultTotalCount.nationalbudgetchanges ? resultTotalCount.nationalbudgetchanges.toLocaleString()  : '0' );">העברה תקציבית
+              <span>
+                  ({{resultTotalCount.nationalbudgetchanges ? resultTotalCount.nationalbudgetchanges.toLocaleString()  : '0'}})
+              </span>
+            </a>
+            <a href="#" (click)= "openCloseSearchTypeDropDown(); switchTab($event, 'supports', false, 'תמיכות', resultTotalCount.supports ? resultTotalCount.supports.toLocaleString()  : '0' );">תמיכות
+              <span>
+                  ({{resultTotalCount.supports ? resultTotalCount.supports.toLocaleString()  : '0'}})
+              </span>
+            </a>
+            <a href="#" (click)="openCloseSearchTypeDropDown(); switchTab($event, 'tenders,contract-spending', false , 'רכש',(resultTotalCount.tenders + resultTotalCount.contractspending) ? (resultTotalCount.tenders + resultTotalCount.contractspending).toLocaleString()  : '0' ); ">רכש
+              <span>
+                  ({{(resultTotalCount.tenders + resultTotalCount.contractspending) ? (resultTotalCount.tenders + resultTotalCount.contractspending).toLocaleString()  : '0'}})
+              </span>
+            </a> 
+          </div>
+        </div>
+      </div>
+      
+      <input #searchBox 
+              class="form-control roundCorners-left-side"
+              type="text"
+              placeholder="חפשו הכל... סעיף תקציבי, ארגון, אדם, או כל דבר אחר העולה על דעתכם..."
+              autofocus
+              (keyup)="search(searchBox.value)"
+              (keydown.backspace)="search(searchBox.value)"
+              [value]="term"
+              (focus)="onSeachBarFocus()"
+              (focusout)="onSeachBarFocusOut()"
+              />
+    <!--    <span class="input-group-addon downloader">
+            <div class="downloader" (click)="download(term)"></div>      
+        </span> -->
     </div>
 </div>
 

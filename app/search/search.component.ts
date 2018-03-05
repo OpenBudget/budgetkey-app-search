@@ -36,6 +36,13 @@ export class SearchComponent implements OnInit {
   private headerBottomBorder: boolean;
   private isSearching: boolean;
   private isErrorInLastSearch: boolean;
+  private isAllTabSelected: boolean;
+  private selectedTabName: string;
+  private currentNumOfResults: number;
+  private isClickedType: boolean;
+  private currentDocType: string;
+  private isSearchBarHasFocus: boolean;
+  private isSearchBarHasText: boolean;
 
   constructor(
     private searchService: SearchService,
@@ -60,6 +67,12 @@ export class SearchComponent implements OnInit {
     this.headerBottomBorder = false;
     this.isSearching = false;
     this.isErrorInLastSearch = false;
+
+    this.isAllTabSelected = true;
+    this.currentNumOfResults = 0;
+    this.isClickedType = false;
+    this.isSearchBarHasFocus = false;
+    this.isSearchBarHasText = false;
     // ^ moved from constructor ^
 
     this.searchResults = this.searchTerms // open a stream
@@ -104,6 +117,10 @@ export class SearchComponent implements OnInit {
       });
   }
 
+  openCloseSearchTypeDropDown() {
+    document.getElementById('search-types-dropdown-content').classList.toggle('show');
+  }
+
   /**
    * Push a search term into the observable stream.
    */
@@ -112,8 +129,18 @@ export class SearchComponent implements OnInit {
       this.term = term;
       this.displayDocs = null;
       this.resetState('all');
+      this.isClickedType = true;
+      if (typeof this.selectedTabName === 'undefined' || this.selectedTabName === '') {
+        this.selectedTabName = 'הכל';
+      }
     } else {
       this.searchTerms.next({term: term, displayDocs: this.displayDocs, offset: this.allResults.length});
+    }
+
+    if (term === '') {
+      this.isSearchBarHasText = false;
+    } else {
+      this.isSearchBarHasText = true;
     }
   }
 
@@ -149,13 +176,20 @@ export class SearchComponent implements OnInit {
    */
   processResults(results: SearchResults): void {
     if (results) {
-      if (results.displayDocs === 'all') {
-        this.resultTotal = 0;
-        for (let key in results.search_counts) {
-          if (key) {
-            let tmpResults = results.search_counts[key];
-            this.resultTotal += tmpResults.total_overall;
-            this.resultTotalCount[key] = tmpResults.total_overall;
+      if (this.searchResults) {
+        if (results.displayDocs === 'all') {
+          this.resultTotal = 0;
+          for (let key in results.search_counts) {
+            if (key) {
+              let tmpResults = results.search_counts[key];
+              this.resultTotal += tmpResults.total_overall;
+              this.resultTotalCount[key] = tmpResults.total_overall;
+              if (this.currentDocType === key) {
+                this.currentNumOfResults = tmpResults.total_overall;
+              } else if (results.displayDocs === 'all') {
+                this.currentNumOfResults = this.resultTotal;
+              }
+            }
           }
         }
       }
@@ -166,7 +200,6 @@ export class SearchComponent implements OnInit {
       this.resetState('all');
     }
     this.allDocs.next(this.allResults);
-
   }
 
 
@@ -224,10 +257,25 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  switchTab($event: any, requestedDocTypes: string) {
+  switchTab ($event: any, requestedDocTypes: string, 
+            isAllTabSelected: boolean, selectedTabName: string,
+            numOfResults: number) {
     $event.stopPropagation();
     $event.preventDefault();
 
+    this.isAllTabSelected = isAllTabSelected;
+    this.selectedTabName = selectedTabName;
+    this.currentNumOfResults = numOfResults;
+    this.currentDocType = requestedDocTypes;
+    this.isClickedType = true;
     this.resetState(requestedDocTypes);
+  }
+
+  onSeachBarFocus() {
+    this.isSearchBarHasFocus = true;
+  }
+
+  onSeachBarFocusOut() {
+    this.isSearchBarHasFocus = false;
   }
 }
