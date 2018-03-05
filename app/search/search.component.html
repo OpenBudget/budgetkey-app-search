@@ -58,12 +58,14 @@
               placeholder="חפשו הכל... סעיף תקציבי, ארגון, אדם, או כל דבר אחר העולה על דעתכם..."
               autofocus
               (keyup)="search(searchBox.value)"
-              ((keydown.backspace)="search(searchBox.value)"
+              (keydown.backspace)="search(searchBox.value)"
               [value]="term"
               (focus)="onSeachBarFocus()"
               (focusout)="onSeachBarFocusOut()"
               />
-      
+    <!--    <span class="input-group-addon downloader">
+            <div class="downloader" (click)="download(term)"></div>      
+        </span> -->
     </div>
 </div>
 

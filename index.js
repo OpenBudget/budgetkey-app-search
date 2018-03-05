@@ -49,6 +49,7 @@ app.get(basePath + '*', function(req, res) {
       for (var key in themeJson) {
         themeScript += key+"="+JSON.stringify(themeJson[key])+";";
       }
+      themeScript += "BUDGETKEY_THEME_ID=" + JSON.stringify(req.query.theme) + ";";
     }
   }
 
@@ -75,7 +76,10 @@ app.get(basePath + '*', function(req, res) {
     title = 'חיפוש במפתח התקציב: ' + kind + term
   }
 
-  res.render('index.html', {themeScript: themeScript, base: basePath, title: title});
+  res.render('index.html', {
+    themeScript: themeScript, base: basePath, title: title,
+    authServerUrl: process.env.AUTH_SERVER_URL
+  });
 });
 
 app.listen(app.get('port'), function() {
