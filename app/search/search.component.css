@@ -12,5 +12,136 @@
 }
 
 a.activeclass {
-    color: #F00 !important;
+    color: #FF5A5F !important;
+}
+
+.down-arrow-red {
+  border: solid #FF5A5F;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.down-arrow-white {
+  border: solid #f1f1f1;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg); 
+}
+
+.down-arrow-black {
+  border: solid #000000;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg); 
+}
+
+.drop-down-caret{
+  margin-right: 10px; 
+}
+
+.outer-right-side{
+    background-color: #f1f1f1;
+    height: 46px;
+    padding: 4px 4px;
+}
+
+.inner-right-side{
+    height: 36px;
+    background-color: #FF5A5F;
+    opacity: 0.1;
+}
+
+/* dropdown styles */
+
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #3e8e41;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    z-index: 100;
+    margin-top:13px;
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.show {display:block;}
+
+.empty-text-empty-focus{
+    color: #FF5A5F;
+    background-color: white;
+}
+
+.empty-text-has-focus{
+    color: #FF5A5F;
+    background-color: #f1f1f1;
+}
+
+.has-text-all-tab{
+    color:#FF5A5F;
+    background-color: #f1f1f1;
+}
+
+.has-text-not-all-tab{
+    color: #f1f1f1;
+    background-color: #FF5A5F;
+}
+
+#type-text-in-search-bar{
+    margin-right: 7px;
+}
+
+.white-background-color{
+    background-color:white;
+}
+
+.red-text{
+    color: #FF5A5F;
+}
+
+.oval{
+    border-radius: 50%;
+}
+
+.roundCorners-right-side{
+    border-top-right-radius: 5em 5em;
+    border-bottom-right-radius: 5em 5em;
+}
+
+.roundCorners-left-side{
+    border-top-left-radius: 5em 5em !important;
+    border-bottom-left-radius: 5em 5em !important;
 }
