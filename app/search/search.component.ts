@@ -6,11 +6,13 @@ import { Observable }        from 'rxjs/Observable';
 import { Subject }           from 'rxjs/Subject';
 import { BehaviorSubject }   from 'rxjs/BehaviorSubject';
 import { SearchService }     from '../_service/search.service';
+import { DownloadService } from '../_service/download.service';
 import { SearchResults, DocResultEntry, SearchResultsCounter} from '../_model/SearchResults';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { HostListener } from '../../node_modules/@angular/core/src/metadata/directives';
 import { TimelineMenuRange } from '../timeline-menu/timeline-menu';
+import { Http } from '@angular/http';
 
 type SearchParams = {term: string, startRange: string, endRange: string, displayDocs: string, offset: number};
 
@@ -18,7 +20,7 @@ type SearchParams = {term: string, startRange: string, endRange: string, display
   selector: 'budget-search',
   template: require('./search.component.html'),
   styles: [require('./search.component.css')],
-  providers: [SearchService]
+  providers: [SearchService, DownloadService]
 })
 export class SearchComponent implements OnInit {
 
@@ -41,13 +43,12 @@ export class SearchComponent implements OnInit {
 
   constructor(
     private searchService: SearchService,
+    private downloadService: DownloadService,
     private route: ActivatedRoute,
     private router: Router,
-    private location: Location
-  ) {
-    // this.startRange = new Date(this.searchService.MIN_DATE).toISOString().substr(0, 13);
-    // this.endRange = new Date(this.searchService.MAX_DATE).toISOString().substr(0, 13);
-  }
+    private location: Location,
+    private http: Http
+  ) {}
 
   ngOnInit() {
     this.searchTerms = new Subject<SearchParams>();
@@ -126,11 +127,19 @@ export class SearchComponent implements OnInit {
   }
 
   /**
+   * Converts the current stack of results (allDocs) 
+   * from json to csv 
+   * and opens a download popup for the user
+   */
+  download(term: string): void {
+    this.downloadService.exportAsCsv(term + '.csv', this.allDocs);
+  }
+
+  /**
    * doRequest()
    * the main method of the component
    * posts a new query
    */
-
   doRequest(sp: SearchParams): Observable<SearchResults> {
     if (sp.term) {
       this.isSearching = true;

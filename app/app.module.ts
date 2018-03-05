@@ -19,8 +19,7 @@ import { TimelineScaleComponent } from './timeline-scale/timeline-scale.componen
 import { AppRoutingModule } from './app-routing.module';
 
 import { OpaqueToken } from '@angular/core';
-
-import {provideAuthService} from 'budgetkey-ng2-auth/lib/services';
+import { THEME_ID_TOKEN } from './_config/config';
 
 let defaultTheme = {
   // TODO: add default theme values
@@ -29,13 +28,14 @@ let defaultTheme = {
 const THEME_TOKEN = new OpaqueToken('Theme Config');
 declare const BUDGETKEY_NG2_COMPONENTS_THEME: any;
 declare const BUDGETKEY_APP_SEARCH_THEME: any;
+declare const BUDGETKEY_THEME_ID: any;
 
 declare const authServerUrl: any;
 
 let providers: any[] = [
   SearchService,
   {provide: THEME_TOKEN, useValue: typeof(BUDGETKEY_APP_SEARCH_THEME) === 'undefined' ? defaultTheme : BUDGETKEY_APP_SEARCH_THEME},
-  provideAuthService(authServerUrl ? authServerUrl : 'https://next.obudget.org')
+  {provide: THEME_ID_TOKEN, useValue: typeof(BUDGETKEY_THEME_ID) === 'undefined' ? null : BUDGETKEY_THEME_ID}
 ];
 if (typeof(BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
   providers.push({provide: NG_COMPONENTS_THEME_TOKEN, useValue: BUDGETKEY_NG2_COMPONENTS_THEME});
