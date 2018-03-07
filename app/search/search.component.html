@@ -2,23 +2,23 @@
   row : true,
   headerBottomBorder : headerBottomBorder}" >
 
+  <div id="search-box-and-download">
     <div id="whole-searchbox" class="search-box input-group input-group-lg">
+      <div id="search-box-types-side" [ngClass]="['input-group-addon','outer-right-side', 'roundCorners-border-right-side']" (click)="openCloseSearchTypeDropDown();">  
+        <div [ngClass]="['inner-right-side', 'roundCorners-border-right-side',  isSearchBarHasText ? (isAllTabSelected ? 'has-text-all-tab' : 'has-text-not-all-tab') : isSearchBarHasFocus? 'inner-without-text-with-focus' : 'inner-without-text-without-focus']">     <!--        isSearchBarHasFocus? 'inner-without-text-with-focus' : 'inner-without-text-without-focus' -->
+          <div id="right-side-symbols" class="right-side-symbols">
+            <img [src]="(!isAllTabSelected && isSearchBarHasText? '/assets/img/search-glass-white.svg' : '/assets/img/search-glass-red.png')" *ngIf="!isSearching" [ngClass]="['search-icon','search-icon-margin']">  <!--</i> , term ? 'search-icon' : '' -->   <!--'glyphicon', 'glyphicon-search', -->
+            <i *ngIf="isSearching" class="fa fa-circle-o-notch fa-spin search-icon-margin"></i>
+            <span id="type-text-in-search-bar" *ngIf="isClickedType && isSearchBarHasText || !isAllTabSelected" class="type-text-in-search-bar-right">
+              {{selectedTabName}} ({{currentNumOfResults.toLocaleString()}})
+            </span>
+            <span id="drop-down-caret" class="drop-down-caret">  
+              <i [ngClass]="[isSearchBarHasText ? (isAllTabSelected ? 'down-arrow-red' : 'down-arrow-white') : (isSearchBarHasFocus ? 'down-arrow-red' : 'down-arrow-red')]" > </i> <!-- [ngClass]="[ isAllTabSelected ?  'down-arrow-red' : (isSearchBarHasFocus ? 'down-arrow-red' : 'down-arrow-white') ]" -->
+            </span> 
+          </div>
 
-      <!-- when you switch sides between the 2 controls, the css works -->
-
-      <div id="seach-box-types-side" [ngClass]="['input-group-addon','outer-right-side', 'roundCorners-right-side' , isSearchBarHasText ? (isAllTabSelected ? 'has-text-all-tab' : 'has-text-not-all-tab') : (isSearchBarHasFocus ? 'empty-text-has-focus' : 'empty-text-empty-focus')]" (click)="openCloseSearchTypeDropDown();">  
-        <div class="inner-right-side roundCorners-right-side">
-          <i *ngIf="!isSearching" [ngClass]="['glyphicon', 'glyphicon-search', term ? 'search-icon' : '']" ></i>
-          <i *ngIf="isSearching" class="fa fa-circle-o-notch fa-spin"></i>
-          <span id="drop-down-caret" class="drop-down-caret">  
-            <i [ngClass]="[isSearchBarHasText ? (isAllTabSelected ? 'down-arrow-red' : 'down-arrow-white') : (isSearchBarHasFocus ? 'down-arrow-red' : 'down-arrow-red')]" > </i> <!-- [ngClass]="[ isAllTabSelected ?  'down-arrow-red' : (isSearchBarHasFocus ? 'down-arrow-red' : 'down-arrow-white') ]" -->
-          </span> 
-          <span id="type-text-in-search-bar" *ngIf="isClickedType">
-            {{selectedTabName}}({{currentNumOfResults.toLocaleString()}})
-          </span>
-          
           <div id="search-types-dropdown-content" class="dropdown-content">
-            <a href="#" (click)="openCloseSearchTypeDropDown(); switchTab($event, 'all', true, 'הכל', resultTotal ? resultTotal.toLocaleString()  : '0' );"> הכל
+            <a href="#" (click)="openCloseSearchTypeDropDown();  switchTab($event, 'all', true, 'הכל', resultTotal ? resultTotal.toLocaleString()  : '0' );"> הכל
               <span>
                   ({{resultTotal ? resultTotal.toLocaleString()  : '0'}})
               </span>
@@ -53,20 +53,24 @@
       </div>
       
       <input #searchBox 
-              class="form-control roundCorners-left-side"
+              [ngClass]="['form-control', 'roundCorners-border-left-side', 'left-side-search']"
               type="text"
               placeholder="חפשו הכל... סעיף תקציבי, ארגון, אדם, או כל דבר אחר העולה על דעתכם..."
               autofocus
               (keyup)="search(searchBox.value)"
-              (keydown.backspace)="search(searchBox.value)"
+              ((keydown.backspace)="search(searchBox.value)"
               [value]="term"
               (focus)="onSeachBarFocus()"
               (focusout)="onSeachBarFocusOut()"
               />
-    <!--    <span class="input-group-addon downloader">
-            <div class="downloader" (click)="download(term)"></div>      
-        </span> -->
+      
+      
+
     </div>
+
+  <a href='javascript:void(0)' (click)="download(term);"> Download </a>
+  </div>
+  
 </div>
 
 <div #searchBody class="search_body">
