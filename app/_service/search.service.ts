@@ -14,24 +14,26 @@ const gtag: any = window['gtag'];
 export class SearchService {
 
   constructor(private http: Http) {}
-/**
- * search()
- *
- * @param {string} term      - new search term
- * @param {string} startRange
- * @param {string} endRange
- * @param {Number} pageSize  - how many records to return
- * @param {Number} pageNumber - how many pages to skip?
- * @param {Array<string>} kindsList - category to query - specific or all
- * @returns {Observable<SearchResults>}
- */
+  /**
+   * search()
+   *
+   * @param {string} term      - new search term
+   * @param {string} startRange
+   * @param {string} endRange
+   * @param {Number} pageSize  - how many records to return
+   * @param {Number} pageNumber - how many pages to skip?
+   * @param {Array<string>} kindsList - category to query - specific or all
+   * @returns {Observable<SearchResults>}
+   */
 
   search(term: string, startRange: string, endRange: string, pageSize: number, pageNumber: number,
     kindsList: Array<string> ): Observable<SearchResults> {
     let startTime: Date = new Date(); // update time-stamp
     let joinedkinds = kindsList.join(',');
     if (pageNumber === 0) {
-      gtag('event', 'search', {'search_term': term, 'kinds': joinedkinds});
+      if (gtag) {
+        gtag('event', 'search', {'search_term': term, 'kinds': joinedkinds});
+      }
     }
     return this.http
       .get(`${URL}/${joinedkinds}/${encodeURIComponent(term)}/${startRange}/${endRange}/${pageSize}/${pageNumber}`)

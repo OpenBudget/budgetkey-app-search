@@ -1,13 +1,11 @@
 /**
  * Created by adam on 18/12/2016.
  */
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Inject } from '@angular/core';
 import { DocResultEntry } from '../_model/SearchResults';
 import { KIND_PARAMETERS } from './kind_parameters';
+import { THEME_ID_TOKEN } from '../_config/config';
 let _ = require('lodash');
-
-const gtag: any = window['gtag'];
-
 
 // generic Component
 @Component({
@@ -20,7 +18,7 @@ export class SearchResultComponent implements OnInit {
   @Input() index: number;
   parameters: any;
 
-  constructor() { }
+  constructor(@Inject(THEME_ID_TOKEN) private theme_id: any) { }
   ngOnInit() {
     for (let parameters of KIND_PARAMETERS) {
       if (this.item.source.doc_id.startsWith(parameters.docType)) {
@@ -37,12 +35,7 @@ export class SearchResultComponent implements OnInit {
     return default_value || '';
   }
 
-  selected(doc_id: string) {
-    let href = 'http://next.obudget.org/i/' + doc_id;
-    gtag('event', 'view_item', {
-      'event_label': doc_id,
-      'value': this.index,
-      'event_callback': () => window.open(href, '_self')
-    });
+  href(doc_id: string) {
+    return 'http://next.obudget.org/i/' + doc_id + '?li=' + this.index + (this.theme_id ? '&theme=' + this.theme_id : '');
   }
 }

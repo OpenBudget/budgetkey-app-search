@@ -71,8 +71,6 @@ export class SearchComponent implements OnInit {
       // .distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap((sp: SearchParams) => {
 
-        console.log(`s: ${sp.startRange}, e: ${sp.endRange}`);
-
         if (this.menuRange &&  TimelineMenuRange[this.menuRange] === TimelineMenuRange.CustomRange) {
           this.location.replaceState(`/?q=${sp.term || ''}&from=${sp.startRange}&to=${sp.endRange}&dd=${sp.displayDocs}`);
         } else if (this.menuRange) {
