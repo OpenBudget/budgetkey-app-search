@@ -30,7 +30,6 @@
     "@angular/platform-browser-dynamic": "~2.2.0",
     "@angular/router": "~3.2.0",
     "angular-in-memory-web-api": "~0.1.15",
-    "budgetkey-ng2-auth": "^0.0.1",
     "budgetkey-ng2-components": "^0.1.13",
     "core-js": "^2.4.1",
     "lodash": "^4.17.2",
