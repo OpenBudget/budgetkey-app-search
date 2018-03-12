@@ -7,7 +7,7 @@
       <div id="search-box-types-side" [ngClass]="['input-group-addon','outer-right-side', 'roundCorners-border-right-side']" (click)="openCloseSearchTypeDropDown();">  
         <div [ngClass]="['inner-right-side', 'roundCorners-border-right-side',  isSearchBarHasText ? (isAllTabSelected ? 'has-text-all-tab' : 'has-text-not-all-tab') : isSearchBarHasFocus? 'inner-without-text-with-focus' : 'inner-without-text-without-focus']">     <!--        isSearchBarHasFocus? 'inner-without-text-with-focus' : 'inner-without-text-without-focus' -->
           <div id="right-side-symbols" class="right-side-symbols">
-            <img [src]="(!isAllTabSelected && isSearchBarHasText? '/assets/img/search-glass-white.svg' : '/assets/img/search-glass-red.png')" *ngIf="!isSearching" [ngClass]="['search-icon','search-icon-margin']">  <!--</i> , term ? 'search-icon' : '' -->   <!--'glyphicon', 'glyphicon-search', -->
+            <img [src]="(!isAllTabSelected && isSearchBarHasText? 'assets/img/search-glass-white.svg' : 'assets/img/search-glass-red.png')" *ngIf="!isSearching" [ngClass]="['search-icon','search-icon-margin']">  <!--</i> , term ? 'search-icon' : '' -->   <!--'glyphicon', 'glyphicon-search', -->
             <i *ngIf="isSearching" class="fa fa-circle-o-notch fa-spin search-icon-margin"></i>
             <span id="type-text-in-search-bar" *ngIf="isClickedType && isSearchBarHasText || !isAllTabSelected" class="type-text-in-search-bar-right">
               {{selectedTabName}} ({{currentNumOfResults.toLocaleString()}})
