@@ -47,5 +47,4 @@ export class SearchService {
           return ret;
       });
   }
-
 }

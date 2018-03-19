@@ -12,5 +12,231 @@
 }
 
 a.activeclass {
-    color: #F00 !important;
+    color: #FF5A5F !important;
+}
+
+.down-arrow-red {
+  border: solid #FF5A5F;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  margin-bottom: 2px;
+}
+
+.down-arrow-white {
+  border: solid #f1f1f1;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg); 
+  margin-bottom: 3px;
+}
+
+.down-arrow-black {
+  border: solid #000000;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg); 
+}
+
+.type-text-in-search-bar-right{
+    text-align: right;
+    font-family: "Abraham TRIAL";
+    font-size: 14px;
+    line-height: 19px;
+    width: 77px;
+    height: 36px;
+}
+
+.search-icon-margin{
+    margin-right: 5px;
+    margin-left: 2px;
+}
+
+.drop-down-caret{
+  margin-right: 6px; 
+  margin-left: 11px;
+}
+
+.outer-right-side{
+    background-color: #ffffff;
+    height: 44px;
+    padding: 4px 4px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.05);
+}
+
+.red-opaque-background{
+    background-color: rgba(100, 35, 37, 0.1);
+}
+
+.without-text-right-search-bar-side{
+    background-color: white;
+    color: #FF5A5F;
+}
+
+.inner-right-side{
+    background-color: rgba(100, 35, 37, 0.1);
+    height: 100%;
+    padding: 5px 5px;
+}
+
+.inner-without-text-with-focus{
+    background-color: #FFEEEF;
+    color: #FF5A5F;
+}
+
+.inner-without-text-without-focus{
+    background-color: white;
+    color: #FF5A5F;
+}
+
+.middle{
+    vertical-align: middle;
+}
+
+.right-border-none{
+    border-right: none;
+}
+
+/* dropdown styles */
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #3e8e41;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    z-index: 100;
+    margin-top:13px;
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.search-icon{
+    /* 25 like in the requirements is too large */
+    width: 17px;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.show {display:block;}
+
+/*  search bar styles  */
+
+.empty-text-empty-focus{
+    color: #FF5A5F;
+}
+
+.empty-text-has-focus{
+    color: #FF5A5F;
+}
+
+.has-text-all-tab{
+    color:#FF5A5F;
+    background-color: #FFEEEF;
+}
+
+.has-text-not-all-tab{
+    color: #f1f1f1;
+    background-color: #FF5A5F;
+}
+
+#type-text-in-search-bar{
+    margin-right: 6px;
+    margin-left: 6px;
+}
+
+.left-side-search{
+    height: 44px !important;
+    background-color: #ffffff;
+    border: none !important;
+
+    color: #7D7D7D !important;	
+    font-family: "Abraham TRIAL" !important;	
+    font-size: 16px !important;	
+    line-height: 25px !important;	
+    text-align: right !important;
+}
+
+.right-side-search{
+    height: 44px !important;
+    background-color: #ffffff;
+}
+
+.roundCorners-border-right-side{
+    /* border: 0px solid #F2F2F2; */
+    border-top-right-radius: 25px !important;
+    border-bottom-right-radius: 25px !important;
+}
+
+.roundCorners-border-left-side{
+    border-top-left-radius: 25px !important;
+    border-bottom-left-radius: 25px !important;
+    box-shadow: none !important;
+}
+
+.outer-right-side{
+    border: none;
+    background-color: #ffffff;
+    height: 44px;
+    padding: 4px 4px;
+}
+
+#whole-searchbox{
+    border-radius: 25px; 
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.05);
+}
+
+input::placeholder {
+    color: #B9BCC3;	
+    font-family: "Abraham TRIAL";	
+    font-size: 16px;	
+    line-height: 25px;	
+    text-align: right;
+}
+
+input:focus::placeholder {
+    color: #B9BCC3;	
+    font-family: "Abraham TRIAL";	
+    font-size: 16px;	
+    line-height: 25px;	
+    text-align: right;
+    opacity: 0.25;
+}
+
+input {
+    height: 25px;	
+    width: 51px;	
+}
+
+.right-side-symbols{
+    padding-top: 2px;
 }
