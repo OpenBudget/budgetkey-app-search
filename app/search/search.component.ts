@@ -71,7 +71,7 @@ export class SearchComponent implements OnInit {
       // .distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap((sp: SearchParams) => {
 
-        if (this.menuRange &&  TimelineMenuRange[this.menuRange] === TimelineMenuRange.CustomRange) {
+        if (this.menuRange &&  TimelineMenuRange[this.menuRange] === TimelineMenuRange.custom_range) {
           this.location.replaceState(`/?q=${sp.term || ''}&from=${sp.startRange}&to=${sp.endRange}&dd=${sp.displayDocs}`);
         } else if (this.menuRange) {
           this.location.replaceState(`/?q=${sp.term || ''}&range=${this.menuRange}&dd=${sp.displayDocs}`);
@@ -102,7 +102,7 @@ export class SearchComponent implements OnInit {
           }
           this.search(this.term);
         }
-        this.menuRange = params['range'] || TimelineMenuRange[TimelineMenuRange.LastWeek];
+        this.menuRange = params['range'] || TimelineMenuRange[TimelineMenuRange.custom_range];
         this.startRange = params['from'] || this.startRange;
         this.endRange = params['to'] || this.endRange;
 

@@ -25,11 +25,9 @@ export class TimelineMenuComponent implements OnInit {
   ngOnInit() {
     const period = this.timelineMenu.getPeriod(TimelineMenuRange[this.menuRange]);
 
-    if (TimelineMenuRange[this.menuRange] === TimelineMenuRange.CustomRange) {
-      period.start = this.startRange || this.timelineMenu.MIN_DATE.toISOString()
-        .substr(0, this.timelineMenu.MIN_DATE.toISOString().indexOf('T'));
-      period.end = this.endRange || this.timelineMenu.MAX_DATE.toISOString()
-        .substr(0, this.timelineMenu.MAX_DATE.toISOString().indexOf('T'));
+    if (TimelineMenuRange[this.menuRange] === TimelineMenuRange.custom_range) {
+      period.start = this.startRange || this.timelineMenu.formatedMinDate();
+      period.end = this.endRange || this.timelineMenu.formatedMaxDate();
     }
 
     this.onPeriodChange(period);
