@@ -39,6 +39,9 @@ module.exports = function(config) {
         'text/javascript': ['ts']
       }
     },
+    mime: {
+      'text/x-typescript': ['ts','tsx']
+    },
     reporters: ['progress', 'kjhtml'],
 
     proxies: {
