@@ -7,7 +7,6 @@ import { KIND_PARAMETERS } from './kind_parameters';
 import { THEME_ID_TOKEN } from '../_config/config';
 let _ = require('lodash');
 
-
 // generic Component
 @Component({
   selector: 'search-result',

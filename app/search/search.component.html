@@ -73,6 +73,8 @@
   
 </div>
 
+<timeline [menuRange]="menuRange" [startRange]="startRange" [endRange]="endRange" (onPeriodChangeSearch)="onPeriodChangeSearch($event)"></timeline>
+
 <div #searchBody class="search_body">
 
   <div *ngFor="let item of allDocs | async; let i = index" >
