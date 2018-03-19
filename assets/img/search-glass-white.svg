@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>85208513-872C-477F-B004-7044EFE079A7</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <path d="M15.5042666,14.2699061 L20,18.7656395 L18.7656395,20 L14.2699061,15.5042666 C13.3043756,16.2166199 12.1107733,16.6376626 10.8188313,16.6376626 C7.6051795,16.6376626 5,14.0324831 5,10.8188313 C5,7.6051795 7.6051795,5 10.8188313,5 C14.0324831,5 16.6376626,7.6051795 16.6376626,10.8188313 C16.6376626,12.1107733 16.2166199,13.3043756 15.5042666,14.2699061 Z M10.8188313,15.1376626 C13.2040559,15.1376626 15.1376626,13.2040559 15.1376626,10.8188313 C15.1376626,8.43360663 13.2040559,6.5 10.8188313,6.5 C8.43360663,6.5 6.5,8.43360663 6.5,10.8188313 C6.5,13.2040559 8.43360663,15.1376626 10.8188313,15.1376626 Z" id="path-1"></path>
+    </defs>
+    <g id="searchbar-states" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-1011.000000, -431.000000)">
+        <g id="Search-white" transform="translate(1006.000000, 426.000000)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Combined-Shape" fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+        </g>
+    </g>
+</svg>
