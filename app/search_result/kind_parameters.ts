@@ -58,7 +58,7 @@ export let KIND_PARAMETERS = [
     categoryField: 'nice-category',
     mainNameField: 'title',
     secondaryNameField: 'nice-code',
-    amountField: 'net_allocated',
+    amountField: 'net_revised',
     firstItemField: 'econ_cls_title_1.0',
     firstItemLabel: 'מיון כלכלי'
   },
