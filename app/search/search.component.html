@@ -60,8 +60,8 @@
               (keyup)="search(searchBox.value)"
               ((keydown.backspace)="search(searchBox.value)"
               [value]="term"
-              (focus)="onSeachBarFocus()"
-              (focusout)="onSeachBarFocusOut()"
+              (focus)="onSearchBarFocus()"
+              (focusout)="onSearchBarFocusOut()"
               />
       
       
@@ -72,6 +72,8 @@
   </div>
   
 </div>
+
+<timeline [menuRange]="menuRange" [startRange]="startRange" [endRange]="endRange" (onPeriodChangeSearch)="onPeriodChangeSearch($event)"></timeline>
 
 <div #searchBody class="search_body">
 
