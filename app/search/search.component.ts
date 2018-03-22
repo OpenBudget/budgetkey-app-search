@@ -266,7 +266,7 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  switchTab ($event: any, requestedDocTypes: string, 
+  switchTab ($event: any, requestedDocTypes: string,
             isAllTabSelected: boolean, selectedTabName: string,
             numOfResults: number) {
     $event.stopPropagation();
@@ -280,7 +280,6 @@ export class SearchComponent implements OnInit {
     this.resetState(requestedDocTypes);
   }
 
-<<<<<<< HEAD
   onPeriodChangeSearch(period: any) {
     if (period) {
       this.startRange = period.start;
@@ -289,13 +288,13 @@ export class SearchComponent implements OnInit {
       this.searchTerms.next({term: this.term, startRange: this.startRange,
         endRange: this.endRange, displayDocs: this.displayDocs, offset: 0});
     }
-=======
-  onSeachBarFocus() {
+  }
+
+  onSearchBarFocus() {
     this.isSearchBarHasFocus = true;
   }
 
-  onSeachBarFocusOut() {
+  onSearchBarFocusOut() {
     this.isSearchBarHasFocus = false;
->>>>>>> a773062e5063d0dbc179e1d49c83175156776f4b
   }
 }

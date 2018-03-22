@@ -11,6 +11,7 @@ export class TimelineMenuComponent implements OnInit {
   private periods: any[];
   private selectedPeriod: any;
   private timelineMenu: TimelineMenu;
+  private options: any[];
 
   @Input() menuRange: string;
   @Input() startRange: string;
@@ -20,6 +21,9 @@ export class TimelineMenuComponent implements OnInit {
   constructor() {
     this.timelineMenu = new TimelineMenu();
     this.periods = this.timelineMenu.periods;
+
+    let options = Object.keys(TimelineMenuRange);
+    this.options = options.slice(options.length / 2);
   }
 
   ngOnInit() {
@@ -35,6 +39,6 @@ export class TimelineMenuComponent implements OnInit {
 
   onPeriodChange(newPeriod: any) {
     this.selectedPeriod = newPeriod;
-    this.onPeriodChangeTimeline.emit(this.selectedPeriod);
+    this.onPeriodChangeTimeline.emit(newPeriod);
   }
 }

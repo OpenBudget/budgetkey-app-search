@@ -1,26 +1,15 @@
-let _ = require('lodash');
-
 export enum TimelineMenuRange { last_week, last_month, last_year, last_decade, pre_decade, custom_range }
-
 export class TimelineMenu {
-  LIMIT_NUM = 8640000000000000;
-  MIN_DATE = new Date(-this.LIMIT_NUM);
-  MAX_DATE = new Date(this.LIMIT_NUM);
-  periods = [
-    { 'title': '7 ימים אחרונים', 'value': 'last_week', 'start': '', 'end': '' },
-    { 'title': '30 ימים אחרונים', 'value': 'last_month', 'start': '', 'end': '' },
-    { 'title': 'השנה', 'value': 'last_year', 'start': '', 'end': '' },
-    { 'title': 'בעשור האחרון', 'value': 'last_decade', 'start': '', 'end': '' },
-    { 'title': 'מלפני עשור ויותר', 'value': 'pre_decade', 'start': '', 'end': '' },
-    { 'title': 'טווח תאריכים לבחירתך', 'value': 'custom_range', 'start': '', 'end': '' }
-  ];
+  MIN_DATE = new Date('1900-1-1');
+  MAX_DATE = new Date('2100-12-31');
+  periods: any;
 
   constructor() {
     this.initPeriods();
   }
 
   getPeriod(range: TimelineMenuRange) {
-    return _.find(this.periods, ['value', TimelineMenuRange[range]]);
+    return this.periods[TimelineMenuRange[range]];
   }
 
   formatDate(date: Date): string {
@@ -36,40 +25,40 @@ export class TimelineMenu {
   }
 
   private initPeriods(): any {
-    let that = this;
-    _.forEach(this.periods, function(value: any, key: any) {
+    let now = new Date();
+    let startLastWeek = new Date(new Date().setDate(now.getDate() - 7));
+    let startLastMonth = new Date(new Date().setDate(now.getMonth() - 1));
+    let startLastYear = new Date(Date.UTC(now.getFullYear(), 0, 1));
+    let startLastDecade = new Date(Date.UTC(now.getFullYear() - 10, 0, 1));
+    let endPreDecade = new Date(Date.UTC(now.getFullYear() - 10, 0, 1));
+    let startCustomRange = new Date(new Date().setDate(now.getDate() - 7));
 
-      value.start = new Date();
-      value.end = new Date();
-      let range: number = +TimelineMenuRange[value.value];
-      let now = new Date();
-
-      switch (range) {
-        case TimelineMenuRange.last_week:
-          value.start.setDate(now.getDate() - 7);
-          break;
-        case TimelineMenuRange.last_month:
-          value.start.setMonth(now.getMonth() - 1);
-          break;
-        case TimelineMenuRange.last_year:
-          value.start = new Date(Date.UTC(now.getFullYear(), 0, 1));
-          break;
-        case TimelineMenuRange.last_decade:
-          value.start = new Date(Date.UTC(now.getFullYear() - 10, 0, 1));
-          break;
-        case TimelineMenuRange.pre_decade:
-          value.start = that.MIN_DATE;
-          value.end = new Date(Date.UTC(now.getFullYear() - 10, 0, 1));
-          break;
-        case TimelineMenuRange.custom_range:
-          value.start.setDate(now.getDate() - 7);
-          break;
-        default:
+    this.periods = {
+      last_week: {
+        'title': '7 ימים אחרונים', 'value': 'last_week',
+        'start': this.formatDate(startLastWeek), 'end': this.formatDate(now)
+      },
+      last_month: {
+        'title': '30 ימים אחרונים', 'value': 'last_month',
+        'start': this.formatDate(startLastMonth), 'end': this.formatDate(now)
+      },
+      last_year: {
+        'title': 'השנה', 'value': 'last_year',
+        'start': this.formatDate(startLastYear), 'end': this.formatDate(now)
+      },
+      last_decade: {
+        'title': 'בעשור האחרון', 'value': TimelineMenuRange[TimelineMenuRange.last_decade],
+        'start': this.formatDate(startLastDecade), 'end': this.formatDate(now)
+      },
+      pre_decade: {
+        'title': 'מלפני עשור ויותר', 'value': TimelineMenuRange[TimelineMenuRange.pre_decade],
+        'start': this.formatDate(this.MIN_DATE), 'end': this.formatDate(endPreDecade)
+      },
+      custom_range: {
+        'title': 'טווח תאריכים לבחירתך', 'value': TimelineMenuRange[TimelineMenuRange.custom_range],
+        'start': this.formatDate(startCustomRange), 'end': this.formatDate(now)
       }
-
-      value.start = that.formatDate(value.start);
-      value.end = that.formatDate(value.end);
-    });
+    };
   }
 }
 
