@@ -21,5 +21,4 @@ export class TimelineComponent implements OnInit {
     this.selectedPeriod = newPeriod;
     this.onPeriodChangeSearch.emit(this.selectedPeriod);
   }
-
 }

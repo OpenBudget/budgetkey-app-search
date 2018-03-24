@@ -8,10 +8,11 @@ import { TimelineMenu, TimelineMenuRange } from './timeline-menu';
 })
 
 export class TimelineMenuComponent implements OnInit {
-  private periods: any[];
-  private selectedPeriod: any;
-  private timelineMenu: TimelineMenu;
+
   private options: any[];
+  private selectedPeriod: any;
+  private periods: any[];
+  private timelineMenu: TimelineMenu;
 
   @Input() menuRange: string;
   @Input() startRange: string;
@@ -27,11 +28,11 @@ export class TimelineMenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    const period = this.timelineMenu.getPeriod(TimelineMenuRange[this.menuRange]);
+    let period = this.timelineMenu.periods[this.menuRange];
 
     if (TimelineMenuRange[this.menuRange] === TimelineMenuRange.custom_range) {
-      period.start = this.startRange || this.timelineMenu.formatedMinDate();
-      period.end = this.endRange || this.timelineMenu.formatedMaxDate();
+        period.start = this.startRange ? this.startRange : period.start;
+        period.end = this.endRange ? this.endRange : period.end;
     }
 
     this.onPeriodChange(period);
