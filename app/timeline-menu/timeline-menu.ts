@@ -5,7 +5,7 @@ export class TimelineMenu {
   periods: any;
 
   constructor() {
-    this.initPeriods();
+    this.periods = this.initPeriods();
   }
 
   formatDate(date: Date): string {
@@ -21,7 +21,7 @@ export class TimelineMenu {
     let endPreDecade = new Date(Date.UTC(now.getFullYear() - 10, 0, 1));
     let startCustomRange = new Date(new Date().setDate(now.getDate() - 7));
 
-    this.periods = {
+    const periods = {
       last_week: {
         'title': '7 ימים אחרונים',
         'value': TimelineMenuRange[TimelineMenuRange.last_week],
@@ -53,6 +53,7 @@ export class TimelineMenu {
         'start': this.formatDate(startCustomRange), 'end': this.formatDate(now)
       }
     };
+    return periods;
   }
 }
 

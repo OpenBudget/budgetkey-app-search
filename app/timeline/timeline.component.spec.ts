@@ -31,4 +31,16 @@ describe('TimelineComponent', () => {
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should emit onPeriodChangeSearch event', (done: any) => {
+    let timelineComponent = new TimelineComponent();
+
+    timelineComponent.onPeriodChangeSearch.subscribe((s: any) => {
+      expect(s).toEqual({ greeting: 'hello' });
+      done();
+    });
+
+    timelineComponent.onPeriodChangeTimeline({ greeting: 'hello' });
+  });
+
 });

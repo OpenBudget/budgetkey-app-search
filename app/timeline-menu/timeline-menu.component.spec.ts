@@ -25,4 +25,16 @@ describe('TimelineMenuComponent', () => {
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should emit onPeriodChangeTimeline event', (done: any) => {
+    let timelineMenuComponent = new TimelineMenuComponent();
+
+    timelineMenuComponent.onPeriodChangeTimeline.subscribe((s: any) => {
+      expect(s).toEqual({ greeting: 'hello' });
+      done();
+    });
+
+    timelineMenuComponent.onPeriodChange({ greeting: 'hello' });
+  });
+
 });

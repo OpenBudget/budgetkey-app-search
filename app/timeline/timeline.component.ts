@@ -11,7 +11,7 @@ export class TimelineComponent implements OnInit {
   @Input() menuRange: string;
   @Input() startRange: string;
   @Input() endRange: string;
-  @Output() onPeriodChangeSearch = new EventEmitter<boolean>();
+  @Output() onPeriodChangeSearch = new EventEmitter();
 
   constructor() { }
 

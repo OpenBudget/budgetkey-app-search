@@ -17,7 +17,7 @@ export class TimelineMenuComponent implements OnInit {
   @Input() menuRange: string;
   @Input() startRange: string;
   @Input() endRange: string;
-  @Output() onPeriodChangeTimeline = new EventEmitter<boolean>();
+  @Output() onPeriodChangeTimeline = new EventEmitter();
 
   constructor() {
     this.timelineMenu = new TimelineMenu();
@@ -30,6 +30,7 @@ export class TimelineMenuComponent implements OnInit {
   ngOnInit() {
     let period = this.timelineMenu.periods[this.menuRange];
 
+    // init the start and the end dates if they are not supplied in url
     if (TimelineMenuRange[this.menuRange] === TimelineMenuRange.custom_range) {
         period.start = this.startRange ? this.startRange : period.start;
         period.end = this.endRange ? this.endRange : period.end;
