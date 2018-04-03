@@ -124,6 +124,16 @@ export let KIND_PARAMETERS = [
     firstItemLabel: 'סוג העברה'
   },
   {
+    docType: 'reports',
+    label: 'דו״ח',
+    mainNameField: 'title'
+  },
+  {
+    docType: 'people',
+    label: 'שם אדם או ארגון',
+    mainNameField: 'details.0.full_name'
+  },
+  {
     docType: '',
     label: 'אחר?',
     mainNameField: 'doc_id',
