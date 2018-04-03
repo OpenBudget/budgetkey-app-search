@@ -1,7 +1,7 @@
 /**
  * Created by adam on 18/12/2016.
  */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Observable }        from 'rxjs/Observable';
 import { Subject }           from 'rxjs/Subject';
 import { BehaviorSubject }   from 'rxjs/BehaviorSubject';
@@ -10,7 +10,6 @@ import { DownloadService } from '../_service/download.service';
 import { SearchResults, DocResultEntry, SearchResultsCounter} from '../_model/SearchResults';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
-import { HostListener } from '../../node_modules/@angular/core/src/metadata/directives';
 import { TimelineMenuRange } from '../timeline-menu/timeline-menu';
 import { Http } from '@angular/http';
 

@@ -18,14 +18,14 @@ import { TimelineScaleComponent } from './timeline-scale/timeline-scale.componen
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { OpaqueToken } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 import { THEME_ID_TOKEN } from './_config/config';
 
 let defaultTheme = {
   // TODO: add default theme values
 };
 
-const THEME_TOKEN = new OpaqueToken('Theme Config');
+const THEME_TOKEN = new InjectionToken('Theme Config');
 declare const BUDGETKEY_NG2_COMPONENTS_THEME: any;
 declare const BUDGETKEY_APP_SEARCH_THEME: any;
 declare const BUDGETKEY_THEME_ID: any;
