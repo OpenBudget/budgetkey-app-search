@@ -135,10 +135,8 @@ export class SearchComponent implements OnInit {
       this.term = term;
       this.displayDocs = null;
       this.resetState('all');
+      this.selectedTabName = 'הכל';
       this.isClickedType = true;
-      if (typeof this.selectedTabName === 'undefined' || this.selectedTabName === '') {
-        this.selectedTabName = 'הכל';
-      }
     } else {
       this.searchTerms.next({term: term, startRange: this.startRange, endRange: this.endRange,
         displayDocs: this.displayDocs, offset: this.allResults.length});
