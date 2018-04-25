@@ -18,7 +18,7 @@ export class TimeRanges {
 
   private initPeriods() {
     let fmt = this.DATE_FMT;
-    let now = moment().format(fmt);;
+    let now = moment().format(fmt);
     let theFuture = moment().add(10, 'years').format(fmt);
     let startLastWeek = moment().subtract(1, 'weeks').format(fmt);
     let startLastMonth = moment().subtract(1, 'months').format(fmt);
