@@ -64,6 +64,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.4",
     "lodash": "^4.17.2",
+    "moment": "^2.22.1",
     "node-sass": "^4.7.2",
     "nunjucks": "^3.0.1",
     "papaparse": "^4.1.0",

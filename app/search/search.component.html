@@ -1,6 +1,4 @@
-<div [ngClass]="{
-  row : true,
-  headerBottomBorder : headerBottomBorder}" >
+<div class='row'  >
 
   <div id="search-box-and-download">
     <div id="whole-searchbox" class="search-box input-group input-group-lg">
@@ -73,7 +71,7 @@
   
 </div>
 
-<timeline [menuRange]="menuRange" [startRange]="startRange" [endRange]="endRange" (onPeriodChangeSearch)="onPeriodChangeSearch($event)"></timeline>
+<timeline #timeline [periods]="periods" [selectedPeriod]="selectedPeriod" (onPeriodChangeSearch)="onPeriodChangeSearch($event)"></timeline>
 
 <div #searchBody class="search_body">
 

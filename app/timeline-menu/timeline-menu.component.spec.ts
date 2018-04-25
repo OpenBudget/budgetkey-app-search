@@ -29,7 +29,7 @@ describe('TimelineMenuComponent', () => {
   it('should emit onPeriodChangeTimeline event', (done: any) => {
     let timelineMenuComponent = new TimelineMenuComponent();
 
-    timelineMenuComponent.onPeriodChangeTimeline.subscribe((s: any) => {
+    timelineMenuComponent.onPeriodChangeSearch.subscribe((s: any) => {
       expect(s).toEqual({ greeting: 'hello' });
       done();
     });

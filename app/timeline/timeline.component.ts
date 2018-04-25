@@ -1,24 +1,18 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'timeline',
   template: require('./timeline.component.html'),
   styles: [require('./timeline.component.css')]
 })
-export class TimelineComponent implements OnInit {
-  private selectedPeriod: any;
-
-  @Input() menuRange: string;
-  @Input() startRange: string;
-  @Input() endRange: string;
+export class TimelineComponent {
+  @Input() periods: any[];
+  @Input() selectedPeriod: any;
   @Output() onPeriodChangeSearch = new EventEmitter();
 
   constructor() { }
 
-  ngOnInit() { }
-
   onPeriodChangeTimeline(newPeriod: any) {
-    this.selectedPeriod = newPeriod;
-    this.onPeriodChangeSearch.emit(this.selectedPeriod);
+    this.onPeriodChangeSearch.emit(newPeriod);
   }
 }

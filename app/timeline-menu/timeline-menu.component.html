@@ -1,5 +1,5 @@
 <div class="timeline-menu">
   <select class="form-control" [ngModel]="selectedPeriod" (ngModelChange)="onPeriodChange($event)">
-    <option [ngValue]="periods[i]" *ngFor="let i of options">{{periods[i].title}}</option>
+    <option [ngValue]="period" *ngFor="let period of periods">{{period.title}}</option>
   </select>
 </div>

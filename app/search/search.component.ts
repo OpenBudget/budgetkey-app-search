@@ -1,7 +1,7 @@
 /**
  * Created by adam on 18/12/2016.
  */
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { Observable }        from 'rxjs/Observable';
 import { Subject }           from 'rxjs/Subject';
 import { BehaviorSubject }   from 'rxjs/BehaviorSubject';
@@ -10,10 +10,11 @@ import { DownloadService } from '../_service/download.service';
 import { SearchResults, DocResultEntry, SearchResultsCounter} from '../_model/SearchResults';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
-import { TimelineMenuRange } from '../timeline-menu/timeline-menu';
 import { Http } from '@angular/http';
+import { TimelineComponent } from '../timeline/timeline.component';
+import { TimeRanges } from '../timeline-menu/time-ranges';
 
-type SearchParams = {term: string, startRange: string, endRange: string, displayDocs: string, offset: number};
+type SearchParams = {term: string, startRange: string, endRange: string, displayDocs: string, offset: number, timeRange: string};
 
 @Component({
   selector: 'budget-search',
@@ -33,12 +34,12 @@ export class SearchComponent implements OnInit {
   private displayDocs: string; // category
   private pageSize: number; // how many records to load for each scroll
   private bump: boolean;
-  private headerBottomBorder: boolean;
   private isSearching: boolean;
   private isErrorInLastSearch: boolean;
-  private menuRange: string = '';
-  private startRange: string;
-  private endRange: string;
+
+  private periods: any[];
+  private selectedPeriod: any;
+
   private isAllTabSelected: boolean;
   private selectedTabName: string;
   private currentNumOfResults: number;
@@ -47,6 +48,8 @@ export class SearchComponent implements OnInit {
   private isSearchBarHasFocus: boolean;
   private isSearchBarHasText: boolean;
 
+  @ViewChild('timeline') timeline: TimelineComponent;
+
   constructor(
     private searchService: SearchService,
     private downloadService: DownloadService,
@@ -54,7 +57,9 @@ export class SearchComponent implements OnInit {
     private router: Router,
     private location: Location,
     private http: Http
-  ) {}
+  ) {
+    this.periods = (new TimeRanges()).periods;
+  }
 
   ngOnInit() {
     this.searchTerms = new Subject<SearchParams>();
@@ -67,7 +72,6 @@ export class SearchComponent implements OnInit {
 
     this.pageSize = 10;
 
-    this.headerBottomBorder = false;
     this.isSearching = false;
     this.isErrorInLastSearch = false;
 
@@ -83,10 +87,11 @@ export class SearchComponent implements OnInit {
       // .distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap((sp: SearchParams) => {
 
-        if (this.menuRange &&  TimelineMenuRange[this.menuRange] === TimelineMenuRange.custom_range) {
-          this.location.replaceState(`/?q=${sp.term || ''}&from=${sp.startRange}&to=${sp.endRange}&dd=${sp.displayDocs}`);
-        } else if (this.menuRange) {
-          this.location.replaceState(`/?q=${sp.term || ''}&range=${this.menuRange}&dd=${sp.displayDocs}`);
+        if (sp.timeRange === 'custom_range') {
+          this.location.replaceState(`/?q=${sp.term || ''}&range=${sp.timeRange}` +
+                                     `&from=${sp.startRange}&to=${sp.endRange}&dd=${sp.displayDocs}`);
+        } else if (sp.timeRange) {
+          this.location.replaceState(`/?q=${sp.term || ''}&range=${sp.timeRange}&dd=${sp.displayDocs}`);
         }
 
         return this.doRequest(sp);
@@ -105,6 +110,17 @@ export class SearchComponent implements OnInit {
 
     this.route.queryParams
       .subscribe((params: Params) => {
+        let customPeriod = this.periods[ this.periods.length - 1];
+        customPeriod.start = params['from'] || customPeriod.start;
+        customPeriod.end = params['to'] || customPeriod.end;
+
+        let timeRange = params['range'] || 'last_decade';
+        for (let p of this.periods) {
+          if (p.value === timeRange) {
+            this.selectedPeriod = p;
+            break;
+          }
+        }
         if (params['q']) {
           this.term = params['q'];
           if (params['dd']) {
@@ -114,12 +130,20 @@ export class SearchComponent implements OnInit {
           }
           this.search(this.term);
         }
-        this.menuRange = params['range'] || TimelineMenuRange[TimelineMenuRange.custom_range];
-        this.startRange = params['from'] || this.startRange;
-        this.endRange = params['to'] || this.endRange;
 
         return null;
       });
+  }
+
+  doNext(term: string, offset: number) {
+    this.searchTerms.next({
+      term: term,
+      startRange: this.selectedPeriod.start,
+      endRange: this.selectedPeriod.end,
+      displayDocs: this.displayDocs,
+      timeRange: this.selectedPeriod.value,
+      offset: offset
+    });
   }
 
   openCloseSearchTypeDropDown() {
@@ -137,8 +161,7 @@ export class SearchComponent implements OnInit {
       this.selectedTabName = 'הכל';
       this.isClickedType = true;
     } else {
-      this.searchTerms.next({term: term, startRange: this.startRange, endRange: this.endRange,
-        displayDocs: this.displayDocs, offset: this.allResults.length});
+      this.doNext(term, this.allResults.length);
     }
 
     if (term === '') {
@@ -229,19 +252,17 @@ export class SearchComponent implements OnInit {
    * @param {number} term
    */
   fetchMore(): void {
-    this.headerBottomBorder = true;
     this.isSearching = true;
-    this.searchTerms.next({term: this.term, startRange: this.startRange,
-      endRange: this.endRange, displayDocs: this.displayDocs, offset: this.allResults.length});
+    this.doNext(this.term, this.allResults.length);
   }
 
   getStatusText() {
     if (this.isSearching) {
       return 'טוען...';
     } else if (this.isErrorInLastSearch) {
-      return 'אירעה שגיאה בחיפוש, נסה שוב';
+      return 'אירעה שגיאה בחיפוש, נסו שוב';
     } else if (this.allResults.length === 0) {
-      return this.term ? 'אין תוצאות' : 'שורת החיפוש ריקה. בצע חיפוש כלשהו';
+      return this.term ? 'אין תוצאות' : 'שורת החיפוש ריקה. בצעו חיפוש כלשהו';
     }
 
     return '';
@@ -257,8 +278,7 @@ export class SearchComponent implements OnInit {
       }
       if (this.displayDocs && this.term) {
         this.isSearching = true;
-        this.searchTerms.next({term: this.term, startRange: this.startRange,
-          endRange: this.endRange, displayDocs: this.displayDocs, offset: 0});
+        this.doNext(this.term, 0);
       }
     }
   }
@@ -279,11 +299,10 @@ export class SearchComponent implements OnInit {
 
   onPeriodChangeSearch(period: any) {
     if (period) {
-      this.startRange = period.start;
-      this.endRange = period.end;
-      this.menuRange = period.value;
-      this.searchTerms.next({term: this.term, startRange: this.startRange,
-        endRange: this.endRange, displayDocs: this.displayDocs, offset: 0});
+      this.selectedPeriod = period;
+      let dd = this.displayDocs;
+      this.resetState('all');
+      this.resetState(dd);
     }
   }
 
