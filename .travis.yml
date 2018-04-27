@@ -10,6 +10,23 @@ env:
     - DBUS_SESSION_BUS_ADDRESS=/dev/null
     - DISPLAY=:99.0
     - CHROME_BIN=chromium-browser
+    - K8S_OPS_REPO_BRANCH=master
+    - K8S_OPS_REPO_SLUG=OpenBudget/budgetkey-k8s
+    - DOCKER_IMAGE=budgetkey/budgetkey-app-search
+    - DEPLOY_YAML_UPDATE_FILE=values.auto-updated.yaml
+    - DEPLOY_VALUES_CHART_NAME=app-search
+    - DEPLOY_VALUES_IMAGE_PROP=image
+    - DEPLOY_COMMIT_MESSAGE="automatic update of budgetkey-app-search"
+    - DEPLOY_GIT_EMAIL=budgetkey-deployer@null.void
+    - DEPLOY_GIT_USER=budgetkey-deployer
+    - secure: i6NX2dh24p+K1FGuXDZHr+YT7g3kH0BeyRHTxY4qtTrc8Nf+SkbQjGcgKMOisnw/A/vCxJTvz/rOiqSs9Wqrb4MHprrm+U0SCCLErhHpynxVKPTRnPBEEgJaeC+PIULKam+luqfFSlOsA92qZnYR/q7S4b4McVsHi8e2GtBStady0X3kqWonuJHMgFxEfdHFUvFXY/FJyjDhkLFjKCTM5q/BwUZLN9rV/fO311Nacp5qzf1lOdiMPENBfPClpWiyoCpA7zUpODQbU5C2M/D7KayqJx1fLCsbEWZFOPnYZFhE2VUZyBJwDOWrQ8w6XIMXIZDYu0mC/tOYbYlghBZh1QNX1lk5cQR/KPzx64p0sgUYb6YGhe7wzbrAf/8COYNqY/pNDydDoRt1tw13DN99XwNB1x60Pp0264vFmGG3bh/GFbqQxBXJQ56b9pl6pC4M/F/wd5h3ychYdaPZVs49dj9TdW1Sl7GAW7UY70b8EyKCzR9dyaVwzKFrGVTZVSEixL6VCjL30KBXRMc3He2eaBKGFraRYOlJYv/LVgrdkRa3mueKS4R1dM6+6LZqdRnpPnjClcD4mInDzPH4oBNyk7+lto+o1ae8wKj59YnAJfykYaeomxmLtNVeNKNihmwt4hIt2OeowJTOJgU6E14Kelwod1HYC6liAVyYBUKDJN8=
+    - secure: MvjbnFKOQ1zwcneOiVZ9txGctloWE1kzP7hrtTtqmjZFht0NNGIfRLwxgorVaTSk48YNPPRqGeY4PUWhoihx+w3bD+S+Lymr9GsUA5nSwi+Z179+4LqRjc2XlzxSknPS+QOHvlR058gA6U4ypLfZrQWhMBs87bqIR+pX/9AtdSgLJd5lR/Ls72RhkzT0wyTcVS/2crRrKKtAAHNwIZbmKBwSsBmWpzQfNzAcOyc+eagNfT7MP1cibIsH8pRx2mu31c73V12S543JiECrJaQ65SqIqctBnkaE9y8rrw25wTvolyW391rc0iBDkd/+OY91dN3xekDSg7UTU6mCv3qvVna15qEEcLfskYIU6lmTk9JzShW7Nx2oVhZ97D0vc/p1hSTrtni7c2XKidWW24VzPrVycv4fT9/Mde95VHTiXN1cGX2Xc31wjU6G8gzd29mLbAsUmFQSAmzXicABD0EMVORvLMwd3VQ4I+cM1MDiwCxMbVJT4Fx5z0v8u1iBwDY8XtXZNhHL5sAYng4Kxc20NBkLpNPFJY6xRQLWK31ooF6TrRPiC7rg1JnD7v9e46KyzP3vQGVuzRg4gXcvheO6WRyDSuVKgmhfw2nU/QgA97q9MuzqAFMP6SUGogtZPDimPELsKdCh7CMyUyEkARjDjYjbFOQnJIyygkaJ9LVv3VI=
+    - secure: ccTXpO3GcWihHY9XFg6sHmUf+RcMhbDnTDuwwQRvkG/BYN+/fWlsfiYGWAFQFNdWJ4qCy1dxl2ltbsW8igGfJXOtrYF5jDgt92n+EO9J6Y7yx+IqttkbVpbc8MaC7SAnLa6b/6Xrzm2zT3YF+F/Bk7ZB/DYLcSgnCHK8AvzU6Z1uIIxYQljGciNdzWciyjTQWVvMVMJwTb2gvNC32gQCrbSLsKyk4M0mk33N6s7op324p9askg5JmEI5WxYRIXHaadlAlkjRBuLyDVtHP5pQbywbtvGdeEm2P9oHo90bCIcgEpTTX/94IMu1NodA3JpE2KCS/y7UcBTHtxNL5MF7nJYYTNEWTSuZwPm+CcOgXpn18GoopJIlNYL5uFmbp2OOSv9PsAibwZfvhzWqJeJNv/76IP/aBPP2QBADKN5cIUzu9VqXt+IkEfRZksFxyb+YNmb5TU1q74ka0mnX2Y/zp0Xn7wm5/+OiiKYZuo1XhHUjqWP3mrjnPL3g/0qEdi3g8znMqdoZDSOshdIlbfylSJbGptzy568pEBdgEy1PkHlQeLWMe+yevMEJjdIhQ7+lxwlLXqLyYmEmXkLTJWQSbqfH7Bghhcna5sNbaidQTEvcFAESU1IJSxq8rKoLfEbL9Q30sLZoInabLhvCvXqG0HQkoisD9C0I921DicUYq2I=
+services:
+  - docker
+before_install:
+  - curl -s https://raw.githubusercontent.com/OpenBudget/budgetkey-k8s/master/apps_travis_script.sh > .travis.sh
+  - bash .travis.sh script
 before_script:
   - sh -e /etc/init.d/xvfb start
 install:
@@ -19,3 +36,9 @@ script:
   - npm run lint
   - npm run test
   - npm run e2e
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: bash .travis.sh deploy
+  on:
+    branch: master
