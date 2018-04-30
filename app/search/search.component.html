@@ -7,16 +7,17 @@
                           [allowSubscribe]="true"
                           [externalTitle]="term"
                           [externalProperties]="subscriptionProperties"
-                          (search)="onTermChanged($event)" 
+                          (search)="onTermChanged($event)"
                           (selected)="onDocTypeSelected($event)"
 
     ></budgetkey-search-bar>
 
   <a href='javascript:void(0)' (click)="download(term);"> Download </a>
   </div>
-  
+
 </div>
 
+<search-filter [initSelectedFilters]="getFiltersCopy()"></search-filter>
 <timeline #timeline [periods]="periods" [selectedPeriod]="selectedPeriod" (onPeriodChangeSearch)="onPeriodChangeSearch($event)"></timeline>
 
 <div #searchBody class="search_body">

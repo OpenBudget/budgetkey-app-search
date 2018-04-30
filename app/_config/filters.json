@@ -1,0 +1,22 @@
+[
+  {
+    "name": "סוג הארגון",
+    "field": "kind",
+    "options": [
+      {"name":"כל הארגונים", "value": "all"},
+      {"name": "עמותה", "value": "association"},
+      {"name": "חברה", "value": "company"},
+      {"name": "רשות מקומית", "value": "municipality"}
+    ]
+  },
+  {
+    "name": "סוג הרכש",
+    "field": "procurement_type",
+    "options": [
+      {"name":"כל הרכישות", "value": "all"},
+      {"name": "כללי", "value": "general"},
+      {"name": "קניות", "value": "groceries"},
+      {"name": "השקעה", "value": "investment"}
+    ]
+  }
+]

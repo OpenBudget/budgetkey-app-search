@@ -15,6 +15,8 @@ import { TimelineComponent } from '../timeline/timeline.component';
 import { TimeRanges } from '../timeline-menu/time-ranges';
 import { SearchBarType } from 'budgetkey-ng2-components/src/components';
 import { THEME_TOKEN as BUDGETKEY_NG2_COMPONENTS_THEME } from 'budgetkey-ng2-components';
+import {FilterService} from "../_service/filter.service";
+import {FilterOption} from "../_model/SearchFilters";
 
 type SearchParams = {
   term: string,
@@ -26,14 +28,15 @@ type SearchParams = {
   displayDocs: string,
   displayDocsDisplay: string,
   offset: number,
-  pageSize: number
+  pageSize: number,
+  filters: string
 };
 
 @Component({
   selector: 'budget-search',
   template: require('./search.component.html'),
   styles: [require('./search.component.css')],
-  providers: [SearchService, DownloadService]
+  providers: [SearchService, DownloadService, FilterService]
 })
 export class SearchComponent {
 
@@ -67,7 +70,7 @@ export class SearchComponent {
 
   // For download
   private allDocs: BehaviorSubject<DocResultEntry[]>;
-
+  private filters: {[field: string]: FilterOption};
 
   @ViewChild('timeline') timeline: TimelineComponent;
 
@@ -84,6 +87,7 @@ export class SearchComponent {
   }
 
   ngOnInit() {
+
     this.searchTerms = new Subject<SearchParams>();
     this.allDocs = new BehaviorSubject<DocResultEntry[]>([]);
 
@@ -155,7 +159,10 @@ export class SearchComponent {
         if (params['q']) {
           this.term = params['q'];
         }
-
+        if(params['f']) {
+          this.filters = <{[field: string]: FilterOption}>JSON.parse(params['f']);
+          this.filterService.nextFilterQuery(this.filters);
+        }
         if (params['dd']) {
           for (let dt of this.docTypes) {
             console.log(params['dd'], dt.id);
@@ -164,13 +171,29 @@ export class SearchComponent {
               this.selectedDocType = dt;
               break;
             }
-          }
         }
 
         this.doNext(this.term, 0);
 
         return null;
       });
+
+    this.subscribeFilter$ = this.filterService.filterSelectedSource$.subscribe((newFilters:{[field: string]: FilterOption}) => {
+      if(!_.isEqual(this.filters, newFilters)){
+        this.filters = newFilters;
+        if(this.term) {
+          this.search(this.term);
+        }
+      }
+    });
+  }
+
+  getFiltersCopy(){
+    return JSON.parse(JSON.stringify(this.filters));
+  }
+
+  ngOnDestroy() {
+    this.subscribeFilter$.unsubscribe();
   }
 
   //// SEARCH PIPELINE
@@ -300,8 +323,8 @@ export class SearchComponent {
   //// MISCELLANEOUS
 
   /**
-   * Converts the current stack of results (allDocs) 
-   * from json to csv 
+   * Converts the current stack of results (allDocs)
+   * from json to csv
    * and opens a download popup for the user
    */
   download(term: string): void {
