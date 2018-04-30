@@ -16,6 +16,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { OpaqueToken } from '@angular/core';
 import { THEME_ID_TOKEN } from './_config/config';
+import {SearchFilterComponent} from "./search_filter/search_filter.component";
 
 let defaultTheme = {
   // TODO: add default theme values
@@ -47,7 +48,8 @@ if (typeof(BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
   declarations: [
     AppComponent,
     SearchComponent,
-    SearchResultComponent
+    SearchResultComponent,
+    SearchFilterComponent
   ],
   providers: providers,
   bootstrap: [ AppComponent ]

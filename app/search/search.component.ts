@@ -1,7 +1,7 @@
 /**
  * Created by adam on 18/12/2016.
  */
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import { Observable }        from 'rxjs/Observable';
 import { Subject }           from 'rxjs/Subject';
 import { BehaviorSubject }   from 'rxjs/BehaviorSubject';
@@ -12,16 +12,20 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { HostListener } from '../../node_modules/@angular/core/src/metadata/directives';
 import { Http } from '@angular/http';
+import {FilterService} from "../_service/filter.service";
+import {FilterOption} from "../_model/SearchFilters";
+import {ISubscription} from "rxjs/Subscription";
+let _ = require('lodash');
 
-type SearchParams = {term: string, displayDocs: string, offset: number};
+type SearchParams = {term: string, filters: string, displayDocs: string, offset: number};
 
 @Component({
   selector: 'budget-search',
   template: require('./search.component.html'),
   styles: [require('./search.component.css')],
-  providers: [SearchService, DownloadService]
+  providers: [SearchService, DownloadService, FilterService]
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
 
   private searchTerms: Subject<SearchParams>;
   private searchResults: Observable<SearchResults>;
@@ -36,6 +40,8 @@ export class SearchComponent implements OnInit {
   private headerBottomBorder: boolean;
   private isSearching: boolean;
   private isErrorInLastSearch: boolean;
+  private subscribeFilter$: ISubscription;
+  private filters: {[field: string]: FilterOption};
 
   constructor(
     private searchService: SearchService,
@@ -43,10 +49,12 @@ export class SearchComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
-    private http: Http
+    private http: Http,
+    private filterService: FilterService
   ) {}
 
   ngOnInit() {
+
     this.searchTerms = new Subject<SearchParams>();
     this.allDocs = new BehaviorSubject<DocResultEntry[]>([]);
 
@@ -67,9 +75,9 @@ export class SearchComponent implements OnInit {
       // .distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap((sp: SearchParams) => {
         if (sp.term) {
-          this.location.replaceState(`/?q=${sp.term}&dd=${sp.displayDocs}`);
+          this.location.replaceState(`/?q=${sp.term}&f=${sp.filters}&dd=${sp.displayDocs}`);
         } else {
-          this.location.replaceState(`/?q=&dd=${sp.displayDocs}`);
+          this.location.replaceState(`/?q=&f=${sp.filters}&dd=${sp.displayDocs}`);
         }
         return this.doRequest(sp);
       })
@@ -88,11 +96,16 @@ export class SearchComponent implements OnInit {
     this.route.queryParams
       .subscribe((params: Params) => {
         if (params['q']) {
-          this.doRequest({term: params['q'], displayDocs: 'all', offset: 0})
+
+          this.doRequest({term: params['q'],filters: params['f'], displayDocs: 'all', offset: 0})
             .subscribe((results) => {
               this.processResults(results);
             });
           this.term = params['q'];
+          if(params['f']) {
+            this.filters = <{[field: string]: FilterOption}>JSON.parse(params['f']);
+            this.filterService.nextFilterQuery(this.filters);
+          }
           if (params['dd']) {
             this.displayDocs = params['dd'];
           } else {
@@ -102,24 +115,42 @@ export class SearchComponent implements OnInit {
         }
         return null;
       });
+
+    this.subscribeFilter$ = this.filterService.filterSelectedSource$.subscribe((newFilters:{[field: string]: FilterOption}) => {
+      if(!_.isEqual(this.filters, newFilters)){
+        this.filters = newFilters;
+        if(this.term) {
+          this.search(this.term);
+        }
+      }
+    });
+  }
+
+  getFiltersCopy(){
+    return JSON.parse(JSON.stringify(this.filters));
+  }
+
+  ngOnDestroy() {
+    this.subscribeFilter$.unsubscribe();
   }
 
   /**
    * Push a search term into the observable stream.
    */
   search(term: string): void { // keyUp()
-    if (this.term !== term) { // initiate a new search
+    if (this.term !== term ) { // initiate a new search
+      console.log(this.filters);//TODO: remove line
       this.term = term;
       this.displayDocs = null;
       this.resetState('all');
     } else {
-      this.searchTerms.next({term: term, displayDocs: this.displayDocs, offset: this.allResults.length});
+      this.searchTerms.next({term: term, filters: JSON.stringify(this.filters), displayDocs: this.displayDocs, offset: this.allResults.length});
     }
   }
 
   /**
-   * Converts the current stack of results (allDocs) 
-   * from json to csv 
+   * Converts the current stack of results (allDocs)
+   * from json to csv
    * and opens a download popup for the user
    */
   download(term: string): void {
@@ -194,7 +225,7 @@ export class SearchComponent implements OnInit {
   fetchMore(): void {
     this.headerBottomBorder = true;
     this.isSearching = true;
-    this.searchTerms.next({term: this.term, displayDocs: this.displayDocs, offset: this.allResults.length});
+    this.searchTerms.next({term: this.term,filters: JSON.stringify(this.filters), displayDocs: this.displayDocs, offset: this.allResults.length});
   }
 
   getStatusText() {
@@ -219,7 +250,7 @@ export class SearchComponent implements OnInit {
       }
       if (this.displayDocs && this.term) {
         this.isSearching = true;
-        this.searchTerms.next({term: this.term, displayDocs: this.displayDocs, offset: 0});
+        this.searchTerms.next({term: this.term,filters: JSON.stringify(this.filters), displayDocs: this.displayDocs, offset: 0});
       }
     }
   }

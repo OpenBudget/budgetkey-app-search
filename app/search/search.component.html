@@ -12,13 +12,15 @@
                [value]="term"
                />
         <span class="input-group-addon downloader">
-            <div class="downloader" (click)="download(term)"></div>      
+            <div class="downloader" (click)="download(term)"></div>
         </span>
         <span class="input-group-addon">
           <i *ngIf="!isSearching" [ngClass]="['glyphicon', 'glyphicon-search', term ? 'search-icon' : '']" (click)="term ? search(term) : undefined"></i>
           <i *ngIf="isSearching" class="fa fa-circle-o-notch fa-spin"></i>
          </span>
     </div>
+
+    <search-filter [initSelectedFilters]="getFiltersCopy()"></search-filter>
     <div class="search-filter">
       <ul class="row col-xs-3 col-md-2">
         <li class="active col-xs-12 col-md-12">
