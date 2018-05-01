@@ -172,8 +172,8 @@ export class SearchComponent implements OnInit {
   }
 
   /**
-   * Converts the current stack of results (allDocs) 
-   * from json to csv 
+   * Converts the current stack of results (allDocs)
+   * from json to csv
    * and opens a download popup for the user
    */
   download(term: string): void {
@@ -303,6 +303,8 @@ export class SearchComponent implements OnInit {
       let dd = this.displayDocs;
       this.resetState('all');
       this.resetState(dd);
+
+      this.doNext(this.term, 0);
     }
   }
 
