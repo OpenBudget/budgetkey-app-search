@@ -1,20 +1,26 @@
 /**
  * Created by adam on 18/12/2016.
  */
-import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
+import { Component, HostListener, ViewChild } from '@angular/core';
 import { Observable }        from 'rxjs/Observable';
 import { Subject }           from 'rxjs/Subject';
 import { BehaviorSubject }   from 'rxjs/BehaviorSubject';
+import { from }              from 'rxjs/observable/from';
 import { SearchService }     from '../_service/search.service';
 import { DownloadService } from '../_service/download.service';
-import { SearchResults, DocResultEntry, SearchResultsCounter} from '../_model/SearchResults';
+import { SearchResults, DocResultEntry} from '../_model/SearchResults';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { Http } from '@angular/http';
 import { TimelineComponent } from '../timeline/timeline.component';
 import { TimeRanges } from '../timeline-menu/time-ranges';
+import { SearchBarType } from 'budgetkey-ng2-components/src/components';
 
-type SearchParams = {term: string, startRange: string, endRange: string, displayDocs: string, offset: number, timeRange: string};
+type SearchParams = {
+  term: string,
+  timeRange: string, startRange: string, endRange: string,
+  displayDocs: string, offset: number, pageSize: number
+};
 
 @Component({
   selector: 'budget-search',
@@ -22,31 +28,38 @@ type SearchParams = {term: string, startRange: string, endRange: string, display
   styles: [require('./search.component.css')],
   providers: [SearchService, DownloadService]
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent {
 
+  // Search request and response pipeline
   private searchTerms: Subject<SearchParams>;
   private searchResults: Observable<SearchResults>;
+
+  // Component state
   private term: string = '';
-  private allDocs: BehaviorSubject<DocResultEntry[]>;
-  private allResults: any;
-  private resultTotal: number;
-  private resultTotalCount: SearchResultsCounter;
-  private displayDocs: string; // category
-  private pageSize: number; // how many records to load for each scroll
-  private bump: boolean;
-  private isSearching: boolean;
-  private isErrorInLastSearch: boolean;
-
-  private periods: any[];
   private selectedPeriod: any;
+  private selectedDocType: SearchBarType;
 
-  private isAllTabSelected: boolean;
-  private selectedTabName: string;
-  private currentNumOfResults: number;
-  private isClickedType: boolean;
-  private currentDocType: string;
-  private isSearchBarHasFocus: boolean;
-  private isSearchBarHasText: boolean;
+  // Results and stats
+  private allResults: any = [];
+
+  // config
+  private pageSize = 10; // how many records to load for each scroll
+
+  // Timeline selection
+  private periods: any[];
+
+  // Timeline selection
+  private docTypes: any[];
+
+  private overScroll = false; // ??
+
+  // Statue
+  private isSearching = false;
+  private isErrorInLastSearch = false;
+
+  // For download
+  private allDocs: BehaviorSubject<DocResultEntry[]>;
+
 
   @ViewChild('timeline') timeline: TimelineComponent;
 
@@ -59,30 +72,48 @@ export class SearchComponent implements OnInit {
     private http: Http
   ) {
     this.periods = (new TimeRanges()).periods;
+    this.docTypes = [
+      {
+        name: 'הכל',
+        main: true,
+        id: 'all',
+        rid: []
+      },
+      {
+        name: 'סעיף תקציבי',
+        id: 'budget',
+        rid: ['budget']
+      },
+      {
+        name: 'ארגון',
+        id: 'entities',
+        rid: ['entities']
+      },
+      {
+        name: 'העברה תקציבית',
+        id: 'national-budget-changes',
+        rid: ['nationalbudgetchanges']
+      },
+      {
+        name: 'תמיכות',
+        id: 'supports',
+        rid: ['supports']
+      },
+      {
+        name: 'רכש',
+        id: 'tenders,contract-spending',
+        rid: ['tenders', 'contractspending']
+      }
+    ];
+    this.selectedDocType = this.docTypes[0];
   }
 
   ngOnInit() {
     this.searchTerms = new Subject<SearchParams>();
     this.allDocs = new BehaviorSubject<DocResultEntry[]>([]);
 
-    this.displayDocs = null;
-    this.bump = false;
-
-    this.resetState('all');
-
-    this.pageSize = 10;
-
-    this.isSearching = false;
-    this.isErrorInLastSearch = false;
-
-    this.isAllTabSelected = true;
-    this.currentNumOfResults = 0;
-    this.isClickedType = false;
-    this.isSearchBarHasFocus = false;
-    this.isSearchBarHasText = false;
-    // ^ moved from constructor ^
-
-    this.searchResults = this.searchTerms // open a stream
+    // Connect the search pipeline
+    this.searchResults = <Observable<SearchResults>>this.searchTerms // open a stream
       .debounceTime(300)        // wait for 300ms pause in events
       // .distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap((sp: SearchParams) => {
@@ -94,12 +125,25 @@ export class SearchComponent implements OnInit {
           this.location.replaceState(`/?q=${sp.term || ''}&range=${sp.timeRange}&dd=${sp.displayDocs}`);
         }
 
-        return this.doRequest(sp);
+        let allSp = <SearchParams>{
+          term: sp.term,
+          startRange: sp.startRange,
+          endRange: sp.endRange,
+          displayDocs: 'all',
+          offset: 0,
+          timeRange: sp.timeRange,
+          pageSize: 0
+        };
+
+        // return this.doRequest(sp);
+        return from([sp, allSp]);
+      })
+      .mergeMap((x: any) => {
+        return this.doRequest(x);
       })
       .catch(error => {
         this.isSearching = false;
         this.isErrorInLastSearch = true;
-        this.displayDocs = null;
         console.log('Error while searching:', error);
         return Observable.of<SearchResults>(null);
       });
@@ -108,8 +152,11 @@ export class SearchComponent implements OnInit {
       this.processResults(results);
     });
 
+    // Handle the URL query params
     this.route.queryParams
       .subscribe((params: Params) => {
+
+        // Time range
         let customPeriod = this.periods[ this.periods.length - 1];
         customPeriod.start = params['from'] || customPeriod.start;
         customPeriod.end = params['to'] || customPeriod.end;
@@ -121,63 +168,38 @@ export class SearchComponent implements OnInit {
             break;
           }
         }
+
+        // Term
         if (params['q']) {
           this.term = params['q'];
           if (params['dd']) {
-            this.displayDocs = params['dd'];
-          } else {
-            this.displayDocs = 'all';
+            for (let dt of this.docTypes) {
+              if (dt.id === params['dd']) {
+                this.selectedDocType = dt;
+                break;
+              }
+            }
           }
-          this.search(this.term);
+          this.doNext(this.term, 0);
         }
 
         return null;
       });
   }
 
+  //// SEARCH PIPELINE
+
+  // Push search request to pipeline
   doNext(term: string, offset: number) {
     this.searchTerms.next({
       term: term,
       startRange: this.selectedPeriod.start,
       endRange: this.selectedPeriod.end,
-      displayDocs: this.displayDocs,
+      displayDocs: this.selectedDocType['id'],
       timeRange: this.selectedPeriod.value,
-      offset: offset
+      offset: offset,
+      pageSize: this.pageSize
     });
-  }
-
-  openCloseSearchTypeDropDown() {
-    document.getElementById('search-types-dropdown-content').classList.toggle('show');
-  }
-
-  /**
-   * Push a search term into the observable stream.
-   */
-  search(term: string): void { // keyUp()
-    if (this.term !== term) { // initiate a new search
-      this.term = term;
-      this.displayDocs = null;
-      this.resetState('all');
-      this.selectedTabName = 'הכל';
-      this.isClickedType = true;
-    } else {
-      this.doNext(term, this.allResults.length);
-    }
-
-    if (term === '') {
-      this.isSearchBarHasText = false;
-    } else {
-      this.isSearchBarHasText = true;
-    }
-  }
-
-  /**
-   * Converts the current stack of results (allDocs)
-   * from json to csv
-   * and opens a download popup for the user
-   */
-  download(term: string): void {
-    this.downloadService.exportAsCsv(term + '.csv', this.allDocs);
   }
 
   /**
@@ -189,7 +211,7 @@ export class SearchComponent implements OnInit {
     if (sp.term) {
       this.isSearching = true;
       this.isErrorInLastSearch = false;
-      return this.searchService.search(sp.term, sp.startRange, sp.endRange, this.pageSize, sp.offset, sp.displayDocs.split(','));
+      return this.searchService.search(sp.term, sp.startRange, sp.endRange, sp.pageSize, sp.offset, sp.displayDocs.split(','));
     } else {
       this.isSearching = false;
       return Observable.of<SearchResults>(null);
@@ -203,58 +225,30 @@ export class SearchComponent implements OnInit {
    */
   processResults(results: SearchResults): void {
     if (results) {
-      if (this.searchResults) {
-        if (results.displayDocs === 'all') {
-          this.resultTotal = 0;
-          for (let key in results.search_counts) {
-            if (key) {
-              let tmpResults = results.search_counts[key];
-              this.resultTotal += tmpResults.total_overall;
-              this.resultTotalCount[key] = tmpResults.total_overall;
-              if (this.currentDocType === key) {
-                this.currentNumOfResults = tmpResults.total_overall;
-              } else if (results.displayDocs === 'all') {
-                this.currentNumOfResults = this.resultTotal;
+      if (results.pageSize === 0) {
+        for (let dt of this.docTypes) {
+          dt.amount = 0;
+        }
+        for (let key of Object.keys(results.search_counts)) {
+          let count = results.search_counts[key].total_overall;
+          this.docTypes[0].amount += count;
+          for (let dt of this.docTypes) {
+            for (let id of dt.rid) {
+              if (id === key) {
+                dt.amount += count;
               }
             }
           }
         }
-      }
-      this.allResults = this.allResults.slice(0, results.offset);
-      this.allResults.push(...results.search_results);
-    } else {
-      this.resetState(null);
-      this.resetState('all');
-    }
-    this.allDocs.next(this.allResults);
-  }
-
-
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-    if ((window.innerHeight * 1.7 + window.scrollY) >= document.body.scrollHeight) {
-      // Scrolled to bottom
-      if (!this.bump) {
-        this.bump = true;
-        this.fetchMore();
-      }
-    } else {
-      if (this.bump) {
-        this.bump = false;
+      } else {
+        this.allResults = this.allResults.slice(0, results.offset);
+        this.allResults.push(...results.search_results);
+        this.allDocs.next(this.allResults);
       }
     }
-
   }
 
-  /**
-   * fetchMore()
-   * when scrolling, appends more results to the list
-   * @param {number} term
-   */
-  fetchMore(): void {
-    this.isSearching = true;
-    this.doNext(this.term, this.allResults.length);
-  }
+  //// UI HELPERS
 
   getStatusText() {
     if (this.isSearching) {
@@ -268,51 +262,54 @@ export class SearchComponent implements OnInit {
     return '';
   }
 
-  resetState(requestedDocTypes: string) {
-    if (requestedDocTypes !== this.displayDocs) {
-      this.displayDocs = requestedDocTypes;
+  //// EVENT HANDLERS
+
+  onTermChanged(term: string) {
+    if (this.term !== term) { // initiate a new search
+      this.term = term;
       this.allResults = [];
-      if (requestedDocTypes === 'all') {
-        this.resultTotal = 0;
-        this.resultTotalCount = new SearchResultsCounter();
-      }
-      if (this.displayDocs && this.term) {
-        this.isSearching = true;
-        this.doNext(this.term, 0);
-      }
+      this.doNext(this.term, this.allResults.length);
     }
   }
 
-  switchTab ($event: any, requestedDocTypes: string,
-            isAllTabSelected: boolean, selectedTabName: string,
-            numOfResults: number) {
-    $event.stopPropagation();
-    $event.preventDefault();
-
-    this.isAllTabSelected = isAllTabSelected;
-    this.selectedTabName = selectedTabName;
-    this.currentNumOfResults = numOfResults;
-    this.currentDocType = requestedDocTypes;
-    this.isClickedType = true;
-    this.resetState(requestedDocTypes);
+  onDocTypeSelected(docType: any) {
+    if (docType !== this.selectedDocType) {
+      this.selectedDocType = docType;
+      this.allResults = [];
+      this.doNext(this.term, this.allResults.length);
+    }
   }
 
   onPeriodChangeSearch(period: any) {
-    if (period) {
+    if (period !== this.selectedPeriod) {
       this.selectedPeriod = period;
-      let dd = this.displayDocs;
-      this.resetState('all');
-      this.resetState(dd);
-
-      this.doNext(this.term, 0);
+      this.allResults = [];
+      this.doNext(this.term, this.allResults.length);
     }
   }
 
-  onSearchBarFocus() {
-    this.isSearchBarHasFocus = true;
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    if ((window.innerHeight * 1.7 + window.scrollY) >= document.body.scrollHeight) {
+      // Scrolled to bottom
+      if (!this.overScroll) {
+        this.overScroll = true;
+        this.doNext(this.term, this.allResults.length);
+      }
+    } else {
+      this.overScroll = false;
+    }
   }
 
-  onSearchBarFocusOut() {
-    this.isSearchBarHasFocus = false;
+  //// MISCELLANEOUS
+
+  /**
+   * Converts the current stack of results (allDocs) 
+   * from json to csv 
+   * and opens a download popup for the user
+   */
+  download(term: string): void {
+    this.downloadService.exportAsCsv(term + '.csv', this.allDocs);
   }
+
 }

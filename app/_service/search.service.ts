@@ -21,29 +21,30 @@ export class SearchService {
    * @param {string} startRange
    * @param {string} endRange
    * @param {Number} pageSize  - how many records to return
-   * @param {Number} pageNumber - how many pages to skip?
+   * @param {Number} offset - how many records to skip?
    * @param {Array<string>} kindsList - category to query - specific or all
    * @returns {Observable<SearchResults>}
    */
 
-  search(term: string, startRange: string, endRange: string, pageSize: number, pageNumber: number,
+  search(term: string, startRange: string, endRange: string, pageSize: number, offset: number,
     kindsList: Array<string> ): Observable<SearchResults> {
     let startTime: Date = new Date(); // update time-stamp
     let joinedkinds = kindsList.join(',');
-    if (pageNumber === 0) {
+    if (offset === 0) {
       if (gtag) {
         gtag('event', 'search', {'search_term': term, 'kinds': joinedkinds});
       }
     }
     return this.http
-      .get(`${URL}/${joinedkinds}/${encodeURIComponent(term)}/${startRange}/${endRange}/${pageSize}/${pageNumber}`)
+      .get(`${URL}/${joinedkinds}/${encodeURIComponent(term)}/${startRange}/${endRange}/${pageSize}/${offset}`)
       .map((r: Response) => {
           let endTime = new Date();
           console.log('req time: ', (endTime.getTime()  - startTime.getTime()) / 1000, 'sec');
           let ret: SearchResults = r.json();
           ret.term = term;
           ret.displayDocs = joinedkinds;
-          ret.offset = pageSize * pageNumber;
+          ret.offset = offset;
+          ret.pageSize = pageSize;
           return ret;
       });
   }

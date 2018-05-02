@@ -35,13 +35,5 @@ export class SearchResults {
   term: string;
   displayDocs: string;
   offset: number;
-}
-
-export class SearchResultsCounter {
-  entities:  number = 0;
-  budget:    number = 0;
-  supports:  number = 0;
-  nationalbudgetchanges: number = 0;
-  procurement: number = 0;
-  people: number = 0;
+  pageSize: number;
 }
