@@ -1,12 +1,13 @@
 <div class='row'  >
 
   <div id="search-box-and-download">
-  booo
-    <budgetkey-search-bar [searchTypes]="docTypes" 
-                          [searchTerm]="term"
+    <budgetkey-search-bar [searchTerm]="term"
+                          [selectedSearchType]="selectedDocType"
                           [isSearching]="isSearching"
+                          [instantSearch]="true"
                           (search)="onTermChanged($event)" 
                           (selected)="onDocTypeSelected($event)"
+
     ></budgetkey-search-bar>
 
   <a href='javascript:void(0)' (click)="download(term);"> Download </a>
