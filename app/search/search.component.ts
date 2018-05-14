@@ -1,7 +1,7 @@
 /**
  * Created by adam on 18/12/2016.
  */
-import { Component, HostListener, ViewChild } from '@angular/core';
+import { Component, HostListener, ViewChild, Inject } from '@angular/core';
 import { Observable }        from 'rxjs/Observable';
 import { Subject }           from 'rxjs/Subject';
 import { BehaviorSubject }   from 'rxjs/BehaviorSubject';
@@ -15,6 +15,7 @@ import { Http } from '@angular/http';
 import { TimelineComponent } from '../timeline/timeline.component';
 import { TimeRanges } from '../timeline-menu/time-ranges';
 import { SearchBarType } from 'budgetkey-ng2-components/src/components';
+import { THEME_TOKEN as BUDGETKEY_NG2_COMPONENTS_THEME } from 'budgetkey-ng2-components';
 import {FilterService} from "../_service/filter.service";
 import {FilterOption} from "../_model/SearchFilters";
 import {ISubscription} from "rxjs/Subscription";
@@ -22,6 +23,7 @@ let _ = require('lodash');
 
 type SearchParams = {
   term: string,
+  defaultTerm: boolean,
   filters: string,
   timeRange: string, startRange: string, endRange: string,
   displayDocs: string, offset: number, pageSize: number
@@ -77,42 +79,11 @@ export class SearchComponent {
     private router: Router,
     private location: Location,
     private http: Http,
-    private filterService: FilterService
+    private filterService: FilterService,
+    @Inject(BUDGETKEY_NG2_COMPONENTS_THEME) private theme: any
   ) {
     this.periods = (new TimeRanges()).periods;
-    this.docTypes = [
-      {
-        name: 'הכל',
-        main: true,
-        id: 'all',
-        rid: []
-      },
-      {
-        name: 'סעיף תקציבי',
-        id: 'budget',
-        rid: ['budget']
-      },
-      {
-        name: 'ארגון',
-        id: 'entities',
-        rid: ['entities']
-      },
-      {
-        name: 'העברה תקציבית',
-        id: 'national-budget-changes',
-        rid: ['nationalbudgetchanges']
-      },
-      {
-        name: 'תמיכות',
-        id: 'supports',
-        rid: ['supports']
-      },
-      {
-        name: 'רכש',
-        id: 'tenders,contract-spending',
-        rid: ['tenders', 'contractspending']
-      }
-    ];
+    this.docTypes = this.theme.searchBarConfig;
     this.selectedDocType = this.docTypes[0];
   }
 
@@ -126,12 +97,18 @@ export class SearchComponent {
       // .distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap((sp: SearchParams) => {
 
+        let url;
+        let term = sp.defaultTerm ? '' : sp.term;
         if (sp.timeRange === 'custom_range') {
-          this.location.replaceState(`/?q=${sp.term || ''}&f=${sp.filters}&range=${sp.timeRange}` +
-                                     `&from=${sp.startRange}&to=${sp.endRange}&dd=${sp.displayDocs}`);
+          url = `/?q=${term || ''}&f=${sp.filters}&range=${sp.timeRange}` +
+                `&from=${sp.startRange}&to=${sp.endRange}&dd=${sp.displayDocs}`;
         } else if (sp.timeRange) {
-          this.location.replaceState(`/?q=${sp.term || ''}&f=${sp.filters}&range=${sp.timeRange}&dd=${sp.displayDocs}`);
+          url = `/?q=${ term || ''}&f=${sp.filters}&range=${sp.timeRange}&dd=${sp.displayDocs}`;
         }
+        if (this.theme.themeId) {
+          url += '&theme=' + this.theme.themeId;
+        }
+        this.location.replaceState(url);
 
         let allSp = <SearchParams>{
           term: sp.term,
@@ -180,20 +157,23 @@ export class SearchComponent {
         // Term
         if (params['q']) {
           this.term = params['q'];
-          if(params['f']) {
-            this.filters = <{[field: string]: FilterOption}>JSON.parse(params['f']);
-            this.filterService.nextFilterQuery(this.filters);
-          }
-          if (params['dd']) {
-            for (let dt of this.docTypes) {
-              if (dt.id === params['dd']) {
-                this.selectedDocType = dt;
-                break;
-              }
+        }
+        if(params['f']) {
+          this.filters = <{[field: string]: FilterOption}>JSON.parse(params['f']);
+          this.filterService.nextFilterQuery(this.filters);
+        }
+        if (params['dd']) {
+          for (let dt of this.docTypes) {
+            console.log(params['dd'], dt.id);
+            if (dt.id === params['dd']) {
+              console.log('!!');
+              this.selectedDocType = dt;
+              break;
             }
           }
-          this.doNext(this.term, 0);
         }
+
+        this.doNext(this.term, 0);
 
         return null;
       });
@@ -220,6 +200,12 @@ export class SearchComponent {
 
   // Push search request to pipeline
   doNext(term: string, offset: number) {
+    let defaultTerm = false;
+    if (!term && this.selectedDocType.defaultTerm) {
+      term = this.selectedDocType.defaultTerm;
+      defaultTerm = true;
+    }
+
     this.searchTerms.next({
       term: term,
       filters: JSON.stringify(this.filters),
@@ -228,7 +214,8 @@ export class SearchComponent {
       displayDocs: this.selectedDocType['id'],
       timeRange: this.selectedPeriod.value,
       offset: offset,
-      pageSize: this.pageSize
+      pageSize: this.pageSize,
+      defaultTerm: defaultTerm
     });
   }
 
@@ -298,7 +285,7 @@ export class SearchComponent {
     if (this.term !== term) { // initiate a new search
       this.term = term;
       this.allResults = [];
-      this.doNext(this.term, this.allResults.length);
+      this.doNext(term, this.allResults.length);
     }
   }
 
