@@ -54,7 +54,7 @@ if (typeof(BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
     AppComponent,
     SearchComponent,
     SearchResultComponent,
-    SearchFilterComponent
+    SearchFilterComponent,
     SearchResultComponent,
     TimelineComponent,
     TimelineMenuComponent,
