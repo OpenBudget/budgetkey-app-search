@@ -1,89 +1,21 @@
-<div [ngClass]="{
-  row : true,
-  headerBottomBorder : headerBottomBorder}" >
+<div class='row'  >
 
-    <div class="search-box input-group input-group-lg">
-        <input #searchBox
-               class="form-control"
-               type="text"
-               placeholder="חפשו במפתח"
-               autofocus
-               (keyup)="search(searchBox.value)"
-               [value]="term"
-               />
-        <span class="input-group-addon downloader">
-            <div class="downloader" (click)="download(term)"></div>
-        </span>
-        <span class="input-group-addon">
-          <i *ngIf="!isSearching" [ngClass]="['glyphicon', 'glyphicon-search', term ? 'search-icon' : '']" (click)="term ? search(term) : undefined"></i>
-          <i *ngIf="isSearching" class="fa fa-circle-o-notch fa-spin"></i>
-         </span>
-    </div>
+  <div id="search-box-and-download">
+    booo
+    <budgetkey-search-bar [searchTypes]="docTypes"
+                          [searchTerm]="term"
+                          [isSearching]="isSearching"
+                          (search)="onTermChanged($event)"
+                          (selected)="onDocTypeSelected($event)"
+    ></budgetkey-search-bar>
 
-    <search-filter [initSelectedFilters]="getFiltersCopy()"></search-filter>
-    <div class="search-filter">
-      <ul class="row col-xs-3 col-md-2">
-        <li class="active col-xs-12 col-md-12">
-          <a (click)="switchTab($event, 'all')"
-              [class.activeclass]= "displayDocs  === 'all'" >הכל
-            <span>
-                ({{resultTotal ? resultTotal.toLocaleString()  : '0'}})
-            </span>
-          </a>
-        </li>
-      </ul>
-        <ul class='row col-xs-9 col-md-10'>
-        <li class="active col-xs-3 col-md-2">
-          <a (click)="switchTab($event, 'budget')"
-            [class.activeclass]= "displayDocs  === 'budget'">סעיף תקציבי
-            <span>
-                ({{resultTotalCount.budget ? resultTotalCount.budget.toLocaleString()  : '0'}})
-            </span>
-          </a>
-        </li>
-        <li class="active col-xs-3 col-md-2">
-          <a (click)="switchTab($event, 'entities')"
-            [class.activeclass]= "displayDocs  === 'entities'">ארגון
-            <span>
-                ({{resultTotalCount.entities ? resultTotalCount.entities.toLocaleString()  : '0'}})
-            </span>
-          </a>
-        </li>
-        <li class="active col-xs-3 col-md-2">
-          <a (click)="switchTab($event, 'national-budget-changes')"
-            [class.activeclass]= "displayDocs  === 'national-budget-changes'" >העברה תקציבית
-            <span>
-                ({{resultTotalCount.nationalbudgetchanges ? resultTotalCount.nationalbudgetchanges.toLocaleString()  : '0'}})
-            </span>
-          </a>
-        </li>
-        <li class="active col-xs-3 col-md-2">
-          <a (click)= "switchTab($event, 'supports')"
-            [class.activeclass]= "displayDocs  === 'supports'">תמיכות
-            <span>
-                ({{resultTotalCount.supports ? resultTotalCount.supports.toLocaleString()  : '0'}})
-            </span>
-          </a>
-        </li>
-        <li class="active col-xs-3 col-md-2">
-          <a (click)="switchTab($event, 'tenders,contract-spending')"
-            [class.activeclass]= "displayDocs  === 'procurement'">רכש
-            <span>
-                ({{(resultTotalCount.tenders + resultTotalCount.contractspending) ? (resultTotalCount.tenders + resultTotalCount.contractspending).toLocaleString()  : '0'}})
-            </span>
-          </a>
-        </li>
-        <!-- <li class="active col-xs-3 col-md-2">
-          <a href="#"  (click)="switchTab($event, resultTotalCount.people, 'people')"
-            [class]= "displayDocs  === 'people' ? 'activeclass'  : ''">אנשים
-            <span>
-                ({{resultTotalCount.people ? resultTotalCount.people.toLocaleString()  : '0'}})
-            </span>
-          </a>
-        </li> -->
-      </ul>
-    </div>
+    <a href='javascript:void(0)' (click)="download(term);"> Download </a>
+  </div>
+
 </div>
+
+<search-filter [initSelectedFilters]="getFiltersCopy()"></search-filter>
+<timeline #timeline [periods]="periods" [selectedPeriod]="selectedPeriod" (onPeriodChangeSearch)="onPeriodChangeSearch($event)"></timeline>
 
 <div #searchBody class="search_body">
 

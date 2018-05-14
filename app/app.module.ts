@@ -2,6 +2,7 @@ import './rxjs-extensions';
 
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent }  from './app.component';
 import { HttpModule } from '@angular/http';
@@ -11,10 +12,13 @@ import { SearchComponent } from './search/search.component';
 import { BudgetKeyCommonModule, THEME_TOKEN as NG_COMPONENTS_THEME_TOKEN } from 'budgetkey-ng2-components';
 import { SearchResultComponent } from './search_result/search_result.component';
 
+import { TimelineComponent } from './timeline/timeline.component';
+import { TimelineMenuComponent } from './timeline-menu/timeline-menu.component';
+import { TimelineScaleComponent } from './timeline-scale/timeline-scale.component';
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { OpaqueToken } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 import { THEME_ID_TOKEN } from './_config/config';
 import {SearchFilterComponent} from "./search_filter/search_filter.component";
 
@@ -22,7 +26,7 @@ let defaultTheme = {
   // TODO: add default theme values
 };
 
-const THEME_TOKEN = new OpaqueToken('Theme Config');
+const THEME_TOKEN = new InjectionToken('Theme Config');
 declare const BUDGETKEY_NG2_COMPONENTS_THEME: any;
 declare const BUDGETKEY_APP_SEARCH_THEME: any;
 declare const BUDGETKEY_THEME_ID: any;
@@ -39,8 +43,9 @@ if (typeof(BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
 }
 
 @NgModule({
-  imports:      [
+  imports: [
     BrowserModule,
+    FormsModule,
     HttpModule,
     BudgetKeyCommonModule,
     AppRoutingModule
@@ -50,6 +55,10 @@ if (typeof(BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
     SearchComponent,
     SearchResultComponent,
     SearchFilterComponent
+    SearchResultComponent,
+    TimelineComponent,
+    TimelineMenuComponent,
+    TimelineScaleComponent
   ],
   providers: providers,
   bootstrap: [ AppComponent ]

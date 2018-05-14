@@ -58,7 +58,7 @@ export let KIND_PARAMETERS = [
     categoryField: 'nice-category',
     mainNameField: 'title',
     secondaryNameField: 'nice-code',
-    amountField: 'net_allocated',
+    amountField: 'net_revised',
     firstItemField: 'econ_cls_title_1.0',
     firstItemLabel: 'מיון כלכלי'
   },
@@ -122,6 +122,16 @@ export let KIND_PARAMETERS = [
     amountField: 'net_expense_diff',
     firstItemField: 'change_title.0',
     firstItemLabel: 'סוג העברה'
+  },
+  {
+    docType: 'reports',
+    label: 'דו״ח',
+    mainNameField: 'title'
+  },
+  {
+    docType: 'people',
+    label: 'שם אדם או ארגון',
+    mainNameField: 'details.0.full_name'
   },
   {
     docType: '',
