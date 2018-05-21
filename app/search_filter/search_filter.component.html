@@ -1,10 +1,6 @@
-<button class="filter-btn" (click)="isFilterShown = !isFilterShown">סנן</button>
-<div *ngIf="isFilterShown">
-  <div *ngFor="let filter of  allFilters;" class="filter-container">
-    <select (change)="filterSelected({field: filter.field,
-                                      selectedOption: filter.options[$event.target.value]})"
-             class="filter-select">
-      <option *ngFor="let option of filter.options; let i = index" value="{{i}}">{{option.name}}</option>
-    </select>
+<div *ngIf="selectedFilter">
+  <div *ngFor="let option of selectedFilter.options">
+    <input  type="checkbox" [checked]="option.selected" value="{{option.value}}"
+            (change)="optionSelected($event.target.value)" /> {{option.name}} <br>
   </div>
 </div>

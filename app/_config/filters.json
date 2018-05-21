@@ -1,7 +1,7 @@
 [
   {
     "name": "סוג הארגון",
-    "field": "kind",
+    "field": "entities",
     "options": [
       {"name":"כל הארגונים", "value": "all"},
       {"name": "עמותה", "value": "association"},
@@ -11,7 +11,7 @@
   },
   {
     "name": "סוג הרכש",
-    "field": "procurement_type",
+    "field": "purchase",
     "options": [
       {"name":"כל הרכישות", "value": "all"},
       {"name": "כללי", "value": "general"},

@@ -1,28 +1,32 @@
 import { Injectable } from '@angular/core';
-import {FilterOption, SearchFilter} from "../_model/SearchFilters";
-import {BehaviorSubject, Observable} from "rxjs";
+import {SearchFilter, FilterOption} from '../_model/SearchFilters';
+import {Observable, BehaviorSubject} from 'rxjs';
 let _ = require('lodash');
-let searchFiltersFromJson = require("../_config/filters.json");
+let searchFiltersFromJson = require('../_config/filters.json');
 
 @Injectable()
 export class FilterService {
 
-  private filterSelectedSource: BehaviorSubject<{[field: string]: FilterOption}>;
-  public filterSelectedSource$:Observable<{[field: string]: FilterOption}>;
+  private filterSelectedSource: BehaviorSubject<SearchFilter>;
+  public filterSelectedSource$: Observable<SearchFilter>;
   public allFilters: SearchFilter[];
 
   constructor() {
     this.allFilters = searchFiltersFromJson;
-    let initFilterList: {[field: string]: FilterOption} = {};
-    _.each(searchFiltersFromJson, (filter: SearchFilter) => {
-      initFilterList[filter.field] = filter.options[0];
+    _.each(this.allFilters, (filter: SearchFilter) => {
+      _.each(filter.options, (option: FilterOption) => {
+        if (!option.selected) {
+          option.selected = false;
+        }
+      });
     });
-    this.filterSelectedSource = new BehaviorSubject(initFilterList);
+
+    this.filterSelectedSource = new BehaviorSubject<SearchFilter>(null);
     this.filterSelectedSource$ = this.filterSelectedSource.asObservable();
   }
 
-  nextFilterQuery(filters: {[field: string]: FilterOption}) {
-    this.filterSelectedSource.next(filters);
+  nextFilterQuery(filter: SearchFilter) {
+    this.filterSelectedSource.next(filter);
   }
 
 }

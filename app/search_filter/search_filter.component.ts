@@ -1,9 +1,10 @@
 /**
  * Created by adam on 18/12/2016.
  */
-import { Component, Input, OnInit, Inject } from '@angular/core';
-import {SearchFilter, FilterOption} from "../_model/SearchFilters";
-import {FilterService} from "../_service/filter.service";
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {SearchFilter, FilterOption} from '../_model/SearchFilters';
+import {FilterService} from '../_service/filter.service';
+import {ISubscription} from 'rxjs/Subscription';
 let _ = require('lodash');
 
 // generic Component
@@ -12,29 +13,28 @@ let _ = require('lodash');
   template: require('./search_filter.component.html'),
   styles: [require('./search_filter.component.css')]
 })
-export class SearchFilterComponent implements OnInit {
-  allFilters: SearchFilter[];
-  isFilterShown = false;
-  @Input("initSelectedFilters") selectedFilters: {[field: string]: FilterOption};
+export class SearchFilterComponent implements OnInit, OnDestroy {
+  selectedFilter: SearchFilter;
+  subscribeFilter$: ISubscription;
 
   constructor(private filterService: FilterService) {
-    this.allFilters = filterService.allFilters;
-    if(!this.selectedFilters){
-      this.selectedFilters = {};
-    }
   }
 
   ngOnInit() {
-    _.each(this.allFilters,(filter: SearchFilter)=>{
-      _.remove(filter.options,(option:FilterOption)=>{
-        return _.isEqual(this.selectedFilters[filter.field],option)
-      });
-      filter.options.unshift(this.selectedFilters[filter.field]);
+    this.subscribeFilter$ = this.filterService.filterSelectedSource$.subscribe((filter: SearchFilter) => {
+        this.selectedFilter = filter ? JSON.parse(JSON.stringify(filter)) : null;
     });
   }
 
-  filterSelected(filter: {field: string, selectedOption: FilterOption}) {
-    this.selectedFilters[filter.field] = filter.selectedOption;
-    this.filterService.nextFilterQuery(this.selectedFilters);
+  ngOnDestroy() {
+    this.subscribeFilter$.unsubscribe();
+  }
+
+  optionSelected(value: string) {
+    let index: number = _.findIndex(this.selectedFilter.options, (option: FilterOption) => {
+      return option.value === value;
+    });
+    this.selectedFilter.options[index].selected = true;
+    this.filterService.nextFilterQuery(this.selectedFilter);
   }
 }
