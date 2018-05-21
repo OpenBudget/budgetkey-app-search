@@ -27,7 +27,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { InjectionToken } from '@angular/core';
 import { THEME_ID_TOKEN } from './_config/config';
-import {SearchFilterComponent} from "./search_filter/search_filter.component";
+import {SearchFilterComponent} from './search_filter/search_filter.component';
 
 let defaultTheme = {
   // TODO: add default theme values
