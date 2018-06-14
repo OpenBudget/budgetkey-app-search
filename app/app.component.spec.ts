@@ -12,7 +12,10 @@ import { SearchService } from './_service/search.service';
 import { SearchComponent } from './search/search.component';
 
 import { BudgetKeyCommonModule } from 'budgetkey-ng2-components';
-import { SearchResultComponent } from './search_result/search_result.component';
+import { SearchResultComponent,
+         BudgetSearchResultComponent,
+         EntitiesSearchResultComponent,
+        } from './search-result';
 import { TimelineComponent } from './timeline/timeline.component';
 import { TimelineMenuComponent } from './timeline-menu/timeline-menu.component';
 import { TimelineScaleComponent } from './timeline-scale/timeline-scale.component';
@@ -36,7 +39,11 @@ describe('AppComponent', function () {
       declarations: [
         AppComponent,
         SearchComponent,
+
         SearchResultComponent,
+        BudgetSearchResultComponent,
+        EntitiesSearchResultComponent,
+
         TimelineComponent,
         TimelineMenuComponent,
         TimelineScaleComponent

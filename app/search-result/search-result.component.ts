@@ -1,22 +1,22 @@
 /**
  * Created by adam on 18/12/2016.
  */
-import { Component, Input, OnInit, Inject } from '@angular/core';
+import { Component, Input, Inject } from '@angular/core';
 import { DocResultEntry } from '../_model/SearchResults';
-import { KIND_PARAMETERS } from './kind_parameters';
+import { KIND_PARAMETERS } from './kind-parameters';
 import { THEME_ID_TOKEN } from '../_config/config';
 let _ = require('lodash');
 
 // generic Component
 @Component({
   selector: 'search-result',
-  template: require('./search_result.component.html'),
+  template: require('./search-result.component.html'),
 })
-export class SearchResultComponent implements OnInit {
+export class SearchResultComponent {
   @Input() item: DocResultEntry;
-  @Input() kind: string;
   @Input() index: number;
-  parameters: any;
+  @Input() kind: string;
+  public parameters: any;
 
   constructor(@Inject(THEME_ID_TOKEN) private theme_id: any) { }
   ngOnInit() {

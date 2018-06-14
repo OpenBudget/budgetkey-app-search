@@ -1,0 +1,101 @@
+
+  @each $kind, $darktext, $dark, $med, $light in
+        (1, #5C7899, #6092CC, #D7E7FA, #EBF2FA),  //Blue
+        (2, #7A6B99, #9281B8, #E4DCF5, #F1EDF7),  //Purple
+        (3, #6D8F89, #75BFB3, #CEF0EB, #EBF7F5),  //Cyan
+        (4, #A67453, #F0A16C, #FFD1B3, #FCF0E8),  //Orange
+        (5, #768275, #8EA38C, #D4E3D1, #ECF2EB),  //Greenish
+        (6, #998282, #C7B3B3, #EDE4E4, #F7F2F2),  //Sepia
+        (7, #8C8231, #F2E22E, #FFF7B3, #FCFADC) {  //Yellow
+
+    .func-cls-#{$kind} {
+        .tag {
+            background-color: $darktext;
+        }
+        .circle {
+            border-color: $darktext;
+        }
+        .func-cls, .circle, .code, .title, .amount {
+            color: $darktext;
+        }
+        .circle {
+            background-color: $dark;
+        }
+        &.part:nth-child(2) {
+            background-color: $light;
+            border: 1px solid #{$med}80;
+        }
+    }
+}
+
+div.part {
+    padding: 8px 24px;
+    justify-content: space-between;
+}
+
+div.part:nth-child(1) {
+    .breadcrumbs  {
+        padding-right: 5px;
+        color: #B7B7B7;	
+        font-family: "Abraham TRIAL";
+        font-size: 13px;
+    }
+
+    .top-left {
+        display: flex;
+        align-items: center;
+        
+        .func-cls {
+            font-family: "Abraham TRIAL";
+            font-size: 13px;
+        }
+        
+        .circle {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 5px;
+            border-style: solid;
+            border-width: 1px;
+            position: relative;
+            top: -1px;
+            margin-right: 6px;
+        }    
+    }
+    
+}
+
+div.part:nth-child(2) {
+    cursor: pointer;
+
+    & > span {
+        display: flex;
+        align-items: center;
+    }
+    .code {
+        font-family: "Miriam Libre";	
+        font-size: 12px;	
+        font-weight: bold;
+    }
+
+    .title {
+        font-family: "Miriam Libre";	
+        font-size: 20px;	
+        font-weight: bold;
+        padding: 0 16px;
+    }
+
+    .amount {
+        font-family: "Miriam Libre";	
+        font-size: 16px;	
+        font-weight: bold;
+    }
+}
+
+div.part:nth-child(2) {
+    .description {
+        color: #4A4A4A;
+        font-family: "Abraham TRIAL";
+        font-size: 13px;
+    }
+}

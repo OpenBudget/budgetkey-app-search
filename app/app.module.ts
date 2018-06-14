@@ -10,7 +10,11 @@ import { SearchService } from './_service/search.service';
 import { SearchComponent } from './search/search.component';
 
 import { BudgetKeyCommonModule, THEME_TOKEN as NG_COMPONENTS_THEME_TOKEN } from 'budgetkey-ng2-components';
-import { SearchResultComponent } from './search_result/search_result.component';
+
+import { SearchResultComponent,
+         BudgetSearchResultComponent,
+         EntitiesSearchResultComponent,
+        } from './search-result';
 
 import { TimelineComponent } from './timeline/timeline.component';
 import { TimelineMenuComponent } from './timeline-menu/timeline-menu.component';
@@ -52,7 +56,11 @@ if (typeof(BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
   declarations: [
     AppComponent,
     SearchComponent,
+
     SearchResultComponent,
+    BudgetSearchResultComponent,
+    EntitiesSearchResultComponent,
+
     TimelineComponent,
     TimelineMenuComponent,
     TimelineScaleComponent
