@@ -14,6 +14,9 @@ import { BudgetKeyCommonModule, THEME_TOKEN as NG_COMPONENTS_THEME_TOKEN } from 
 import { SearchResultComponent,
          BudgetSearchResultComponent,
          EntitiesSearchResultComponent,
+         TendersSearchResultComponent,
+         ContractSpendingSearchResultComponent,
+         SupportsSearchResultComponent,
         } from './search-result';
 
 import { TimelineComponent } from './timeline/timeline.component';
@@ -60,6 +63,9 @@ if (typeof(BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
     SearchResultComponent,
     BudgetSearchResultComponent,
     EntitiesSearchResultComponent,
+    TendersSearchResultComponent,
+    ContractSpendingSearchResultComponent,
+    SupportsSearchResultComponent,
 
     TimelineComponent,
     TimelineMenuComponent,

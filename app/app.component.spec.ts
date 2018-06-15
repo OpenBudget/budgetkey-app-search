@@ -15,6 +15,9 @@ import { BudgetKeyCommonModule } from 'budgetkey-ng2-components';
 import { SearchResultComponent,
          BudgetSearchResultComponent,
          EntitiesSearchResultComponent,
+         TendersSearchResultComponent,
+         ContractSpendingSearchResultComponent,
+         SupportsSearchResultComponent,
         } from './search-result';
 import { TimelineComponent } from './timeline/timeline.component';
 import { TimelineMenuComponent } from './timeline-menu/timeline-menu.component';
@@ -43,6 +46,9 @@ describe('AppComponent', function () {
         SearchResultComponent,
         BudgetSearchResultComponent,
         EntitiesSearchResultComponent,
+        TendersSearchResultComponent,
+        ContractSpendingSearchResultComponent,
+        SupportsSearchResultComponent,
 
         TimelineComponent,
         TimelineMenuComponent,
