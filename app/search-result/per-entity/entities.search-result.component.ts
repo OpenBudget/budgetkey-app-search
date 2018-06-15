@@ -10,7 +10,7 @@ import * as _ from 'lodash';
 @Component({
   selector: 'search-result-entities',
   template: `
-    <div class='part' [ngClass]='"entity-kind-" + d["kind"]' (cldick)='navigate()'>
+    <div class='part' [ngClass]='"entity-kind-" + d["kind"]' (click)='navigate()'>
       <span class='top-right'>
         <span class='title'>
           <span class='tag' [innerHtml]='d["kind_he"]'></span>
