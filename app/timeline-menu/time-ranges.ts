@@ -29,22 +29,22 @@ export class TimeRanges {
 
     const periods = [
       {
-        'title': '7 ימים אחרונים',
+        'title': '7 הימים האחרונים',
         'value': 'last_week',
         'start': startLastWeek, 'end': theFuture
       },
       {
-        'title': '30 ימים אחרונים',
+        'title': '30 הימים האחרונים',
         'value': 'last_month',
         'start': startLastMonth, 'end': theFuture
       },
       {
-        'title': 'השנה',
+        'title': 'השנה האחרונה',
         'value': 'last_year',
         'start': startLastYear, 'end': theFuture
       },
       {
-        'title': 'בעשור האחרון',
+        'title': 'העשור האחרון',
         'value': 'last_decade',
         'start': startLastDecade, 'end': theFuture
       },
@@ -53,11 +53,11 @@ export class TimeRanges {
         'value': 'all',
         'start': thePast, 'end': theFuture
       },
-      {
-        'title': 'טווח תאריכים לבחירתך',
-        'value': 'custom_range',
-        'start': startCustomRange, 'end': now
-      }
+      // {
+      //   'title': 'טווח התאריכים',
+      //   'value': 'custom_range',
+      //   'start': startCustomRange, 'end': now
+      // }
     ];
     return periods;
   }

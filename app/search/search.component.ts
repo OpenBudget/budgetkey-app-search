@@ -18,9 +18,16 @@ import { SearchBarType } from 'budgetkey-ng2-components/src/components';
 import { THEME_TOKEN as BUDGETKEY_NG2_COMPONENTS_THEME } from 'budgetkey-ng2-components';
 
 type SearchParams = {
-  term: string, defaultTerm: boolean,
-  timeRange: string, startRange: string, endRange: string,
-  displayDocs: string, offset: number, pageSize: number
+  term: string,
+  defaultTerm: boolean,
+  timeRange: string,
+  timeRangeDisplay: string,
+  startRange: string,
+  endRange: string,
+  displayDocs: string,
+  displayDocsDisplay: string,
+  offset: number,
+  pageSize: number
 };
 
 @Component({
@@ -36,6 +43,7 @@ export class SearchComponent {
   private searchResults: Observable<SearchResults>;
 
   // Component state
+  private subscriptionProperties: any = {};
   private term: string = '';
   private selectedPeriod: any;
   private selectedDocType: SearchBarType;
@@ -68,9 +76,7 @@ export class SearchComponent {
     private searchService: SearchService,
     private downloadService: DownloadService,
     private route: ActivatedRoute,
-    private router: Router,
     private location: Location,
-    private http: Http,
     @Inject(BUDGETKEY_NG2_COMPONENTS_THEME) private theme: any
   ) {
     this.periods = (new TimeRanges()).periods;
@@ -111,6 +117,7 @@ export class SearchComponent {
           pageSize: 0
         };
 
+        this.updateSubscriptionProperties(sp);
         // return this.doRequest(sp);
         return from([sp, allSp]);
       })
@@ -181,8 +188,10 @@ export class SearchComponent {
       term: term,
       startRange: this.selectedPeriod.start,
       endRange: this.selectedPeriod.end,
-      displayDocs: this.selectedDocType['id'],
+      displayDocs: this.selectedDocType.id,
+      displayDocsDisplay: this.selectedDocType.name,
       timeRange: this.selectedPeriod.value,
+      timeRangeDisplay: this.selectedPeriod.title,
       offset: offset,
       pageSize: this.pageSize,
       defaultTerm: defaultTerm
@@ -195,6 +204,7 @@ export class SearchComponent {
    * posts a new query
    */
   doRequest(sp: SearchParams): Observable<SearchResults> {
+    // Do actual request
     if (sp.term) {
       this.isSearching = true;
       this.isErrorInLastSearch = false;
@@ -299,4 +309,11 @@ export class SearchComponent {
     this.downloadService.exportAsCsv(term + '.csv', this.allDocs);
   }
 
+  updateSubscriptionProperties(sp: SearchParams) {
+    // Update subscription properties
+    this.subscriptionProperties = Object.assign({}, sp);
+    this.subscriptionProperties.kind = 'search';
+    delete this.subscriptionProperties['offset'];
+    delete this.subscriptionProperties['pageSize'];
+  }
 }

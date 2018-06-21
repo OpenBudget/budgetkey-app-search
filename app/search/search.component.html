@@ -4,7 +4,9 @@
     <budgetkey-search-bar [searchTerm]="term"
                           [selectedSearchType]="selectedDocType"
                           [isSearching]="isSearching"
-                          [instantSearch]="true"
+                          [allowSubscribe]="true"
+                          [externalTitle]="term"
+                          [externalProperties]="subscriptionProperties"
                           (search)="onTermChanged($event)" 
                           (selected)="onDocTypeSelected($event)"
 
