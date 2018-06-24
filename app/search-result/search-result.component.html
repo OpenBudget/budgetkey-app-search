@@ -1,4 +1,4 @@
-<div class='single-result' [ngClass]='kind'>
+<div class='single-result' [ngClass]='kind' [attr.data-doc-id]='item.source.doc_id'>
     <search-result-budget [item]="item" [kind]="kind" [index]="index"
                           *ngIf='kind=="budget"'></search-result-budget>
     <search-result-entities [item]="item" [kind]="kind" [index]="index"
