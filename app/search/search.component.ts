@@ -15,6 +15,8 @@ import { TimelineComponent } from '../timeline/timeline.component';
 import { TimeRanges } from '../timeline-menu/time-ranges';
 import { SearchBarType } from 'budgetkey-ng2-components/src/components';
 import { THEME_TOKEN as BUDGETKEY_NG2_COMPONENTS_THEME } from 'budgetkey-ng2-components';
+import {SearchFilter} from '../_model/SearchFilters';
+let allFilters = require('../_config/filters.json');
 
 type SearchParams = {
   term: string,
@@ -26,7 +28,8 @@ type SearchParams = {
   displayDocs: string,
   displayDocsDisplay: string,
   offset: number,
-  pageSize: number
+  pageSize: number,
+  filters: string
 };
 
 @Component({
@@ -68,6 +71,7 @@ export class SearchComponent {
   // For download
   private allDocs: BehaviorSubject<DocResultEntry[]>;
 
+  private docTypeFilters: SearchFilter[];
 
   @ViewChild('timeline') timeline: TimelineComponent;
 
@@ -76,6 +80,7 @@ export class SearchComponent {
     private downloadService: DownloadService,
     private route: ActivatedRoute,
     private location: Location,
+
     @Inject(BUDGETKEY_NG2_COMPONENTS_THEME) private theme: any
   ) {
     this.periods = (new TimeRanges()).periods;
@@ -84,12 +89,13 @@ export class SearchComponent {
   }
 
   ngOnInit() {
+
     this.searchTerms = new Subject<SearchParams>();
     this.allDocs = new BehaviorSubject<DocResultEntry[]>([]);
 
     // Connect the search pipeline
-    this.searchResults = <Observable<SearchResults>>this.searchTerms // open a stream
-      .debounceTime(300)        // wait for 300ms pause in events
+    this.searchResults = <Observable<SearchResults>>((<Observable<SearchParams>>this.searchTerms // open a stream
+      .debounceTime(300)    )    // wait for 300ms pause in events
       // .distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap((sp: SearchParams) => {
 
@@ -103,6 +109,9 @@ export class SearchComponent {
         }
         if (this.theme.themeId) {
           url += '&theme=' + this.theme.themeId;
+        }
+        if (this.docTypeFilters) {
+          url += '&f=' + sp.filters;
         }
         this.location.replaceState(url);
 
@@ -128,7 +137,7 @@ export class SearchComponent {
         this.isErrorInLastSearch = true;
         console.log('Error while searching:', error);
         return Observable.of<SearchResults>(null);
-      });
+      }));
     this.searchResults.subscribe((results) => {
       this.isSearching = false;
       this.processResults(results);
@@ -155,7 +164,9 @@ export class SearchComponent {
         if (params['q']) {
           this.term = params['q'];
         }
-
+        if (params['f']) {
+          this.docTypeFilters = <SearchFilter[]>JSON.parse(params['f']);
+        }
         if (params['dd']) {
           for (let dt of this.docTypes) {
             console.log(params['dd'], dt.id);
@@ -173,6 +184,7 @@ export class SearchComponent {
       });
   }
 
+
   //// SEARCH PIPELINE
 
   // Push search request to pipeline
@@ -182,9 +194,9 @@ export class SearchComponent {
       term = this.selectedDocType.defaultTerm;
       defaultTerm = true;
     }
-
     this.searchTerms.next({
       term: term,
+      filters: JSON.stringify(this.docTypeFilters),
       startRange: this.selectedPeriod.start,
       endRange: this.selectedPeriod.end,
       displayDocs: this.selectedDocType.id,
@@ -272,6 +284,7 @@ export class SearchComponent {
     if (docType !== this.selectedDocType) {
       this.selectedDocType = docType;
       this.allResults = [];
+      this.docTypeFilters = allFilters[this.selectedDocType.id] ? allFilters[this.selectedDocType.id].filters : [];
       this.doNext(this.term, this.allResults.length);
     }
   }
@@ -283,6 +296,12 @@ export class SearchComponent {
       this.doNext(this.term, this.allResults.length);
     }
   }
+
+  onSearchFilterMenuChange(selectedFilter: SearchFilter) {
+    this.allResults = [];
+    this.doNext(this.term, this.allResults.length);
+  }
+
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -300,8 +319,8 @@ export class SearchComponent {
   //// MISCELLANEOUS
 
   /**
-   * Converts the current stack of results (allDocs) 
-   * from json to csv 
+   * Converts the current stack of results (allDocs)
+   * from json to csv
    * and opens a download popup for the user
    */
   download(term: string): void {
