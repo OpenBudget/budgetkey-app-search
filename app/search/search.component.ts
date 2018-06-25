@@ -94,7 +94,7 @@ export class SearchComponent {
     this.allDocs = new BehaviorSubject<DocResultEntry[]>([]);
 
     // Connect the search pipeline
-    this.searchResults = <Observable<SearchResults>>((<Observable<SearchParams>>this.searchTerms // open a stream
+    this.searchResults = <Observable<SearchResults>>(this.searchTerms // open a stream
       .debounceTime(300)    )    // wait for 300ms pause in events
       // .distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap((sp: SearchParams) => {
@@ -137,7 +137,7 @@ export class SearchComponent {
         this.isErrorInLastSearch = true;
         console.log('Error while searching:', error);
         return Observable.of<SearchResults>(null);
-      }));
+      });
     this.searchResults.subscribe((results) => {
       this.isSearching = false;
       this.processResults(results);
