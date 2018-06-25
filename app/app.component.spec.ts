@@ -53,6 +53,7 @@ describe('AppComponent', function () {
         TendersSearchResultComponent,
         ContractSpendingSearchResultComponent,
         SupportsSearchResultComponent,
+
         TimelineComponent,
         TimelineMenuComponent,
         TimelineScaleComponent
