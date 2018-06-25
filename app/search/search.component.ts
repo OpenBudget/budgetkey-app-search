@@ -26,7 +26,8 @@ type SearchParams = {
   displayDocs: string,
   displayDocsDisplay: string,
   offset: number,
-  pageSize: number
+  pageSize: number,
+  filters: any
 };
 
 @Component({
@@ -43,6 +44,8 @@ export class SearchComponent {
 
   // Component state
   private subscriptionProperties: any = {};
+  private subscriptionUrlParams: string;
+
   private term: string = '';
   private selectedPeriod: any;
   private selectedDocType: SearchBarType;
@@ -96,14 +99,14 @@ export class SearchComponent {
         let url;
         let term = sp.defaultTerm ? '' : sp.term;
         if (sp.timeRange === 'custom_range') {
-          url = `/?q=${term || ''}&range=${sp.timeRange}` +
-                `&from=${sp.startRange}&to=${sp.endRange}&dd=${sp.displayDocs}`;
+          this.subscriptionUrlParams = `range=${sp.timeRange}&from=${sp.startRange}&to=${sp.endRange}`;
         } else if (sp.timeRange) {
-          url = `/?q=${ term || ''}&range=${sp.timeRange}&dd=${sp.displayDocs}`;
+          this.subscriptionUrlParams = `range=${sp.timeRange}`;
         }
         if (this.theme.themeId) {
-          url += '&theme=' + this.theme.themeId;
+          this.subscriptionUrlParams += `&theme=${this.theme.themeId}`;
         }
+        url = `/?q=${term || ''}&dd=${sp.displayDocs}&${this.subscriptionUrlParams}`;
         this.location.replaceState(url);
 
         let allSp = <SearchParams>{
@@ -113,7 +116,8 @@ export class SearchComponent {
           displayDocs: 'all',
           offset: 0,
           timeRange: sp.timeRange,
-          pageSize: 0
+          pageSize: 0,
+          filters: sp.filters
         };
 
         this.updateSubscriptionProperties(sp);
@@ -193,7 +197,8 @@ export class SearchComponent {
       timeRangeDisplay: this.selectedPeriod.title,
       offset: offset,
       pageSize: this.pageSize,
-      defaultTerm: defaultTerm
+      defaultTerm: defaultTerm,
+      filters: this.selectedDocType.filters
     });
   }
 
@@ -207,7 +212,15 @@ export class SearchComponent {
     if (sp.term) {
       this.isSearching = true;
       this.isErrorInLastSearch = false;
-      return this.searchService.search(sp.term, sp.startRange, sp.endRange, sp.pageSize, sp.offset, sp.displayDocs.split(','));
+      return this.searchService.search(
+                      sp.term,
+                      sp.startRange,
+                      sp.endRange,
+                      sp.pageSize,
+                      sp.offset,
+                      sp.displayDocs.split(','),
+                      sp.filters
+      );
     } else {
       this.isSearching = false;
       return Observable.of<SearchResults>(null);

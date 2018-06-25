@@ -27,7 +27,7 @@ export class SearchService {
    */
 
   search(term: string, startRange: string, endRange: string, pageSize: number, offset: number,
-    kindsList: Array<string> ): Observable<SearchResults> {
+    kindsList: Array<string>, filters: any ): Observable<SearchResults> {
     let startTime: Date = new Date(); // update time-stamp
     let joinedkinds = kindsList.join(',');
     if (offset === 0) {
@@ -35,8 +35,13 @@ export class SearchService {
         gtag('event', 'search', {'search_term': term, 'kinds': joinedkinds});
       }
     }
+    let url = `${URL}/${joinedkinds}/${encodeURIComponent(term)}/${startRange}/${endRange}/${pageSize}/${offset}`;
+    if (filters) {
+      filters = JSON.stringify(filters).slice(1, -1);
+      url += '?filter=' + encodeURIComponent(filters);
+    }
     return this.http
-      .get(`${URL}/${joinedkinds}/${encodeURIComponent(term)}/${startRange}/${endRange}/${pageSize}/${offset}`)
+      .get(url)
       .map((r: Response) => {
           let endTime = new Date();
           console.log('req time: ', (endTime.getTime()  - startTime.getTime()) / 1000, 'sec');
