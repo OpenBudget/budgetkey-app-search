@@ -6,7 +6,7 @@ import { BaseSearchResultComponent } from './base.search-result.component';
 
 // generic Component
 @Component({
-  selector: 'search-result-contractspending',
+  selector: 'search-result-contract-spending',
   template: require('./spending.search-result.component.html')
 })
 export class ContractSpendingSearchResultComponent extends BaseSearchResultComponent {

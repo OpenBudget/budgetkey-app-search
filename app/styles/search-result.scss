@@ -38,7 +38,7 @@
         @import './entities-search-result.scss';
     }
 
-    &.tenders, &.contractspending, &.supports {
+    &.tenders, &.contract-spending, &.supports {
         @import './spending-search-result.scss';
     }
 }

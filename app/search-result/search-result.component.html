@@ -5,13 +5,13 @@
                        *ngIf='kind=="entities"'></search-result-entities>
     <search-result-tenders [item]="item" [kind]="kind" [index]="index"
                        *ngIf='kind=="tenders"'></search-result-tenders>
-    <search-result-contractspending [item]="item" [kind]="kind" [index]="index"
-                       *ngIf='kind=="contractspending"'></search-result-contractspending>
+    <search-result-contract-spending [item]="item" [kind]="kind" [index]="index"
+                       *ngIf='kind=="contract-spending"'></search-result-contract-spending>
     <search-result-supports [item]="item" [kind]="kind" [index]="index"
                        *ngIf='kind=="supports"'></search-result-supports>
 </div>
 
-<div class="search-result" *ngIf='kind!="budget" && kind!="entities" && kind!="tenders" && kind!="contractspending" && kind!="supports"'>
+<div class="search-result" *ngIf='kind!="budget" && kind!="entities" && kind!="tenders" && kind!="contract-spending" && kind!="supports"'>
   <div class="result-label" [innerHTML]="get(parameters.labelField) || parameters.label"></div>
   <div class="container-fluid search-result-body">
       <div class="row top-part" *ngIf="parameters.breadcrumbsField">

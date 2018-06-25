@@ -16,9 +16,9 @@ export class DownloadService {
                                    'explanation_source', 'nice-breadcrumbs', 'hierarchy'],
                         'entities': ['name', 'page_title', 'received_amount', 'address lines',
                                      'details', 'description', 'goal', 'government'],
-                        'nationalbudgetchanges': ['explanation', 'page_title', 'budget_code_title', 'amount'],
+                        'national-budget-changes': ['explanation', 'page_title', 'budget_code_title', 'amount'],
                         'supports': ['amount_total', 'entity_kind', 'entity_name', 'page_title', 'request_type', 'year_requested'],
-                        'contractspending': ['budget_code', 'budget_title', 'buyer_description', 'end_date', 'entity_id',
+                        'contract-spending': ['budget_code', 'budget_title', 'buyer_description', 'end_date', 'entity_id',
                                              'entity_kind', 'entity_name', 'executed', 'exemption_reason', 'explanation',
                                              'page_title', 'purchase_method', 'supplier_name']};
 

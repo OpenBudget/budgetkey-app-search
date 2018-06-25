@@ -24,7 +24,7 @@ class SearchResultsCounts {
   entities: KindResults;
   budget: KindResults;
   supports: KindResults;
-  nationalbudgetchanges: KindResults;
+  'national-budget-changes': KindResults;
   procurement: KindResults;
   people: KindResults;
 }
