@@ -15,7 +15,10 @@ import { TimelineComponent } from '../timeline/timeline.component';
 import { TimeRanges } from '../timeline-menu/time-ranges';
 import { SearchBarType } from 'budgetkey-ng2-components/src/components';
 import { THEME_TOKEN as BUDGETKEY_NG2_COMPONENTS_THEME } from 'budgetkey-ng2-components';
-import {FilterOption} from "../_model/SearchFilters";
+import {SearchFilter} from '../_model/SearchFilters';
+import {ISubscription} from 'rxjs/Subscription';
+let _ = require('lodash');
+let allFilters = require('../_config/filters.json');
 
 type SearchParams = {
   term: string,
@@ -35,7 +38,7 @@ type SearchParams = {
   selector: 'budget-search',
   template: require('./search.component.html'),
   styles: [require('./search.component.css')],
-  providers: [SearchService, DownloadService, FilterService]
+  providers: [SearchService, DownloadService]
 })
 export class SearchComponent {
 
@@ -71,7 +74,7 @@ export class SearchComponent {
   private allDocs: BehaviorSubject<DocResultEntry[]>;
 
   private subscribeFilter$: ISubscription;
-  private filter: SearchFilter;
+  private docTypeFilters: SearchFilter[];
 
   @ViewChild('timeline') timeline: TimelineComponent;
 
@@ -80,6 +83,7 @@ export class SearchComponent {
     private downloadService: DownloadService,
     private route: ActivatedRoute,
     private location: Location,
+    private http: Http,
     @Inject(BUDGETKEY_NG2_COMPONENTS_THEME) private theme: any
   ) {
     this.periods = (new TimeRanges()).periods;
@@ -109,7 +113,7 @@ export class SearchComponent {
         if (this.theme.themeId) {
           url += '&theme=' + this.theme.themeId;
         }
-        if (this.filter) {
+        if (this.docTypeFilters) {
           url += '&f=' + sp.filters;
         }
         this.location.replaceState(url);
@@ -164,8 +168,7 @@ export class SearchComponent {
           this.term = params['q'];
         }
         if (params['f']) {
-          this.filter = <SearchFilter>JSON.parse(params['f']);
-          this.filterService.nextFilterQuery(this.filter);
+          this.docTypeFilters = <SearchFilter[]>JSON.parse(params['f']);
         }
         if (params['dd']) {
           for (let dt of this.docTypes) {
@@ -181,15 +184,6 @@ export class SearchComponent {
 
         return null;
       });
-
-    this.subscribeFilter$ = this.filterService.filterSelectedSource$.subscribe((newFilter: SearchFilter) => {
-      if (this.filter && (this.filter.field !== newFilter.field || !_.isEqual(this.filter.options, newFilter.options))) {
-        this.filter = newFilter;
-        if (this.term) {
-          this.doNext(this.term, this.allResults.length);
-        }
-      }
-    });
   }
 
   ngOnDestroy() {
@@ -207,7 +201,7 @@ export class SearchComponent {
     }
     this.searchTerms.next({
       term: term,
-      filters: JSON.stringify(this.filter),
+      filters: JSON.stringify(this.docTypeFilters),
       startRange: this.selectedPeriod.start,
       endRange: this.selectedPeriod.end,
       displayDocs: this.selectedDocType.id,
@@ -291,34 +285,11 @@ export class SearchComponent {
     }
   }
 
-  docTypeToFilterField(docType: string): string {
-    switch (docType) {
-      case 'tenders,contract-spending':
-        return 'purchase';
-      case 'entities':
-        return 'entities';
-      case 'supports':
-        return '';
-      case 'national-budget-changes':
-        return '';
-      case 'budget':
-        return '';
-      case 'all':
-        return '';
-      default:
-        return '';
-    }
-  }
-
   onDocTypeSelected(docType: any) {
     if (docType !== this.selectedDocType) {
       this.selectedDocType = docType;
       this.allResults = [];
-      let field: string = this.docTypeToFilterField(this.selectedDocType.id);
-      this.filter = _.find(this.filterService.allFilters, (filter: SearchFilter) => {
-        return filter.field === field;
-      });
-      this.filterService.nextFilterQuery(this.filter);
+      this.docTypeFilters = allFilters[this.selectedDocType.id] ? allFilters[this.selectedDocType.id].filters : [];
       this.doNext(this.term, this.allResults.length);
     }
   }
@@ -330,6 +301,12 @@ export class SearchComponent {
       this.doNext(this.term, this.allResults.length);
     }
   }
+
+  onSearchFilterMenuChange(selectedFilter: SearchFilter) {
+    this.allResults = [];
+    this.doNext(this.term, this.allResults.length);
+  }
+
 
   @HostListener('window:scroll', [])
   onWindowScroll() {

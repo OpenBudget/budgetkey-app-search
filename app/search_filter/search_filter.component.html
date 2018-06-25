@@ -1,6 +1,4 @@
-<div *ngIf="selectedFilter">
-  <div *ngFor="let option of selectedFilter.options">
-    <input  type="checkbox" [checked]="option.selected" value="{{option.value}}"
-            (change)="optionSelected($event.target.value)" /> {{option.name}} <br>
-  </div>
+<div *ngFor="let option of filter.options">
+  <input  type="checkbox" [checked]="option.selected" (change)="onOptionSelected(option)" /> {{option.name}} <br>
 </div>
+

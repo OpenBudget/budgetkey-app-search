@@ -1,22 +1,74 @@
-[
-  {
-    "name": "סוג הארגון",
-    "field": "entities",
-    "options": [
-      {"name":"כל הארגונים", "value": "all"},
-      {"name": "עמותה", "value": "association"},
-      {"name": "חברה", "value": "company"},
-      {"name": "רשות מקומית", "value": "municipality"}
+{
+  "entities": {
+    "filters": [
+      {
+        "name": "סוג הארגון",
+        "value": "kind",
+        "options": [
+          {
+            "name": "כל הארגונים",
+            "value": "all"
+          },
+          {
+            "name": "עמותה",
+            "value": "association"
+          },
+          {
+            "name": "חברה",
+            "value": "company"
+          },
+          {
+            "name": "רשות מקומית",
+            "value": "municipality"
+          }
+        ]
+      },
+      {
+        "name": "אזור פעילות",
+        "value": "activity_region_districts",
+        "options": [
+          {
+            "name": "צפון",
+            "value": "הצפון"
+          },
+          {
+            "name": "מרכז",
+            "value": "המרכז"
+          },
+          {
+            "name": "דרום",
+            "value": "הדרום"
+          }
+        ]
+      }
     ]
   },
-  {
-    "name": "סוג הרכש",
-    "field": "purchase",
-    "options": [
-      {"name":"כל הרכישות", "value": "all"},
-      {"name": "כללי", "value": "general"},
-      {"name": "קניות", "value": "groceries"},
-      {"name": "השקעה", "value": "investment"}
+
+  "tenders,contract-spending": {
+    "filters": [
+      {
+        "name": "סוג המכרז",
+        "value": "tender_type",
+        "options": [
+          {
+            "name": "כל המכרזים",
+            "value": "all"
+          },
+          {
+            "name": "מרכזי",
+            "value": "central"
+          },
+          {
+            "name": "פטור",
+            "value": "exemptions"
+          },
+          {
+            "name": "משרדי",
+            "value": "office"
+          }
+        ]
+      }
     ]
   }
-]
+}
+

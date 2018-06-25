@@ -17,7 +17,7 @@
 
 </div>
 
-<search-filter></search-filter>
+<search-filter-menu [filters]="docTypeFilters" (onSearchFilterChange)="onSearchFilterMenuChange($event)" ></search-filter-menu>
 <timeline #timeline [periods]="periods" [selectedPeriod]="selectedPeriod" (onPeriodChangeSearch)="onPeriodChangeSearch($event)"></timeline>
 
 <div #searchBody class="search_body">
