@@ -16,8 +16,6 @@ import { TimeRanges } from '../timeline-menu/time-ranges';
 import { SearchBarType } from 'budgetkey-ng2-components/src/components';
 import { THEME_TOKEN as BUDGETKEY_NG2_COMPONENTS_THEME } from 'budgetkey-ng2-components';
 import {SearchFilter} from '../_model/SearchFilters';
-import {ISubscription} from 'rxjs/Subscription';
-let _ = require('lodash');
 let allFilters = require('../_config/filters.json');
 
 type SearchParams = {
@@ -73,7 +71,6 @@ export class SearchComponent {
   // For download
   private allDocs: BehaviorSubject<DocResultEntry[]>;
 
-  private subscribeFilter$: ISubscription;
   private docTypeFilters: SearchFilter[];
 
   @ViewChild('timeline') timeline: TimelineComponent;
@@ -83,7 +80,7 @@ export class SearchComponent {
     private downloadService: DownloadService,
     private route: ActivatedRoute,
     private location: Location,
-    private http: Http,
+
     @Inject(BUDGETKEY_NG2_COMPONENTS_THEME) private theme: any
   ) {
     this.periods = (new TimeRanges()).periods;
@@ -178,6 +175,7 @@ export class SearchComponent {
               this.selectedDocType = dt;
               break;
             }
+          }
         }
 
         this.doNext(this.term, 0);
@@ -186,9 +184,6 @@ export class SearchComponent {
       });
   }
 
-  ngOnDestroy() {
-    this.subscribeFilter$.unsubscribe();
-  }
 
   //// SEARCH PIPELINE
 
