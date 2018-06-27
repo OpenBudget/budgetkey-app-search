@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { URL } from '../_config/config';  // 'http://next.obudget.org/search';
 import { SearchResults } from '../_model/SearchResults';
+import { SearchBarType } from 'budgetkey-ng2-components/src/components';
 
 const gtag: any = window['gtag'];
 
@@ -27,7 +28,7 @@ export class SearchService {
    */
 
   search(term: string, startRange: string, endRange: string, pageSize: number, offset: number,
-    kindsList: Array<string>, filters: any ): Observable<SearchResults> {
+         kindsList: Array<string>, filters: any ): Observable<SearchResults> {
     let startTime: Date = new Date(); // update time-stamp
     let joinedkinds = kindsList.join(',');
     if (offset === 0) {
@@ -44,7 +45,7 @@ export class SearchService {
       .get(url)
       .map((r: Response) => {
           let endTime = new Date();
-          console.log('req time: ', (endTime.getTime()  - startTime.getTime()) / 1000, 'sec');
+          console.log('req search time: ', (endTime.getTime()  - startTime.getTime()) / 1000, 'sec');
           let ret: SearchResults = r.json();
           ret.term = term;
           ret.displayDocs = joinedkinds;
@@ -53,4 +54,30 @@ export class SearchService {
           return ret;
       });
   }
+
+  count(term: string, startRange: string, endRange: string,
+        types: SearchBarType[]): Observable<SearchResults> {
+    let startTime: Date = new Date(); // update time-stamp
+    let url = `${URL}/count/${encodeURIComponent(term)}/${startRange}/${endRange}`;
+    let config = types
+      .map((t: SearchBarType) => {
+        return {
+          id: t.id,
+          doc_types: t.types,
+          filters: t.filters || {}
+        };
+    });
+    let config_param = JSON.stringify(config);
+    url += '?config=' + encodeURIComponent(config_param);
+    return this.http
+      .get(url)
+      .map((r: Response) => {
+          let endTime = new Date();
+          console.log('req count time: ', (endTime.getTime()  - startTime.getTime()) / 1000, 'sec');
+          let ret: SearchResults = r.json();
+          ret.term = term;
+          return ret;
+      });
+  }
+
 }

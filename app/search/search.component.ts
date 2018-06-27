@@ -14,6 +14,7 @@ import { Location } from '@angular/common';
 import { TimelineComponent } from '../timeline/timeline.component';
 import { TimeRanges } from '../timeline-menu/time-ranges';
 import { SearchBarType } from 'budgetkey-ng2-components/src/components';
+
 import { THEME_TOKEN as BUDGETKEY_NG2_COMPONENTS_THEME } from 'budgetkey-ng2-components';
 
 type SearchParams = {
@@ -25,6 +26,7 @@ type SearchParams = {
   endRange: string,
   displayDocs: string,
   displayDocsDisplay: string,
+  displayDocsTypes: string[],
   offset: number,
   pageSize: number,
   filters: any
@@ -59,7 +61,7 @@ export class SearchComponent {
   // Timeline selection
   private periods: any[];
 
-  // Timeline selection
+  // Tabs selection
   private docTypes: any[];
 
   private overScroll = false; // ??
@@ -109,23 +111,12 @@ export class SearchComponent {
         url = `/?q=${term || ''}&dd=${sp.displayDocs}&${this.subscriptionUrlParams}`;
         this.location.replaceState(url);
 
-        let allSp = <SearchParams>{
-          term: sp.term,
-          startRange: sp.startRange,
-          endRange: sp.endRange,
-          displayDocs: 'all',
-          offset: 0,
-          timeRange: sp.timeRange,
-          pageSize: 0,
-          filters: sp.filters
-        };
-
         this.updateSubscriptionProperties(sp);
         // return this.doRequest(sp);
-        return from([sp, allSp]);
+        return this.doRequest(sp);
       })
       .mergeMap((x: any) => {
-        return this.doRequest(x);
+        return x;
       })
       .catch(error => {
         this.isSearching = false;
@@ -162,9 +153,7 @@ export class SearchComponent {
 
         if (params['dd']) {
           for (let dt of this.docTypes) {
-            console.log(params['dd'], dt.id);
             if (dt.id === params['dd']) {
-              console.log('!!');
               this.selectedDocType = dt;
               break;
             }
@@ -193,6 +182,7 @@ export class SearchComponent {
       endRange: this.selectedPeriod.end,
       displayDocs: this.selectedDocType.id,
       displayDocsDisplay: this.selectedDocType.name,
+      displayDocsTypes: this.selectedDocType.types,
       timeRange: this.selectedPeriod.value,
       timeRangeDisplay: this.selectedPeriod.title,
       offset: offset,
@@ -207,23 +197,30 @@ export class SearchComponent {
    * the main method of the component
    * posts a new query
    */
-  doRequest(sp: SearchParams): Observable<SearchResults> {
+  doRequest(sp: SearchParams): Observable<any> {
     // Do actual request
     if (sp.term) {
       this.isSearching = true;
       this.isErrorInLastSearch = false;
-      return this.searchService.search(
-                      sp.term,
-                      sp.startRange,
-                      sp.endRange,
-                      sp.pageSize,
-                      sp.offset,
-                      sp.displayDocs.split(','),
-                      sp.filters
+      let search = this.searchService.search(
+        sp.term,
+        sp.startRange,
+        sp.endRange,
+        sp.pageSize,
+        sp.offset,
+        sp.displayDocsTypes,
+        sp.filters
       );
+      let count = this.searchService.count(
+        sp.term,
+        sp.startRange,
+        sp.endRange,
+        this.docTypes
+      );
+      return from([search, count]);
     } else {
       this.isSearching = false;
-      return Observable.of<SearchResults>(null);
+      return Observable.of<any>([]);
     }
   }
 
@@ -234,18 +231,15 @@ export class SearchComponent {
    */
   processResults(results: SearchResults): void {
     if (results) {
-      if (results.pageSize === 0) {
+      if (results.search_counts) {
         for (let dt of this.docTypes) {
           dt.amount = 0;
         }
         for (let key of Object.keys(results.search_counts)) {
           let count = results.search_counts[key].total_overall;
-          this.docTypes[0].amount += count;
           for (let dt of this.docTypes) {
-            for (let id of dt.rid) {
-              if (id === key) {
-                dt.amount += count;
-              }
+            if (dt.id === key) {
+              dt.amount += count;
             }
           }
         }
