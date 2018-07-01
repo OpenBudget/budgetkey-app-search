@@ -52,6 +52,8 @@ export class SearchComponent {
   private selectedPeriod: any;
   private selectedDocType: SearchBarType;
 
+  private filters: any = {};
+
   // Results and stats
   private allResults: any = [];
 
@@ -160,6 +162,16 @@ export class SearchComponent {
           }
         }
 
+        // Filters
+        this.filters = {};
+        if (params['filtters']) {
+          try {
+            this.filters = JSON.parse(params['filters']);
+          } catch(e) {
+            console.log('Failed to parse filters param', params['filters']);
+          }
+        }
+
         this.doNext(this.term, 0);
 
         return null;
@@ -188,7 +200,7 @@ export class SearchComponent {
       offset: offset,
       pageSize: this.pageSize,
       defaultTerm: defaultTerm,
-      filters: this.selectedDocType.filters
+      filters: Object.assign({}, this.selectedDocType.filters, this.filters)
     });
   }
 
