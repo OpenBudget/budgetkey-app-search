@@ -164,10 +164,10 @@ export class SearchComponent {
 
         // Filters
         this.filters = {};
-        if (params['filtters']) {
+        if (params['filters']) {
           try {
             this.filters = JSON.parse(params['filters']);
-          } catch(e) {
+          } catch (e) {
             console.log('Failed to parse filters param', params['filters']);
           }
         }
