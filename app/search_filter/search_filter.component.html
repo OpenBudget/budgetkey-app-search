@@ -1,0 +1,4 @@
+<div *ngFor="let option of filter.options">
+  <input  type="checkbox" [checked]="option.selected" (change)="onOptionSelected(option)" /> {{option.name}} <br>
+</div>
+

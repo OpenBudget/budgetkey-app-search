@@ -1,0 +1,74 @@
+{
+  "entities": {
+    "filters": [
+      {
+        "name": "סוג הארגון",
+        "value": "kind",
+        "options": [
+          {
+            "name": "כל הארגונים",
+            "value": "all"
+          },
+          {
+            "name": "עמותה",
+            "value": "association"
+          },
+          {
+            "name": "חברה",
+            "value": "company"
+          },
+          {
+            "name": "רשות מקומית",
+            "value": "municipality"
+          }
+        ]
+      },
+      {
+        "name": "אזור פעילות",
+        "value": "activity_region_districts",
+        "options": [
+          {
+            "name": "צפון",
+            "value": "הצפון"
+          },
+          {
+            "name": "מרכז",
+            "value": "המרכז"
+          },
+          {
+            "name": "דרום",
+            "value": "הדרום"
+          }
+        ]
+      }
+    ]
+  },
+
+  "tenders,contract-spending": {
+    "filters": [
+      {
+        "name": "סוג המכרז",
+        "value": "tender_type",
+        "options": [
+          {
+            "name": "כל המכרזים",
+            "value": "all"
+          },
+          {
+            "name": "מרכזי",
+            "value": "central"
+          },
+          {
+            "name": "פטור",
+            "value": "exemptions"
+          },
+          {
+            "name": "משרדי",
+            "value": "office"
+          }
+        ]
+      }
+    ]
+  }
+}
+
