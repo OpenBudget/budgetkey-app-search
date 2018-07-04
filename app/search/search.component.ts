@@ -1,7 +1,7 @@
 /**
  * Created by adam on 18/12/2016.
  */
-import { Component, HostListener, ViewChild, Inject } from '@angular/core';
+import { Component, HostListener, Inject } from '@angular/core';
 import { Observable }        from 'rxjs/Observable';
 import { Subject }           from 'rxjs/Subject';
 import { BehaviorSubject }   from 'rxjs/BehaviorSubject';
