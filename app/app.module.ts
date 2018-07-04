@@ -22,6 +22,9 @@ import { SearchResultComponent,
 import { TimelineComponent } from './timeline/timeline.component';
 import { TimelineMenuComponent } from './timeline-menu/timeline-menu.component';
 import { TimelineScaleComponent } from './timeline-scale/timeline-scale.component';
+import { SearchFilterMenuBarComponent,
+         SearchFilterMenuComponent,
+} from './search-filter';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -66,6 +69,9 @@ if (typeof(BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
     TendersSearchResultComponent,
     ContractSpendingSearchResultComponent,
     SupportsSearchResultComponent,
+
+    SearchFilterMenuBarComponent,
+    SearchFilterMenuComponent,
 
     TimelineComponent,
     TimelineMenuComponent,

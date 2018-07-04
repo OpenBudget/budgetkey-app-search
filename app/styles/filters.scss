@@ -1,0 +1,30 @@
+.search-filter-bar {
+    display: flex;
+    width: 100%;
+    flex-flow: row;
+    margin-top: 15px;
+
+    .filter-menu {
+     
+        display: flex;
+        flex-flow: column;
+        margin-left: 10px;
+
+        .filter-menu-label {
+            display: block;
+            border-bottom: 1px solid #555;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        select {
+            display: block;
+            height: 20px;
+            font-size: 14px;
+            color: #555;
+            background-color: #F0F0F0;
+            border: none;
+            font-family: "Miriam Libre";	
+        }
+    }
+}

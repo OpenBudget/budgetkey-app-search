@@ -1,0 +1,9 @@
+<div class='filter-menu'>
+  <span class='filter-menu-label'>{{menu.display}}</span>
+  <select [(ngModel)]="selectedOption">
+    <ng-container *ngFor="let option of menu.options">
+      <option [ngValue]="option">{{option.display}}</option>
+    </ng-container> 
+  </select>
+</div>
+
