@@ -13,13 +13,20 @@
 
     ></budgetkey-search-bar>
 
-  <a href='javascript:void(0)' (click)="download(term);"> Download </a>
+  <!--a href='javascript:void(0)' (click)="download(term);"> Download </a-->
   </div>
 
 </div>
 
-<search-filter-menu [filters]="docTypeFilters" (onSearchFilterChange)="onSearchFilterMenuChange($event)" ></search-filter-menu>
-<timeline #timeline [periods]="periods" [selectedPeriod]="selectedPeriod" (onPeriodChangeSearch)="onPeriodChangeSearch($event)"></timeline>
+<search-filter-menu-bar 
+    [menus]="selectedDocType.filterMenu || []" 
+    (selected)="onSearchFilterMenuChange()" 
+>
+  <timeline [periods]="periods"
+            [selectedPeriod]="selectedPeriod"
+            (onPeriodChangeSearch)="onPeriodChangeSearch($event)"
+  ></timeline>
+</search-filter-menu-bar>
 
 <div #searchBody class="search_body">
 

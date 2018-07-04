@@ -11,13 +11,10 @@ import { DownloadService } from '../_service/download.service';
 import { SearchResults, DocResultEntry} from '../_model/SearchResults';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
-import { TimelineComponent } from '../timeline/timeline.component';
 import { TimeRanges } from '../timeline-menu/time-ranges';
 import { SearchBarType } from 'budgetkey-ng2-components/src/components';
 
 import { THEME_TOKEN as BUDGETKEY_NG2_COMPONENTS_THEME } from 'budgetkey-ng2-components';
-import {SearchFilter} from '../_model/SearchFilters';
-let allFilters = require('../_config/filters.json');
 
 type SearchParams = {
   term: string,
@@ -54,8 +51,6 @@ export class SearchComponent {
   private selectedPeriod: any;
   private selectedDocType: SearchBarType;
 
-  private filters: any = {};
-
   // Results and stats
   private allResults: any = [];
 
@@ -77,9 +72,7 @@ export class SearchComponent {
   // For download
   private allDocs: BehaviorSubject<DocResultEntry[]>;
 
-  private docTypeFilters: SearchFilter[];
-
-  @ViewChild('timeline') timeline: TimelineComponent;
+  // @ViewChild('timeline') timeline: TimelineComponent;
 
   constructor(
     private searchService: SearchService,
@@ -115,8 +108,11 @@ export class SearchComponent {
         if (this.theme.themeId) {
           this.subscriptionUrlParams += `&theme=${this.theme.themeId}`;
         }
-        if (this.docTypeFilters) {
-          this.subscriptionUrlParams += '&filters=' + sp.filters;
+        if (this.selectedDocType.filterMenu) {
+          for (let filterMenu of this.selectedDocType.filterMenu) {
+            sp.filters = Object.assign({}, sp.filters, filterMenu.selected.filters || {});
+            this.subscriptionUrlParams += '&' + filterMenu.id + '=' + filterMenu.selected.id;
+          }
         }
         url = `/?q=${term || ''}&dd=${sp.displayDocs}&${this.subscriptionUrlParams}`;
         this.location.replaceState(url);
@@ -160,9 +156,6 @@ export class SearchComponent {
         if (params['q']) {
           this.term = params['q'];
         }
-        if (params['f']) {
-          this.docTypeFilters = <SearchFilter[]>JSON.parse(params['f']);
-        }
         if (params['dd']) {
           for (let dt of this.docTypes) {
             if (dt.id === params['dd']) {
@@ -173,12 +166,19 @@ export class SearchComponent {
         }
 
         // Filters
-        this.filters = {};
-        if (params['filters']) {
-          try {
-            this.filters = JSON.parse(params['filters']);
-          } catch (e) {
-            console.log('Failed to parse filters param', params['filters']);
+        if (this.selectedDocType.filterMenu) {
+          for (let filterMenu of this.selectedDocType.filterMenu) {
+            if (params[filterMenu.id]) {
+              for (let option of filterMenu.options) {
+                if (params[filterMenu.id] === option.id) {
+                  filterMenu.selected = option;
+                  break;
+                }
+              }
+            }
+            if (!filterMenu.selected) {
+              filterMenu.selected = filterMenu.options[0];
+            }
           }
         }
 
@@ -200,7 +200,6 @@ export class SearchComponent {
     }
     this.searchTerms.next({
       term: term,
-      filters: JSON.stringify(this.docTypeFilters),
       startRange: this.selectedPeriod.start,
       endRange: this.selectedPeriod.end,
       displayDocs: this.selectedDocType.id,
@@ -211,7 +210,7 @@ export class SearchComponent {
       offset: offset,
       pageSize: this.pageSize,
       defaultTerm: defaultTerm,
-      filters: Object.assign({}, this.selectedDocType.filters, this.filters)
+      filters: this.selectedDocType.filters || {}
     });
   }
 
@@ -301,8 +300,14 @@ export class SearchComponent {
   onDocTypeSelected(docType: any) {
     if (docType !== this.selectedDocType) {
       this.selectedDocType = docType;
+      if (docType.filterMenu) {
+        for (let filterMenu of docType.filterMenu) {
+          if (!filterMenu.selected) {
+            filterMenu.selected = filterMenu.options[0];
+          }
+        }
+      }
       this.allResults = [];
-      this.docTypeFilters = allFilters[this.selectedDocType.id] ? allFilters[this.selectedDocType.id].filters : [];
       this.doNext(this.term, this.allResults.length);
     }
   }
@@ -315,7 +320,7 @@ export class SearchComponent {
     }
   }
 
-  onSearchFilterMenuChange(selectedFilter: SearchFilter) {
+  onSearchFilterMenuChange() {
     this.allResults = [];
     this.doNext(this.term, this.allResults.length);
   }

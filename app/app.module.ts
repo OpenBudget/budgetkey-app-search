@@ -22,13 +22,14 @@ import { SearchResultComponent,
 import { TimelineComponent } from './timeline/timeline.component';
 import { TimelineMenuComponent } from './timeline-menu/timeline-menu.component';
 import { TimelineScaleComponent } from './timeline-scale/timeline-scale.component';
+import { SearchFilterMenuBarComponent,
+         SearchFilterMenuComponent,
+} from './search-filter';
 
 import { AppRoutingModule } from './app-routing.module';
 
 import { InjectionToken } from '@angular/core';
 import { THEME_ID_TOKEN } from './_config/config';
-import {SearchFilterComponent} from './search_filter/search_filter.component';
-import {SearchFilterComponentMenu} from './search-filter-menu/search_filter_menu.component';
 
 let defaultTheme = {
   // TODO: add default theme values
@@ -69,8 +70,8 @@ if (typeof(BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
     ContractSpendingSearchResultComponent,
     SupportsSearchResultComponent,
 
-    SearchFilterComponent,
-    SearchFilterComponentMenu,
+    SearchFilterMenuBarComponent,
+    SearchFilterMenuComponent,
 
     TimelineComponent,
     TimelineMenuComponent,
