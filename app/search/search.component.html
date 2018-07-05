@@ -19,6 +19,7 @@
 </div>
 
 <search-filter-menu-bar 
+    *ngIf='term'
     [menus]="selectedDocType.filterMenu || []" 
     (selected)="onSearchFilterMenuChange()" 
 >
