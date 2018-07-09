@@ -1,11 +1,17 @@
+
 .search-filter-bar {
+    @media only screen and (max-width: 600px) {
+      display: flex;
+      flex-flow: column;
+    }
+
     display: flex;
     width: 100%;
     flex-flow: row;
     margin-top: 15px;
 
     .filter-menu {
-     
+
         display: flex;
         flex-flow: column;
         margin-left: 10px;
@@ -24,7 +30,7 @@
             color: #555;
             background-color: #F0F0F0;
             border: none;
-            font-family: "Miriam Libre";	
+            font-family: "Miriam Libre";
         }
     }
 }
