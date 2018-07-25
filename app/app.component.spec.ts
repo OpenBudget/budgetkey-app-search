@@ -22,10 +22,6 @@ import { SearchResultComponent,
 import { TimelineComponent } from './timeline/timeline.component';
 import { TimelineMenuComponent } from './timeline-menu/timeline-menu.component';
 import { TimelineScaleComponent } from './timeline-scale/timeline-scale.component';
-import { SearchFilterMenuBarComponent,
-         SearchFilterMenuComponent,
-} from './search-filter';
-
 import { FormsModule } from '@angular/forms';
 import { APP_BASE_HREF } from '@angular/common';
 
@@ -48,8 +44,6 @@ describe('AppComponent', function () {
         SearchComponent,
 
         SearchResultComponent,
-        SearchFilterMenuBarComponent,
-        SearchFilterMenuComponent,
         BudgetSearchResultComponent,
         EntitiesSearchResultComponent,
         TendersSearchResultComponent,

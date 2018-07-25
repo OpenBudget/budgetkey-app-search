@@ -22,7 +22,7 @@
   "license": "MIT",
   "dependencies": {
     "@angular/animations": "^5.2.9",
-    "@angular/cli": "^1.2.0",
+    "@angular/cli": "^6.0.8",
     "@angular/common": "^5.2.9",
     "@angular/compiler": "^5.2.9",
     "@angular/compiler-cli": "^5.2.9",
@@ -33,6 +33,7 @@
     "@angular/platform-browser-dynamic": "^5.2.9",
     "@angular/platform-server": "^5.2.9",
     "@angular/router": "^5.2.9",
+    "@ngtools/webpack": "^6.0.8",
     "@types/jasmine": "=2.5.36",
     "@types/lodash": "^4.14.43",
     "@types/node": "^6.0.46",
@@ -42,7 +43,8 @@
     "angular2-template-loader": "^0.6.2",
     "awesome-typescript-loader": "^3.2.1",
     "browserify": "^13.1.1",
-    "budgetkey-ng2-components": "^0.2.31",
+    "budgetkey-ng2-auth": "^0.1.5",
+    "budgetkey-ng2-components": "^0.2.26",
     "canonical-path": "0.0.2",
     "chalk": "^2.3.2",
     "concurrently": "^3.1.0",
@@ -90,5 +92,8 @@
     "webpack": "^3.1.0",
     "zone.js": "^0.6.26"
   },
-  "repository": {}
+  "repository": {},
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.6.8"
+  }
 }
