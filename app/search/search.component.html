@@ -8,34 +8,22 @@
                           [externalTitle]="term"
                           [externalUrlParams]="subscriptionUrlParams"
                           [externalProperties]="subscriptionProperties"
-                          (search)="onTermChanged($event)"
+                          (search)="onTermChanged($event)" 
                           (selected)="onDocTypeSelected($event)"
 
     ></budgetkey-search-bar>
 
-  <!--a href='javascript:void(0)' (click)="download(term);"> Download </a-->
+  <a i18n="@@download" href='javascript:void(0)' (click)="download(term);"> Download </a>
   </div>
-
+  
 </div>
 
-<search-filter-menu-bar 
-    *ngIf='term'
-    [menus]="selectedDocType.filterMenu || []" 
-    (selected)="onSearchFilterMenuChange()" 
->
-  <timeline [periods]="periods"
-            [selectedPeriod]="selectedPeriod"
-            (onPeriodChangeSearch)="onPeriodChangeSearch($event)"
-  ></timeline>
-</search-filter-menu-bar>
+<timeline #timeline [periods]="periods" [selectedPeriod]="selectedPeriod" (onPeriodChangeSearch)="onPeriodChangeSearch($event)"></timeline>
 
 <div #searchBody class="search_body">
 
   <div *ngFor="let item of allDocs | async; let i = index" >
     <search-result [item]="item" [index]="i" [kind]="item.type"></search-result>
   </div>
-  <h1 class="status">{{getStatusText()}}</h1>
+  <h1 i18n="@@statusText" class="status">{{getStatusText()}}</h1>
 </div>
-
-
-

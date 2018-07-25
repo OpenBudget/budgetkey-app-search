@@ -1,7 +1,7 @@
 /**
  * Created by adam on 18/12/2016.
  */
-import { Component, HostListener, Inject } from '@angular/core';
+import { Component, HostListener, ViewChild, Inject } from '@angular/core';
 import { Observable }        from 'rxjs/Observable';
 import { Subject }           from 'rxjs/Subject';
 import { BehaviorSubject }   from 'rxjs/BehaviorSubject';
@@ -11,6 +11,7 @@ import { DownloadService } from '../_service/download.service';
 import { SearchResults, DocResultEntry} from '../_model/SearchResults';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
+import { TimelineComponent } from '../timeline/timeline.component';
 import { TimeRanges } from '../timeline-menu/time-ranges';
 import { SearchBarType } from 'budgetkey-ng2-components/src/components';
 
@@ -51,6 +52,8 @@ export class SearchComponent {
   private selectedPeriod: any;
   private selectedDocType: SearchBarType;
 
+  private filters: any = {};
+
   // Results and stats
   private allResults: any = [];
 
@@ -72,14 +75,14 @@ export class SearchComponent {
   // For download
   private allDocs: BehaviorSubject<DocResultEntry[]>;
 
-  // @ViewChild('timeline') timeline: TimelineComponent;
+
+  @ViewChild('timeline') timeline: TimelineComponent;
 
   constructor(
     private searchService: SearchService,
     private downloadService: DownloadService,
     private route: ActivatedRoute,
     private location: Location,
-
     @Inject(BUDGETKEY_NG2_COMPONENTS_THEME) private theme: any
   ) {
     this.periods = (new TimeRanges()).periods;
@@ -88,13 +91,12 @@ export class SearchComponent {
   }
 
   ngOnInit() {
-
     this.searchTerms = new Subject<SearchParams>();
     this.allDocs = new BehaviorSubject<DocResultEntry[]>([]);
 
     // Connect the search pipeline
-    this.searchResults = <Observable<SearchResults>>(this.searchTerms // open a stream
-      .debounceTime(300)    )    // wait for 300ms pause in events
+    this.searchResults = <Observable<SearchResults>>this.searchTerms // open a stream
+      .debounceTime(300)        // wait for 300ms pause in events
       // .distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap((sp: SearchParams) => {
 
@@ -108,12 +110,7 @@ export class SearchComponent {
         if (this.theme.themeId) {
           this.subscriptionUrlParams += `&theme=${this.theme.themeId}`;
         }
-        if (this.selectedDocType.filterMenu) {
-          for (let filterMenu of this.selectedDocType.filterMenu) {
-            sp.filters = Object.assign({}, sp.filters, filterMenu.selected.filters || {});
-            this.subscriptionUrlParams += '&' + filterMenu.id + '=' + filterMenu.selected.id;
-          }
-        }
+        //TODO finish lang implementation so &lang=xx does not need to be hardcoded below
         url = `/?q=${term || ''}&dd=${sp.displayDocs}&${this.subscriptionUrlParams}`;
         this.location.replaceState(url);
 
@@ -156,6 +153,7 @@ export class SearchComponent {
         if (params['q']) {
           this.term = params['q'];
         }
+
         if (params['dd']) {
           for (let dt of this.docTypes) {
             if (dt.id === params['dd']) {
@@ -166,19 +164,12 @@ export class SearchComponent {
         }
 
         // Filters
-        if (this.selectedDocType.filterMenu) {
-          for (let filterMenu of this.selectedDocType.filterMenu) {
-            if (params[filterMenu.id]) {
-              for (let option of filterMenu.options) {
-                if (params[filterMenu.id] === option.id) {
-                  filterMenu.selected = option;
-                  break;
-                }
-              }
-            }
-            if (!filterMenu.selected) {
-              filterMenu.selected = filterMenu.options[0];
-            }
+        this.filters = {};
+        if (params['filters']) {
+          try {
+            this.filters = JSON.parse(params['filters']);
+          } catch (e) {
+            console.log('Failed to parse filters param', params['filters']);
           }
         }
 
@@ -187,7 +178,6 @@ export class SearchComponent {
         return null;
       });
   }
-
 
   //// SEARCH PIPELINE
 
@@ -198,6 +188,7 @@ export class SearchComponent {
       term = this.selectedDocType.defaultTerm;
       defaultTerm = true;
     }
+
     this.searchTerms.next({
       term: term,
       startRange: this.selectedPeriod.start,
@@ -210,7 +201,7 @@ export class SearchComponent {
       offset: offset,
       pageSize: this.pageSize,
       defaultTerm: defaultTerm,
-      filters: this.selectedDocType.filters || {}
+      filters: Object.assign({}, this.selectedDocType.filters, this.filters)
     });
   }
 
@@ -300,13 +291,6 @@ export class SearchComponent {
   onDocTypeSelected(docType: any) {
     if (docType !== this.selectedDocType) {
       this.selectedDocType = docType;
-      if (docType.filterMenu) {
-        for (let filterMenu of docType.filterMenu) {
-          if (!filterMenu.selected) {
-            filterMenu.selected = filterMenu.options[0];
-          }
-        }
-      }
       this.allResults = [];
       this.doNext(this.term, this.allResults.length);
     }
@@ -319,12 +303,6 @@ export class SearchComponent {
       this.doNext(this.term, this.allResults.length);
     }
   }
-
-  onSearchFilterMenuChange() {
-    this.allResults = [];
-    this.doNext(this.term, this.allResults.length);
-  }
-
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -342,8 +320,8 @@ export class SearchComponent {
   //// MISCELLANEOUS
 
   /**
-   * Converts the current stack of results (allDocs)
-   * from json to csv
+   * Converts the current stack of results (allDocs) 
+   * from json to csv 
    * and opens a download popup for the user
    */
   download(term: string): void {
