@@ -3,7 +3,6 @@ import 'reflect-metadata';
 import 'zone.js';
 import { enableProdMode, TRANSLATIONS, TRANSLATIONS_FORMAT } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-//import { DYNAMIC_TRANSLATIONS } from 'budgetkey-ng2-components';
 import { AppModule } from './app.module';
 
 
@@ -25,6 +24,5 @@ platformBrowserDynamic().bootstrapModule(AppModule, {
   providers: [
     {provide: TRANSLATIONS, useValue: translations},
     {provide: TRANSLATIONS_FORMAT, useValue: 'xlf'},
-    //{provide: DYNAMIC_TRANSLATIONS, useValue: dynamicTranslations},
   ]
 })
