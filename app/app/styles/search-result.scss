@@ -1,0 +1,44 @@
+.single-result {
+    border: 1px solid #E4DCF5;	
+    border-radius: 4px;	
+    background-color: #FFFFFF;	
+    box-shadow: 0 1px 2px 0 rgba(189,189,189,0.6);
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    margin-bottom: 30px;
+
+    .tag {
+        color: #FFFFFF;	
+        font-family: "Abraham TRIAL";	
+        font-size: 13px;
+        font-weight: 500;
+        padding: 0 3px;
+        display: inline-block;
+        border-radius: 4px;
+        white-space: nowrap;
+    }
+
+    .number {
+        direction: ltr;
+        display: inline-block;
+    }      
+
+    div.part {
+        width: 100%;
+        display: flex;
+        flex-flow: row;
+    }
+
+    &.budget {
+        @import './budget-search-result.scss';
+    }
+    
+    &.entities {
+        @import './entities-search-result.scss';
+    }
+
+    &.tenders, &.contract-spending, &.supports {
+        @import './spending-search-result.scss';
+    }
+}

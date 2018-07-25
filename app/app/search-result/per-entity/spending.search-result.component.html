@@ -1,0 +1,21 @@
+<div class='part' (click)='navigate()'>
+    <span class='details'>
+        <span class='top-line'>
+            <span class='tag' [innerHtml]='tag()'></span>
+            <span class='title' [innerHtml]='title()'></span>
+        </span>
+        <span class='parties'>
+            <span [innerHtml]='publisher()'></span>&nbsp;&larr;&nbsp;<span [innerHtml]='supplier()'></span>
+        </span>
+    </span>
+    <span class='amounts'>
+        <span class='volume' [innerHtml]='format_number(volume()) + "&nbsp;₪"'></span>
+        <span class='period'>{{ periodDetails() }}</span>
+    </span>
+</div>
+<div class='part' *ngIf='label()'>
+    <div class='description'>
+        <strong>{{ label() }}:</strong>
+        <span [innerHtml]='description()'></span>
+    </div>
+</div>

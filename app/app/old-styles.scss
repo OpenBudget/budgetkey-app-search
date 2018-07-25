@@ -1,0 +1,578 @@
+/********* search-result-budget *********/
+
+search-result-budget {
+    background: #FFFFFF;
+    box-shadow: 0 1px 1px 0 #BEBEBE;
+    border-radius: 6px;
+    display: block;
+    margin-bottom: 20px;
+    .breadcrumb,
+    .sub-items {
+      padding: 10px 15px;
+      font-size: 1.4em;
+  
+    }
+    .breadcrumb{
+      color: #9B9B9B;
+      margin: 0;
+      background: none;
+    }
+  
+    .header {
+      background: transparentize(#777777, 0.8);
+      border-top: solid 3px #777777;
+      color: #777777;
+      font-weight: 700;
+      margin: 0;
+      .code {
+        font-size: 1.4rem;
+        font-weight: 400;
+        margin-left: 0;
+        line-height: 3.6rem;
+      }
+      .title {
+        margin: 0 0 0 0;
+        font-size: 2em;
+        strong {
+          display: block;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        span{
+          font-size: 1.6rem;
+          display: inline-block;
+        }
+      }
+      .amount {
+        text-align: left;
+        padding: 0 0 5px 10px;
+        display: block;
+        font-weight: 700;
+        font-size: 1.6em;
+      }
+    }
+  
+  
+    @each $change, $change-text in
+          (inc4,   #C20801),
+          (inc3,   #FB3F06),
+          (inc2,   #F58F17),
+          (inc1,   #EAAF03),
+          (even,   #777777),
+          (dec1,   #6DD1DA),
+          (dec2,   #32A4F9),
+          (dec3,   #0065DE),
+          (dec4,   #01329C){
+  
+      .#{$change} {
+        .header {
+          background: transparentize($change-text, 0.8);
+          color: $change-text;
+          border-top-color: $change-text;
+        }
+      }
+  
+    }
+  
+  }
+  
+  /********* search-result-changes *********/
+  $changes-color: #9B9B9B;
+  $changes-color-secondary: #DCDCDC;
+  $changes-color-bg: #F8F7F0;
+  
+  search-result-changes {
+    background: $changes-color-bg;
+    background-image: linear-gradient(-180deg, rgba(255,255,255,0.40) 0%, rgba(255,255,255,0.00) 50%);
+    box-shadow: 0 3px 3px 0 rgba(189,189,189,0.50);
+    min-height: 118px;
+    display: block;
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    color: $changes-color;
+    padding-right: 50px;
+    position: relative;
+    overflow: hidden;
+    &:before {
+      content: "";
+      background: url(../img/paper-hole.svg);
+      width: 49px;
+      height: 100%;
+      border-left: dashed 1px $changes-color-secondary;
+      display: block;
+      position: absolute;
+      right: 0;
+    }
+    .header {
+      padding: 10px 15px 0;
+      > div {
+        border-bottom: dashed 1px $changes-color-secondary;
+        padding-bottom: 10px;
+      }
+      .title{
+        font-weight: 700;
+        display: block;
+        font-size: 2rem;
+        color: #333333;
+      }
+      .status{
+        .date{
+          font-weight: 700;
+        }
+      }
+      .amount{
+        font-weight: 700;
+        display: block;
+        font-size: 1.6rem;
+        line-height: 2.8rem;
+        text-align: left;
+        direction: ltr;
+        &.decreased_a{
+          color: #44c4d0;
+        }
+      }
+      .relative-to-original{
+        text-align: left;
+        display: block;
+      }
+    }
+    .changes-description{
+      padding: 10px;
+      .stamp {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        bottom: -10px;
+        left: -10px;
+        border-radius: 50%;
+        border: 2px solid $changes-color-secondary;
+        overflow: hidden;
+        display:flex;
+        align-items: center; /* Vertical center alignment */
+        justify-content: center; /* Horizontal center alignment */
+        transform: rotate(5deg);
+        opacity: .5;
+        span{
+          border-color: $changes-color-secondary;
+          border-style: solid;
+          border-width: 1px 0;
+          color: $changes-color-secondary;
+          font-weight: 700;
+          display: block;
+          text-align: center;
+          width: 100%;
+        }
+    }
+  }
+  }
+  /******** search-result-exemption + supports **********/
+  
+  $expense-color: #38388A;
+  $expense-color-secondary: #AEAED7;
+  $expense-color-bg: #F3F8FD;
+  
+  .expense{
+    background: $expense-color-bg;
+    border: 1px solid $expense-color-secondary;
+    box-shadow: 0 2px 4px 0 rgba(135,157,181,0.50), inset 0 1px 0 0 #FFFFFF;
+    min-height: 116px;
+    max-height: 320px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+    margin-bottom: 20px;
+    .search-result-type{
+      background: $expense-color-secondary;
+      color: #fff;
+      transform: rotate(90deg);
+      width: 100%;
+      height: 18px;
+      position: absolute;
+      display: block;
+      right: -50%;
+      top: 50%;
+      text-align: center;
+      font-size: 1.2em;
+      line-height: 1.4em;
+      margin-right: 9px;
+      margin-top: -5px;
+    }
+    .meta, .title, .description {
+      margin-right: 30px;
+    }
+    .header {
+      .meta {
+        font-size: 1.4em;
+        color: $expense-color-secondary;
+        padding-top: 5px;
+        display: block;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+      .title {
+        margin: 0 30px 0 0;
+        font-size: 2em;
+        color: $expense-color;
+        strong {
+          display: block;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        span{
+          font-size: 1.6rem;
+          color: $expense-color-secondary;
+          display: inline-block;
+        }
+      }
+      .period {
+        text-align: left;
+        font-size: 1.4em;
+        color: $expense-color-secondary;
+        padding: 0 0 0 10px;
+        display: block;
+      }
+      .amount {
+        text-align: left;
+        padding: 0 0 0 10px;
+        display: block;
+        font-weight: 700;
+        font-size: 2em;
+        color: $expense-color;
+      }
+    }
+    .description {
+      background: #FFFFFF;
+      border-style: solid;
+      border-color: $expense-color-secondary;
+      border-width: 1px 1px 0 0;
+      box-shadow: inset 0 1px 0 0 #FFFFFF;
+      padding: 5px 5px 5px 50px;
+      font-size: 1.2em;
+      color: #797979;
+      min-height: 48px;
+      overflow: hidden;
+      .stamp {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        bottom: -10px;
+        left: -10px;
+        border-radius: 50%;
+        border: 2px solid $expense-color-secondary;
+        overflow: hidden;
+        display:flex;
+        align-items: center; /* Vertical center alignment */
+        justify-content: center; /* Horizontal center alignment */
+        transform: rotate(5deg);
+        opacity: .5;
+        span{
+          border-style: solid;
+          border-color: $expense-color-secondary;
+          border-width: 1px 0;
+          color: $expense-color-secondary;
+          font-weight: 700;
+          display: block;
+          text-align: center;
+          width: 100%;
+        }
+      }
+    }
+  }
+  
+  $supports-color: #8A4838;
+  $supports-color-secondary: #CEB9B5;
+  $supports-color-bg: #FEFAF9;
+  
+  search-result-supports {
+    .expense{
+      background: $supports-color-bg;
+      border-color: $supports-color-secondary;
+      .search-result-type{
+        background: $supports-color-secondary;
+      }
+      .header {
+        .breadcrumb{
+          color: $supports-color-secondary;
+          margin: 0 30px 0 0;
+          background: none;
+          font-size: 1.4em;
+          padding: 5px 0 0;
+          display: block;
+          li+li::before{
+            color: $supports-color-secondary;
+          }
+          a {
+            color: $supports-color-secondary;
+          }
+          li:last-child a{
+            font-weight: 700;
+          }
+        }
+        .title {
+          color: $supports-color;
+          span{
+            color: $supports-color-secondary;
+          }
+        }
+        .period{
+          color: $supports-color-secondary;
+        }
+        .amount {
+          color: $supports-color;
+        }
+      }
+      .description {
+        border-color: $supports-color-secondary;
+        color: $supports-color-secondary;
+        &.others {
+          background: none;
+          padding: 3px 0;
+          border: 0;
+          border-top: 1px solid $supports-color-secondary;
+          color: $supports-color;
+          margin-top: 3px;
+          min-height: 46px;
+        }
+        .stamp {
+          border-color: $supports-color-secondary;
+          span{
+            border-color: $supports-color-secondary;
+            color: $supports-color-secondary;
+          }
+        }
+      }
+    }
+  }
+  
+  // @each $kind in company, association {
+  
+  @each $kind, $entity-color-bg, $entity-color-border, $entity-color-text , $entity-color-text-light in
+        (entity, #DEDEDE, #CCC, #515151, #8A8A8A),  //Gray
+        (association, #D1DFC4, #A9CC8B, #2B5109, #5E8A38), //Green
+        (company, #C4D4DF, #8BB2CC, #093551, #38698A), //Blue
+        (gov, #F2E5BE, #D7B494, #512C0A, #8A4838){ //Yellow
+  
+    search-result-entities {
+      margin-bottom: 20px;
+      display: block;
+  
+      .#{$kind} {
+        color: $entity-color-text;
+        display: block;
+        background-color: #FEFAF9;
+        border: 1px solid #DBDBDB;
+        min-height: 110px;
+        position: relative;
+        &::before,
+        &::after{
+          content: "";
+          display: block;
+          top: -5px;
+          background-color: #FEFAF9;
+          border: 1px solid #DBDBDB;
+          position: absolute;
+          height: 3px;
+          left: 4px;
+          right: 0;
+        }
+        &::after{
+          top: -3px;
+          left: 2px;
+        }
+  
+        .header {
+          z-index: 1;
+          position: relative;
+  
+          h3 {
+            font-size: 2em;
+            display: inline-block;
+            border-radius: 3px 2px 0 0;
+            background: $entity-color-bg;
+            border-style: solid;
+            border-color: $entity-color-border;
+            border-width: 1px 1px 0 0;
+            padding: 10px 10px 7px;
+            position: relative;
+            margin: -10px 0 0;
+  
+            &::after{
+              content: "";
+              background: url(assets/img/#{$kind}_angle.svg);
+              height: 40px;
+              width: 30px;
+              display: block;
+              position: absolute;
+              top: -1px;
+              left: -28px;
+            }
+          }
+        }
+        .figures {
+          text-align: left;
+          height: 100px;
+          font-size: 1.4rem;
+          padding-top: 5px;
+          color: $entity-color-text-light;
+          padding-left: 25px;
+          .figures-info-line {
+            display: flex;
+            direction: ltr;
+            margin: 0 -5px;
+  
+            >.item {
+              margin: 0 5px;
+            }
+  
+            .date-range {
+              display: flex;
+  
+              .period {
+                font-size: 1em;
+              }
+  
+              .period-separator {
+                white-space: pre;
+              }
+            }
+          }
+  
+        .amount {
+            text-align: left;
+            font-weight: 700;
+            font-size: 1em;
+            color: $expense-color;
+            direction: rtl;
+          }
+        }
+  
+        .body{
+          min-height: 80px;
+          margin-top: -71px;
+          margin-left: 10px;
+          border-radius: 2px;
+          background: $entity-color-bg;
+          border: 1px solid $entity-color-border;
+          position: relative;
+          &::after{
+            content: "";
+            display: block;
+            bottom: 0;
+            width: 100%;
+            height: 6px;
+            background: $entity-color-bg;
+            border: 1px solid $entity-color-border;
+            box-shadow: 0 -2px 2px 0 rgba(0,0,0,0.10);
+            border-radius: 3px 2px 0 0;
+            position: absolute;
+          }
+          .description {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            padding: 10px;
+            font-size: 1.4em;
+            min-height: 80px;
+            > div {
+              background: #FBFBFB;
+              background: linear-gradient(
+                to bottom,
+                #FBFBFB,
+                #FBFBFB 95%,
+                #DEE7EF 95%,
+                #DEE7EF
+              );
+              background-size: 100% 20px;
+              box-shadow: 0 0 3px 0 rgba(0,0,0,0.10);
+              position: relative;
+              min-height: 65px;
+              &::after{
+                content: "";
+                width: 1px;
+                background: #ECD7D6;
+                position: absolute;
+                height: 65px;
+                right: 60px;
+                top: 0;
+              }
+              > p {
+                margin: 0 5px;
+                > strong {
+                  display: inline-block;
+                  float: right;
+                  width: 60px;
+                }
+                > span {
+                  display: inline-block;
+                  float: right;
+                  text-overflow: ellipsis;
+                  overflow: hidden;
+                  white-space: nowrap;
+                  width: 90%;
+                }
+              }
+            }
+          }
+          .stamp {
+            span{
+              padding-top: 10px;
+              display: block;
+              font-weight: 700;
+            }
+            line-height: 1.4em;
+            width: 114px;
+            height: 55px;
+            position: absolute;
+            top: 15px;
+            left: 30px;
+            background: url(assets/img/stamp-#{$kind}.svg);
+            transform: rotate(2deg);
+            text-align: center;
+            font-size: 1.2em;
+          }
+        }
+  
+        @media (max-width: 768px) {
+          margin-bottom: 30px;
+          .header {
+            .title {
+              margin-left: 19px;
+              position: relative;
+              z-index: 1;
+            }
+            h3:after {
+              height: 100%;
+              margin-bottom: -1px;
+            }
+            .figures {
+              margin: -7px 0 -12px 10px;
+              .figures-info-line {
+                background: $entity-color-bg;
+                border-style: solid;
+                border-color: $entity-color-border;
+                border-width: 1px 1px 0;
+              }
+            }
+          }
+          .body {
+            min-height: 122px;
+            .description {
+              > div::after{
+                height: 100px;
+              }
+            }
+            .stamp {
+              bottom: -20px;
+              top: auto;
+              left: -10px;
+              z-index: 10;
+            }
+          }
+        }
+      }
+    }
+  }
+  
