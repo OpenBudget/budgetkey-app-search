@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="110px" viewBox="0 0 30 110" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>association_angle</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.0352941176   0 0 0 0 0.207843137   0 0 0 0 0.317647059  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <path d="M426,33 L426.142857,33 L452.257402,-3.56036326 C453.219812,-4.90773743 455.347833,-6 456.99364,-6 L778.002724,-6 C779.105789,-6 780,-5.10333966 780,-4.00250782 L780,35.4992686 L780,112.246094 L426,112.246094 L426,33 Z M419,33 L8.00201998,33 C6.33634486,33 5,34.3475213 5,36.009773 L5,112.246094 L419,112.246094 L419,33 Z" id="path-2"></path>
+        <mask id="mask-3" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="775" height="80.2460938" fill="white">
+            <use xlink:href="#path-2"></use>
+        </mask>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="result:association" transform="translate(-426.000000, 1.000000)" stroke="#A9CC8B" stroke-width="2" fill="#D1DFC4">
+            <g filter="url(#filter-1)" transform="translate(0.000000, 5.000000)" id="Combined-Shape">
+                <use mask="url(#mask-3)" xlink:href="#path-2"></use>
+            </g>
+        </g>
+    </g>
+</svg>
