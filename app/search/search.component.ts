@@ -29,9 +29,9 @@ type SearchParams = {
   displayDocsTypes: string[],
   offset: number,
   pageSize: number,
-  filters: any
+  filters: any,
+  urlLang: string,
 };
-
 @Component({
   selector: 'budget-search',
   template: require('./search.component.html'),
@@ -75,6 +75,8 @@ export class SearchComponent {
   // For download
   private allDocs: BehaviorSubject<DocResultEntry[]>;
 
+  // Language
+  private urlLang: string;
 
   @ViewChild('timeline') timeline: TimelineComponent;
 
@@ -111,7 +113,7 @@ export class SearchComponent {
           this.subscriptionUrlParams += `&theme=${this.theme.themeId}`;
         }
         //TODO finish lang implementation so &lang=xx does not need to be hardcoded below
-        url = `/?q=${term || ''}&dd=${sp.displayDocs}&${this.subscriptionUrlParams}`;
+        url = `/?q=${term || ''}&dd=${sp.displayDocs}&${this.subscriptionUrlParams}&lang=${this.urlLang}`;
         this.location.replaceState(url);
 
         this.updateSubscriptionProperties(sp);
@@ -201,7 +203,8 @@ export class SearchComponent {
       offset: offset,
       pageSize: this.pageSize,
       defaultTerm: defaultTerm,
-      filters: Object.assign({}, this.selectedDocType.filters, this.filters)
+      filters: Object.assign({}, this.selectedDocType.filters, this.filters),
+      urlLang: this.urlLang
     });
   }
 
