@@ -1,16 +1,47 @@
 .single-result {
-    border: 1px solid #E4DCF5;	
-    border-radius: 4px;	
-    background-color: #FFFFFF;	
+    border: 1px solid #E4DCF5;
+    border-radius: 4px;
+    background-color: #FFFFFF;
     box-shadow: 0 1px 2px 0 rgba(189,189,189,0.6);
     width: 100%;
     display: flex;
     flex-flow: column;
     margin-bottom: 30px;
 
+    @media only screen and (max-width: 600px) {
+      .tag {
+        font-size: 3vw !important;
+      }
+
+      .title{
+        font-size: 3vw !important;
+        white-space: normal !important;
+      }
+
+      .parties{
+        font-size: 3vw !important;
+      }
+
+      .amounts{
+        font-size: 3vw !important;
+      }
+
+      .volume{
+        font-size: 3vw !important;
+      }
+
+      div.part {
+        display: -webkit-flex; /* Safari */
+        -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
+        display: flex;
+        flex-direction: column;
+        white-space: normal !important;
+      }
+    }
+
     .tag {
-        color: #FFFFFF;	
-        font-family: "Abraham TRIAL";	
+        color: #FFFFFF;
+        font-family: "Abraham TRIAL";
         font-size: 13px;
         font-weight: 500;
         padding: 0 3px;
@@ -22,7 +53,7 @@
     .number {
         direction: ltr;
         display: inline-block;
-    }      
+    }
 
     div.part {
         width: 100%;
@@ -33,7 +64,7 @@
     &.budget {
         @import './budget-search-result.scss';
     }
-    
+
     &.entities {
         @import './entities-search-result.scss';
     }
