@@ -27,7 +27,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { InjectionToken } from '@angular/core';
 import { THEME_ID_TOKEN } from './_config/config';
-import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 //TODO find way to set locale automatically (navigator.language?)
 let defaultTheme = {
