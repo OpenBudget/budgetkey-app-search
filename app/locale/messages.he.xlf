@@ -10,10 +10,6 @@
         <source>{{getStatusText()}}</source>
         <target>{{getStatusText()}}</target>
       </trans-unit>
-      <trans-unit id="footerlinks" datatype="html">
-        <source>API	קבוצת הדיון שלנו	קוד האתר	דווחו על תקלה	צרו קשר</source>
-        <target>API	קבוצת הדיון שלנו	קוד האתר	דווחו על תקלה	צרו קשר</target>
-      </trans-unit>
       <trans-unit id="supportertext" datatype="html">
         <source>אנו מכירים תודה לעשרות המתנדבים<br/>
 		אשר תרמו ממרצם וזמנם לפיתוח האתר.<br/><br/>                    
