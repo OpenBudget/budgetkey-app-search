@@ -11,7 +11,6 @@ import { DownloadService } from '../_service/download.service';
 import { SearchResults, DocResultEntry} from '../_model/SearchResults';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
-import { TimelineComponent } from '../timeline/timeline.component';
 import { TimeRanges } from '../timeline-menu/time-ranges';
 import { SearchBarType } from 'budgetkey-ng2-components/src/components';
 
@@ -32,6 +31,7 @@ type SearchParams = {
   filters: any,
   urlLang: string,
 };
+
 @Component({
   selector: 'budget-search',
   template: require('./search.component.html'),
@@ -51,8 +51,6 @@ export class SearchComponent {
   private term: string = '';
   private selectedPeriod: any;
   private selectedDocType: SearchBarType;
-
-  private filters: any = {};
 
   // Results and stats
   private allResults: any = [];
@@ -94,7 +92,6 @@ export class SearchComponent {
   }
 
   ngOnInit() {
-
     this.searchTerms = new Subject<SearchParams>();
     this.allDocs = new BehaviorSubject<DocResultEntry[]>([]);
 
@@ -354,7 +351,7 @@ export class SearchComponent {
   //// MISCELLANEOUS
 
   /**
-   * Converts the current stack of results (allDocs) 
+   * Converts the current stack of results (allDocs)
    * from json to csv
    * and opens a download popup for the user
    */
