@@ -112,7 +112,6 @@ export class SearchComponent {
         if (this.theme.themeId) {
           this.subscriptionUrlParams += `&theme=${this.theme.themeId}`;
         }
-        //TODO finish lang implementation so &lang=xx does not need to be hardcoded below
         url = `/?q=${term || ''}&dd=${sp.displayDocs}&${this.subscriptionUrlParams}&lang=${this.urlLang}`;
         this.location.replaceState(url);
 
@@ -165,6 +164,11 @@ export class SearchComponent {
           }
         }
 
+        if (params['lang']){
+          this.urlLang = params['lang'];
+        } else {
+          this.urlLang = 'he';
+        }
         // Filters
         this.filters = {};
         if (params['filters']) {
