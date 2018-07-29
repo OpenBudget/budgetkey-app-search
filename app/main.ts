@@ -9,15 +9,22 @@ import { AppModule } from './app.module';
 platformBrowserDynamic().bootstrapModule(AppModule);
 
 declare const require;
-var BUDGETKEY_LANG='he';
+const langIndex = window.location.href.indexOf("lang=");
+let BUDGETKEY_LANG = '';
+if (langIndex !== -1) {
+  BUDGETKEY_LANG = window.location.href.substring(langIndex+5, langIndex+7);
+} else {
+  BUDGETKEY_LANG = 'he';
+}
 const translations = require(`./locale/messages.${BUDGETKEY_LANG}.xlf`);
-const dynamicTranslations = {
-  //getStatusText
-  'id1': 'string1', //טוען...
-  'id2': 'string2', //אירעה שגיאה בחיפוש, נסו שוב
-  'id3': 'string3', //אין תוצאות
-  'id4': 'string4', //שורת החיפוש ריקה. בצעו חיפוש כלשהו
-  //...
+const dynamdict =
+{
+  // Put in JSON if list gets too big
+  // getStatusText
+'1': 'string1', // טוען...
+'2': 'string2', // אירעה שגיאה בחיפוש, נסו שוב
+'3': 'string3', // אין תוצאות
+'4': 'string4' // שורת החיפוש ריקה. בצעו חיפוש כלשהו
 };
 
 platformBrowserDynamic().bootstrapModule(AppModule, {
@@ -25,4 +32,4 @@ platformBrowserDynamic().bootstrapModule(AppModule, {
     {provide: TRANSLATIONS, useValue: translations},
     {provide: TRANSLATIONS_FORMAT, useValue: 'xlf'},
   ]
-})
+});
