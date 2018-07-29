@@ -56,8 +56,7 @@ app.get(basePath + '*', function(req, res) {
   //set language
   var lang = typeof(req.query.lang) !== "undefined" ? req.query.lang : '';
   var langScript = '';
-  if (lang)
-  {
+  if (lang) {
     langScript += "BUDGETKEY_LANG=" + JSON.stringify(lang) + ";";
   }
 
@@ -85,7 +84,6 @@ app.get(basePath + '*', function(req, res) {
   }
 
   res.render('index.html', {
-    //TEMP ADD LANGSCRIPT
     langScript: langScript,
     themeScript: themeScript, base: basePath, title: title,
     authServerUrl: process.env.AUTH_SERVER_URL

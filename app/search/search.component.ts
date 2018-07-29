@@ -1,7 +1,7 @@
 /**
  * Created by adam on 18/12/2016.
  */
-import { Component, HostListener, ViewChild, Inject } from '@angular/core';
+import { Component, HostListener, Inject } from '@angular/core';
 import { Observable }        from 'rxjs/Observable';
 import { Subject }           from 'rxjs/Subject';
 import { BehaviorSubject }   from 'rxjs/BehaviorSubject';
@@ -78,13 +78,14 @@ export class SearchComponent {
   // Language
   private urlLang: string;
 
-  @ViewChild('timeline') timeline: TimelineComponent;
+  // @ViewChild('timeline') timeline: TimelineComponent;
 
   constructor(
     private searchService: SearchService,
     private downloadService: DownloadService,
     private route: ActivatedRoute,
     private location: Location,
+
     @Inject(BUDGETKEY_NG2_COMPONENTS_THEME) private theme: any
   ) {
     this.periods = (new TimeRanges()).periods;
@@ -93,12 +94,13 @@ export class SearchComponent {
   }
 
   ngOnInit() {
+
     this.searchTerms = new Subject<SearchParams>();
     this.allDocs = new BehaviorSubject<DocResultEntry[]>([]);
 
     // Connect the search pipeline
-    this.searchResults = <Observable<SearchResults>>this.searchTerms // open a stream
-      .debounceTime(300)        // wait for 300ms pause in events
+    this.searchResults = <Observable<SearchResults>>(this.searchTerms // open a stream
+      .debounceTime(300)    )    // wait for 300ms pause in events
       // .distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap((sp: SearchParams) => {
 
@@ -111,6 +113,12 @@ export class SearchComponent {
         }
         if (this.theme.themeId) {
           this.subscriptionUrlParams += `&theme=${this.theme.themeId}`;
+        }
+        if (this.selectedDocType.filterMenu) {
+          for (let filterMenu of this.selectedDocType.filterMenu) {
+            sp.filters = Object.assign({}, sp.filters, filterMenu.selected.filters || {});
+            this.subscriptionUrlParams += '&' + filterMenu.id + '=' + filterMenu.selected.id;
+          }
         }
         url = `/?q=${term || ''}&dd=${sp.displayDocs}&${this.subscriptionUrlParams}&lang=${this.urlLang}`;
         this.location.replaceState(url);
@@ -154,7 +162,6 @@ export class SearchComponent {
         if (params['q']) {
           this.term = params['q'];
         }
-
         if (params['dd']) {
           for (let dt of this.docTypes) {
             if (dt.id === params['dd']) {
@@ -170,12 +177,19 @@ export class SearchComponent {
           this.urlLang = 'he';
         }
         // Filters
-        this.filters = {};
-        if (params['filters']) {
-          try {
-            this.filters = JSON.parse(params['filters']);
-          } catch (e) {
-            console.log('Failed to parse filters param', params['filters']);
+        if (this.selectedDocType.filterMenu) {
+          for (let filterMenu of this.selectedDocType.filterMenu) {
+            if (params[filterMenu.id]) {
+              for (let option of filterMenu.options) {
+                if (params[filterMenu.id] === option.id) {
+                  filterMenu.selected = option;
+                  break;
+                }
+              }
+            }
+            if (!filterMenu.selected) {
+              filterMenu.selected = filterMenu.options[0];
+            }
           }
         }
 
@@ -184,6 +198,7 @@ export class SearchComponent {
         return null;
       });
   }
+
 
   //// SEARCH PIPELINE
 
@@ -194,7 +209,6 @@ export class SearchComponent {
       term = this.selectedDocType.defaultTerm;
       defaultTerm = true;
     }
-
     this.searchTerms.next({
       term: term,
       startRange: this.selectedPeriod.start,
@@ -207,7 +221,7 @@ export class SearchComponent {
       offset: offset,
       pageSize: this.pageSize,
       defaultTerm: defaultTerm,
-      filters: Object.assign({}, this.selectedDocType.filters, this.filters),
+      filters: this.selectedDocType.filters || {},
       urlLang: this.urlLang
     });
   }
@@ -298,6 +312,13 @@ export class SearchComponent {
   onDocTypeSelected(docType: any) {
     if (docType !== this.selectedDocType) {
       this.selectedDocType = docType;
+      if (docType.filterMenu) {
+        for (let filterMenu of docType.filterMenu) {
+          if (!filterMenu.selected) {
+            filterMenu.selected = filterMenu.options[0];
+          }
+        }
+      }
       this.allResults = [];
       this.doNext(this.term, this.allResults.length);
     }
@@ -310,6 +331,12 @@ export class SearchComponent {
       this.doNext(this.term, this.allResults.length);
     }
   }
+
+  onSearchFilterMenuChange() {
+    this.allResults = [];
+    this.doNext(this.term, this.allResults.length);
+  }
+
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -328,7 +355,7 @@ export class SearchComponent {
 
   /**
    * Converts the current stack of results (allDocs) 
-   * from json to csv 
+   * from json to csv
    * and opens a download popup for the user
    */
   download(term: string): void {

@@ -22,14 +22,15 @@ import { SearchResultComponent,
 import { TimelineComponent } from './timeline/timeline.component';
 import { TimelineMenuComponent } from './timeline-menu/timeline-menu.component';
 import { TimelineScaleComponent } from './timeline-scale/timeline-scale.component';
-
+import { SearchFilterMenuBarComponent,
+         SearchFilterMenuComponent,
+} from './search-filter';
 import { AppRoutingModule } from './app-routing.module';
 
 import { InjectionToken } from '@angular/core';
 import { THEME_ID_TOKEN } from './_config/config';
+
 import { LOCALE_ID } from '@angular/core';
-import { registerLocaleData } from '@angular/common';
-//TODO find way to set locale automatically (navigator.language?)
 let defaultTheme = {
   // TODO: add default theme values
 };
@@ -45,8 +46,6 @@ let providers: any[] = [
   SearchService,
   {provide: THEME_TOKEN, useValue: typeof(BUDGETKEY_APP_SEARCH_THEME) === 'undefined' ? defaultTheme : BUDGETKEY_APP_SEARCH_THEME},
   {provide: THEME_ID_TOKEN, useValue: typeof(BUDGETKEY_THEME_ID) === 'undefined' ? null : BUDGETKEY_THEME_ID},
-  //TODO Use BUDGETKEY_LANG
-  { provide: LOCALE_ID, useValue: 'he' }
 ];
 if (typeof(BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
   providers.push({provide: NG_COMPONENTS_THEME_TOKEN, useValue: BUDGETKEY_NG2_COMPONENTS_THEME});
@@ -70,6 +69,9 @@ if (typeof(BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
     TendersSearchResultComponent,
     ContractSpendingSearchResultComponent,
     SupportsSearchResultComponent,
+
+	SearchFilterMenuBarComponent,
+    SearchFilterMenuComponent,
 
     TimelineComponent,
     TimelineMenuComponent,

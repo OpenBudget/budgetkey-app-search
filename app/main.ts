@@ -1,10 +1,11 @@
 import 'core-js/client/shim.min.js';
 import 'reflect-metadata';
 import 'zone.js';
+
 import { enableProdMode, TRANSLATIONS, TRANSLATIONS_FORMAT } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { AppModule } from './app.module';
 
+import { AppModule } from './app.module';
 
 platformBrowserDynamic().bootstrapModule(AppModule);
 
