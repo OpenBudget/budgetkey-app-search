@@ -30,7 +30,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { InjectionToken } from '@angular/core';
 import { THEME_ID_TOKEN } from './_config/config';
 
-import { LOCALE_ID } from '@angular/core';
 let defaultTheme = {
   // TODO: add default theme values
 };
