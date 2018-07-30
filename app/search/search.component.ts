@@ -29,7 +29,7 @@ type SearchParams = {
   displayDocsTypes: string[],
   offset: number,
   pageSize: number,
-  filters: any,
+  filters: any
 };
 
 @Component({
@@ -213,7 +213,7 @@ export class SearchComponent {
       offset: offset,
       pageSize: this.pageSize,
       defaultTerm: defaultTerm,
-      filters: this.selectedDocType.filters || {},
+      filters: this.selectedDocType.filters || {}
     });
   }
 
