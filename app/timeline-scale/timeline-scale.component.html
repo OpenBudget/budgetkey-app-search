@@ -1,3 +1,8 @@
+
 <div class="timeline-scale">
-    <span class='timeline-menu-label'></span>
+    <div class="timeline-item" *ngFor="let item of timeline.reverse()">
+        <div class="timeline-sign">
+            <div [style.height.%]="item[1] * coeficient"></div></div>
+            <div class="timeline-year" *ngIf="item[0].split('-')[1] == '07'">{{ item[0].split('-')[0] }}</div>
+        </div>
 </div>
