@@ -9,15 +9,14 @@ import { AppModule } from './app.module';
 
 platformBrowserDynamic().bootstrapModule(AppModule);
 
-declare const require;
-const langIndex = window.location.href.indexOf("lang=");
-let BUDGETKEY_LANG = '';
+const langIndex = window.location.href.indexOf('lang=');
+let language = '';
 if (langIndex !== -1) {
-  BUDGETKEY_LANG = window.location.href.substring(langIndex+5, langIndex+7);
+  language = window.location.href.substring(langIndex+5, langIndex+7);
 } else {
-  BUDGETKEY_LANG = 'he';
+  language = 'he';
 }
-const translations = require(`./locale/messages.${BUDGETKEY_LANG}.xlf`);
+const translations = require(`./locale/messages.${language}.xlf`);
 const dynamdict =
 {
   // Put in JSON if list gets too big

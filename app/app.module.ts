@@ -11,6 +11,8 @@ import { SearchComponent } from './search/search.component';
 
 import { BudgetKeyCommonModule, THEME_TOKEN as NG_COMPONENTS_THEME_TOKEN } from 'budgetkey-ng2-components';
 
+import { LANG_TOKEN } from 'budgetkey-ng2-components/src/constants';
+
 import { SearchResultComponent,
          BudgetSearchResultComponent,
          EntitiesSearchResultComponent,
@@ -25,6 +27,7 @@ import { TimelineScaleComponent } from './timeline-scale/timeline-scale.componen
 import { SearchFilterMenuBarComponent,
          SearchFilterMenuComponent,
 } from './search-filter';
+
 import { AppRoutingModule } from './app-routing.module';
 
 import { InjectionToken } from '@angular/core';
@@ -34,21 +37,27 @@ let defaultTheme = {
   // TODO: add default theme values
 };
 
+let defaultLang = 'he';
+
 const THEME_TOKEN = new InjectionToken('Theme Config');
 declare const BUDGETKEY_NG2_COMPONENTS_THEME: any;
 declare const BUDGETKEY_APP_SEARCH_THEME: any;
 declare const BUDGETKEY_THEME_ID: any;
+
+declare const BUDGETKEY_LANG: any;
 
 declare const authServerUrl: any;
 
 let providers: any[] = [
   SearchService,
   {provide: THEME_TOKEN, useValue: typeof(BUDGETKEY_APP_SEARCH_THEME) === 'undefined' ? defaultTheme : BUDGETKEY_APP_SEARCH_THEME},
-  {provide: THEME_ID_TOKEN, useValue: typeof(BUDGETKEY_THEME_ID) === 'undefined' ? null : BUDGETKEY_THEME_ID}
+  {provide: THEME_ID_TOKEN, useValue: typeof(BUDGETKEY_THEME_ID) === 'undefined' ? null : BUDGETKEY_THEME_ID},
+  {provide: LANG_TOKEN, useValue: typeof(BUDGETKEY_LANG) === 'undefined' ? defaultLang : BUDGETKEY_LANG}
 ];
 if (typeof(BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
   providers.push({provide: NG_COMPONENTS_THEME_TOKEN, useValue: BUDGETKEY_NG2_COMPONENTS_THEME});
 }
+// TODO check for BUDGETKEY_LANG and use he if undefined
 
 @NgModule({
   imports: [
@@ -69,7 +78,7 @@ if (typeof(BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
     ContractSpendingSearchResultComponent,
     SupportsSearchResultComponent,
 
-	SearchFilterMenuBarComponent,
+    SearchFilterMenuBarComponent,
     SearchFilterMenuComponent,
 
     TimelineComponent,

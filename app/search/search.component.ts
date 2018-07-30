@@ -15,6 +15,7 @@ import { TimeRanges } from '../timeline-menu/time-ranges';
 import { SearchBarType } from 'budgetkey-ng2-components/src/components';
 
 import { THEME_TOKEN as BUDGETKEY_NG2_COMPONENTS_THEME } from 'budgetkey-ng2-components';
+import { LANG_TOKEN as BUDGETKEY_LANG } from 'budgetkey-ng2-components/src/constants';
 
 type SearchParams = {
   term: string,
@@ -29,7 +30,6 @@ type SearchParams = {
   offset: number,
   pageSize: number,
   filters: any,
-  urlLang: string,
 };
 
 @Component({
@@ -73,9 +73,6 @@ export class SearchComponent {
   // For download
   private allDocs: BehaviorSubject<DocResultEntry[]>;
 
-  // Language
-  private urlLang: string;
-
   // @ViewChild('timeline') timeline: TimelineComponent;
 
   constructor(
@@ -84,14 +81,17 @@ export class SearchComponent {
     private route: ActivatedRoute,
     private location: Location,
 
-    @Inject(BUDGETKEY_NG2_COMPONENTS_THEME) private theme: any
+    @Inject(BUDGETKEY_NG2_COMPONENTS_THEME) private theme: any,
+    @Inject(BUDGETKEY_LANG) private lang: string
   ) {
     this.periods = (new TimeRanges()).periods;
     this.docTypes = this.theme.searchBarConfig;
     this.selectedDocType = this.docTypes[0];
+    this.lang = lang;
   }
 
   ngOnInit() {
+
     this.searchTerms = new Subject<SearchParams>();
     this.allDocs = new BehaviorSubject<DocResultEntry[]>([]);
 
@@ -117,7 +117,7 @@ export class SearchComponent {
             this.subscriptionUrlParams += '&' + filterMenu.id + '=' + filterMenu.selected.id;
           }
         }
-        url = `/?q=${term || ''}&dd=${sp.displayDocs}&${this.subscriptionUrlParams}&lang=${this.urlLang}`;
+        url = `/?q=${term || ''}&dd=${sp.displayDocs}&${this.subscriptionUrlParams}&lang=${this.lang}`;
         this.location.replaceState(url);
 
         this.updateSubscriptionProperties(sp);
@@ -168,11 +168,6 @@ export class SearchComponent {
           }
         }
 
-        if (params['lang']){
-          this.urlLang = params['lang'];
-        } else {
-          this.urlLang = 'he';
-        }
         // Filters
         if (this.selectedDocType.filterMenu) {
           for (let filterMenu of this.selectedDocType.filterMenu) {
@@ -219,7 +214,6 @@ export class SearchComponent {
       pageSize: this.pageSize,
       defaultTerm: defaultTerm,
       filters: this.selectedDocType.filters || {},
-      urlLang: this.urlLang
     });
   }
 
