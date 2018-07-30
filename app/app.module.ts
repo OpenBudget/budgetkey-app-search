@@ -57,7 +57,6 @@ let providers: any[] = [
 if (typeof(BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
   providers.push({provide: NG_COMPONENTS_THEME_TOKEN, useValue: BUDGETKEY_NG2_COMPONENTS_THEME});
 }
-// TODO check for BUDGETKEY_LANG and use he if undefined
 
 @NgModule({
   imports: [
