@@ -20,7 +20,9 @@ describe('TimelineScaleComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should be created', () => {
-    expect(component).toBeTruthy();
+  it('coeficient should be between 0 and 1', () => {
+    expect(component['coeficient']).toBeGreaterThan(0);
+    expect(component['coeficient']).toBeLessThan(1);
   });
+
 });
