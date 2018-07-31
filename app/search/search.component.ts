@@ -15,7 +15,7 @@ import { TimeRanges } from '../timeline-menu/time-ranges';
 import { SearchBarType } from 'budgetkey-ng2-components/src/components';
 
 import { THEME_TOKEN as BUDGETKEY_NG2_COMPONENTS_THEME } from 'budgetkey-ng2-components';
-import { LANG_TOKEN as BUDGETKEY_LANG } from 'budgetkey-ng2-components/src/constants';
+import { LANG_TOKEN as BUDGETKEY_LANG } from 'budgetkey-ng2-components';
 
 type SearchParams = {
   term: string,
