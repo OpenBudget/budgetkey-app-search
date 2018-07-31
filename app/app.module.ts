@@ -11,7 +11,7 @@ import { SearchComponent } from './search/search.component';
 
 import { BudgetKeyCommonModule, THEME_TOKEN as NG_COMPONENTS_THEME_TOKEN } from 'budgetkey-ng2-components';
 
-import { LANG_TOKEN } from 'budgetkey-ng2-components/src/constants';
+import { LANG_TOKEN } from 'budgetkey-ng2-components';
 
 import { SearchResultComponent,
          BudgetSearchResultComponent,
