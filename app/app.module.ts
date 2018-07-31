@@ -9,9 +9,8 @@ import { HttpModule } from '@angular/http';
 import { SearchService } from './_service/search.service';
 import { SearchComponent } from './search/search.component';
 
-import { BudgetKeyCommonModule, THEME_TOKEN as NG_COMPONENTS_THEME_TOKEN } from 'budgetkey-ng2-components';
+import { BudgetKeyCommonModule, THEME_TOKEN as NG_COMPONENTS_THEME_TOKEN, LANG_TOKEN } from 'budgetkey-ng2-components';
 
-import { LANG_TOKEN } from 'budgetkey-ng2-components';
 
 import { SearchResultComponent,
          BudgetSearchResultComponent,

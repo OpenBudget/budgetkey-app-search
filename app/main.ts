@@ -17,15 +17,6 @@ if (langIndex !== -1) {
   language = 'he';
 }
 const translations = require(`./locale/messages.${language}.xlf`);
-const dynamdict =
-{
-  // Put in JSON if list gets too big
-  // getStatusText
-'1': 'string1', // טוען...
-'2': 'string2', // אירעה שגיאה בחיפוש, נסו שוב
-'3': 'string3', // אין תוצאות
-'4': 'string4' // שורת החיפוש ריקה. בצעו חיפוש כלשהו
-};
 
 platformBrowserDynamic().bootstrapModule(AppModule, {
   providers: [
