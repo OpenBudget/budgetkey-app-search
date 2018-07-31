@@ -16,8 +16,8 @@ export class TimelineScaleComponent implements OnInit {
 
   ngOnInit() {
 
-    let maxValue = 0
-    this.timeline.forEach((item:any, index:any) => {
+    let maxValue = 0;
+    this.timeline.forEach((item: any, index: any) => {
       maxValue = item[1] > (maxValue || 0) ? item[1] : maxValue;
     });
 
