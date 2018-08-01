@@ -16,7 +16,7 @@ if (langIndex !== -1) {
 } else {
   language = 'he';
 }
-const translations = require(`./locale/messages.${language}.xlf`);
+const translations = require(`./i18n/messages.${language}.xlf`);
 
 platformBrowserDynamic().bootstrapModule(AppModule, {
   providers: [
