@@ -1,14 +1,18 @@
 <div class='part' (click)='navigate()'>
     <span class='details'>
         <span class='top-line'>
-            <span class='tag' [innerHtml]='tag()'></span>
+            <ng-container *ngIf='tag2()'>
+                <span class='tag right' [innerHtml]='tag()'></span>
+                <span class='tag left' [innerHtml]='tag2()'></span>
+            </ng-container>
+            <span class='tag' [innerHtml]='tag()' *ngIf='!tag2()'></span>
             <span class='title' [innerHtml]='title()'></span>
         </span>
         <span class='parties'>
             <span [innerHtml]='publisher()'></span>&nbsp;&larr;&nbsp;<span [innerHtml]='supplier()'></span>
         </span>
     </span>
-    <span class='amounts'>
+    <span class='amounts' *ngIf='volume() || periodDetails()'>
         <span class='volume' [innerHtml]='format_number(volume()) + "&nbsp;₪"'></span>
         <span class='period'>{{ periodDetails() }}</span>
     </span>

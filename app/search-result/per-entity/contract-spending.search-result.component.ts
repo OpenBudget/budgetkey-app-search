@@ -10,8 +10,12 @@ import { BaseSearchResultComponent } from './base.search-result.component';
   template: require('./spending.search-result.component.html')
 })
 export class ContractSpendingSearchResultComponent extends BaseSearchResultComponent {
-  tag () {
+  tag() {
     return 'התקשרות';
+  }
+
+  tag2() {
+    return this.d['contract_active'] ? 'פעילה' : 'הסתיימה';
   }
 
   title() {
