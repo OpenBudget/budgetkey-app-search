@@ -10,8 +10,12 @@ import { BaseSearchResultComponent } from './base.search-result.component';
   template: require('./spending.search-result.component.html')
 })
 export class SupportsSearchResultComponent extends BaseSearchResultComponent {
-  tag () {
+  tag() {
     return 'תמיכה תקציבית';
+  }
+
+  tag2() {
+    return this.d['request_type'] === 'א3' ? '3' + 'א' : this.d['request_type'];
   }
 
   title() {
@@ -30,13 +34,9 @@ export class SupportsSearchResultComponent extends BaseSearchResultComponent {
     return this.d['amount_total'];
   }
 
-  label() {
-    return 'סוג התמיכה:';
-  }
+  label() {}
 
-  description() {
-    return this.d['request_type'];
-  }
+  description() {}
 
   periodDetails() {
     let lastYear = this.d['last_payment_year'];

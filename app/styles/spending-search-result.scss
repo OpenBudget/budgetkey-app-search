@@ -13,10 +13,19 @@ div.part:nth-child(1) {
         .top-line {
             display: flex;
             align-items: center;
-            max-width: 500px;
             .tag {
                 background-color: #19008F;
                 font-weight: 500;
+                &.right {
+                    border-top-left-radius: 0;
+                    border-bottom-left-radius: 0;
+                }
+                &.left {
+                    color: #19008F;
+                    background-color: transparent;    
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 0;
+                }
             }
             .title {
                 padding-right: 15px;
@@ -24,9 +33,9 @@ div.part:nth-child(1) {
                 font-family: "Miriam Libre";	
                 font-size: 18px;	
                 font-weight: bold;
-                text-overflow: ellipsis;
-                overflow: hidden;
-                white-space: nowrap;
+                // text-overflow: ellipsis;
+                // overflow: hidden;
+                // white-space: nowrap;
             }
         }
         .parties {

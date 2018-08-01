@@ -10,8 +10,12 @@ import { BaseSearchResultComponent } from './base.search-result.component';
   template: require('./spending.search-result.component.html')
 })
 export class TendersSearchResultComponent extends BaseSearchResultComponent {
-  tag () {
+  tag() {
     return this.d['tender_type_he'];
+  }
+
+  tag2() {
+    return this.d['simple_decision'];
   }
 
   title() {
