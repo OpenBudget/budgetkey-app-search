@@ -15,7 +15,7 @@ export class ContractSpendingSearchResultComponent extends BaseSearchResultCompo
   }
 
   tag2() {
-    return this.d['contract_active'] ? 'פעילה' : 'הסתיימה';
+    return this.d['contract_is_active'] ? 'פעילה' : 'הסתיימה';
   }
 
   title() {
