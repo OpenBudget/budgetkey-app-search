@@ -3,7 +3,7 @@
  */
 import { Component, Input, Inject } from '@angular/core';
 import { DocResultEntry } from '../../_model/SearchResults';
-import { THEME_ID_TOKEN } from '../../_config/config';
+import { THEME_ID_TOKEN } from 'budgetkey-ng2-components';
 
 // generic Component
 @Component({
