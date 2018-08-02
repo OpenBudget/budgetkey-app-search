@@ -1,4 +1,4 @@
-import { SearchParams } from "./SearchParams";
+import { SearchParams } from './SearchParams';
 
 /**
  * Created by adam on 18/12/2016.

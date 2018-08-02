@@ -82,8 +82,8 @@ export class SearchComponent {
     this.allDocs = new BehaviorSubject<DocResultEntry[]>([]);
 
     // Connect the search pipeline
-    this.searchResults = <Observable<SearchResults>>(this.searchTerms // open a stream
-      .debounceTime(300)    )    // wait for 300ms pause in events
+    this.searchResults = <Observable<SearchResults>>(this.searchTerms) // open a stream
+      .debounceTime(300)           // wait for 300ms pause in events
       // .distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap((sp: SearchParams) => {
 
@@ -218,7 +218,7 @@ export class SearchComponent {
         sp.term,
         sp.startRange,
         sp.endRange,
-        this.docTypes
+        this.docTypes.filter((dt: any) => dt !== this.selectedDocType)
       );
       return from([search, count]);
     } else {
@@ -235,14 +235,15 @@ export class SearchComponent {
   processResults(results: SearchResults): void {
     if (results) {
       if (results.search_counts) {
-        for (let dt of this.docTypes) {
-          dt.amount = 0;
-        }
         for (let key of Object.keys(results.search_counts)) {
           let count = results.search_counts[key].total_overall;
+          if (key === '_current') {
+            key = results.params.displayDocs;
+          }
           for (let dt of this.docTypes) {
             if (dt.id === key) {
-              dt.amount += count;
+              dt.amount = count;
+              break;
             }
           }
         }
