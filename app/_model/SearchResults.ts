@@ -1,3 +1,5 @@
+import { SearchParams } from "./SearchParams";
+
 /**
  * Created by adam on 18/12/2016.
  */
@@ -36,4 +38,5 @@ export class SearchResults {
   displayDocs: string;
   offset: number;
   pageSize: number;
+  params?: SearchParams;
 }

@@ -15,21 +15,8 @@ import { TimeRanges } from '../timeline-menu/time-ranges';
 import { SearchBarType } from 'budgetkey-ng2-components/src/components';
 
 import { THEME_TOKEN, LANG_TOKEN } from 'budgetkey-ng2-components';
+import { SearchParams } from '../_model/SearchParams';
 
-type SearchParams = {
-  term: string,
-  defaultTerm: boolean,
-  timeRange: string,
-  timeRangeDisplay: string,
-  startRange: string,
-  endRange: string,
-  displayDocs: string,
-  displayDocsDisplay: string,
-  displayDocsTypes: string[],
-  offset: number,
-  pageSize: number,
-  filters: any
-};
 
 @Component({
   selector: 'budget-search',
@@ -226,15 +213,7 @@ export class SearchComponent {
     if (sp.term) {
       this.isSearching = true;
       this.isErrorInLastSearch = false;
-      let search = this.searchService.search(
-        sp.term,
-        sp.startRange,
-        sp.endRange,
-        sp.pageSize,
-        sp.offset,
-        sp.displayDocsTypes,
-        sp.filters
-      );
+      let search = this.searchService.search(sp);
       let count = this.searchService.count(
         sp.term,
         sp.startRange,
