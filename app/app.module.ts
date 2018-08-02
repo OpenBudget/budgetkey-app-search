@@ -28,17 +28,13 @@ import { SearchFilterMenuBarComponent,
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { InjectionToken } from '@angular/core';
-import { THEME_ID_TOKEN } from './_config/config';
-
 let defaultTheme = {
   // TODO: add default theme values
 };
 
 let defaultLang = 'he';
 
-const THEME_TOKEN = new InjectionToken('Theme Config');
-declare const BUDGETKEY_NG2_COMPONENTS_THEME: any;
+declare let BUDGETKEY_NG2_COMPONENTS_THEME: any;
 declare const BUDGETKEY_APP_SEARCH_THEME: any;
 declare const BUDGETKEY_THEME_ID: any;
 
@@ -48,7 +44,6 @@ declare const authServerUrl: any;
 
 let providers: any[] = [
   SearchService,
-  {provide: THEME_TOKEN, useValue: typeof(BUDGETKEY_APP_SEARCH_THEME) === 'undefined' ? defaultTheme : BUDGETKEY_APP_SEARCH_THEME},
   {provide: THEME_ID_TOKEN, useValue: typeof(BUDGETKEY_THEME_ID) === 'undefined' ? null : BUDGETKEY_THEME_ID},
   {provide: LANG_TOKEN, useValue: typeof(BUDGETKEY_LANG) === 'undefined' ? defaultLang : BUDGETKEY_LANG}
 ];
