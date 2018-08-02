@@ -267,7 +267,8 @@ export class SearchComponent {
             }
           }
         }
-      } else {
+      }
+      if (results.search_results) {
         this.allResults = this.allResults.slice(0, results.offset);
         this.allResults.push(...results.search_results);
         this.allDocs.next(this.allResults);
