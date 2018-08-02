@@ -14,7 +14,7 @@ import { Location } from '@angular/common';
 import { TimeRanges } from '../timeline-menu/time-ranges';
 import { SearchBarType } from 'budgetkey-ng2-components/src/components';
 
-import { THEME_TOKEN as BUDGETKEY_NG2_COMPONENTS_THEME } from 'budgetkey-ng2-components';
+import { THEME_TOKEN as BUDGETKEY_NG2_COMPONENTS_THEME, LANG_TOKEN as BUDGETKEY_LANG } from 'budgetkey-ng2-components';
 
 type SearchParams = {
   term: string,
@@ -80,11 +80,13 @@ export class SearchComponent {
     private route: ActivatedRoute,
     private location: Location,
 
-    @Inject(BUDGETKEY_NG2_COMPONENTS_THEME) private theme: any
+    @Inject(BUDGETKEY_NG2_COMPONENTS_THEME) private theme: any,
+    @Inject(BUDGETKEY_LANG) private lang: string
   ) {
     this.periods = (new TimeRanges()).periods;
     this.docTypes = this.theme.searchBarConfig;
     this.selectedDocType = this.docTypes[0];
+    this.lang = lang;
   }
 
   ngOnInit() {
@@ -114,7 +116,7 @@ export class SearchComponent {
             this.subscriptionUrlParams += '&' + filterMenu.id + '=' + filterMenu.selected.id;
           }
         }
-        url = `/?q=${term || ''}&dd=${sp.displayDocs}&${this.subscriptionUrlParams}`;
+        url = `/?q=${term || ''}&dd=${sp.displayDocs}&${this.subscriptionUrlParams}&lang=${this.lang}`;
         this.location.replaceState(url);
 
         this.updateSubscriptionProperties(sp);

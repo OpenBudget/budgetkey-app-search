@@ -43,6 +43,10 @@ module.exports = {
         loader: 'raw-loader'
       },
       {
+        test: /\.xlf/,
+        loader: 'raw-loader'
+      },
+      {
         test: /\.scss$/,
         loader: 'raw-loader!sass-loader'
       }

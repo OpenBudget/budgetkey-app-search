@@ -9,8 +9,7 @@ import { HttpModule } from '@angular/http';
 import { SearchService } from './_service/search.service';
 import { SearchComponent } from './search/search.component';
 
-import { BudgetKeyCommonModule, 
-         THEME_ID_TOKEN, THEME_TOKEN } from 'budgetkey-ng2-components';
+import { BudgetKeyCommonModule, THEME_ID_TOKEN, THEME_TOKEN, LANG_TOKEN } from 'budgetkey-ng2-components';
 
 import { SearchResultComponent,
          BudgetSearchResultComponent,
@@ -29,13 +28,24 @@ import { SearchFilterMenuBarComponent,
 
 import { AppRoutingModule } from './app-routing.module';
 
+let defaultTheme = {
+  // TODO: add default theme values
+};
+
+let defaultLang = 'he';
+
 declare let BUDGETKEY_NG2_COMPONENTS_THEME: any;
 declare const BUDGETKEY_APP_SEARCH_THEME: any;
 declare const BUDGETKEY_THEME_ID: any;
 
+declare const BUDGETKEY_LANG: any;
+
+declare const authServerUrl: any;
+
 let providers: any[] = [
   SearchService,
-  {provide: THEME_ID_TOKEN, useValue: typeof(BUDGETKEY_THEME_ID) === 'undefined' ? null : BUDGETKEY_THEME_ID}
+  {provide: THEME_ID_TOKEN, useValue: typeof(BUDGETKEY_THEME_ID) === 'undefined' ? null : BUDGETKEY_THEME_ID},
+  {provide: LANG_TOKEN, useValue: typeof(BUDGETKEY_LANG) === 'undefined' ? defaultLang : BUDGETKEY_LANG}
 ];
 
 if (typeof(BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {

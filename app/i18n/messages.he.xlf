@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="he" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="download" datatype="html">
+        <source>Download</source>
+        <target>Download</target>
+      </trans-unit>
+      <trans-unit id="statusText" datatype="html">
+        <source>{{getStatusText()}}</source>
+        <target>{{getStatusText()}}</target>
+      </trans-unit>
+      <trans-unit id="supportertext" datatype="html">
+        <source>אנו מכירים תודה לעשרות המתנדבים<br/>
+		אשר תרמו ממרצם וזמנם לפיתוח האתר.<br/><br/>                    
+		ובנוסף לתמיכתם האדיבה של</source>
+        <target>אנו מכירים תודה לעשרות המתנדבים
+		אשר תרמו ממרצם וזמנם לפיתוח האתר.                   
+		ובנוסף לתמיכתם האדיבה של</target>
+      </trans-unit>
+      <trans-unit id="disclaimer" datatype="html">
+        <source>This website was created and maintained with the financial support of the European Union.
+    Its contents are the sole responsibility of the Public Knowledge Workshop and do not necessarily
+    reflect the views of the European Union.</source>
+        <target>This website was created and maintained with the financial support of the European Union.
+    Its contents are the sole responsibility of the Public Knowledge Workshop and do not necessarily
+    reflect the views of the European Union.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

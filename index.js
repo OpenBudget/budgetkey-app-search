@@ -53,6 +53,13 @@ app.get(basePath + '*', function(req, res) {
     }
   }
 
+  //set language
+  var lang = typeof(req.query.lang) !== "undefined" ? req.query.lang : '';
+  var langScript = '';
+  if (lang) {
+    langScript += "BUDGETKEY_LANG=" + JSON.stringify(lang) + ";";
+  }
+
   var title = 'חיפוש במפתח התקציב';
   var term = req.query.q;
   var kind = req.query.dd;
@@ -77,6 +84,7 @@ app.get(basePath + '*', function(req, res) {
   }
 
   res.render('index.html', {
+    langScript: langScript,
     themeScript: themeScript, base: basePath, title: title,
     authServerUrl: process.env.AUTH_SERVER_URL
   });
