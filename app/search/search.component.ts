@@ -38,8 +38,6 @@ type SearchParams = {
   providers: [SearchService, DownloadService]
 })
 export class SearchComponent {
-  // temp until getStatusText() sets value directly
-  status = 'error';
 
   // Search request and response pipeline
   private searchTerms: Subject<SearchParams>;
