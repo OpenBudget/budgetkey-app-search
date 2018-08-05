@@ -1,19 +1,21 @@
 :host {
-    display: block;
-    width: 610px;
-    height: 100%;
+    display: flex;
+    height: 40px;
+    margin-top: 15px;
 }
   
 .timeline-scale {
     height: 100%;
+    width: 100%;
     padding: 0;
     margin: 0;
     display: flex;
     overflow: hidden;
+    justify-content: space-evenly;
 }
 
 .timeline-item {
-    width: 30px;
+    flex: 1;
     height: 100%;
     margin: 0;
     margin-right: 1px;
@@ -26,23 +28,17 @@
 }
 
 .timeline-sign {
-    width: 7px;
     height: 60%;
     margin: 0;
     position: relative;
 }
 
-.timeline-sign>div {
+.timeline-sign > div {
     position: absolute;
     bottom: 0px;
     height: 100%; 
     width: 100%;
-
-    background: rgb(180,221,180); /* Old browsers */
-    background: -moz-linear-gradient(top, rgba(180,221,180,1) 0%, rgba(131,199,131,1) 17%, rgba(82,177,82,1) 33%, rgba(0,138,0,1) 67%, rgba(0,87,0,1) 83%, rgba(0,36,0,1) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, rgba(180,221,180,1) 0%,rgba(131,199,131,1) 17%,rgba(82,177,82,1) 33%,rgba(0,138,0,1) 67%,rgba(0,87,0,1) 83%,rgba(0,36,0,1) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, rgba(180,221,180,1) 0%,rgba(131,199,131,1) 17%,rgba(82,177,82,1) 33%,rgba(0,138,0,1) 67%,rgba(0,87,0,1) 83%,rgba(0,36,0,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b4ddb4', endColorstr='#002400',GradientType=0 ); /* IE6-9 */
+    background: #FF5A5F;
 }
 
 .timeline-year {
@@ -50,5 +46,11 @@
     padding: 0;
     line-height: 11px;
     position: absolute;
-    bottom: 0px;
+    top: 30px;
+    left: 0px;
+    padding-left: 4px;
+    overflow: visible;
+    font-size: 10px;
+    font-family: "Miriam Libre";
+    border-left: 1px solid gray;
 }

@@ -18,6 +18,7 @@
 
 </div>
 
+<timeline-scale [timeline]='timeline' *ngIf='timeline && timeline.length > 20'></timeline-scale>
 <search-filter-menu-bar 
     *ngIf='term'
     [menus]="selectedDocType.filterMenu || []" 
