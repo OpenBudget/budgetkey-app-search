@@ -14,22 +14,9 @@ import { Location } from '@angular/common';
 import { TimeRanges } from '../timeline-menu/time-ranges';
 import { SearchBarType } from 'budgetkey-ng2-components/src/components';
 
-import { THEME_TOKEN as BUDGETKEY_NG2_COMPONENTS_THEME } from 'budgetkey-ng2-components';
+import { THEME_TOKEN, LANG_TOKEN } from 'budgetkey-ng2-components';
+import { SearchParams } from '../_model/SearchParams';
 
-type SearchParams = {
-  term: string,
-  defaultTerm: boolean,
-  timeRange: string,
-  timeRangeDisplay: string,
-  startRange: string,
-  endRange: string,
-  displayDocs: string,
-  displayDocsDisplay: string,
-  displayDocsTypes: string[],
-  offset: number,
-  pageSize: number,
-  filters: any
-};
 
 @Component({
   selector: 'budget-search',
@@ -80,11 +67,13 @@ export class SearchComponent {
     private route: ActivatedRoute,
     private location: Location,
 
-    @Inject(BUDGETKEY_NG2_COMPONENTS_THEME) private theme: any
+    @Inject(THEME_TOKEN) private theme: any,
+    @Inject(LANG_TOKEN) private lang: string
   ) {
     this.periods = (new TimeRanges()).periods;
     this.docTypes = this.theme.searchBarConfig;
     this.selectedDocType = this.docTypes[0];
+    this.lang = lang;
   }
 
   ngOnInit() {
@@ -93,8 +82,8 @@ export class SearchComponent {
     this.allDocs = new BehaviorSubject<DocResultEntry[]>([]);
 
     // Connect the search pipeline
-    this.searchResults = <Observable<SearchResults>>(this.searchTerms // open a stream
-      .debounceTime(300)    )    // wait for 300ms pause in events
+    this.searchResults = <Observable<SearchResults>>(this.searchTerms) // open a stream
+      .debounceTime(300)           // wait for 300ms pause in events
       // .distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap((sp: SearchParams) => {
 
@@ -114,7 +103,7 @@ export class SearchComponent {
             this.subscriptionUrlParams += '&' + filterMenu.id + '=' + filterMenu.selected.id;
           }
         }
-        url = `/?q=${term || ''}&dd=${sp.displayDocs}&${this.subscriptionUrlParams}`;
+        url = `/?q=${term || ''}&dd=${sp.displayDocs}&${this.subscriptionUrlParams}&lang=${this.lang}`;
         this.location.replaceState(url);
 
         this.updateSubscriptionProperties(sp);
@@ -224,20 +213,12 @@ export class SearchComponent {
     if (sp.term) {
       this.isSearching = true;
       this.isErrorInLastSearch = false;
-      let search = this.searchService.search(
-        sp.term,
-        sp.startRange,
-        sp.endRange,
-        sp.pageSize,
-        sp.offset,
-        sp.displayDocsTypes,
-        sp.filters
-      );
+      let search = this.searchService.search(sp);
       let count = this.searchService.count(
         sp.term,
         sp.startRange,
         sp.endRange,
-        this.docTypes
+        this.docTypes.filter((dt: any) => dt !== this.selectedDocType)
       );
       return from([search, count]);
     } else {
@@ -254,18 +235,20 @@ export class SearchComponent {
   processResults(results: SearchResults): void {
     if (results) {
       if (results.search_counts) {
-        for (let dt of this.docTypes) {
-          dt.amount = 0;
-        }
         for (let key of Object.keys(results.search_counts)) {
           let count = results.search_counts[key].total_overall;
+          if (key === '_current') {
+            key = results.params.displayDocs;
+          }
           for (let dt of this.docTypes) {
             if (dt.id === key) {
-              dt.amount += count;
+              dt.amount = count;
+              break;
             }
           }
         }
-      } else {
+      }
+      if (results.search_results) {
         this.allResults = this.allResults.slice(0, results.offset);
         this.allResults.push(...results.search_results);
         this.allDocs.next(this.allResults);

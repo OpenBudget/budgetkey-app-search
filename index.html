@@ -5,11 +5,13 @@
     <base href="{{base}}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="canonical" href="https://next.obudget.org/s/" />
     <link rel="stylesheet" type="text/css" href="assets/styles/budgetkey-ng2-components.css">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Miriam+Libre:700,400&subset=hebrew"></link>
     <link rel="stylesheet" type="text/css" href="//next.obudget.org/_fonts/stylesheet.css"></link>
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
-    <script>window.authServerUrl="{{ authServerUrl }}";{{ themeScript | safe }}</script>
+    <script>window.authServerUrl="{{ authServerUrl }}";{{ themeScript | safe }}{{ langScript | safe }}</script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-10203855-10"></script>
     <script>
       window.dataLayer = window.dataLayer || [];

@@ -8,47 +8,51 @@
     flex-flow: column;
     margin-bottom: 30px;
 
-  @media only screen and (max-width: 600px) {
+    @media only screen and (max-width: 600px) {
+      .tag {
+        font-size: 3vw !important;
+      }
 
-    .tag {
-      font-size: 3vw !important;
-    }
+      .title{
+        font-size: 3vw !important;
+        white-space: normal !important;
+      }
 
-    .title{
-      font-size: 3vw !important;
-      white-space: normal !important;
-    }
+      .parties{
+        font-size: 3vw !important;
+      }
 
-    .parties{
-      font-size: 3vw !important;
-    }
+      .amounts{
+        font-size: 3vw !important;
+      }
 
-    .amounts{
-      font-size: 3vw !important;
-    }
+      .volume{
+        font-size: 3vw !important;
+      }
 
-    .volume{
-      font-size: 3vw !important;
+      div.part {
+        display: -webkit-flex; /* Safari */
+        -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
+        display: flex;
+        flex-direction: column;
+        white-space: normal !important;
+      }
     }
-
-    div.part {
-      display: -webkit-flex; /* Safari */
-      -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
-      display: flex;
-      flex-direction: column;
-      white-space: normal !important;
-    }
-  }
 
     .tag {
         color: #FFFFFF;
         font-family: "Abraham TRIAL";
         font-size: 13px;
         font-weight: 500;
-        padding: 0 3px;
+        padding: 0 4px;
         display: inline-block;
         border-radius: 4px;
         white-space: nowrap;
+        border: 0.5px solid #19008F;
+
+        em {
+          background-color: inherit !important;
+        }
     }
 
     .number {
@@ -60,11 +64,6 @@
         width: 100%;
         display: flex;
         flex-flow: row;
-      display: -webkit-flex; /* Safari */
-      -webkit-flex-direction: row-reverse; /* Safari 6.1+ */
-      display: flex;
-      flex-direction: column;
-      white-space: normal !important;
     }
 
     &.budget {

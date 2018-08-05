@@ -4,7 +4,7 @@
 import { Component, Input, Inject } from '@angular/core';
 import { DocResultEntry } from '../_model/SearchResults';
 import { KIND_PARAMETERS } from './kind-parameters';
-import { THEME_ID_TOKEN } from '../_config/config';
+import { THEME_ID_TOKEN } from 'budgetkey-ng2-components';
 let _ = require('lodash');
 
 // generic Component

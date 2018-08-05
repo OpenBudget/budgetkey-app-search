@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { URL } from '../_config/config';  // 'http://next.obudget.org/search';
 import { SearchResults } from '../_model/SearchResults';
 import { SearchBarType } from 'budgetkey-ng2-components/src/components';
+import { SearchParams } from '../_model/SearchParams';
 
 const gtag: any = window['gtag'];
 
@@ -27,19 +28,19 @@ export class SearchService {
    * @returns {Observable<SearchResults>}
    */
 
-  search(term: string, startRange: string, endRange: string, pageSize: number, offset: number,
-         kindsList: Array<string>, filters: any ): Observable<SearchResults> {
+  search(sp: SearchParams): Observable<SearchResults> {
     let startTime: Date = new Date(); // update time-stamp
-    let joinedkinds = kindsList.join(',');
-    if (offset === 0) {
+    let joinedkinds = sp.displayDocsTypes.join(',');
+    if (sp.offset === 0) {
       if (gtag) {
-        gtag('event', 'search', {'search_term': term, 'kinds': joinedkinds});
+        gtag('event', 'search', {'search_term': sp.term, 'kinds': joinedkinds});
       }
     }
-    let url = `${URL}/${joinedkinds}/${encodeURIComponent(term)}/${startRange}/${endRange}/${pageSize}/${offset}`;
-    if (filters) {
-      filters = JSON.stringify(filters).slice(1, -1);
-      url += '?filter=' + encodeURIComponent(filters);
+
+    let url = `${URL}/${joinedkinds}/${encodeURIComponent(sp.term)}/${sp.startRange}/${sp.endRange}/${sp.pageSize}/${sp.offset}`;
+    if (sp.filters) {
+      sp.filters = JSON.stringify(sp.filters).slice(1, -1);
+      url += '?filter=' + encodeURIComponent(sp.filters);
     }
     return this.http
       .get(url)
@@ -47,10 +48,11 @@ export class SearchService {
           let endTime = new Date();
           console.log('req search time: ', (endTime.getTime()  - startTime.getTime()) / 1000, 'sec');
           let ret: SearchResults = r.json();
-          ret.term = term;
+          ret.term = sp.term;
           ret.displayDocs = joinedkinds;
-          ret.offset = offset;
-          ret.pageSize = pageSize;
+          ret.offset = sp.offset;
+          ret.pageSize = sp.pageSize;
+          ret.params = sp;
           return ret;
       });
   }

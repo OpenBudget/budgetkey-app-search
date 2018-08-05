@@ -13,7 +13,7 @@
 
     ></budgetkey-search-bar>
 
-  <!--a href='javascript:void(0)' (click)="download(term);"> Download </a-->
+  <!--a i18n="@@download" href='javascript:void(0)' (click)="download(term);"> Download </a-->
   </div>
 
 </div>
@@ -34,7 +34,7 @@
   <div *ngFor="let item of allDocs | async; let i = index" >
     <search-result [item]="item" [index]="i" [kind]="item.type"></search-result>
   </div>
-  <h1 class="status">{{getStatusText()}}</h1>
+  <h1 i18n="@@statusText" class="status">{{getStatusText()}}</h1>
 </div>
 
 
