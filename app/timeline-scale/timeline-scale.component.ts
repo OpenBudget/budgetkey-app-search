@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'timeline-scale',
@@ -13,7 +13,7 @@ export class TimelineScaleComponent implements OnChanges {
   @Input() timeline: any;
   private coefficient = 0;
 
-  constructor() { }
+  constructor() {}
 
   ngOnChanges() {
     let maxValue = 0;
