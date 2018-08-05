@@ -295,6 +295,17 @@ export class SearchComponent {
     return '';
   }
 
+  getStatus() {
+    if (this.isSearching) {
+      return 'searching';
+    } else if (this.isErrorInLastSearch) {
+      return 'error';
+    } else if (this.allResults.length === 0) {
+      return 'len0';
+    }
+    return 'none';
+  }
+
   //// EVENT HANDLERS
 
   onTermChanged(term: string) {

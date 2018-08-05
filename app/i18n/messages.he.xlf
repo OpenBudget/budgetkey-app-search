@@ -10,12 +10,13 @@
       <source><x id="ICU" equiv-text="{status, select, searching {...} error {...} len0 {...}}"/></source>
       <target><x id="ICU" equiv-text="{status, select, searching {...} error {...} len0 {...}}"/></target>
       </trans-unit>
-      <trans-unit id="3a1f9f10e3beec281a938dff4bb95b0cc4081908" datatype="html">
+      <!--TODO Find way to set id for ICU select, otherwise it WILL change after every change-->
+      <trans-unit id="52a298e9ede9aea44451de13182fdd45dd79e797" datatype="html">
         <source>
         {VAR_SELECT, select, searching {טוען...} error {אירעה שגיאה בחיפוש, נסו שוב} len0 {שורת החיפוש ריקה. בצעו חיפוש כלשהו}}
         </source>
         <target>
-        {VAR_SELECT, select, searching {searching} error {error} len0 {The search bar is empty}}
+        {VAR_SELECT, select, searching {טוען...} error {אירעה שגיאה בחיפוש, נסו שוב} len0 {שורת החיפוש ריקה. בצעו חיפוש כלשהו}}
         </target>
       </trans-unit>
       <trans-unit id="supportertext" datatype="html">

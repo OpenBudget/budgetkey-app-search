@@ -35,7 +35,7 @@
     <search-result [item]="item" [index]="i" [kind]="item.type"></search-result>
   </div>
   <h1 i18n="@@statusText" class="status">
-      {status, select, searching {searching} error {error} len0 {no entry}}
+      {getStatus(), select, searching {searching} error {error} len0 {noresults}}
   </h1>
 </div>
 
