@@ -34,7 +34,9 @@
   <div *ngFor="let item of allDocs | async; let i = index" >
     <search-result [item]="item" [index]="i" [kind]="item.type"></search-result>
   </div>
-  <h1 i18n="@@statusText" class="status">{{getStatusText()}}</h1>
+  <h1 i18n="@@statusText" class="status">
+      {status, select, searching {searching} error {error} len0 {no entry}}
+  </h1>
 </div>
 
 

@@ -38,6 +38,8 @@ type SearchParams = {
   providers: [SearchService, DownloadService]
 })
 export class SearchComponent {
+  // temp until getStatusText() sets value directly
+  status = 'error';
 
   // Search request and response pipeline
   private searchTerms: Subject<SearchParams>;
@@ -279,13 +281,17 @@ export class SearchComponent {
 
   getStatusText() {
     if (this.isSearching) {
+      status = 'searching';
       return 'טוען...';
     } else if (this.isErrorInLastSearch) {
+      status = 'error';
       return 'אירעה שגיאה בחיפוש, נסו שוב';
     } else if (this.allResults.length === 0) {
+      status = 'len0';
       return this.term ? 'אין תוצאות' : 'שורת החיפוש ריקה. בצעו חיפוש כלשהו';
     }
 
+    status = 'none';
     return '';
   }
 
