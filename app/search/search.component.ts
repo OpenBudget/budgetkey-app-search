@@ -40,6 +40,7 @@ export class SearchComponent {
 
   // Results and stats
   private allResults: any = [];
+  private timeline: any[];
 
   // config
   private pageSize = 10; // how many records to load for each scroll
@@ -220,7 +221,12 @@ export class SearchComponent {
         sp.endRange,
         this.docTypes.filter((dt: any) => dt !== this.selectedDocType)
       );
-      return from([search, count]);
+      let calls = [search, count];
+      if (!this.theme.themeId) {
+        let timeline = this.searchService.timeline(sp);
+        calls.push(timeline);
+      }
+      return from(calls);
     } else {
       this.isSearching = false;
       return Observable.of<any>([]);
@@ -252,6 +258,9 @@ export class SearchComponent {
         this.allResults = this.allResults.slice(0, results.offset);
         this.allResults.push(...results.search_results);
         this.allDocs.next(this.allResults);
+      }
+      if (results.timeline) {
+        this.timeline = results.timeline;
       }
     }
   }

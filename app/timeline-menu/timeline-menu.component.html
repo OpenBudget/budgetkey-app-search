@@ -1,4 +1,4 @@
-<div class="timeline-menu filter-menu">
+<div class="filter-menu">
   <span class='filter-menu-label'>תקופת פעילות</span>
   <select [ngModel]="selectedPeriod" (ngModelChange)="onPeriodChange($event)">
     <option [ngValue]="period" *ngFor="let period of periods">{{period.title}}</option>

@@ -82,4 +82,23 @@ export class SearchService {
       });
   }
 
+  timeline(sp: SearchParams): Observable<any> {
+
+    let joinedkinds = sp.displayDocsTypes.join(',');
+    let startTime: Date = new Date(); // update time-stamp
+    let url = `${URL}/timeline/${joinedkinds}/${encodeURIComponent(sp.term)}/${sp.startRange}/${sp.endRange}`;
+    if (sp.filters) {
+      let filter = JSON.stringify(sp.filters);
+      url += '?filter=' + encodeURIComponent(filter);
+    }
+    return this.http
+      .get(url)
+      .map((r: Response) => {
+          let endTime = new Date();
+          console.log('req count time: ', (endTime.getTime()  - startTime.getTime()) / 1000, 'sec');
+          let ret: any = r.json();
+          return ret;
+      });
+  }
+
 }
