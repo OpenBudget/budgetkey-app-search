@@ -28,10 +28,6 @@ import { SearchFilterMenuBarComponent,
 
 import { AppRoutingModule } from './app-routing.module';
 
-let defaultTheme = {
-  // TODO: add default theme values
-};
-
 let defaultLang = 'he';
 
 declare let BUDGETKEY_NG2_COMPONENTS_THEME: any;
@@ -39,8 +35,6 @@ declare const BUDGETKEY_APP_SEARCH_THEME: any;
 declare const BUDGETKEY_THEME_ID: any;
 
 declare const BUDGETKEY_LANG: any;
-
-declare const authServerUrl: any;
 
 let providers: any[] = [
   SearchService,

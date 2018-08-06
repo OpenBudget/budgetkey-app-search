@@ -279,17 +279,13 @@ export class SearchComponent {
 
   getStatusText() {
     if (this.isSearching) {
-      status = 'searching';
       return 'טוען...';
     } else if (this.isErrorInLastSearch) {
-      status = 'error';
       return 'אירעה שגיאה בחיפוש, נסו שוב';
     } else if (this.allResults.length === 0) {
-      status = 'len0';
       return this.term ? 'אין תוצאות' : 'שורת החיפוש ריקה. בצעו חיפוש כלשהו';
     }
 
-    status = 'none';
     return '';
   }
 
