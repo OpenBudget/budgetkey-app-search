@@ -1,3 +1,5 @@
+import { SearchParams } from './SearchParams';
+
 /**
  * Created by adam on 18/12/2016.
  */
@@ -32,8 +34,10 @@ class SearchResultsCounts {
 export class SearchResults {
   search_counts: SearchResultsCounts;
   search_results: Array<DocResultEntry>;
+  timeline: Array<any>;
   term: string;
   displayDocs: string;
   offset: number;
   pageSize: number;
+  params?: SearchParams;
 }

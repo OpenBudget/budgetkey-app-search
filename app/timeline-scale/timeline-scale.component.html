@@ -1,2 +1,9 @@
+
 <div class="timeline-scale">
+    <div class="timeline-item" *ngFor="let item of timeline.reverse()">
+        <div class="timeline-sign">
+            <div [style.height.%]="item[1] * coefficient" [attr.title]='item[0] + ": " + item[1] + " תוצאות"'></div>
+        </div>
+        <div class="timeline-year" *ngIf="item[0].split('-')[1] == '01'">{{ item[0].split('-')[0] }}</div>
+    </div>
 </div>

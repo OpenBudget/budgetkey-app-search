@@ -53,6 +53,7 @@ export class SearchComponent {
 
   // Results and stats
   private allResults: any = [];
+  private timeline: any[];
 
   // config
   private pageSize = 10; // how many records to load for each scroll
@@ -95,8 +96,8 @@ export class SearchComponent {
     this.allDocs = new BehaviorSubject<DocResultEntry[]>([]);
 
     // Connect the search pipeline
-    this.searchResults = <Observable<SearchResults>>(this.searchTerms // open a stream
-      .debounceTime(300)    )    // wait for 300ms pause in events
+    this.searchResults = <Observable<SearchResults>>(this.searchTerms) // open a stream
+      .debounceTime(300)           // wait for 300ms pause in events
       // .distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap((sp: SearchParams) => {
 
@@ -226,22 +227,19 @@ export class SearchComponent {
     if (sp.term) {
       this.isSearching = true;
       this.isErrorInLastSearch = false;
-      let search = this.searchService.search(
-        sp.term,
-        sp.startRange,
-        sp.endRange,
-        sp.pageSize,
-        sp.offset,
-        sp.displayDocsTypes,
-        sp.filters
-      );
+      let search = this.searchService.search(sp);
       let count = this.searchService.count(
         sp.term,
         sp.startRange,
         sp.endRange,
-        this.docTypes
+        this.docTypes.filter((dt: any) => dt !== this.selectedDocType)
       );
-      return from([search, count]);
+      let calls = [search, count];
+      if (!this.theme.themeId) {
+        let timeline = this.searchService.timeline(sp);
+        calls.push(timeline);
+      }
+      return from(calls);
     } else {
       this.isSearching = false;
       return Observable.of<any>([]);
@@ -256,21 +254,26 @@ export class SearchComponent {
   processResults(results: SearchResults): void {
     if (results) {
       if (results.search_counts) {
-        for (let dt of this.docTypes) {
-          dt.amount = 0;
-        }
         for (let key of Object.keys(results.search_counts)) {
           let count = results.search_counts[key].total_overall;
+          if (key === '_current') {
+            key = results.params.displayDocs;
+          }
           for (let dt of this.docTypes) {
             if (dt.id === key) {
-              dt.amount += count;
+              dt.amount = count;
+              break;
             }
           }
         }
-      } else {
+      }
+      if (results.search_results) {
         this.allResults = this.allResults.slice(0, results.offset);
         this.allResults.push(...results.search_results);
         this.allDocs.next(this.allResults);
+      }
+      if (results.timeline) {
+        this.timeline = results.timeline;
       }
     }
   }
