@@ -34,9 +34,9 @@
   <div *ngFor="let item of allDocs | async; let i = index" >
     <search-result [item]="item" [index]="i" [kind]="item.type"></search-result>
   </div>
-  <h1 i18n="@@statusText" class="status">
-      {getStatus(), select, searching {searching} error {error} len0 {noresults}}
-  </h1>
+      <h1 style="text-align: center;" *ngIf='getStatus() === "searching"' i18n='@@searchingStatus'>{{getStatusText()}}</h1>
+      <h1 style="text-align: center;" *ngIf='getStatus() === "error"' i18n='@@errorStatus'>{{getStatusText()}}</h1>
+      <h1 style="text-align: center;" *ngIf='getStatus() === "len0"' i18n='@@len0Status'>{{getStatusText()}}</h1>
 </div>
 
 

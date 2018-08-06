@@ -6,18 +6,17 @@
         <source>Download</source>
         <target>Download</target>
       </trans-unit>
-      <trans-unit id="statusText" datatype="html">
-      <source><x id="ICU" equiv-text="{status, select, searching {...} error {...} len0 {...}}"/></source>
-      <target><x id="ICU" equiv-text="{status, select, searching {...} error {...} len0 {...}}"/></target>
+      <trans-unit id="searchingStatus" datatype="html">
+      <source>טוען...</source>
+      <target>searching...</target>
       </trans-unit>
-      <!--TODO Find way to set id for ICU select, otherwise it WILL change after every change-->
-      <trans-unit id="52a298e9ede9aea44451de13182fdd45dd79e797" datatype="html">
-        <source>
-        {VAR_SELECT, select, searching {טוען...} error {אירעה שגיאה בחיפוש, נסו שוב} len0 {שורת החיפוש ריקה. בצעו חיפוש כלשהו}}
-        </source>
-        <target>
-        {VAR_SELECT, select, searching {searching...} error {There was an error searching, please try again.} len0 {Enter a search}}
-        </target>
+      <trans-unit id="errorStatus" datatype="html">
+      <source>אירעה שגיאה בחיפוש, נסו שוב</source>
+      <target>There was an error searching, please try again</target>
+      </trans-unit>
+      <trans-unit id="len0Status" datatype="html">
+      <source>שורת החיפוש ריקה. בצעו חיפוש כלשהו</source>
+      <target>Enter a search</target>
       </trans-unit>
       <trans-unit id="supportertext" datatype="html">
         <source>אנו מכירים תודה לעשרות המתנדבים<br/>
