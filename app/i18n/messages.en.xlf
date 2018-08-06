@@ -8,7 +8,7 @@
       </trans-unit>
       <trans-unit id="searchingStatus" datatype="html">
       <source>טוען...</source>
-      <target>searching...</target>
+      <target>...searching</target>
       </trans-unit>
       <trans-unit id="errorStatus" datatype="html">
       <source>אירעה שגיאה בחיפוש, נסו שוב</source>
