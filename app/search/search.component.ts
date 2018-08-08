@@ -17,6 +17,7 @@ import { SearchBarType } from 'budgetkey-ng2-components/src/components';
 import { THEME_TOKEN as BUDGETKEY_NG2_COMPONENTS_THEME, LANG_TOKEN as BUDGETKEY_LANG } from 'budgetkey-ng2-components';
 import { SearchParams } from '../_model/SearchParams';
 
+
 @Component({
   selector: 'budget-search',
   template: require('./search.component.html'),
