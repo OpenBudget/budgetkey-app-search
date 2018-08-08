@@ -17,7 +17,6 @@
       <trans-unit id="len0Status" datatype="html">
       <source>שורת החיפוש ריקה. בצעו חיפוש כלשהו</source>
       <target>Enter a search</target>
-
       </trans-unit>
       <trans-unit id="supportertext" datatype="html">
         <source>אנו מכירים תודה לעשרות המתנדבים<br/>

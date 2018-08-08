@@ -14,7 +14,7 @@ import { Location } from '@angular/common';
 import { TimeRanges } from '../timeline-menu/time-ranges';
 import { SearchBarType } from 'budgetkey-ng2-components/src/components';
 
-import { THEME_TOKEN as BUDGETKEY_NG2_COMPONENTS_THEME, LANG_TOKEN as BUDGETKEY_LANG } from 'budgetkey-ng2-components';
+import { THEME_TOKEN, LANG_TOKEN } from 'budgetkey-ng2-components';
 
 type SearchParams = {
   term: string,
@@ -81,8 +81,8 @@ export class SearchComponent {
     private route: ActivatedRoute,
     private location: Location,
 
-    @Inject(BUDGETKEY_NG2_COMPONENTS_THEME) private theme: any,
-    @Inject(BUDGETKEY_LANG) private lang: string
+    @Inject(THEME_TOKEN) private theme: any,
+    @Inject(LANG_TOKEN) private lang: string
   ) {
     this.periods = (new TimeRanges()).periods;
     this.docTypes = this.theme.searchBarConfig;
@@ -293,17 +293,6 @@ export class SearchComponent {
     }
 
     return '';
-  }
-
-  getStatus() {
-    if (this.isSearching) {
-      return 'searching';
-    } else if (this.isErrorInLastSearch) {
-      return 'error';
-    } else if (this.allResults.length === 0) {
-      return 'len0';
-    }
-    return 'none';
   }
 
   //// EVENT HANDLERS
