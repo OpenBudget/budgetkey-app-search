@@ -14,7 +14,7 @@ import { Location } from '@angular/common';
 import { TimeRanges } from '../timeline-menu/time-ranges';
 import { SearchBarType } from 'budgetkey-ng2-components/src/components';
 
-import { THEME_TOKEN as BUDGETKEY_NG2_COMPONENTS_THEME, LANG_TOKEN as BUDGETKEY_LANG } from 'budgetkey-ng2-components';
+import { THEME_TOKEN, LANG_TOKEN } from 'budgetkey-ng2-components';
 import { SearchParams } from '../_model/SearchParams';
 
 
