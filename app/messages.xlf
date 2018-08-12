@@ -34,6 +34,10 @@
     Its contents are the sole responsibility of the Public Knowledge Workshop and do not necessarily
     reflect the views of the European Union.</target>
       </trans-unit>
+      <trans-unit id="filtermenulabel" datatype="html">
+        <source>תקופת פעילות</source>
+        <target>תקופת פעילות</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

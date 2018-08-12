@@ -34,6 +34,10 @@
         תכניה הם באחריותה הבלעדית של סדנת הידע הציבורית ואינם
         משקפים בהכרח את עמדות האיחוד האירופי.</target>
       </trans-unit>
+      <trans-unit id="filtermenulabel" datatype="html">
+        <source>תקופת פעילות</source>
+        <target>תקופת פעילות</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
