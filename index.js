@@ -71,7 +71,19 @@ app.get(basePath + '*', function(req, res) {
       kind = 'כל מה שקשור ל';
     } else if (kind == 'entities') {
       kind = 'ארגונים הקשורים ל';
-    } else if (kind == 'tenders,contract-spending') {
+    } else if (kind == 'associations') {
+      kind = 'עמותות וחל״צ הקשורות ל';
+    } else if (kind == 'procurement') {
+      kind = 'התקשרויות ומכרזים הקשורים ל';
+    } else if (kind == 'tenders') {
+      kind = 'מכרזים הקשורים ל';
+    } else if (kind == 'central-tenders') {
+      kind = 'מכרזים מרכזיים הקשורים ל';
+    } else if (kind == 'office-tenders') {
+      kind = 'מכרזים משרדיים הקשורים ל';
+    } else if (kind == 'exemptions') {
+      kind = 'פטורים ממכרז הקשורים ל';
+    } else if (kind == 'contracts') {
       kind = 'התקשרויות רכש הקשורות ל';
     } else if (kind == 'supports') {
       kind = 'תמיכות הקשורות ל';
@@ -79,6 +91,10 @@ app.get(basePath + '*', function(req, res) {
       kind = 'סעיפי תקציב הקשורים ל';
     } else if (kind == 'national-budget-changes') {
       kind = 'העברות תקציביות הקשורות ל';
+    } else if (kind == 'field-of-activity-reports') {
+      kind = 'תחומי פעילות הקשורים ל';
+    } else if (kind == 'district-reports') {
+      kind = 'מחוזות הקשורים ל';
     }
     title = 'חיפוש במפתח התקציב: ' + kind + term
   }
