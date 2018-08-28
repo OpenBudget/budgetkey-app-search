@@ -36,8 +36,8 @@ app.get(basePath + '*', function(req, res) {
   var theme = typeof(req.query.theme) !== "undefined" ? req.query.theme : '';
   var themeFileName = theme !== '' ? 'theme.'+req.query.theme+'.json' : null;
   var themeScript = '';
+  var themeJson = null;
   if (themeFileName) {
-    var themeJson = null;
     // try the themes root directory first - this allows mount multiple themes in a single shared docker volume
     if (fs.existsSync(path.resolve('/themes', themeFileName))) {
       themeJson = JSON.parse(fs.readFileSync(path.resolve('/themes', themeFileName)));
@@ -60,7 +60,8 @@ app.get(basePath + '*', function(req, res) {
     langScript += "BUDGETKEY_LANG=" + JSON.stringify(lang) + ";";
   }
 
-  var title = 'חיפוש במפתח התקציב';
+  var siteName = (themeJson && themeJson.BUDGETKEY_APP_GENERIC_ITEM_THEME) ? themeJson.BUDGETKEY_APP_GENERIC_ITEM_THEME.siteName : 'מפתח התקציב';
+  var title = siteName + ' - חיפוש';
   var term = req.query.q;
   var kind = req.query.dd;
   if (term) {
@@ -96,7 +97,7 @@ app.get(basePath + '*', function(req, res) {
     } else if (kind == 'district-reports') {
       kind = 'מחוזות הקשורים ל';
     }
-    title = 'חיפוש במפתח התקציב: ' + kind + term
+    title += ' ' + kind + term
   }
 
   res.render('index.html', {
