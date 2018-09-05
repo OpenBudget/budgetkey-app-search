@@ -45,8 +45,8 @@ app.get(basePath + '*', function(req, res) {
   var theme = typeof(req.query.theme) !== "undefined" ? req.query.theme : '';
   var themeFileName = theme !== '' ? 'theme.'+req.query.theme+'.'+lang+'.json' : null;
   var themeScript = '';
+  var themeJson = null;
   if (themeFileName) {
-    var themeJson = null;
     // try the themes root directory first - this allows mount multiple themes in a single shared docker volume
     if (fs.existsSync(path.resolve('/themes', themeFileName))) {
       themeJson = JSON.parse(fs.readFileSync(path.resolve('/themes', themeFileName)));
@@ -62,7 +62,15 @@ app.get(basePath + '*', function(req, res) {
     }
   }
 
-  var title = 'חיפוש במפתח התקציב';
+  //set language
+  var lang = typeof(req.query.lang) !== "undefined" ? req.query.lang : '';
+  var langScript = '';
+  if (lang) {
+    langScript += "BUDGETKEY_LANG=" + JSON.stringify(lang) + ";";
+  }
+
+  var siteName = (themeJson && themeJson.BUDGETKEY_APP_GENERIC_ITEM_THEME) ? themeJson.BUDGETKEY_APP_GENERIC_ITEM_THEME.siteName : 'מפתח התקציב';
+  var title = siteName + ' - חיפוש';
   var term = req.query.q;
   var kind = req.query.dd;
   if (term) {
@@ -73,7 +81,19 @@ app.get(basePath + '*', function(req, res) {
       kind = 'כל מה שקשור ל';
     } else if (kind == 'entities') {
       kind = 'ארגונים הקשורים ל';
-    } else if (kind == 'tenders,contract-spending') {
+    } else if (kind == 'associations') {
+      kind = 'עמותות וחל״צ הקשורות ל';
+    } else if (kind == 'procurement') {
+      kind = 'התקשרויות ומכרזים הקשורים ל';
+    } else if (kind == 'tenders') {
+      kind = 'מכרזים הקשורים ל';
+    } else if (kind == 'central-tenders') {
+      kind = 'מכרזים מרכזיים הקשורים ל';
+    } else if (kind == 'office-tenders') {
+      kind = 'מכרזים משרדיים הקשורים ל';
+    } else if (kind == 'exemptions') {
+      kind = 'פטורים ממכרז הקשורים ל';
+    } else if (kind == 'contracts') {
       kind = 'התקשרויות רכש הקשורות ל';
     } else if (kind == 'supports') {
       kind = 'תמיכות הקשורות ל';
@@ -81,8 +101,12 @@ app.get(basePath + '*', function(req, res) {
       kind = 'סעיפי תקציב הקשורים ל';
     } else if (kind == 'national-budget-changes') {
       kind = 'העברות תקציביות הקשורות ל';
+    } else if (kind == 'field-of-activity-reports') {
+      kind = 'תחומי פעילות הקשורים ל';
+    } else if (kind == 'district-reports') {
+      kind = 'מחוזות הקשורים ל';
     }
-    title = 'חיפוש במפתח התקציב: ' + kind + term
+    title += ' ' + kind + term
   }
 
   res.render('index.html', {
