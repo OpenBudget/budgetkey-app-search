@@ -15,19 +15,20 @@ budgetkey-container {
   }
   .search_body {
     margin-top: 20px;
-    h1 { 
-      color: #369;
-      font-size: 25px;
 
-      &.status {
-        text-align: center;
-      }
+    .status {
+      padding: 0 10px;
+      color: #4A4A4A;
+      font-family: "Abraham TRIAL";
+      font-size: 16px;
+      letter-spacing: 0.37px;
+      line-height: 19px;
     }
   }
 
 }
 
-em{
+em {
   background-color: #ffff1a;
 
   &.result-label {
@@ -90,6 +91,7 @@ a {
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075)
   }
 }
+
 .search-filter{
   margin: 20px;
 
@@ -230,3 +232,34 @@ a {
 
 @import './styles/search-result.scss';
 @import './styles/filters.scss';
+
+@media only screen and (max-width: 600px) {
+  .app {
+    margin-top: 0;
+    min-height: 100vh;
+  }
+
+  budgetkey-header {
+    display: none;
+  }
+
+  budgetkey-footer {
+    display: none;
+  }
+
+  .type-text-in-search-bar-right {
+    display: none;
+  }
+
+  search-filter-menu-bar {
+    display: none;
+  }
+
+  .bkmodal-dialog {
+    width: 90% !important;
+  }
+
+  .bkmodal-content {
+    padding: 30px !important;
+  }
+}

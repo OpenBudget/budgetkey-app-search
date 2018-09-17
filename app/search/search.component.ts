@@ -121,8 +121,9 @@ export class SearchComponent {
         return Observable.of<SearchResults>(null);
       });
     this.searchResults.subscribe((results) => {
-      this.isSearching = false;
-      this.processResults(results);
+      if (this.processResults(results)) {
+        this.isSearching = false;
+      }
     });
 
     // Handle the URL query params
@@ -229,7 +230,7 @@ export class SearchComponent {
       return from(calls);
     } else {
       this.isSearching = false;
-      return Observable.of<any>([]);
+      return Observable.of<any>([{offset:0, search_results:[]}]);
     }
   }
 
@@ -238,7 +239,8 @@ export class SearchComponent {
    * creates adds the current results to allResults
    * @param {SearchResults} results - returned results from query
    */
-  processResults(results: SearchResults): void {
+  processResults(results: SearchResults): boolean {
+    let ret = false;
     if (results) {
       if (results.search_counts) {
         for (let key of Object.keys(results.search_counts)) {
@@ -258,11 +260,13 @@ export class SearchComponent {
         this.allResults = this.allResults.slice(0, results.offset);
         this.allResults.push(...results.search_results);
         this.allDocs.next(this.allResults);
+        ret = true;
       }
       if (results.timeline) {
         this.timeline = results.timeline;
       }
     }
+    return ret;
   }
 
   //// UI HELPERS

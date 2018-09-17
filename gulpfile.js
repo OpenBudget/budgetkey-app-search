@@ -8,7 +8,7 @@ gulp.task('default', function(done) {
   runSequence('clean', 'assets', done);
 });
 
-gulp.task('assets', ['assets:app', 'assets:vendor']);
+gulp.task('assets', ['assets:app', 'assets:vendor', 'assets:common-fonts']);
 
 gulp.task('assets:app', function() {
   return gulp.src([
@@ -27,6 +27,15 @@ gulp.task('assets:vendor', function() {
     base: './node_modules/budgetkey-ng2-components'
   }).pipe(gulp.dest('./dist'));
 });
+
+gulp.task('assets:common-fonts', function() {
+  return gulp.src([
+    './node_modules/budgetkey-ng2-components/assets/fonts/[gA]*'
+  ], {
+    base: './node_modules/budgetkey-ng2-components/assets'
+  }).pipe(gulp.dest('./dist'));
+});
+
 
 gulp.task('clean', ['clean:dist', 'clean:ts']);
 
