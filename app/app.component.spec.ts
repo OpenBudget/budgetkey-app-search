@@ -18,6 +18,7 @@ import { SearchResultComponent,
          TendersSearchResultComponent,
          ContractSpendingSearchResultComponent,
          SupportsSearchResultComponent,
+         ReportsSearchResultComponent,
         } from './search-result';
 import { TimelineComponent } from './timeline/timeline.component';
 import { TimelineMenuComponent } from './timeline-menu/timeline-menu.component';
@@ -55,6 +56,7 @@ describe('AppComponent', function () {
         TendersSearchResultComponent,
         ContractSpendingSearchResultComponent,
         SupportsSearchResultComponent,
+        ReportsSearchResultComponent,
 
         TimelineComponent,
         TimelineMenuComponent,

@@ -230,7 +230,7 @@ export class SearchComponent {
       return from(calls);
     } else {
       this.isSearching = false;
-      return Observable.of<any>([{offset:0, search_results:[]}]);
+      return Observable.of<any>([{offset: 0, search_results: []}]);
     }
   }
 
@@ -273,11 +273,19 @@ export class SearchComponent {
 
   getStatusText() {
     if (this.isSearching) {
-      return 'טוען...';
+      return 'טוען&hellip;';
     } else if (this.isErrorInLastSearch) {
       return 'אירעה שגיאה בחיפוש, נסו שוב';
     } else if (this.allResults.length === 0) {
-      return this.term ? 'אין תוצאות' : 'שורת החיפוש ריקה. בצעו חיפוש כלשהו';
+      if (this.term) {
+        return 'אין תוצאות';
+      } else {
+        if (this.theme.sampleSearches) {
+            return '<b>חיפושים לדוגמה:</b> ' + this.theme.sampleSearches.join(', ') + '&hellip;';
+        } else {
+          return 'שורת החיפוש ריקה. בצעו חיפוש כלשהו';
+        }
+      }
     }
 
     return '';

@@ -17,6 +17,7 @@ import { SearchResultComponent,
          TendersSearchResultComponent,
          ContractSpendingSearchResultComponent,
          SupportsSearchResultComponent,
+         ReportsSearchResultComponent,
         } from './search-result';
 
 import { TimelineComponent } from './timeline/timeline.component';
@@ -67,6 +68,7 @@ if (typeof(BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
     TendersSearchResultComponent,
     ContractSpendingSearchResultComponent,
     SupportsSearchResultComponent,
+    ReportsSearchResultComponent,
 
     SearchFilterMenuBarComponent,
     SearchFilterMenuComponent,

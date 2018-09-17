@@ -70,7 +70,7 @@
         @import './budget-search-result.scss';
     }
 
-    &.entities {
+    &.entities, &.reports {
         @import './entities-search-result.scss';
     }
 
