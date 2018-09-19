@@ -10,59 +10,119 @@ div.part:nth-child(1) {
     .details {
         display: flex;
         flex-flow: column;
+        width: 100%;
         .top-line {
             display: flex;
+            flex-flow: row;
             align-items: center;
-            .tag {
-                background-color: #19008F;
-                font-weight: 500;
-                &.right {
-                    border-top-left-radius: 0;
-                    border-bottom-left-radius: 0;
-                }
-                &.left {
-                    color: #19008F;
-                    background-color: transparent;    
-                    border-top-right-radius: 0;
-                    border-bottom-right-radius: 0;
+            width: 100%;
+            
+            @media only screen and (max-width: 600px) {
+                flex-flow: column;
+                align-items: flex-start;
+                > span {
+                    padding: 8px 0;
                 }
             }
+
+            .tags {
+                flex: 0 0 auto;
+                display: flex;
+                flex-flow: row;
+
+                .tag {
+                    background-color: #19008F;
+                    font-weight: 500;
+                    &.right {
+                        border-top-left-radius: 0;
+                        border-bottom-left-radius: 0;
+                    }
+                    &.left {
+                        color: #19008F;
+                        background-color: transparent;    
+                        border-top-right-radius: 0;
+                        border-bottom-right-radius: 0;
+                    }
+                }    
+            }
+
             .title {
                 padding-right: 15px;
                 color: #19008F;	
                 font-family: "Miriam Libre";	
                 font-size: 18px;	
                 font-weight: bold;
-                // text-overflow: ellipsis;
-                // overflow: hidden;
-                // white-space: nowrap;
+                flex: 1 1 auto;
+
+                @media only screen and (max-width: 600px) {
+                    padding-right: 0;
+                    font-size: 14px;
+                    font-weight: normal;
+                    width: 100%;
+                }
             }
+
+            .amounts {
+                flex: 0 0 auto;
+                margin-right: auto;
+                display: flex;
+                flex-flow: column;
+                text-align: left;
+                padding-top: 2px;
+                
+                .volume {
+                    color: #19008F;	
+                    font-family: "Miriam Libre";
+                    font-size: 16px;
+                    font-weight: bold;
+                    white-space: nowrap;
+                }
+                .period {
+                    display: flex;
+                    flex-flow: row;
+                    flex-wrap: nowrap;
+                    span {
+                        opacity: 0.5;
+                        color: #19008F;
+                        font-family: "Abraham TRIAL";
+                        font-size: 13px;
+                        white-space: nowrap;    
+                    }
+
+                    @media only screen and (max-width: 600px) {
+                        flex-flow: column;
+                    }
+                }
+
+                @media only screen and (max-width: 600px) {
+                    flex-flow: row-reverse;
+                    align-items: center;
+                    margin: 0;
+                    width: 100%;
+
+                    .period {
+                        flex: 0 1 auto;
+                        white-space: normal;
+                        text-align: right;
+                        font-size: 12px;
+                    }
+
+                    .volume {
+                        flex: 1 0 auto;
+                        padding-right: 10px;
+                    }
+                }
+            }        
         }
         .parties {
             color: #19008F;	
             font-family: "Miriam Libre";
             font-size: 18px;
-        }
-    }
-    .amounts {
-        display: flex;
-        flex-flow: column;
-        text-align: left;
-        padding-top: 2px;
-        
-        .volume {
-            color: #19008F;	
-            font-family: "Miriam Libre";
-            font-size: 16px;
-            font-weight: bold;
-            white-space: nowrap;
-        }
-        .period {
-            opacity: 0.5;
-            color: #19008F;
-            font-family: "Abraham TRIAL";
-            font-size: 13px;
-            white-space: nowrap;
+
+            @media only screen and (max-width: 600px) {
+                font-size: 14px;
+                width: 100%;
+            }
         }
     }
 }

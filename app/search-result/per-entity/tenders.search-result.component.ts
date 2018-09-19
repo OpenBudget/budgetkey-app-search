@@ -45,14 +45,15 @@ export class TendersSearchResultComponent extends BaseSearchResultComponent {
   }
 
   periodDetails() {
-    let r = '';
+    const r = [];
     if (this.d['tender_type'] === 'exemptions') {
-      r += 'תקופת פטור ';
+      r.push('תקופת פטור');
       if (this.d['start_date']) {
-        r += this.d['start_date'] + ' - ';
+        let rr = this.d['start_date'] + ' - ';
         if (this.d['end_date']) {
-          r += this.d['end_date'];
+          rr += this.d['end_date'];
         }
+        r.push(rr);
       }
     }
     return r;

@@ -35,15 +35,18 @@
 
     <div class='part' *ngIf='d.kind=="municipality"'>
       <span class='line'>
+        <strong>{{d.details.status_municipal_2015}} / </strong>
+        <span [innerHtml]='format_number(d.details.total_population_end_2015_1000s*1000) + " תושבים"'></span>
+      </span>
+      <span class='line'>
         <strong>מחוז: </strong><span [innerHtml]='d.details.district_2015'></span>
       </span>
       <span class='line'>
-        <strong>{{d.details.status_municipal_2015}}: </strong>
-        <span>
-          {{d.details.total_population_end_2015_1000s}},000 תושבים |
-          אשכול סוציו-אקונומי: {{d.details.index_socioeconomic_2013_cluster_from_1_to_10_1_lowest_most}}/10 |
-          תקציב ב-2015: 
-          <span [innerHtml]='format_number(d.details.expenses_of_municipality_for_activities_1000s_nis_2015*1000) + "&nbsp;₪"'></span>
-        </span>
+        <strong>אשכול סוציו-אקונומי: </strong>
+        <span [innerHtml]='d.details.index_socioeconomic_2013_cluster_from_1_to_10_1_lowest_most + "/10"'></span>
+      </span>
+      <span class='line'>
+        <strong>תקציב ב-2015:</strong>
+        <span [innerHtml]='format_number(d.details.expenses_of_municipality_for_activities_1000s_nis_2015*1000) + "&nbsp;₪"'></span>
       </span>
     </div>

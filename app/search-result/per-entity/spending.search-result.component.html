@@ -1,20 +1,24 @@
 <div class='part' (click)='navigate()'>
     <span class='details'>
         <span class='top-line'>
-            <ng-container *ngIf='tag2()'>
-                <span class='tag right' [innerHtml]='tag()'></span>
-                <span class='tag left' [innerHtml]='tag2()'></span>
-            </ng-container>
-            <span class='tag' [innerHtml]='tag()' *ngIf='!tag2()'></span>
+            <span class='tags'>
+                <ng-container *ngIf='tag2()'>
+                    <span class='tag right' [innerHtml]='tag()'></span>
+                    <span class='tag left' [innerHtml]='tag2()'></span>
+                </ng-container>
+                <span class='tag' [innerHtml]='tag()' *ngIf='!tag2()'></span>
+            </span>
             <span class='title' [innerHtml]='title()'></span>
+            <span class='amounts' *ngIf='volume() || (periodDetails().length > 0)'>
+                <span class='volume' [innerHtml]='format_number(volume()) + "&nbsp;₪"'></span>
+                <span class='period'>
+                    <span *ngFor='let pd of periodDetails()' [innerHtml]='pd + "&nbsp;"'></span>
+                </span>
+            </span>
         </span>
         <span class='parties'>
             <span [innerHtml]='publisher()'></span>&nbsp;&larr;&nbsp;<span [innerHtml]='supplier()'></span>
         </span>
-    </span>
-    <span class='amounts' *ngIf='volume() || periodDetails()'>
-        <span class='volume' [innerHtml]='format_number(volume()) + "&nbsp;₪"'></span>
-        <span class='period'>{{ periodDetails() }}</span>
     </span>
 </div>
 <div class='part' *ngIf='label()'>
