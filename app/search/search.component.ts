@@ -223,10 +223,10 @@ export class SearchComponent {
         this.docTypes.filter((dt: any) => dt !== this.selectedDocType)
       );
       let calls = [search, count];
-      if (!this.theme.themeId) {
-        let timeline = this.searchService.timeline(sp);
-        calls.push(timeline);
-      }
+      // if (!this.theme.themeId) {
+        // let timeline = this.searchService.timeline(sp);
+        // calls.push(timeline);
+      // }
       return from(calls);
     } else {
       this.isSearching = false;
