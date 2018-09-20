@@ -5,13 +5,15 @@
           <span class='name' [innerHtml]='d["name"]'></span>
         </span>
       </span>
-      <span class='top-left' *ngIf='amount()'>
+      <span class='top-left'>
         <span class='entity-id'>
           <span>מספר תאגיד</span>
           <span>{{ d["id"] }}</span>
         </span>
-        <span class='description' [innerHtml]='amount_description()'></span>
-        <span class='actual' [innerHtml]='format_number(amount()) + "&nbsp;₪"'></span>
+        <ng-container *ngIf='amount()'>
+          <span class='description' [innerHtml]='amount_description()'></span>
+          <span class='actual' [innerHtml]='format_number(amount()) + "&nbsp;₪"'></span>
+        </ng-container>
       </span>
     </div>
 
