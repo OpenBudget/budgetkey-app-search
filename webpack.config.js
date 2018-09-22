@@ -4,10 +4,15 @@ var path = require('path');
 var webpack = require('webpack');
 var UglifyJsPlugin = require('uglify-js-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var plugins = [
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+  }),
+  new ExtractTextPlugin({
+    filename: '[name].[contenthash].css',
+    disable: process.env.NODE_ENV === 'development'
   }),
   new HtmlWebpackPlugin({
     template: 'index.html'
@@ -22,7 +27,7 @@ if (process.env.NODE_ENV == 'production') {
 
 module.exports = {
   entry: {
-    'main': './app/main.ts'
+    'main': ['./app/main.ts', './app/common.less'],
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -37,6 +42,12 @@ module.exports = {
       {
         test: /\.html$/,
         loader: 'raw-loader'
+      },
+      {
+        test: /\.less$/,
+        use: ExtractTextPlugin.extract({
+          use: [{loader: 'raw-loader'}, {loader: 'less-loader'}]
+        })
       },
       {
         test: /\.css/,

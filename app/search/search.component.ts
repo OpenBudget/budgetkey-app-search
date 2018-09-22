@@ -124,8 +124,9 @@ export class SearchComponent {
         return Observable.of<SearchResults>(null);
       });
     this.searchResults.subscribe((results) => {
-      this.isSearching = false;
-      this.processResults(results);
+      if (this.processResults(results)) {
+        this.isSearching = false;
+      }
     });
 
     // Handle the URL query params
@@ -225,14 +226,14 @@ export class SearchComponent {
         this.docTypes.filter((dt: any) => dt !== this.selectedDocType)
       );
       let calls = [search, count];
-      if (!this.theme.themeId) {
-        let timeline = this.searchService.timeline(sp);
-        calls.push(timeline);
-      }
+      // if (!this.theme.themeId) {
+        // let timeline = this.searchService.timeline(sp);
+        // calls.push(timeline);
+      // }
       return from(calls);
     } else {
       this.isSearching = false;
-      return Observable.of<any>([]);
+      return Observable.of<any>([{offset: 0, search_results: []}]);
     }
   }
 
@@ -241,7 +242,8 @@ export class SearchComponent {
    * creates adds the current results to allResults
    * @param {SearchResults} results - returned results from query
    */
-  processResults(results: SearchResults): void {
+  processResults(results: SearchResults): boolean {
+    let ret = false;
     if (results) {
       if (results.search_counts) {
         for (let key of Object.keys(results.search_counts)) {
@@ -261,22 +263,32 @@ export class SearchComponent {
         this.allResults = this.allResults.slice(0, results.offset);
         this.allResults.push(...results.search_results);
         this.allDocs.next(this.allResults);
+        ret = true;
       }
       if (results.timeline) {
         this.timeline = results.timeline;
       }
     }
+    return ret;
   }
 
   //// UI HELPERS
 
   getStatusText() {
     if (this.isSearching) {
-      return 'טוען...';
+      return 'טוען&hellip;';
     } else if (this.isErrorInLastSearch) {
       return 'אירעה שגיאה בחיפוש, נסו שוב';
     } else if (this.allResults.length === 0) {
-      return this.term ? 'אין תוצאות' : 'שורת החיפוש ריקה. בצעו חיפוש כלשהו';
+      if (this.term) {
+        return 'אין תוצאות';
+      } else {
+        if (this.theme.sampleSearches) {
+            return '<b>חיפושים לדוגמה:</b> ' + this.theme.sampleSearches.join(', ') + '&hellip;';
+        } else {
+          return 'שורת החיפוש ריקה. בצעו חיפוש כלשהו';
+        }
+      }
     }
 
     return '';

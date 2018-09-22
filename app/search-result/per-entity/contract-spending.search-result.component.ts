@@ -43,20 +43,22 @@ export class ContractSpendingSearchResultComponent extends BaseSearchResultCompo
   }
 
   periodDetails() {
-    let r = 'תקופת ההתקשרות ';
+    let r: string[] = [];
     if (this.d['order_date']) {
-      r += this.d['order_date'] + ' - ';
+      r.push('תקופת ההתקשרות')
+      let rr = this.d['order_date'] + ' - ';
       if (this.d['end_date']) {
-        r += this.d['end_date'];
+        rr += this.d['end_date'];
       } else if (this.d['contract_is_active']) {
-        r += 'התקשרות פעילה';
+        rr += 'התקשרות פעילה';
       } else {
-        r += 'התקשרות לא פעילה';
+        rr += 'התקשרות לא פעילה';
       }
+      r.push(rr);
     } else if (this.d['contract_is_active']) {
-      r += 'התקשרות פעילה';
+      r.push('התקשרות פעילה');
     } else {
-      r += 'התקשרות לא פעילה';
+      r.push('התקשרות לא פעילה');
     }
     return r;
   }

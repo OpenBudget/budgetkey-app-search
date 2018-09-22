@@ -1,0 +1,54 @@
+    <div class='part' [ngClass]='"entity-kind-" + d["kind"]' (click)='navigate()'>
+      <span class='top-right'>
+        <span class='title'>
+          <span class='tag' [innerHtml]='d["kind_he"]'></span>
+          <span class='name' [innerHtml]='d["name"]'></span>
+        </span>
+      </span>
+      <span class='top-left'>
+        <span class='entity-id'>
+          <span>מספר תאגיד</span>
+          <span>{{ d["id"] }}</span>
+        </span>
+        <ng-container *ngIf='amount()'>
+          <span class='description' [innerHtml]='amount_description()'></span>
+          <span class='actual' [innerHtml]='format_number(amount()) + "&nbsp;₪"'></span>
+        </ng-container>
+      </span>
+    </div>
+
+    <div class='part' *ngIf='d.kind=="association"'>
+      <span class='line'>
+        <strong>מטרות: </strong><span [innerHtml]='d["details"]["objective"]'></span>
+      </span>
+      <span class='line'>
+        <strong>אזורי פעילות: </strong><span [innerHtml]='d["details"]["activity_region_list"].join(", ")'></span>
+      </span>
+    </div>
+
+    <div class='part' *ngIf='d.kind=="company"'>
+      <span class='line'>
+        <strong>מטרות: </strong><span [innerHtml]='d["details"]["description"] || d["details"]["goal"]'></span>
+      </span>
+      <span class='line'>
+        <strong>כתובת: </strong><span [innerHtml]='d["details"]["address_lines"].join(", ")'></span>
+      </span>
+    </div>
+
+    <div class='part' *ngIf='d.kind=="municipality"'>
+      <span class='line'>
+        <strong>{{d.details.status_municipal_2015}} / </strong>
+        <span [innerHtml]='format_number(d.details.total_population_end_2015_1000s*1000) + " תושבים"'></span>
+      </span>
+      <span class='line'>
+        <strong>מחוז: </strong><span [innerHtml]='d.details.district_2015'></span>
+      </span>
+      <span class='line'>
+        <strong>אשכול סוציו-אקונומי: </strong>
+        <span [innerHtml]='d.details.index_socioeconomic_2013_cluster_from_1_to_10_1_lowest_most + "/10"'></span>
+      </span>
+      <span class='line'>
+        <strong>תקציב ב-2015:</strong>
+        <span [innerHtml]='format_number(d.details.expenses_of_municipality_for_activities_1000s_nis_2015*1000) + "&nbsp;₪"'></span>
+      </span>
+    </div>

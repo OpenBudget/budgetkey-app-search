@@ -35,9 +35,7 @@
   <div *ngFor="let item of allDocs | async; let i = index" >
     <search-result [item]="item" [index]="i" [kind]="item.type"></search-result>
   </div>
-      <h1 style="text-align: center;" *ngIf='getStatusText() === "טוען..."' i18n='@@searchingStatus'> </h1>
-      <h1 style="text-align: center;" *ngIf='getStatusText() === "אירעה שגיאה בחיפוש, נסו שוב"' i18n='@@errorStatus'> </h1>
-      <h1 style="text-align: center;" *ngIf='getStatusText() === "שורת החיפוש ריקה. בצעו חיפוש כלשהו"' i18n='@@len0Status'> </h1>
+  <div i18n="@@statusText" class="status" [innerHtml]='getStatusText()'></div>
 </div>
 
 

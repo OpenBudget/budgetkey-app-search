@@ -1,0 +1,21 @@
+    <div class='part' [ngClass]='"entity-kind-" + d.kind' (click)='navigate()'>
+      <span class='top-right'>
+        <span class='title'>
+          <span class='tag' *ngIf='d.kind==="fieldofactivity"'>תחום פעילות</span>
+          <span class='tag' *ngIf='d.kind==="district"'>אזור פעילות</span>
+          <span class='name' [innerHtml]='d.title'></span>
+        </span>
+      </span>
+    </div>
+
+    <div class='part' *ngIf='d.kind==="fieldofactivity"'>
+      <span class='line'>
+        <strong>מספר ארגונים: </strong><span [innerHtml]='d.details.report.total.total_amount'></span>
+      </span>
+    </div>
+
+    <div class='part' *ngIf='d.kind==="district"'>
+      <span class='line'>
+        <strong>מספר ארגונים: </strong><span [innerHtml]='d.details.report.total.count'></span>
+      </span>
+    </div>
