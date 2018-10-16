@@ -4,27 +4,39 @@
     <body>
       <trans-unit id="download" datatype="html">
         <source>Download</source>
-        <target></target>
+        <target>Download</target>
       </trans-unit>
-      <trans-unit id="statusText" datatype="html">
-        <source>{{getStatusText()}}</source>
-        <target>STATUS TEXT GOES HERE</target>
+      <trans-unit id="searchingStatus" datatype="html">
+      <source>טוען...</source>
+      <target>טוען...</target>
       </trans-unit>
-      <trans-unit id="footerlinks" datatype="html">
-        <source>API	קבוצת הדיון שלנו	קוד האתר	דווחו על תקלה	צרו קשר</source>
-        <target></target>
+      <trans-unit id="errorStatus" datatype="html">
+      <source>אירעה שגיאה בחיפוש, נסו שוב</source>
+      <target>אירעה שגיאה בחיפוש, נסו שוב</target>
+      </trans-unit>
+      <trans-unit id="len0Status" datatype="html">
+      <source>שורת החיפוש ריקה. בצעו חיפוש כלשהו</source>
+      <target>שורת החיפוש ריקה. בצעו חיפוש כלשהו</target>
       </trans-unit>
       <trans-unit id="supportertext" datatype="html">
         <source>אנו מכירים תודה לעשרות המתנדבים<br/>
 		אשר תרמו ממרצם וזמנם לפיתוח האתר.<br/><br/>                    
 		ובנוסף לתמיכתם האדיבה של</source>
-        <target></target>
+        <target>אנו מכירים תודה לעשרות המתנדבים
+		אשר תרמו ממרצם וזמנם לפיתוח האתר.                   
+		ובנוסף לתמיכתם האדיבה של</target>
       </trans-unit>
       <trans-unit id="disclaimer" datatype="html">
         <source>This website was created and maintained with the financial support of the European Union.
     Its contents are the sole responsibility of the Public Knowledge Workshop and do not necessarily
     reflect the views of the European Union.</source>
-        <target></target>
+        <target>This website was created and maintained with the financial support of the European Union.
+    Its contents are the sole responsibility of the Public Knowledge Workshop and do not necessarily
+    reflect the views of the European Union.</target>
+      </trans-unit>
+      <trans-unit id="filtermenulabel" datatype="html">
+        <source>תקופת פעילות</source>
+        <target>תקופת פעילות</target>
       </trans-unit>
     </body>
   </file>

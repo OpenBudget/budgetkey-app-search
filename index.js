@@ -33,8 +33,17 @@ app.get(basePath + '*', function(req, res) {
     }
   }
 
+  // set language
+  var lang = typeof(req.query.lang) !== "undefined" ? req.query.lang : '';
+  var langScript = '';
+  if (lang) {
+    langScript += "BUDGETKEY_LANG=" + JSON.stringify(lang) + ";";
+  } else {
+    langScript += 'BUDGETKEY_LANG=' +JSON.stringify('he') + ';';
+  }
+
   var theme = typeof(req.query.theme) !== "undefined" ? req.query.theme : '';
-  var themeFileName = theme !== '' ? 'theme.'+req.query.theme+'.json' : null;
+  var themeFileName = theme !== '' ? 'theme.'+req.query.theme+'.'+lang+'.json' : null;
   var themeScript = '';
   var themeJson = null;
   if (themeFileName) {
@@ -101,8 +110,7 @@ app.get(basePath + '*', function(req, res) {
   }
 
   res.render('index.html', {
-    langScript: langScript,
-    themeScript: themeScript, base: basePath, title: title,
+    langScript: langScript, themeScript: themeScript, base: basePath, title: title,
     authServerUrl: process.env.AUTH_SERVER_URL
   });
 });

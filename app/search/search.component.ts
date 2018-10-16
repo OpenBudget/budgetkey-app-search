@@ -98,13 +98,16 @@ export class SearchComponent {
         if (this.theme.themeId) {
           this.subscriptionUrlParams += `&theme=${this.theme.themeId}`;
         }
+        if (this.lang) {
+          this.subscriptionUrlParams += `&lang=${this.lang}`;
+        }
         if (this.selectedDocType.filterMenu) {
           for (let filterMenu of this.selectedDocType.filterMenu) {
             sp.filters = Object.assign({}, sp.filters, filterMenu.selected.filters || {});
             this.subscriptionUrlParams += '&' + filterMenu.id + '=' + filterMenu.selected.id;
           }
         }
-        url = `/?q=${term || ''}&dd=${sp.displayDocs}&${this.subscriptionUrlParams}&lang=${this.lang}`;
+        url = `/?q=${term || ''}&dd=${sp.displayDocs}&${this.subscriptionUrlParams}`;
         this.location.replaceState(url);
 
         this.updateSubscriptionProperties(sp);

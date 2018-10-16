@@ -42,6 +42,8 @@ let providers: any[] = [
   {provide: LANG_TOKEN, useValue: typeof(BUDGETKEY_LANG) === 'undefined' ? defaultLang : BUDGETKEY_LANG}
 ];
 
+export default BUDGETKEY_LANG;
+
 if (typeof(BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
   if (typeof(BUDGETKEY_APP_SEARCH_THEME) !== 'undefined') {
     BUDGETKEY_NG2_COMPONENTS_THEME = Object.assign({}, BUDGETKEY_NG2_COMPONENTS_THEME, BUDGETKEY_APP_SEARCH_THEME);
