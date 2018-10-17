@@ -33,19 +33,16 @@ app.get(basePath + '*', function(req, res) {
     }
   }
 
-  // set language
-  var lang = typeof(req.query.lang) !== "undefined" ? req.query.lang : '';
-  var langScript = '';
-  if (lang) {
-    langScript += "BUDGETKEY_LANG=" + JSON.stringify(lang) + ";";
-  } else {
-    langScript += 'BUDGETKEY_LANG=' +JSON.stringify('he') + ';';
-  }
+  let injectedScript = '';
 
-  var theme = typeof(req.query.theme) !== "undefined" ? req.query.theme : '';
-  var themeFileName = theme !== '' ? 'theme.'+req.query.theme+'.'+lang+'.json' : null;
-  var themeScript = '';
-  var themeJson = null;
+  // set language
+  var lang = typeof(req.query.lang) !== "undefined" ? req.query.lang : 'he';
+  var langScript = '';
+  injectedScript += `BUDGETKEY_LANG=${JSON.stringify(lang)};`;
+
+  var theme = typeof(req.query.theme) !== "undefined" ? req.query.theme : 'budgetkey';
+  var themeFileName = `theme.${theme}.${lang}.json`;
+  let themeJson = null;
   if (themeFileName) {
     // try the themes root directory first - this allows mount multiple themes in a single shared docker volume
     if (fs.existsSync(path.resolve('/themes', themeFileName))) {
@@ -56,20 +53,15 @@ app.get(basePath + '*', function(req, res) {
     }
     if (themeJson) {
       for (var key in themeJson) {
-        themeScript += key+"="+JSON.stringify(themeJson[key])+";";
+        injectedScript += `${key}=${JSON.stringify(themeJson[key])};`;
       }
-      themeScript += "BUDGETKEY_THEME_ID=" + JSON.stringify(req.query.theme) + ";";
+      injectedScript += `BUDGETKEY_THEME_ID=${JSON.stringify(req.query.theme)};`;
     }
   }
 
-  //set language
-  var lang = typeof(req.query.lang) !== "undefined" ? req.query.lang : '';
-  var langScript = '';
-  if (lang) {
-    langScript += "BUDGETKEY_LANG=" + JSON.stringify(lang) + ";";
-  }
-
-  var siteName = (themeJson && themeJson.BUDGETKEY_APP_GENERIC_ITEM_THEME) ? themeJson.BUDGETKEY_APP_GENERIC_ITEM_THEME.siteName : 'מפתח התקציב';
+  var siteName = (themeJson && themeJson.BUDGETKEY_APP_GENERIC_ITEM_THEME) ?
+                 themeJson.BUDGETKEY_APP_GENERIC_ITEM_THEME.siteName :
+                 'מפתח התקציב';
   var title = siteName + ' - חיפוש';
   var term = req.query.q;
   var kind = req.query.dd;
@@ -110,7 +102,7 @@ app.get(basePath + '*', function(req, res) {
   }
 
   res.render('index.html', {
-    langScript: langScript, themeScript: themeScript, base: basePath, title: title,
+    injectedScript: injectedScript, base: basePath, title: title,
     authServerUrl: process.env.AUTH_SERVER_URL
   });
 });

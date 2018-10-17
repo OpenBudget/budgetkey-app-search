@@ -5,14 +5,22 @@ import 'zone.js';
 import { TRANSLATIONS, TRANSLATIONS_FORMAT } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-import BUDGETKEY_LANG, { AppModule } from './app.module';
+import { AppModule, LANG } from './app.module';
 platformBrowserDynamic().bootstrapModule(AppModule);
 
-const translations = require(`./i18n/messages.${BUDGETKEY_LANG}.xlf`);
+const translations = {
+  'he': require(`./i18n/messages.he.xlf`),
+  'en': require(`./i18n/messages.en.xlf`),
+}[LANG];
 
-platformBrowserDynamic().bootstrapModule(AppModule, {
-  providers: [
+let providers: any[] = [];
+if (typeof(translations) !== 'undefined') {
+  providers = [
     {provide: TRANSLATIONS, useValue: translations},
     {provide: TRANSLATIONS_FORMAT, useValue: 'xlf'},
-  ]
+  ];
+}
+
+platformBrowserDynamic().bootstrapModule(AppModule, {
+  providers: providers
 });

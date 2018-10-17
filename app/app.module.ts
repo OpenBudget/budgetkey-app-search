@@ -29,20 +29,18 @@ import { SearchFilterMenuBarComponent,
 
 import { AppRoutingModule } from './app-routing.module';
 
-let defaultLang = 'he';
-
 declare let BUDGETKEY_NG2_COMPONENTS_THEME: any;
 declare const BUDGETKEY_APP_SEARCH_THEME: any;
 declare const BUDGETKEY_THEME_ID: any;
 declare const BUDGETKEY_LANG: any;
 
+export const LANG = typeof(BUDGETKEY_LANG) === 'undefined' ? 'he' : BUDGETKEY_LANG;
+     
 let providers: any[] = [
   SearchService,
   {provide: THEME_ID_TOKEN, useValue: typeof(BUDGETKEY_THEME_ID) === 'undefined' ? null : BUDGETKEY_THEME_ID},
-  {provide: LANG_TOKEN, useValue: typeof(BUDGETKEY_LANG) === 'undefined' ? defaultLang : BUDGETKEY_LANG}
+  {provide: LANG_TOKEN, useValue: LANG}
 ];
-
-export default BUDGETKEY_LANG;
 
 if (typeof(BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
   if (typeof(BUDGETKEY_APP_SEARCH_THEME) !== 'undefined') {
