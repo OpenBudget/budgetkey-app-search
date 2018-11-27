@@ -134,6 +134,16 @@ export let KIND_PARAMETERS = [
     mainNameField: 'details.0.full_name'
   },
   {
+    docType: 'gov_decisions',
+    label: 'החלטת&nbsp;ממשלה',
+    mainNameField: 'title',
+    secondaryNameField: 'policy_type',
+    firstItemField: 'publish_date',
+    firstItemLabel: 'מועד פרסום',
+    secondItemField: 'procedure_number',
+    secondItemLabel: 'החלטת ממשלה'    
+  },
+  {
     docType: '',
     label: 'אחר?',
     mainNameField: 'doc_id',

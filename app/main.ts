@@ -6,7 +6,6 @@ import { TRANSLATIONS, TRANSLATIONS_FORMAT } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule, LANG } from './app.module';
-platformBrowserDynamic().bootstrapModule(AppModule);
 
 const translations = {
   'he': require(`./i18n/messages.he.xlf`),

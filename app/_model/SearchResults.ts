@@ -29,6 +29,7 @@ class SearchResultsCounts {
   'national-budget-changes': KindResults;
   procurement: KindResults;
   people: KindResults;
+  gov_decisions: KindResults;
 }
 
 export class SearchResults {

@@ -102,7 +102,9 @@ app.get(basePath + '*', function(req, res) {
   }
 
   res.render('index.html', {
-    injectedScript: injectedScript, base: basePath, title: title,
+    injectedScript: injectedScript, 
+    base: basePath, 
+    title: title,
     authServerUrl: process.env.AUTH_SERVER_URL
   });
 });
