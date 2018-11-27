@@ -141,7 +141,7 @@ export let KIND_PARAMETERS = [
     firstItemField: 'publish_date',
     firstItemLabel: 'מועד פרסום',
     secondItemField: 'procedure_number',
-    secondItemLabel: 'החלטת ממשלה'    
+    secondItemLabel: 'החלטת ממשלה'
   },
   {
     docType: '',
