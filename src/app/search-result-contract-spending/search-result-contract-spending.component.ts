@@ -40,9 +40,9 @@ export class SearchResultContractSpendingComponent extends SearchResultBaseCompo
   }
 
   periodDetails() {
-    let r: string[] = [];
+    const r: string[] = [];
     if (this.d['order_date']) {
-      r.push('תקופת ההתקשרות')
+      r.push('תקופת ההתקשרות');
       let rr = this.d['order_date'] + ' - ';
       if (this.d['end_date']) {
         rr += this.d['end_date'];

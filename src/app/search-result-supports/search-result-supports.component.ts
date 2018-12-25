@@ -36,9 +36,9 @@ export class SearchResultSupportsComponent extends SearchResultBaseComponent {
   description() {}
 
   periodDetails() {
-    let lastYear = this.d['last_payment_year'];
+    const lastYear = this.d['last_payment_year'];
     if (!lastYear || lastYear === this.d['year_requested']) {
-      return ['שנת תמיכה:', ''+this.d['year_requested']];
+      return ['שנת תמיכה:', '' + this.d['year_requested']];
     } else {
       return ['תקופת תמיכה:', this.d['year_requested'] + ' - ' + lastYear];
     }
