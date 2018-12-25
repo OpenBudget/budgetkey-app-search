@@ -7,7 +7,6 @@ import {FilterMenu, FilterOption} from 'budgetkey-ng2-components';
   styleUrls: ['./search-filter-menu.component.less']
 })
 export class SearchFilterMenuComponent {
-
   @Input() menu: FilterMenu;
   @Output() selected = new EventEmitter();
 

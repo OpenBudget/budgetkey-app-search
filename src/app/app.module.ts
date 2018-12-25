@@ -17,8 +17,9 @@ import { SearchResultSupportsComponent } from './search-result-supports/search-r
 import { SearchResultTendersComponent } from './search-result-tenders/search-result-tenders.component';
 import { TimelineMenuComponent } from './timeline-menu/timeline-menu.component';
 import { Routes, RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
-const appRoutes: Routes = [
+export const appRoutes: Routes = [
   { path: '', component: SearchComponent },
 ];
 
@@ -66,6 +67,7 @@ if (typeof(BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
     ),
+    HttpClientModule,
     BudgetkeyNg2AuthModule,
     BudgetKeyCommonModule,
   ],
