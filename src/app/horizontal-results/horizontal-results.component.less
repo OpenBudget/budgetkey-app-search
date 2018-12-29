@@ -1,0 +1,68 @@
+.host {
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+    width: 100%;
+    position: relative;
+    border: 1px solid #dadada;
+    border-radius: 6px;
+    margin-top: 60px;
+    margin-bottom: 10px;
+
+    .title {
+        position: relative;
+        display: block;
+        padding: 0 8px;
+        background-color: #fafafa;
+        font-size: 22px;
+        font-weight: normal;
+        font-family: "Abraham TRIAL";
+        top: -16px;
+        right: 16px;
+        margin-bottom: -32px;
+    }
+
+    .results {
+        display: flex;
+        flex-flow: row;
+        align-items: flex-start;
+        overflow-x: scroll;
+        width: 100%;
+    
+        .precard {
+            display: block;
+            width: 240px;
+            height: 120px;
+            flex: 0 0 auto;
+            margin: 16px 16px 16px 8px;
+            border-radius: 4px;
+            padding: 8px;
+            border: 1px solid #edeef0;
+            // box-shadow: 0 1px 2px 0 rgba(189, 189, 189, 0.6);
+
+            font-family: "Abraham TRIAL";
+            font-size: 16px;
+            font-weight: normal;
+            color: #7d7d7d;
+        }
+    
+        search-result {
+            max-width: 320px;
+            width: 100%;
+            flex: 0 0 100%;
+            margin: 16px 8px;
+            margin-bottom: -14px;
+        }
+    }
+    
+    .filtered {
+        display: flex;
+        flex-flow: row;
+        height: 48px;
+        width: 100%;
+        align-items: center;
+        padding: 0 6px;
+        border-top: 1px solid #dadada;
+    }
+}
+

@@ -1,0 +1,19 @@
+<div class='host' *ngIf='!searchManager.isSearching && !searchManager.isErrorInLastSearch && searchManager.last && searchManager.last.docType.amount'>
+  <div class='title'>
+    {{searchManager.last.docType.name}}
+    <span *ngIf='searchManager.last.docType.amount'>({{searchManager.last.docType.amount}} {{searchManager.last.docType.score}})</span>
+  </div>
+  <div class='results' (scroll)='scrollHandler($event)'>
+    <div class='precard'>{{searchManager.last.docType.description}}</div>
+    <search-result 
+        *ngFor="let item of (searchManager.searchResults | async).docs; let i = index"
+        [item]="item" [index]="i" [kind]="item.type" [mobileView]='true'
+    ></search-result>
+  </div>
+  <div class='filtered' *ngIf='docTypes.length > 1'>
+    <ng-container *ngFor='let docType of docTypes'>
+      <search-tag *ngIf='docTypes[0] !== docType && docType.amount'
+                  [name]='docType.display' [amount]='docType.amount'></search-tag>
+    </ng-container>
+  </div>
+</div>

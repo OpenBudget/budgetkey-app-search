@@ -18,13 +18,16 @@ import { SearchResultTendersComponent } from './search-result-tenders/search-res
 import { TimelineMenuComponent } from './timeline-menu/timeline-menu.component';
 import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { VerticalResultsComponent } from './vertical-results/vertical-results.component';
+import { SearchModeSelectorComponent } from './search-mode-selector/search-mode-selector.component';
+import { HorizontalResultsComponent } from './horizontal-results/horizontal-results.component';
+import { SearchTagComponent } from './search-tag/search-tag.component';
 
 export const appRoutes: Routes = [
   { path: '', component: SearchComponent },
 ];
 
 declare let BUDGETKEY_NG2_COMPONENTS_THEME: any;
-declare const BUDGETKEY_APP_SEARCH_THEME: any;
 declare const BUDGETKEY_THEME_ID: any;
 declare const BUDGETKEY_LANG: any;
 
@@ -37,9 +40,7 @@ const providers: any[] = [
 ];
 
 if (typeof(BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
-  if (typeof(BUDGETKEY_APP_SEARCH_THEME) !== 'undefined') {
-    BUDGETKEY_NG2_COMPONENTS_THEME = Object.assign({}, BUDGETKEY_NG2_COMPONENTS_THEME, BUDGETKEY_APP_SEARCH_THEME);
-  }
+  BUDGETKEY_NG2_COMPONENTS_THEME = Object.assign({}, BUDGETKEY_NG2_COMPONENTS_THEME);
   providers.push({provide: THEME_TOKEN,
                   useValue: BUDGETKEY_NG2_COMPONENTS_THEME});
 }
@@ -58,14 +59,17 @@ if (typeof(BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
     SearchResultReportsComponent,
     SearchResultSupportsComponent,
     SearchResultTendersComponent,
-    TimelineMenuComponent
+    TimelineMenuComponent,
+    VerticalResultsComponent,
+    SearchModeSelectorComponent,
+    HorizontalResultsComponent,
+    SearchTagComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      appRoutes
     ),
     HttpClientModule,
     BudgetkeyNg2AuthModule,

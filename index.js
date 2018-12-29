@@ -4,8 +4,6 @@ const path = require('path');
 const fs = require('fs');
 const express = require('express');
 const nunjucks = require('nunjucks');
-const request = require("request");
-const urlencode = require('urlencode');
 
 const basePath = process.env.BASE_PATH || '/';
 const rootPath = path.resolve(__dirname, './dist/budgetkey-app-search');
@@ -28,7 +26,6 @@ app.get(basePath + '*', function(req, res) {
 
   // set language
   var lang = typeof(req.query.lang) !== "undefined" ? req.query.lang : 'he';
-  var langScript = '';
   injectedScript += `BUDGETKEY_LANG=${JSON.stringify(lang)};`;
 
   var theme = typeof(req.query.theme) !== "undefined" ? req.query.theme : 'budgetkey';
