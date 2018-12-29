@@ -16,6 +16,7 @@ export class HorizontalResultsComponent implements OnInit {
   @Input() docType: SearchBarType;
   @Input() state: SearchState;
   @Output() searching = new EventEmitter<boolean>();
+  @Output() clicked = new EventEmitter<boolean>();
 
   searchManager: SearchManager;
   lastOutcome: SearchOutcome;
@@ -42,7 +43,7 @@ export class HorizontalResultsComponent implements OnInit {
               offset: 0,
               pageSize: 1,
               term: sp.term,
-              period: sp.period,
+              period: null,
               filters: this.docType.filters,
               ordering: null
             });
@@ -58,9 +59,14 @@ export class HorizontalResultsComponent implements OnInit {
       this.state,
       this.docTypes,
       (sp: SearchParams) => {
-        const ret = new SearchParams(sp);
-        ret.docType = this.docType;
-        return ret;
+        if (sp.offset === 0) {
+          const ret = new SearchParams(sp);
+          ret.docType = this.docType;
+          ret.filters = Object.assign({}, ret.filters, this.docType.filters);
+          ret.period = null;
+          return ret;
+        }
+        return sp;
       }
     );
 
@@ -68,6 +74,16 @@ export class HorizontalResultsComponent implements OnInit {
       this.lastOutcome = outcome;
       this.searching.emit(outcome.isSearching);
     });
+  }
+
+  shouldShow() {
+    return this.docType.id !== 'all' &&
+           this.lastOutcome &&
+           !this.lastOutcome.isSearching &&
+           !this.lastOutcome.isErrorInLastSearch &&
+           this.searchManager.last &&
+           this.searchManager.last.docType.amount &&
+           this.searchManager.last.docType['score'] > 10;
   }
 
   scrollHandler(event) {
@@ -83,5 +99,18 @@ export class HorizontalResultsComponent implements OnInit {
     }
   }
 
+  titleClicked() {
+    this.clicked.emit(true);
+  }
+
+  optionClicked(selected) {
+    for (const option of this.docType.filterMenu[0].options) {
+      if (option.id === selected.id) {
+        this.docType.filterMenu[0].selected = option;
+        break;
+      }
+    }
+    this.clicked.emit(true);
+  }
 
 }

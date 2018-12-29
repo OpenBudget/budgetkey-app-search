@@ -9,6 +9,8 @@ export class SearchTagComponent implements OnInit {
 
   @Input() name: string;
   @Input() amount: number;
+  @Input() selected = false;
+  @Input() main = false;
 
   constructor() { }
 

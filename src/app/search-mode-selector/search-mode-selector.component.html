@@ -5,13 +5,12 @@
 </vertical-results>
 <ng-container *ngIf='state.docType.id==="all"'>
   <ng-container *ngFor='let docType of sortedDocTypes()'>
-    <ng-container *ngIf='docType.id!=="all"'>
-      <horizontal-results
-        [docType]='docType'
-        [state]='state'
-        (searching)='onSingleSearching(docType.id, $event)'
-      >
-      </horizontal-results>
-    </ng-container>
+    <horizontal-results
+      [docType]='docType'
+      [state]='state'
+      (searching)='onSingleSearching(docType.id, $event)'
+      (clicked)='state.docType = docType'
+    >
+    </horizontal-results>
   </ng-container>
 </ng-container>

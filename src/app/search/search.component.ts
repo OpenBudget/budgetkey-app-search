@@ -31,7 +31,7 @@ export class SearchComponent implements OnInit {
   private periods: any[];
 
   // Tabs selection
-  private docTypes: any[];
+  public docTypes: any[];
 
   constructor(
     private route: ActivatedRoute,
@@ -92,7 +92,7 @@ export class SearchComponent implements OnInit {
         customPeriod.start = params['from'] || customPeriod.start;
         customPeriod.end = params['to'] || customPeriod.end;
 
-        const timeRange = params['range'] || 'last_decade';
+        const timeRange = params['range'] || 'all';
         for (const p of this.periods) {
           if (p.value === timeRange) {
             this.searchState.period = p;

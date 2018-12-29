@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { URL } from './config';
@@ -12,6 +12,8 @@ import { SearchBarType } from 'budgetkey-ng2-components';
   providedIn: 'root'
 })
 export class SearchService {
+
+  private cache: any = window['CACHE'] || {};
 
   constructor(private http: HttpClient) {}
 
@@ -35,6 +37,13 @@ export class SearchService {
       url += `&order=${sp.ordering}`;
     }
 
+    if (this.cache[url]) {
+      const ret = this.cache[url];
+      ret.params = sp;
+      console.log('HIT!');
+      return of(this.cache[url]);
+    }
+
     return this.http
       .get(url)
       .pipe(
@@ -42,6 +51,8 @@ export class SearchService {
               const endTime = new Date();
               console.log('req search time: ', (endTime.getTime()  - startTime.getTime()) / 1000, 'sec');
               const ret = <SearchResults>r;
+              this.cache[url] = ret;
+              console.log(Object.keys(this.cache));
               ret.params = sp;
               return ret;
           })
@@ -65,8 +76,15 @@ export class SearchService {
     if (sp.term) {
       url += `&q=${encodeURIComponent(sp.term)}`;
     }
-    if (sp.period) {
+    if (sp.period && sp.period.value !== 'all') {
       url += `&from_date=${sp.period.start}&to_date=${sp.period.end}`;
+    }
+
+    if (this.cache[url]) {
+      const ret = this.cache[url];
+      ret.params = sp;
+      console.log('HIT!');
+      return of(this.cache[url]);
     }
 
     return this.http
@@ -76,6 +94,8 @@ export class SearchService {
           const endTime = new Date();
           console.log('req count time: ', (endTime.getTime()  - startTime.getTime()) / 1000, 'sec');
           const ret = <SearchResults>r;
+          this.cache[url] = ret;
+          window['cache'] = this.cache;
           ret.params = sp;
           return ret;
         })

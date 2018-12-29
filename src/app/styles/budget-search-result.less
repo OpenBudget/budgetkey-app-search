@@ -98,3 +98,57 @@ div.part:nth-child(2) {
         font-size: 13px;
     }
 }
+
+div.part:nth-child(3) {
+    display: none;
+}
+
+div.part:nth-child(4) {
+    border-top: 1px solid #eee;
+}
+
+.budget-search-mobile-view {
+    div.part:nth-child(1) {
+        padding: 8px;
+        .breadcrumbs  {
+            display: none;
+        }    
+    }
+    div.part:nth-child(2) {
+        padding: 8px;
+        .title {
+            font-size: 18px;
+            line-height: 20px;
+        }
+        .amount {
+            display: none;
+        }
+    }
+    div.part:nth-child(3) {
+        padding: 8px;
+        display: flex;
+        flex-flow: column;
+        .breadcrumbs {
+            color: #B7B7B7;	
+            font-family: "Abraham TRIAL";
+            font-size: 13px;    
+        }
+        .amount {
+            margin-right: auto;
+            font-family: "Miriam Libre";	
+            font-size: 16px;	
+            font-weight: bold;
+        }
+    }
+    div.part:nth-child(4) {
+        padding: 8px;
+    }
+}
+
+&.mobileview {
+    .budget-search-mobile-view;
+}
+@media only screen and (max-width: 600px) {
+    .budget-search-mobile-view;
+}
+

@@ -7,11 +7,11 @@ budgetkey-container {
   background: @bg fixed;
   min-height: 400px;
   display: block;
-  .container-fluid {
+  .container {
+    display:flex;
+    flex-flow: column;
+    align-content: center;
     max-width: 800px;
-    margin: auto;
-    left: -50%;
-    right: 400px;
   }
   .search_body {
     margin-top: 20px;

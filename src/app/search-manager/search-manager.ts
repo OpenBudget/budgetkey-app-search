@@ -1,7 +1,7 @@
 import { SearchService } from '../api.service';
-import { Subject, of, BehaviorSubject, Observable, from } from 'rxjs';
+import { Subject, of, BehaviorSubject, Observable, from, merge } from 'rxjs';
 import { SearchParams, SearchResults, DocResultEntry } from '../model';
-import { debounceTime, switchMap, mergeMap, merge, last, filter, map } from 'rxjs/operators';
+import { debounceTime, switchMap, mergeMap, filter, map } from 'rxjs/operators';
 import { SearchBarType } from 'budgetkey-ng2-components';
 import { SearchState } from '../search-state/search-state';
 
@@ -20,7 +20,7 @@ export class SearchManager {
     // Fetch more
     private moreQueue = new Subject<SearchParams>();
     private done = false;
-    private last: SearchParams;
+    public last: SearchParams;
 
     // Results
     allResults: DocResultEntry[] = [];
@@ -36,14 +36,12 @@ export class SearchManager {
         if (!modifyParams) {
             modifyParams = (sp) => sp;
         }
-        this.state.searchQueue // open a stream
+        merge(this.moreQueue, state.searchQueue) // open a stream
             .pipe(
                 filter((sp) => !!sp),
                 map((sp) => modifyParams(sp)),
                 debounceTime(300),           // wait for 300ms pause in events
-                merge(this.moreQueue),
                 switchMap((sp: SearchParams) => {
-                    this.last = sp;
                     return this.doRequest(sp);
                 }),
                 mergeMap((x) => x)
@@ -51,6 +49,7 @@ export class SearchManager {
             .subscribe(
                 (results: SearchResults) => {
                     console.log('got results', results);
+                    this.last = results.params;
                     this.processResults(results);
                 },
                 (error) => {
@@ -82,9 +81,12 @@ export class SearchManager {
             this.updateResults([], true);
         }
         const search = this.api.search(sp);
-        const count = this.api.count(sp,
-            this.docTypes.filter((dt: any) => dt !== sp.docType));
-        const calls = [search, count];
+        const calls = [search];
+        const toCount = this.docTypes.filter((dt: any) => dt !== sp.docType);
+        if (toCount.length > 0) {
+            const count = this.api.count(sp, toCount);
+            calls.push(count);
+        }
         // if (!this.theme.themeId) {
         // let timeline = this.searchService.timeline(sp);
         // calls.push(timeline);

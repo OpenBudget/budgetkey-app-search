@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
 import { SearchState } from '../search-state/search-state';
 import { THEME_TOKEN, SearchBarType } from 'budgetkey-ng2-components';
+import { SearchService } from '../api.service';
 
 @Component({
     selector: 'search-mode-selector',
@@ -15,6 +16,7 @@ export class SearchModeSelectorComponent implements OnInit {
     private multiSearching: object = {};
 
     constructor(
+        private api: SearchService,
         @Inject(THEME_TOKEN) public theme: any,
     ) { }
 

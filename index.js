@@ -1,5 +1,7 @@
 'use strict';
 
+const CACHE = require('./cache');
+
 const path = require('path');
 const fs = require('fs');
 const express = require('express');
@@ -46,6 +48,7 @@ app.get(basePath + '*', function(req, res) {
       injectedScript += `BUDGETKEY_THEME_ID=${JSON.stringify(req.query.theme)};`;
     }
   }
+  injectedScript += `CACHE=${JSON.stringify(CACHE)};`
 
   var siteName = (themeJson && themeJson.BUDGETKEY_APP_GENERIC_ITEM_THEME) ?
                  themeJson.BUDGETKEY_APP_GENERIC_ITEM_THEME.siteName :

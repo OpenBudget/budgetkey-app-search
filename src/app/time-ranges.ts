@@ -18,12 +18,12 @@ export class TimeRanges {
   private initPeriods() {
     const fmt = this.DATE_FMT;
     // let now = moment().format(fmt);
-    const theFuture = moment().add(10, 'years').format(fmt);
+    const theFuture = '2100-01-01';
     const startLastWeek = moment().subtract(1, 'weeks').format(fmt);
     const startLastMonth = moment().subtract(1, 'months').format(fmt);
     const startLastYear = moment().subtract(1, 'years').format(fmt);
     const startLastDecade = moment().subtract(10, 'years').format(fmt);
-    const thePast = moment().subtract(30, 'years').format(fmt);
+    const thePast = '1900-01-01';
     // let startCustomRange = startLastMonth;
 
     const periods = [
