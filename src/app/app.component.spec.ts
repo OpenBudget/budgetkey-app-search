@@ -18,6 +18,10 @@ import { SearchResultReportsComponent } from './search-result-reports/search-res
 import { SearchResultSupportsComponent } from './search-result-supports/search-result-supports.component';
 import { SearchResultTendersComponent } from './search-result-tenders/search-result-tenders.component';
 import { TimelineMenuComponent } from './timeline-menu/timeline-menu.component';
+import { SearchTagComponent } from './search-tag/search-tag.component';
+import { VerticalResultsComponent } from './vertical-results/vertical-results.component';
+import { HorizontalResultsComponent } from './horizontal-results/horizontal-results.component';
+import { SearchModeSelectorComponent } from './search-mode-selector/search-mode-selector.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -44,6 +48,10 @@ describe('AppComponent', () => {
         SearchResultReportsComponent,
         SearchResultSupportsComponent,
         SearchResultTendersComponent,
+        SearchTagComponent,
+        VerticalResultsComponent,
+        HorizontalResultsComponent,
+        SearchModeSelectorComponent,
         TimelineMenuComponent
       ],
       providers: [
