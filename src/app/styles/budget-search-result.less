@@ -24,6 +24,7 @@
 .func-cls-5 { .budget-func-cls-color(#768275, #8EA38C, #D4E3D1, #ECF2EB); } //Greenish
 .func-cls-6 { .budget-func-cls-color(#998282, #C7B3B3, #EDE4E4, #F7F2F2); } //Sepia
 .func-cls-7 { .budget-func-cls-color(#8C8231, #F2E22E, #FFF7B3, #FCFADC); } //Yellow
+.func-cls-8 { .budget-func-cls-color(#313131, #2E2E2E, #B3B3B3, #DCDCDC); } //Yellow
 
 
 div.part {
@@ -97,3 +98,57 @@ div.part:nth-child(2) {
         font-size: 13px;
     }
 }
+
+div.part:nth-child(3) {
+    display: none;
+}
+
+div.part:nth-child(4) {
+    border-top: 1px solid #eee;
+}
+
+.budget-search-mobile-view {
+    div.part:nth-child(1) {
+        padding: 8px;
+        .breadcrumbs  {
+            display: none;
+        }    
+    }
+    div.part:nth-child(2) {
+        padding: 8px;
+        .title {
+            font-size: 18px;
+            line-height: 20px;
+        }
+        .amount {
+            display: none;
+        }
+    }
+    div.part:nth-child(3) {
+        padding: 8px;
+        display: flex;
+        flex-flow: column;
+        .breadcrumbs {
+            color: #B7B7B7;	
+            font-family: "Abraham TRIAL";
+            font-size: 13px;    
+        }
+        .amount {
+            margin-right: auto;
+            font-family: "Miriam Libre";	
+            font-size: 16px;	
+            font-weight: bold;
+        }
+    }
+    div.part:nth-child(4) {
+        padding: 8px;
+    }
+}
+
+&.mobileview {
+    .budget-search-mobile-view;
+}
+@media only screen and (max-width: 600px) {
+    .budget-search-mobile-view;
+}
+

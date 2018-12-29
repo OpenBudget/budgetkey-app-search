@@ -16,6 +16,8 @@ export class SearchResultComponent implements OnInit {
   @Input() item: DocResultEntry;
   @Input() index: number;
   @Input() kind: string;
+  @Input() mobileView = false;
+
   public parameters: any;
 
   constructor(@Inject(THEME_ID_TOKEN) private theme_id: any) { }

@@ -1,0 +1,53 @@
+:host {
+    font-family: 'Abraham TRIAL';
+    font-size: 16px;
+    font-weight: normal;
+    color: #7d7d7d;
+    display: flex;
+    flex-flow: row;
+    margin: 4px 0;
+
+    div {
+        padding: 0 2px;
+        margin: 0 5px;
+        border: 2px solid #edeef0;
+
+        &.selected {
+            border-color: #ff5a5f;
+        }
+    }
+
+    div:first-child {
+        background-color: #edeef0;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        margin-left: 0;
+        white-space: nowrap;
+
+        &.selected {
+            background-color: #ff5a5f;
+            color: #fff;
+        }
+
+        &.main {
+            text-decoration: underline;
+        }
+
+        &.main.selected {
+            text-decoration: none;
+        }
+    }
+
+    div:nth-child(2) {
+        margin-right: -2px;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+
+        &.selected {
+            background-color: #fcebec;
+            color: #ff5a5f;
+        }
+        
+    }
+
+}

@@ -1,41 +1,39 @@
-<div class='row'  >
+<div class='row'>
+  <budgetkey-search-bar [searchTerm]="searchState.term"
+                        [selectedSearchType]="searchState.docType"
+                        [isSearching]="isSearching"
+                        [allowSubscribe]="true"
+                        [externalTitle]="searchState.term"
+                        [externalUrlParams]="subscriptionUrlParams"
+                        [externalProperties]="subscriptionProperties"
+                        (search)="onTermChanged($event)"
+                        (selected)="onDocTypeSelected($event)"
+  ></budgetkey-search-bar>
+</div>
 
-  <div id="search-box-and-download">
-    <budgetkey-search-bar [searchTerm]="term"
-                          [selectedSearchType]="selectedDocType"
-                          [isSearching]="isSearching"
-                          [allowSubscribe]="true"
-                          [externalTitle]="term"
-                          [externalUrlParams]="subscriptionUrlParams"
-                          [externalProperties]="subscriptionProperties"
-                          (search)="onTermChanged($event)"
-                          (selected)="onDocTypeSelected($event)"
-
-    ></budgetkey-search-bar>
-
-  <!--a i18n="@@download" href='javascript:void(0)' (click)="download(term);"> Download </a-->
+<div class='row'>
+  <div class='count-tags'>
+      <search-tag *ngFor='let docType of docTypes'
+                  [name]='docType.name' [amount]='docType.amount' 
+                  [selected]='searchState.docType===docType'
+                  [main]='true'
+                  (click)='onDocTypeSelected(docType)'
+      ></search-tag>
   </div>
-
 </div>
 
 <search-filter-menu-bar 
-    *ngIf='term'
-    [menus]="selectedDocType.filterMenu || []" 
+    *ngIf='searchState.docType.id!=="all"'
+    [menus]="searchState.docType.filterMenu || []" 
     (selected)="onSearchFilterMenuChange()" 
 >
   <timeline-menu [periods]="periods"
-            [selectedPeriod]="selectedPeriod"
+            [selectedPeriod]="searchState.period"
             (periodChangeSearch)="periodChangeSearch($event)"
   ></timeline-menu>
 </search-filter-menu-bar>
 
-<div #searchBody class="search_body">
-
-  <div *ngFor="let item of allDocs | async; let i = index" >
-    <search-result [item]="item" [index]="i" [kind]="item.type"></search-result>
-  </div>
-  <div i18n="@@statusText" class="status" [innerHtml]='getStatusText()'></div>
-</div>
-
-
-
+<search-mode-selector 
+  [state]='searchState'
+  (searching)='isSearching = $event'>
+</search-mode-selector>
