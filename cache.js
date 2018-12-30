@@ -15,10 +15,6 @@ themeJson = themeJson.BUDGETKEY_NG2_COMPONENTS_THEME.searchBarConfig;
 const URLS = [];
 for (let docType of themeJson) {
     const types = docType.types.join(',');
-    if (types === 'all') {
-        continue;
-    }
-
     URLS.push(`https://next.obudget.org/search/${types}?size=1&offset=0`)
     const filters = docType.filters ? JSON.stringify(docType.filters).slice(1, -1) : '';
     URLS.push(`https://next.obudget.org/search/${types}?size=10&offset=0&filter=${urlencode(filters)}`)
