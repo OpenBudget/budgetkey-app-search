@@ -39,7 +39,6 @@ export class SearchComponent implements OnInit {
     @Inject(THEME_TOKEN) private theme: any,
     @Inject(LANG_TOKEN) private lang: string
   ) {
-    console.log(theme.searchBarConfig);
     this.searchState = new SearchState(<SearchBarType[]>theme.searchBarConfig);
     this.periods = (new TimeRanges()).periods;
     this.docTypes = this.theme.searchBarConfig;

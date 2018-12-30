@@ -38,7 +38,7 @@ export class SearchModeSelectorComponent implements OnInit {
     }
 
     sortedDocTypes() {
-        const config: SearchBarType[] = this.theme.searchBarConfig;
+        const config: SearchBarType[] = this.theme.searchBarConfig.slice();
         const sorted = config.sort((a, b) => this.cmp(a, b, 'score', this.cmp(a, b, 'amount', 0)));
         return sorted;
     }

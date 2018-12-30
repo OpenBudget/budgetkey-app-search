@@ -52,7 +52,6 @@ export class SearchService {
               console.log('req search time: ', (endTime.getTime()  - startTime.getTime()) / 1000, 'sec');
               const ret = <SearchResults>r;
               this.cache[url] = ret;
-              console.log(Object.keys(this.cache));
               ret.params = sp;
               return ret;
           })

@@ -48,7 +48,6 @@ export class SearchManager {
             )
             .subscribe(
                 (results: SearchResults) => {
-                    console.log('got results', results);
                     this.last = results.params;
                     this.processResults(results);
                 },
@@ -95,7 +94,6 @@ export class SearchManager {
     }
 
     processResults(results: SearchResults) {
-        console.log('processResults', results);
         if (results) {
             if (results.search_counts) {
                 for (let key of Object.keys(results.search_counts)) {
