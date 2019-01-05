@@ -11,7 +11,7 @@
   ></budgetkey-search-bar>
 </div>
 
-<div class='row'>
+<div class='row' *ngIf='!isSearching'>
   <div class='count-tags'>
       <search-tag *ngFor='let docType of docTypes'
                   [name]='docType.name' [amount]='docType.amount' 

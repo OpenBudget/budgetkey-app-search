@@ -8,6 +8,7 @@
     <horizontal-results
       [docType]='docType'
       [state]='state'
+      [anySearching]='anySearching'
       (searching)='onSingleSearching(docType.id, $event)'
       (clicked)='state.docType = docType'
     >

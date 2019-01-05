@@ -14,6 +14,8 @@ export class SearchModeSelectorComponent implements OnInit {
     @Output() searching = new EventEmitter<boolean>();
 
     private multiSearching: object = {};
+    anySearching = false;
+
 
     constructor(
         private api: SearchService,
@@ -30,6 +32,7 @@ export class SearchModeSelectorComponent implements OnInit {
     onSingleSearching(docTypeId, searching) {
         this.multiSearching[docTypeId] = searching;
         const anySearching = Object.values(this.multiSearching).filter(x => x).length > 0;
+        console.log(anySearching, '<==', this.multiSearching);
         this.searching.emit(anySearching);
     }
 

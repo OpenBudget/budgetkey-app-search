@@ -15,6 +15,7 @@ export class HorizontalResultsComponent implements OnInit {
 
   @Input() docType: SearchBarType;
   @Input() state: SearchState;
+  @Input() anySearching: boolean;
   @Output() searching = new EventEmitter<boolean>();
   @Output() clicked = new EventEmitter<boolean>();
 
@@ -81,6 +82,7 @@ export class HorizontalResultsComponent implements OnInit {
            this.lastOutcome &&
            !this.lastOutcome.isSearching &&
            !this.lastOutcome.isErrorInLastSearch &&
+           !this.anySearching &&
            this.searchManager.last &&
            this.searchManager.last.docType.amount &&
            this.searchManager.last.docType['score'] > 10;
