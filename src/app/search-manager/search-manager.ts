@@ -1,7 +1,7 @@
 import { SearchService } from '../api.service';
 import { Subject, of, BehaviorSubject, Observable, from, merge } from 'rxjs';
 import { SearchParams, SearchResults, DocResultEntry } from '../model';
-import { debounceTime, switchMap, mergeMap, filter, map } from 'rxjs/operators';
+import { debounceTime, switchMap, mergeMap, filter, map, last } from 'rxjs/operators';
 import { SearchBarType } from 'budgetkey-ng2-components';
 import { SearchState } from '../search-state/search-state';
 
@@ -30,6 +30,7 @@ export class SearchManager {
     constructor(private api: SearchService,
                 private state: SearchState,
                 private docTypes: SearchBarType[],
+                private debounce: number,
                 modifyParams?: (sp: SearchParams) => SearchParams
         ) {
 
@@ -39,8 +40,12 @@ export class SearchManager {
         merge(this.moreQueue, state.searchQueue) // open a stream
             .pipe(
                 filter((sp) => !!sp),
-                map((sp) => modifyParams(sp)),
-                debounceTime(300),           // wait for 300ms pause in events
+                map((sp) => {
+                    sp = modifyParams(sp);
+                    this.last = sp;
+                    return sp;
+                }),
+                debounceTime(this.debounce),           // wait for 300ms pause in events
                 switchMap((sp: SearchParams) => {
                     return this.doRequest(sp);
                 }),
@@ -48,7 +53,6 @@ export class SearchManager {
             )
             .subscribe(
                 (results: SearchResults) => {
-                    this.last = results.params;
                     this.processResults(results);
                 },
                 (error) => {
@@ -113,7 +117,7 @@ export class SearchManager {
             if (results.search_results) {
                 this.allResults = this.allResults.slice(0, results.params.offset);
                 this.allResults.push(...results.search_results);
-                this.updateResults(this.allResults, false);
+                this.updateResults(this.allResults, results.params !== this.last);
             }
             // if (results.timeline) {
             //   this.timeline = results.timeline;

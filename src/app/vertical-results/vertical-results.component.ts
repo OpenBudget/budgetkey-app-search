@@ -31,7 +31,8 @@ export class VerticalResultsComponent implements OnInit {
     this.searchManager = new SearchManager(
       this.searchService,
       this.state,
-      <SearchBarType[]>this.theme.searchBarConfig
+      <SearchBarType[]>this.theme.searchBarConfig,
+      300
     );
 
     this.searchManager.searchResults.subscribe((outcome) => {

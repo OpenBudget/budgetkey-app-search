@@ -59,6 +59,7 @@ export class HorizontalResultsComponent implements OnInit {
       this.searchService,
       this.state,
       this.docTypes,
+      1000,
       (sp: SearchParams) => {
         if (sp.offset === 0) {
           const ret = new SearchParams(sp);
