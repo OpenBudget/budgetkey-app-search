@@ -7,22 +7,31 @@
           נושא תקציבי /
     </span>
     <span class='breadcrumbs' [innerHtml]="d['nice-breadcrumbs']"></span>      
+    <span class='code' [innerHtml]='d["nice-code"]'></span>
   </span>
+  <span class='amount' [innerHtml]='format_number(d["net_revised"]) + "&nbsp;₪"'></span>
   <span class='top-left'>
     <span class='func-cls' [innerHtml]="d['nice-category']"></span>
     <span class='circle'></span>
   </span>      
 </div>
-<div class='part' [ngClass]='"func-cls-" + func_cls()[0][0]' (click)='navigate()'>
+<div class='part' [ngClass]='"func-cls-" + func_cls()[0][0]'>
+  <a [href]='href()'>
   <span>
     <span class='code' [innerHtml]='d["nice-code"]'></span>
-    <span class='title' [innerHtml]='d["title"]'></span>
+    <span class='title-wrapper'>
+      <span class='title' [innerHtml]='link(d["title"])'></span>
+    </span>
   </span>
   <span class='amount' [innerHtml]='format_number(d["net_revised"]) + "&nbsp;₪"'></span>
+  </a>
 </div>
-<div class='part'>
-  <span class='amount' [innerHtml]='format_number(d["net_revised"]) + "&nbsp;₪"'></span>
+<div class='part' [ngClass]='"func-cls-" + func_cls()[0][0]'>
   <span class='breadcrumbs' [innerHtml]="d['nice-breadcrumbs']"></span>      
+  <span class='bottom-left'>
+    <span class='func-cls' [innerHtml]="d['nice-short-category']"></span>
+    <span class='circle'></span>
+  </span>      
 </div>
 <div class='part' *ngIf='d["children"]'>
   <span class='description' *ngIf='d["children"]'>

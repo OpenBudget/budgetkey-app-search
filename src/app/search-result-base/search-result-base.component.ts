@@ -20,6 +20,10 @@ export class SearchResultBaseComponent implements OnInit {
     window.location.href = this.href();
   }
 
+  link(x: string) {
+    return `<a href="${this.href()}">${x}</a>`;
+  }
+
   ngOnInit() {
     this.d = this.item.source || {};
   }

@@ -1,3 +1,5 @@
+@import '../styles/mobile-search-results.less';
+
 .budget-func-cls-color(@darktext, @dark, @med, @light) {
     .tag {
         background-color: @darktext;
@@ -15,6 +17,9 @@
         background-color: @light;
         border: 1px solid @med;
     }
+    .title:after {
+        background: linear-gradient(to left, rgba(255, 251, 242, 0) 0%, @light 45%)
+    }
 }
 
 .func-cls-1 { .budget-func-cls-color(#5C7899, #6092CC, #D7E7FA, #EBF2FA); } //Blue
@@ -30,6 +35,7 @@
 div.part {
     padding: 8px 24px;
     justify-content: space-between;
+    align-items: center;
 }
 
 div.part:nth-child(1) {
@@ -38,6 +44,10 @@ div.part:nth-child(1) {
         color: #B7B7B7;	
         font-family: "Abraham TRIAL";
         font-size: 13px;
+    }
+
+    .code {
+        display: none;
     }
 
     .top-left {
@@ -59,7 +69,11 @@ div.part:nth-child(1) {
             position: relative;
             top: -1px;
             margin-right: 6px;
-        }    
+        }
+    }
+
+    .amount {
+        display: none;
     }
     
 }
@@ -77,11 +91,14 @@ div.part:nth-child(2) {
         font-weight: bold;
     }
 
-    .title {
-        font-family: "Miriam Libre";	
-        font-size: 20px;	
-        font-weight: bold;
+    .title-wrapper {
         padding: 0 16px;
+
+        .title {
+            font-family: "Miriam Libre";	
+            font-size: 20px;	
+            font-weight: bold;
+        }    
     }
 
     .amount {
@@ -101,6 +118,27 @@ div.part:nth-child(2) {
 
 div.part:nth-child(3) {
     display: none;
+    .bottom-left {
+        display: flex;
+        align-items: center;
+        
+        .func-cls {
+            font-family: "Abraham TRIAL";
+            font-size: 13px;
+        }
+        
+        .circle {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 5px;
+            border-style: solid;
+            border-width: 1px;
+            position: relative;
+            top: -1px;
+            margin-right: 6px;
+        }
+    }
 }
 
 div.part:nth-child(4) {
@@ -110,15 +148,38 @@ div.part:nth-child(4) {
 .budget-search-mobile-view {
     div.part:nth-child(1) {
         padding: 8px;
+        .tag {
+            line-height: 15px;
+            font-weight: normal;          
+        }
         .breadcrumbs  {
             display: none;
-        }    
+        }
+        .code {
+            display: inline;
+            margin: 0 8px;
+            font-size: 12px;
+            font-weight: normal;
+        }
+        .top-left {
+            display: none;
+        }
+        .amount {
+            display: inherit;
+            font-size: 13px;
+        }
     }
     div.part:nth-child(2) {
         padding: 8px;
+        height: 70px;
+        .code {
+            display: none;
+        }
         .title {
+            .choppedtitle;
             font-size: 18px;
-            line-height: 20px;
+            font-weight: normal;
+            padding: 0;
         }
         .amount {
             display: none;
@@ -127,21 +188,23 @@ div.part:nth-child(4) {
     div.part:nth-child(3) {
         padding: 8px;
         display: flex;
-        flex-flow: column;
+        flex-flow: row;
         .breadcrumbs {
             color: #B7B7B7;	
             font-family: "Abraham TRIAL";
             font-size: 13px;    
+            flex: 1 1 auto;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow-x: hidden;
         }
-        .amount {
-            margin-right: auto;
-            font-family: "Miriam Libre";	
-            font-size: 16px;	
-            font-weight: bold;
+        .bottom-left {
+            display: inline;
+            flex: 0 0 auto;
         }
     }
     div.part:nth-child(4) {
-        padding: 8px;
+        display: none;
     }
 }
 
