@@ -1,0 +1,185 @@
+.card {
+    display: flex;
+    flex-flow: column;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px 0 rgba(189, 189, 189, 0.6);
+    border: solid 1px black;
+
+    &.horizontal {
+        width: 320px;
+    }
+
+    .top-line {
+        height: 32px;
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+
+        span {
+            font-family: 'Abraham TRIAL';
+            font-size: 13px;
+            font-style: normal;          
+        }
+
+        .top-line-tag {
+            flex: 0 0 auto;
+            margin-right: 8px;
+            border-radius: 4px;
+            padding: 0 4px;
+            height: 16px;
+            font-weight: bold;
+        }
+        .top-line-post-tag {
+            margin-right: 8px;
+            padding: 0 4px;
+            min-height: 16px;
+            font-weight: bold;
+        }
+        .top-line-separator {
+            width: 0;
+            margin-right: auto;
+        }
+        .top-line-pre-amount {
+            text-align: left;
+            font-weight: normal;
+            margin-left: 8px;
+            min-height: 16px;
+        }
+        .top-line-amount {
+            flex: 0 0 auto;
+            font-family: 'Miriam Libre';
+            font-weight: bold;          
+            margin-left: 8px;
+        }
+    }
+    
+    .body {
+        height: 70px;
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        max-width: 100%;
+        padding: 0 8px;
+
+        &.ticket {
+            background: url(../../assets/img/ticket-bg.svg) center repeat-x;
+            background-size: auto 100%;
+            background-color: transparent !important;
+        }
+
+        &.dashing {
+            border-top: 1px rgba(0,0,0,0.1) dashed;
+            border-bottom: 1px rgba(0,0,0,0.1) dashed;
+        }
+
+        .right-icon, .left-icon {
+            flex: 0 0 auto;
+            img {
+                margin: 0 8px;
+            }
+        }
+
+        .main-content {
+            flex: 1 1 auto;
+            display: flex;
+            flex-flow: column;
+            align-items: flex-start;
+            // margin: 0 8px;
+            max-width: 100%;
+                
+            span, a {
+                font-family: 'Miriam Libre';
+                font-size: 16px;
+                font-style: normal;
+                overflow-y: hidden;
+            }
+            a, a:visited {
+                text-decoration: none;
+            }
+    
+            .body-title {
+                font-weight: bold;
+                max-height: 44px;
+                width: 100%;
+                position: relative;
+
+                .fadeoff {
+                    content: '';
+                    position: absolute;
+                    top: ~'calc(40px - 1em)';
+                    height: 1em;
+                    left: 0;
+                    width: 30px;
+                }
+        
+            }
+            .parties {
+                display: flex;
+                flex-flow: row;
+                align-items: center;
+                overflow-x: hidden;
+                width: 100%;
+                position: relative;
+
+                span {
+                    flex: 0 0 auto;
+                    white-space: nowrap;
+                }
+                .body-party-from {
+                }
+                .body-arrow {
+                    padding: 0 4px;
+                }
+                .body-party-to {
+                }
+                .fadeoff {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    height: 100%;
+                    left: 0;
+                    width: 30px;
+                }
+            }
+            .body-main-id {
+                font-size: 13px;
+            }
+        }
+
+        .left-icon {
+            flex: 0 0 auto;
+        }
+    }
+
+    .bottom-line {
+        height: 32px;
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        overflow-y: hidden;
+        line-height: 1em;
+
+        .bottom-line-text {
+            font-family: 'Abraham TRIAL';
+            font-size: 13px;
+            font-style: normal;
+            margin: 0 8px;
+            max-height: 32px;
+        }
+
+        .bottom-line-label {
+            text-align: left;
+            margin-right: auto;
+            margin-left: 8px;
+        }
+        .circle {
+            flex: 0 0 auto;
+            height: 10px;
+            width: 10px;
+            margin-left: 8px;
+            border-radius: 8px;
+            position: relative;
+            top: -1px;
+        }
+    }
+}
