@@ -350,7 +350,7 @@ export class SearchResultComponent implements OnInit {
       tag: 'העברה תקציבית',
       postTag: (x) => x.change_type_name && x.change_type_name.length > 0 ?
         (x.committee_id && x.committee_id.length > 0 && x.committee_id[0] ?
-          x.change_type_name[0] + ' (פניה #' + x.committee_id[0] + ')':
+          x.change_type_name[0] + ' (פניה #' + x.committee_id[0] + ')' :
           x.change_type_name[0]
         ) : null,
       amount: (x) => `${this.format_number(x.amount)} ₪`,
@@ -365,7 +365,7 @@ export class SearchResultComponent implements OnInit {
 
       // Bottom line:
       bottomLineText: (x) => x['pending'] && x['pending'][0] ? '<strong>ממתינה לאישור</strong>' : (
-                        (x['date'] && x['date'].length > 0) ? 
+                        (x['date'] && x['date'].length > 0) ?
                           `<strong>אושרה ב:</strong> ${moment(x['date'][0]).format('DD/MM/YYYY')}`
                           : null
       )
@@ -407,7 +407,7 @@ export class SearchResultComponent implements OnInit {
       title: ':title',
 
       // Bottom line:
-      bottomLineText: '<strong>מספר ארגונים:</strong> :details.report.total.total_amount', 
+      bottomLineText: '<strong>מספר ארגונים:</strong> :details.report.total.total_amount',
     },
     // District Report
     'reports/ngo-district-report': <Parameter>{
