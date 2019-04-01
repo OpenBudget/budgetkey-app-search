@@ -291,7 +291,7 @@ export class SearchResultComponent implements OnInit {
       partyFrom: ':publisher',
 
       // Bottom line:
-      bottomLineText: 'תאריך פרסום: :start_date',
+      bottomLineText: (x) => x['start_date'] ? `תאריך פרסום: ${moment(x.start_date).format('DD/MM/YYYY')}` : null,
       // bottomLineLabel?: StringOrFunc;
       // bottomLineLabelStyle?: StringOrFunc;
       bottomLineTextOpacity: '0.5'
@@ -313,7 +313,7 @@ export class SearchResultComponent implements OnInit {
       partyFrom: ':publisher',
 
       // Bottom line:
-      bottomLineText: 'תאריך פרסום: :start_date',
+      bottomLineText: (x) => x['start_date'] ? `תאריך פרסום: ${moment(x.start_date).format('DD/MM/YYYY')}` : null,
       // bottomLineLabel?: StringOrFunc;
       // bottomLineLabelStyle?: StringOrFunc;
       bottomLineTextOpacity: '0.5'
