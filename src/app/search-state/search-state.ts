@@ -1,7 +1,5 @@
-import { SearchService } from '../api.service';
-import { Subject, of, BehaviorSubject, Observable, from } from 'rxjs';
-import { SearchParams, SearchResults, DocResultEntry } from '../model';
-import { debounceTime, switchMap, mergeMap } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import { SearchParams } from '../model';
 import { SearchBarType } from 'budgetkey-ng2-components';
 
 export class SearchState {
