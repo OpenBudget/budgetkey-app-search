@@ -30,7 +30,7 @@ export class SearchService {
       url += `&from_date=${sp.period.start}&to_date=${sp.period.end}`;
     }
     if (sp.filters) {
-      const filters = JSON.stringify(sp.filters).slice(1, -1);
+      const filters = JSON.stringify(sp.filters);
       url += '&filter=' + encodeURIComponent(filters);
     }
     if (sp.ordering) {
@@ -40,7 +40,6 @@ export class SearchService {
     if (this.cache[url]) {
       const ret = this.cache[url];
       ret.params = sp;
-      console.log('HIT!');
       return of(this.cache[url]);
     }
 
@@ -49,7 +48,7 @@ export class SearchService {
       .pipe(
           map((r: any) => {
               const endTime = new Date();
-              console.log('req search time: ', (endTime.getTime()  - startTime.getTime()) / 1000, 'sec');
+              // console.log('req search time: ', (endTime.getTime()  - startTime.getTime()) / 1000, 'sec');
               const ret = <SearchResults>r;
               this.cache[url] = ret;
               ret.params = sp;
@@ -82,7 +81,6 @@ export class SearchService {
     if (this.cache[url]) {
       const ret = this.cache[url];
       ret.params = sp;
-      console.log('HIT!');
       return of(this.cache[url]);
     }
 
@@ -91,7 +89,7 @@ export class SearchService {
       .pipe(
         map((r: any) => {
           const endTime = new Date();
-          console.log('req count time: ', (endTime.getTime()  - startTime.getTime()) / 1000, 'sec');
+          // console.log('req count time: ', (endTime.getTime()  - startTime.getTime()) / 1000, 'sec');
           const ret = <SearchResults>r;
           this.cache[url] = ret;
           window['cache'] = this.cache;
@@ -101,24 +99,5 @@ export class SearchService {
       );
   }
 
-  // timeline(sp: SearchParams): Observable<any> {
-
-  //   const joinedkinds = sp.displayDocsTypes.join(',');
-  //   const startTime: Date = new Date(); // update time-stamp
-  //   let url = `${URL}/timeline/${joinedkinds}/${encodeURIComponent(sp.term)}/${sp.startRange}/${sp.endRange}`;
-  //   if (sp.filters) {
-  //     const filter = JSON.stringify(sp.filters);
-  //     url += '?filter=' + encodeURIComponent(filter);
-  //   }
-  //   return this.http
-  //     .get(url)
-  //     .pipe(
-  //       map((r: any) => {
-  //         const endTime = new Date();
-  //         console.log('req count time: ', (endTime.getTime()  - startTime.getTime()) / 1000, 'sec');
-  //         return r;
-  //       })
-  //     );
-  // }
 
 }

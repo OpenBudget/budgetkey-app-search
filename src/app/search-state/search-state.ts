@@ -2,6 +2,45 @@ import { BehaviorSubject } from 'rxjs';
 import { SearchParams } from '../model';
 import { SearchBarType } from 'budgetkey-ng2-components';
 
+export function mergeFilters(...filters) {
+    const arrays = [];
+    for (let f of filters) {
+        if (!f) {
+            continue;
+        }
+        if (!Array.isArray(f)) {
+            f = [f];
+        }
+        arrays.push(f);
+    }
+    while (arrays.length > 1) {
+        const first = arrays.shift();
+        const second = arrays.shift();
+        const newone = [];
+        for (const i of first) {
+            for (const j of second) {
+                let cont = false;
+                for (const k of Object.keys(i)) {
+                    if (Array.isArray(i[k]) && i[k].includes(j[k])) {
+                        continue;
+                    }
+                    if (j[k] && j[k] !== i[k]) {
+                        cont = true;
+                        break;
+                    }
+                }
+                if (cont) {
+                    continue;
+                }
+                newone.push(Object.assign({}, i, j));
+            }
+        }
+        arrays.unshift(newone);
+    }
+    return arrays[0];
+}
+
+
 export class SearchState {
 
     // Search request queue
@@ -78,12 +117,16 @@ export class SearchState {
         sp.docType = this._docType;
         sp.offset = 0;
         sp.pageSize = 10;
-        sp.filters = Object.assign({}, sp.docType.filters || {});
+        const filters = [];
+        filters.push(sp.docType.filters);
         if (sp.docType.filterMenu) {
             for (const filterMenu of sp.docType.filterMenu) {
-              sp.filters = Object.assign({}, sp.filters, filterMenu.selected.filters || {});
+                if (filterMenu.selected.filters) {
+                    filters.push(filterMenu.selected.filters);
+                }
             }
         }
+        sp.filters = mergeFilters(...filters);
         this.searchQueue.next(sp);
     }
 

@@ -488,12 +488,10 @@ export class SearchResultComponent implements OnInit {
       const part = parts.shift();
       item = item[part];
     }
-    console.log('returning', item);
     return item;
   }
 
   get(field: string, default_value?: string) {
-    console.log('getting', field);
     if (field) {
       return this.get_field(this.item.source, field.split('.')) || default_value || '';
     }
@@ -554,14 +552,5 @@ export class SearchResultComponent implements OnInit {
   navigate() {
     window.location.href = this.href();
   }
-
-  // func_cls() {
-  //   try {
-  //     return JSON.parse(this.d['func_cls_json'][0])[0][0];
-  //   } catch (e) {
-  //     console.log('WTF with ', this.d['func_cls_json']);
-  //     return 'x';
-  //   }
-  // }
 
 }

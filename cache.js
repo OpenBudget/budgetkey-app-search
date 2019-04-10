@@ -15,9 +15,14 @@ themeJson = themeJson.BUDGETKEY_NG2_COMPONENTS_THEME.searchBarConfig;
 const URLS = [];
 for (let docType of themeJson) {
     const types = docType.types.join(',');
-    URLS.push(`https://next.obudget.org/search/${types}?size=1&offset=0`)
-    const filters = docType.filters ? JSON.stringify(docType.filters).slice(1, -1) : '';
-    URLS.push(`https://next.obudget.org/search/${types}?size=10&offset=0&filter=${urlencode(filters)}`)
+    const filters = docType.filters ? JSON.stringify(docType.filters) : '';
+    if (filters.length) {
+        URLS.push(`https://next.obudget.org/search/${types}?size=1&offset=0&filter=${urlencode(filters)}`)
+        URLS.push(`https://next.obudget.org/search/${types}?size=10&offset=0&filter=${urlencode(filters)}`)
+    } else {
+        URLS.push(`https://next.obudget.org/search/${types}?size=1&offset=0`)
+        URLS.push(`https://next.obudget.org/search/${types}?size=10&offset=0`)
+    }
     const docTypes = [];
     if (docType.filterMenu && docType.filterMenu.length > 0) {
         for (let option of docType.filterMenu[0].options) {

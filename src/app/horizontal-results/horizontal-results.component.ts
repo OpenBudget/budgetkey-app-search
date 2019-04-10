@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SearchBarType } from 'budgetkey-ng2-components';
-import { SearchState } from '../search-state/search-state';
+import { SearchState, mergeFilters } from '../search-state/search-state';
 import { SearchService } from '../api.service';
 import { SearchManager, SearchOutcome } from '../search-manager/search-manager';
 import { SearchParams, SearchResults } from '../model';
@@ -33,7 +33,11 @@ export class HorizontalResultsComponent implements OnInit {
     this.docType['score'] = 0;
     if (this.docType.filterMenu && this.docType.filterMenu.length > 0) {
       for (const option of this.docType.filterMenu[0].options) {
-        this.docTypes.push(Object.assign({}, this.docType, option));
+        this.docTypes.push(Object.assign({}, this.docType, {
+          id: option.id,
+          display: option.display,
+          filters: mergeFilters(this.docType.filters, option.filters)
+        }));
       }
     }
     this.state.searchQueue
@@ -64,7 +68,7 @@ export class HorizontalResultsComponent implements OnInit {
         if (sp.offset === 0) {
           const ret = new SearchParams(sp);
           ret.docType = this.docType;
-          ret.filters = Object.assign({}, ret.filters, this.docType.filters);
+          ret.filters = this.docType.filters;
           ret.period = null;
           return ret;
         }

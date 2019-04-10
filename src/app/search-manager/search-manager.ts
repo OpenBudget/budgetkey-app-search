@@ -26,7 +26,6 @@ export class SearchManager {
     allResults: DocResultEntry[] = [];
     searchResults = new BehaviorSubject<SearchOutcome>(new SearchOutcome([], false, false));
 
-
     constructor(private api: SearchService,
                 private state: SearchState,
                 private docTypes: SearchBarType[],
@@ -124,4 +123,5 @@ export class SearchManager {
             // }
         }
     }
+
 }
