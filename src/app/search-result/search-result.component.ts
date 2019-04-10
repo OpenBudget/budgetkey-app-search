@@ -500,8 +500,12 @@ export class SearchResultComponent implements OnInit {
     return default_value || '';
   }
 
-  fadeoff() {
-    return `linear-gradient(to left, ${this.p.secondaryColor}00 0%, ${this.p.secondaryColor}ff 100%)`;
+  fadeoff(primary?: boolean) {
+    if (primary) {
+      return `linear-gradient(to left, ${this.p.bgColor}00 0%, ${this.p.bgColor}ff 100%)`;
+    } else {
+      return `linear-gradient(to left, ${this.p.secondaryColor}00 0%, ${this.p.secondaryColor}ff 100%)`;      
+    }
   }
 
   socialmapAmount() {

@@ -55,9 +55,14 @@
         </span>
     </div>
     <div class='bottom-line'>
-        <span class='bottom-line-text' *ngIf='p.bottomLineText' [innerHtml]='p.bottomLineText'
+        <span class='bottom-line-text' *ngIf='p.bottomLineText'
               [style.color]='p.primaryColor' [style.opacity]='p.bottomLineTextOpacity || "1.0"'
-        ></span>
+        >
+            <span [innerHtml]='p.bottomLineText'></span>
+            <div class='fadeoff'
+                [style.background]='fadeoff(true)'
+            ></div>
+        </span>
         <span class='bottom-line-label' *ngIf='p.bottomLineLabel' [innerHtml]='p.bottomLineLabel'
               [style.color]='p.tertiaryColor'
         ></span>
