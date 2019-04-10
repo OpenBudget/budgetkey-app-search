@@ -18,7 +18,7 @@ export class SearchService {
   constructor(private http: HttpClient) {}
 
   search(sp: SearchParams): Observable<SearchResults> {
-    const startTime: Date = new Date(); // update time-stamp
+    // const startTime: Date = new Date(); // update time-stamp
     const joinedKinds = sp.docType.types.join(',');
 
     let url = `${URL}/${joinedKinds}`;

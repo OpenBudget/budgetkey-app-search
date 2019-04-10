@@ -127,6 +127,9 @@ export class SearchState {
             }
         }
         sp.filters = mergeFilters(...filters);
+        if (!this._term) {
+            sp.ordering = sp.docType.ordering;
+        }
         this.searchQueue.next(sp);
     }
 

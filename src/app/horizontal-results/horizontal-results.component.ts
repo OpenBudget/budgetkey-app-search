@@ -50,7 +50,7 @@ export class HorizontalResultsComponent implements OnInit {
               term: sp.term,
               period: null,
               filters: this.docType.filters,
-              ordering: null
+              ordering: sp.term ? null : this.docType.ordering
             });
           })
         ).subscribe((sr) => {
