@@ -12,7 +12,17 @@ budgetkey-container {
     display:flex;
     flex-flow: column;
     align-content: center;
-    max-width: 800px;
+    align-items: center;
+    app-search {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      width: 100%;
+      & > .row {
+        max-width: 800px;
+        width: 100%;
+      }
+    }
   }
   .search_body {
     margin-top: 20px;
@@ -140,6 +150,16 @@ a {
     display: none;
   }
 
+  budgetkey-container {
+    .container {
+      app-search {
+        & > .row {
+          width: 100vw;
+        }
+      }
+    }
+  }
+  
   budgetkey-footer {
     display: none;
   }
