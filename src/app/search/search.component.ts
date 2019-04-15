@@ -55,9 +55,6 @@ export class SearchComponent implements OnInit {
       } else if (sp.period.value) {
         this.subscriptionUrlParams = `range=${sp.period.value}`;
       }
-      if (this.theme.themeId) {
-        this.subscriptionUrlParams += `&theme=${this.theme.themeId}`;
-      }
       if (this.lang) {
         this.subscriptionUrlParams += `&lang=${this.lang}`;
       }
