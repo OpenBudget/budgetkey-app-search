@@ -245,7 +245,10 @@ export class SearchResultComponent implements OnInit {
       arrowKind: 'left-dashed',
 
       // Bottom line:
-      bottomLineText: 'עודכן לאחרונה: :last_update_date',
+      bottomLineText: (x) =>
+        x['last_update_date'] ?
+        `עודכן לאחרונה: ${moment(x['last_update_date']).format('DD/MM/YYYY')}`
+        : null,
       // bottomLineLabel?: StringOrFunc;
       // bottomLineLabelStyle?: StringOrFunc;
       bottomLineTextOpacity: '0.5'
@@ -269,7 +272,10 @@ export class SearchResultComponent implements OnInit {
       arrowKind: 'left-dashed',
 
       // Bottom line:
-      bottomLineText: 'עודכן לאחרונה: :last_update_date',
+      bottomLineText: (x) =>
+        x['last_update_date'] ?
+        `עודכן לאחרונה: ${moment(x['last_update_date']).format('DD/MM/YYYY')}`
+        : null,
       // bottomLineLabel?: StringOrFunc;
       // bottomLineLabelStyle?: StringOrFunc;
       bottomLineTextOpacity: '0.5'
@@ -361,14 +367,15 @@ export class SearchResultComponent implements OnInit {
       partyFrom: (x) => x['summary']['from'].map((i) => i[2]).join(', '),
       partyTo: (x) => x['summary']['to'].map((i) => i[2]).join(', '),
       arrowKind: 'left-dashed',
-      mainId: '#:transaction_id',
 
       // Bottom line:
-      bottomLineText: (x) => x['pending'] && x['pending'][0] ? '<strong>ממתינה לאישור</strong>' : (
-                        (x['date'] && x['date'].length > 0) ?
-                          `<strong>אושרה ב:</strong> ${moment(x['date'][0]).format('DD/MM/YYYY')}`
-                          : null
-      )
+      bottomLineText: (x) =>
+          '<strong>מספר פניה:</strong> :transaction_id | ' +
+          (x['pending'] && (x['pending'][0] ?
+            '<strong>ממתינה לאישור</strong>'
+            : ((x['date'] && x['date'].length > 0) ?
+                `<strong>אושרה ב:</strong> ${moment(x['date'][0]).format('DD/MM/YYYY')}`
+                : null)))
     },
     // // PUBLICATIONS
     // Government Decisions
@@ -514,9 +521,9 @@ export class SearchResultComponent implements OnInit {
     const r: string[] = [];
     if (x['order_date']) {
       r.push('תקופת ההתקשרות');
-      let rr = x['order_date'] + ' - ';
+      let rr = moment(x['order_date']).format('DD/MM/YYYY') + ' - ';
       if (x['end_date']) {
-        rr += x['end_date'];
+        rr += moment(x['end_date']).format('DD/MM/YYYY');
       } else if (x['contract_is_active']) {
         rr += 'התקשרות פעילה';
       } else {
