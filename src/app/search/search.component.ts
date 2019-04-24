@@ -58,6 +58,9 @@ export class SearchComponent implements OnInit {
       if (this.lang) {
         this.subscriptionUrlParams += `&lang=${this.lang}`;
       }
+      if (this.theme.themeId) {
+        this.subscriptionUrlParams += `&theme=${this.theme.themeId}`;
+      }
       if (sp.docType.filterMenu) {
         for (const filterMenu of sp.docType.filterMenu) {
           this.subscriptionUrlParams += '&' + filterMenu.id + '=' + filterMenu.selected.id;
