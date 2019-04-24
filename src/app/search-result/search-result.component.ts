@@ -276,8 +276,8 @@ export class SearchResultComponent implements OnInit {
         x['last_update_date'] ?
         `עודכן לאחרונה: ${moment(x['last_update_date']).format('DD/MM/YYYY')}`
         : null,
-      // bottomLineLabel?: StringOrFunc;
-      // bottomLineLabelStyle?: StringOrFunc;
+      bottomLineLabel: this.remainingTime,
+      bottomLineLabelStyle: 'ribbon',
       bottomLineTextOpacity: '0.5'
     },
     // Calls for Bids:
@@ -298,8 +298,8 @@ export class SearchResultComponent implements OnInit {
 
       // Bottom line:
       bottomLineText: (x) => x['start_date'] ? `תאריך פרסום: ${moment(x.start_date).format('DD/MM/YYYY')}` : null,
-      // bottomLineLabel?: StringOrFunc;
-      // bottomLineLabelStyle?: StringOrFunc;
+      bottomLineLabel: this.remainingTime,
+      bottomLineLabelStyle: 'ribbon',
       bottomLineTextOpacity: '0.5'
     },
     // Support Criteria:
@@ -320,8 +320,8 @@ export class SearchResultComponent implements OnInit {
 
       // Bottom line:
       bottomLineText: (x) => x['start_date'] ? `תאריך פרסום: ${moment(x.start_date).format('DD/MM/YYYY')}` : null,
-      // bottomLineLabel?: StringOrFunc;
-      // bottomLineLabelStyle?: StringOrFunc;
+      bottomLineLabel: this.remainingTime,
+      bottomLineLabelStyle: 'ribbon',
       bottomLineTextOpacity: '0.5'
     },
     // // PEOPLE:
@@ -560,4 +560,16 @@ export class SearchResultComponent implements OnInit {
     window.location.href = this.href();
   }
 
+  remainingTime(x) {
+    if (x.claim_date) {
+      const days = -moment().diff(moment(x.claim_date), 'days');
+      if (days > 0) {
+        if (days === 1) {
+          return '<strong>יום אחד</strong> נותר להגשה';
+        } else {
+          return `<strong>${days} ימים</strong> נותרו להגשה`;
+        }
+      }
+    }
+  }
 }

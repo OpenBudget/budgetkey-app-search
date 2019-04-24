@@ -65,7 +65,7 @@
             ></div>
         </span>
         <span class='bottom-line-label' *ngIf='p.bottomLineLabel' [innerHtml]='p.bottomLineLabel'
-              [style.color]='p.tertiaryColor'
+              [style.color]='p.tertiaryColor' [class.ribbon]='p.bottomLineLabelStyle === "ribbon"'
         ></span>
         <span class='circle' *ngIf='p.bottomLineLabelStyle === "circle"'
               [style.background-color]='p.tertiaryColor'

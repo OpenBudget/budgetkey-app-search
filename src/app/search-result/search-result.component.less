@@ -157,8 +157,9 @@
         display: flex;
         flex-flow: row;
         align-items: center;
-        overflow-y: hidden;
+        // overflow-y: hidden;
         line-height: 1em;
+        position: relative;
 
         .bottom-line-text {
             font-family: 'Abraham TRIAL';
@@ -183,6 +184,30 @@
             margin-right: auto;
             margin-left: 8px;
         }
+
+        .ribbon {
+            background-color: #ff5a5f;
+            color: white;
+            left: -13px;
+            border-top-left-radius: 2px;
+            border-bottom-left-radius: 2px;
+            padding: 2px 8px;
+            padding-right: 4px;
+            position: absolute;
+            height: 17px;
+            &::before {
+                content: '';
+                width: 0;
+                height: 0;
+                position: absolute;
+                right: -8px;
+                top: 0;
+                border-style: solid;
+                border-width: 8.5px 7.5px 8.5px 0;
+                border-color: #ff5a5f transparent;
+            }
+        }
+
         .circle {
             flex: 0 0 auto;
             height: 10px;
