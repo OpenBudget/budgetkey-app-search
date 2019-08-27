@@ -1,8 +1,8 @@
-<div class='card' 
+<div class='card'
      [class.horizontal]='horizontal'
      [style.border-color]='p.secondaryColor'
      [style.background-color]='p.bgColor'
-     (click)='navigate()'
+     (click)='navigate($event)'
      [attr.data-doc-id]='item.source.doc_id'
     >
     <div class='top-line'>
@@ -31,12 +31,10 @@
              [style.color]='p.primaryColor'
             >
             <a [href]='href()' class='body-title' *ngIf='p.title'
-               [style.color]='p.primaryColor'               
-            >
+               [style.color]='p.primaryColor' target="_blank">
                 <span [innerHtml]='p.title'></span>
                 <div class='fadeoff'
-                    [style.background]='fadeoff()'
-                >
+                    [style.background]='fadeoff()'>
                 </div>
             </a>
             <span class='parties' *ngIf='p.partyFrom || p.partyTo'>
@@ -44,12 +42,12 @@
                 <span class='body-arrow' *ngIf='p.arrowKind'>
                     <span [class]='"arrow-" + p.arrowKind'></span>
                 </span>
-                <span class='body-party-to' *ngIf='p.partyTo' [innerHtml]='p.partyTo'></span>        
+                <span class='body-party-to' *ngIf='p.partyTo' [innerHtml]='p.partyTo'></span>
                 <div class='fadeoff'
                     [style.background]='fadeoff()'
                 ></div>
             </span>
-            <span class='body-main-id' *ngIf='p.mainId' [innerHtml]='p.mainId'></span>        
+            <span class='body-main-id' *ngIf='p.mainId' [innerHtml]='p.mainId'></span>
         </div>
         <span [class]='"left-icon " + p.leftIcon' *ngIf='p.leftIcon'>
             <img [src]='"assets/img/icon-" + p.leftIcon + ".svg"'/>

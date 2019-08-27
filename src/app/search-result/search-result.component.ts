@@ -556,8 +556,14 @@ export class SearchResultComponent implements OnInit {
     return 'https://next.obudget.org/i/' + doc_id + '?li=' + this.index + (this.theme_id ? '&theme=' + this.theme_id : '');
   }
 
-  navigate() {
-    window.location.href = this.href();
+  // Navigate to results url for click events that extend the <a> tag click area.
+  navigate(event) {
+    // If ctrl+click event on the search result box - open in a new tab.
+    if (event.ctrlKey) {
+      window.open(this.href(), '_blank');
+    } else {
+      window.location.href = this.href();
+    }
   }
 
   remainingTime(x) {
