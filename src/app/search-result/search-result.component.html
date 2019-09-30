@@ -2,9 +2,11 @@
      [class.horizontal]='horizontal'
      [style.border-color]='p.secondaryColor'
      [style.background-color]='p.bgColor'
-     (click)='navigate($event)'
      [attr.data-doc-id]='item.source.doc_id'
     >
+    <a [href]='href()' class='body-title' *ngIf='p.title'
+    [style.color]='p.primaryColor'
+     >
     <div class='top-line'>
         <span class='top-line-tag' *ngIf='p.tag' [innerHtml]='p.tag'
               [style.background-color]='p.primaryColor'
@@ -30,13 +32,13 @@
         <div class='main-content'
              [style.color]='p.primaryColor'
             >
-            <a [href]='href()' class='body-title' *ngIf='p.title'
-               [style.color]='p.primaryColor' target="_blank">
+
                 <span [innerHtml]='p.title'></span>
                 <div class='fadeoff'
-                    [style.background]='fadeoff()'>
+                    [style.background]='fadeoff()'
+                >
                 </div>
-            </a>
+
             <span class='parties' *ngIf='p.partyFrom || p.partyTo'>
                 <span class='body-party-from' *ngIf='p.partyFrom' [innerHtml]='p.partyFrom'></span>
                 <span class='body-arrow' *ngIf='p.arrowKind'>
@@ -69,4 +71,5 @@
               [style.background-color]='p.tertiaryColor'
         ></span>
     </div>
-</div>
+  </a>
+  </div>
