@@ -4,9 +4,7 @@
      [style.background-color]='p.bgColor'
      [attr.data-doc-id]='item.source.doc_id'
     >
-    <a [href]='href()' class='body-title' *ngIf='p.title'
-    [style.color]='p.primaryColor'
-     >
+    <a [href]='href()'  *ngIf='p.title'>
     <div class='top-line'>
         <span class='top-line-tag' *ngIf='p.tag' [innerHtml]='p.tag'
               [style.background-color]='p.primaryColor'
@@ -33,7 +31,9 @@
              [style.color]='p.primaryColor'
             >
 
-                <span [innerHtml]='p.title'></span>
+                <span [innerHtml]='p.title'
+                 [style.color]='p.primaryColor'
+                 class='body-title'></span>
                 <div class='fadeoff'
                     [style.background]='fadeoff()'
                 >
