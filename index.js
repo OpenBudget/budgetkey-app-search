@@ -88,6 +88,10 @@ app.get(basePath + '*', function(req, res) {
       kind = 'תחומי פעילות הקשורים ל';
     } else if (kind == 'district-reports') {
       kind = 'מחוזות הקשורים ל';
+    } else if (kind == 'people') {
+      kind = 'אזכורים של השם';
+    } else if (kind == 'gov_decisions') {
+      kind = 'החלטות ממשלה הקשורות ל';
     }
     title += ' ' + kind + term
   }
