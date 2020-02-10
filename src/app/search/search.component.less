@@ -244,11 +244,27 @@ input {
 .count-tags {
     display: flex;
     flex-flow: row;
-    flex-wrap: wrap;
-    margin: 0 20px;
-    justify-content: center;
+    margin: 0;
+    justify-content: flex-start;
+    align-items: center;
 
+    > div {
+        display: flex;
+        flex-flow: row;
+        flex-wrap: wrap;
+        margin: 0 10px;
+        justify-content: flex-start;
+        align-items: center;
+
+        @media only screen and (max-width: 600px) {
+            justify-content: center;
+        }
+    }
     search-tag {
         cursor: pointer;
+    }
+
+    @media only screen and (max-width: 600px) {
+        flex-flow: column;
     }
 }

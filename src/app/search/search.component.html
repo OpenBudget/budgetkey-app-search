@@ -13,12 +13,26 @@
 
 <div class='row' *ngIf='!isSearching'>
   <div class='count-tags'>
-      <search-tag *ngFor='let docType of docTypes'
-                  [name]='docType.name' [amount]='docType.amount' 
-                  [selected]='searchState.docType===docType'
-                  [main]='true'
-                  (click)='onDocTypeSelected(docType)'
-      ></search-tag>
+      <div>
+        <ng-container *ngFor='let docType of docTypes'>
+          <search-tag *ngIf='docType.id === "all"'
+                      [name]='docType.name' [amount]='docType.amount' 
+                      [selected]='searchState.docType===docType'
+                      [main]='true'
+                      (click)='onDocTypeSelected(docType)'
+          ></search-tag>
+        </ng-container>
+      </div>
+      <div>
+        <ng-container *ngFor='let docType of docTypes'>
+          <search-tag *ngIf='docType.id !== "all"'
+                      [name]='docType.name' [amount]='docType.amount' 
+                      [selected]='searchState.docType===docType'
+                      [main]='true'
+                      (click)='onDocTypeSelected(docType)'
+          ></search-tag>
+        </ng-container>
+      </div>
   </div>
 </div>
 
