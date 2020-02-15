@@ -171,7 +171,7 @@ export class SearchResultComponent implements OnInit {
 
       // Main body:
       title: ':title',
-      mainId: ':nice-code',
+      mainId: (x) => x['nice-code'][0] === 'C' ? '' : ':nice-code',
 
       // Bottom line:
       bottomLineText: ':nice-breadcrumbs',
