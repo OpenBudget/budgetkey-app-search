@@ -375,7 +375,7 @@ export class SearchResultComponent implements OnInit {
             '<strong>ממתינה לאישור</strong>'
             : ((x['date'] && x['date'].length > 0) ?
                 `<strong>אושרה ב:</strong> ${moment(x['date'][0]).format('DD/MM/YYYY')}`
-                : null)))
+                : 'מועד אישור לא ידוע')))
     },
     // // PUBLICATIONS
     // Government Decisions
