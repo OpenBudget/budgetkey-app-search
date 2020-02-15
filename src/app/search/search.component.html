@@ -41,10 +41,6 @@
     [menus]="searchState.docType.filterMenu || []" 
     (selected)="onSearchFilterMenuChange()" 
 >
-  <timeline-menu [periods]="periods"
-            [selectedPeriod]="searchState.period"
-            (periodChangeSearch)="periodChangeSearch($event)"
-  ></timeline-menu>
 </search-filter-menu-bar>
 
 <search-mode-selector 
