@@ -236,6 +236,7 @@ export class SearchResultComponent implements OnInit {
       // Top line:
       tag: ':tender_type_he',
       postTag: ':simple_decision_long',
+      amount: (x) => `${this.format_number(x.volume)}&nbsp;₪`,
 
       // Main body:
       bodyStyle: 'dashing',
@@ -288,8 +289,7 @@ export class SearchResultComponent implements OnInit {
       bgColor: '#fffbf2',
 
       // Top line:
-      tag: ':tender_type_he',
-      postTag: ':decision',
+      tag: ':tender_type_he :decision',
 
       // Main body:
       bodyStyle: 'dashing',
@@ -311,7 +311,6 @@ export class SearchResultComponent implements OnInit {
 
       // Top line:
       tag: ':tender_type_he',
-      postTag: ':decision',
 
       // Main body:
       bodyStyle: 'dashing',
