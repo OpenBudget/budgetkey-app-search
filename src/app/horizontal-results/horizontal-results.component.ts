@@ -90,7 +90,7 @@ export class HorizontalResultsComponent implements OnInit {
            !this.anySearching &&
            this.searchManager.last &&
            this.searchManager.last.docType.amount &&
-           this.searchManager.last.docType['score'] > 10;
+           this.searchManager.last.docType['score'] > 0;
   }
 
   scrollHandler(event) {
