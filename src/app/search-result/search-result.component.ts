@@ -419,14 +419,14 @@ export class SearchResultComponent implements OnInit {
       postTag: (x) => {
         const h = x['history'];
         if (h.length > 1) {
-          return 'פעיל בין השנים ' + h[0].year + '-' + h[h.length - 1].year;
+          return 'פעיל בין ' + h[0].year + '-' + h[h.length - 1].year;
         } else {
-          return 'פעיל בשנת ' + h[0].year;
+          return 'פעיל ב-' + h[0].year;
         }
       },
       preAmount: (x) => {
         const h = x['history'];
-        return 'התקציב המוקצה בשנת ' + h[0].year;
+        return 'התקציב ב-' + h[0].year;
       },
       amount: (x) => `${this.format_number(x.history[0].allocated_budget)} ₪`,
 
