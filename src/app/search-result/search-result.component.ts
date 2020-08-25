@@ -419,16 +419,16 @@ export class SearchResultComponent implements OnInit {
       postTag: (x) => {
         const h = x['history'];
         if (h.length > 1) {
-          return 'פעיל בין השנים ' + h[h.length - 1].year + '-' + h[0].year;
+          return 'פעיל בין השנים ' + h[0].year + '-' + h[h.length - 1].year;
         } else {
-          return 'פעיל בשנת ' + h[h.length - 1].year;
+          return 'פעיל בשנת ' + h[0].year;
         }
       },
       preAmount: (x) => {
         const h = x['history'];
-        return 'התקציב המאושר בשנת ' + h[h.length - 1].year;
+        return 'התקציב המאושר בשנת ' + h[0].year;
       },
-      amount: (x) => `${this.format_number(x.history[x.history.length - 1].allocated_budget)} ₪`,
+      amount: (x) => `${this.format_number(x.history[0].allocated_budget)} ₪`,
 
       // Main body:
       title: ':activity_name',
