@@ -426,7 +426,7 @@ export class SearchResultComponent implements OnInit {
       },
       preAmount: (x) => {
         const h = x['history'];
-        return 'התקציב המאושר בשנת ' + h[0].year;
+        return 'התקציב המוקצה בשנת ' + h[0].year;
       },
       amount: (x) => `${this.format_number(x.history[0].allocated_budget)} ₪`,
 
