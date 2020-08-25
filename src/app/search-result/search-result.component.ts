@@ -171,7 +171,7 @@ export class SearchResultComponent implements OnInit {
 
       // Main body:
       title: ':title',
-      mainId: (x) => x['nice-code'][0] === 'C' ? '' : ':nice-code',
+      mainId: (x) => (!x || !x['nice-code'] || !x['nice-code'].length || x['nice-code'][0] === 'C') ? '' : ':nice-code',
 
       // Bottom line:
       bottomLineText: ':nice-breadcrumbs',
@@ -397,6 +397,44 @@ export class SearchResultComponent implements OnInit {
 
       // Bottom line:
       bottomLineText: '<strong>מפרסם:</strong> :office'
+    },
+    // // ACTIVITIES
+    // Government Activities
+    'activities': <Parameter>{
+      // Colors:
+      primaryColor: '#19008f',
+      secondaryColor: '#ebe9f5',
+      tertiaryColor: '#a4a1b3',
+      bgColor: '#ffffff',
+
+      // Top line:
+      tag: ':kind_he',
+      partyFrom: (x) => {
+        const h = x['history'][0];
+        let ret = x['publisher_name'] + '/' + h['unit'];
+        if (h['subunit']) { ret += '/' + h['subunit']; }
+        if (h['subsubunit']) { ret += '/' + h['subsubunit']; }
+        return ret;
+      },
+      postTag: (x) => {
+        const h = x['history'];
+        if (h.length > 1) {
+          return 'פעיל בין השנים ' + h[h.length - 1].year + '-' + h[0].year;
+        } else {
+          return 'פעיל בשנת ' + h[h.length - 1].year;
+        }
+      },
+      preAmount: (x) => {
+        const h = x['history'];
+        return 'התקציב המאושר בשנת ' + h[h.length - 1].year;
+      },
+      amount: (x) => `${this.format_number(x.history[x.history.length - 1].allocated_budget)} ₪`,
+
+      // Main body:
+      title: ':activity_name',
+
+      // Bottom line:
+      bottomLineText: ':activity_description',
     },
     // // REPORTS
     // NGO Activity Report

@@ -92,6 +92,8 @@ app.get(basePath + '*', function(req, res) {
       kind = 'אזכורים של השם';
     } else if (kind == 'gov_decisions') {
       kind = 'החלטות ממשלה הקשורות ל';
+    } else if (kind == 'activities') {
+      kind = 'שירותים ופרויקטים הקשורים ל';
     }
     title += ' ' + kind + term
   }

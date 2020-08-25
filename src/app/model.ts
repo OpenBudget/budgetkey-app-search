@@ -58,6 +58,7 @@ class SearchResultsCounts {
     procurement: KindResults;
     people: KindResults;
     gov_decisions: KindResults;
+    activities: KindResults;
 }
 
 export class SearchResults {
