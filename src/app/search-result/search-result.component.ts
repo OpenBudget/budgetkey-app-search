@@ -409,13 +409,7 @@ export class SearchResultComponent implements OnInit {
 
       // Top line:
       tag: ':kind_he',
-      partyFrom: (x) => {
-        const h = x['history'][0];
-        let ret = x['publisher_name'] + '/' + h['unit'];
-        if (h['subunit']) { ret += '/' + h['subunit']; }
-        if (h['subsubunit']) { ret += '/' + h['subsubunit']; }
-        return ret;
-      },
+      partyFrom: (x) => x['publisher_name'] + '/' + x['history'][0]['nice_org_hierarchy'],
       postTag: (x) => {
         const h = x['history'];
         if (h.length > 1) {
