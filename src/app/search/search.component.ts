@@ -68,7 +68,7 @@ export class SearchComponent implements OnInit {
           this.subscriptionUrlParams += '&' + filterMenu.id + '=' + filterMenu.selected.id;
         }
       }
-      url = `${window.location.pathname}?q=${sp.term || ''}&dd=${sp.docType.id}&${this.subscriptionUrlParams}`;
+      url = `${route.snapshot.routeConfig.path}?q=${sp.term || ''}&dd=${sp.docType.id}&${this.subscriptionUrlParams}`;
       this.location.replaceState(url);
       this.updateSubscriptionProperties(sp);
 
