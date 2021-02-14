@@ -8,7 +8,7 @@
       <div class='precard'>{{searchManager.last.docType.description}}</div>
       <search-result 
           *ngFor="let item of (searchManager.searchResults | async).docs; let i = index"
-          [item]="item" [index]="i" [kind]="item.type" [horizontal]='true'
+          [item]="item" [index]="i" [kind]="item.type" [horizontal]='true' [bare]='bare'
       ></search-result>
     </div>
     <div class='left-fade'></div>

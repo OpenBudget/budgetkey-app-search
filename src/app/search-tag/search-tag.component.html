@@ -1,2 +1,4 @@
-<div [class.selected]='selected' [class.main]='main'>{{name}}</div>
-<div [class.selected]='selected'>{{amount | number}}</div>
+<div class='search-tag' [class.bare]='bare'>
+    <div class='search-tag-name' [class.selected]='selected' [class.main]='main'>{{name}}</div>
+    <div class='search-tag-amount' [class.selected]='selected'>{{amount | number}}</div>
+</div>

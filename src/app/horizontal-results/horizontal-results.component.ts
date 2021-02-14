@@ -16,6 +16,7 @@ export class HorizontalResultsComponent implements OnInit {
   @Input() docType: SearchBarType;
   @Input() state: SearchState;
   @Input() anySearching: boolean;
+  @Input() bare = false;
   @Output() searching = new EventEmitter<boolean>();
   @Output() clicked = new EventEmitter<boolean>();
 

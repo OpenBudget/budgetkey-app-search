@@ -11,6 +11,7 @@ import { SearchService } from '../api.service';
 export class SearchModeSelectorComponent implements OnInit {
 
     @Input() state: SearchState;
+    @Input() bare = false;
     @Output() searching = new EventEmitter<boolean>();
 
     private multiSearching: object = {};

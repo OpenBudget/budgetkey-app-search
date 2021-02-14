@@ -13,6 +13,7 @@ import { take, skip } from 'rxjs/operators';
 export class VerticalResultsComponent implements OnInit {
 
   @Input() state: SearchState;
+  @Input() bare = false;
   @Output() searching = new EventEmitter<boolean>();
 
   searchManager: SearchManager;

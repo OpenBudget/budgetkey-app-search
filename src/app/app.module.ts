@@ -16,9 +16,13 @@ import { VerticalResultsComponent } from './vertical-results/vertical-results.co
 import { SearchModeSelectorComponent } from './search-mode-selector/search-mode-selector.component';
 import { HorizontalResultsComponent } from './horizontal-results/horizontal-results.component';
 import { SearchTagComponent } from './search-tag/search-tag.component';
+import { MainPageComponent } from './main-page/main-page.component';
+import { BarePageComponent } from './bare-page/bare-page.component';
+import { BareSearchBarComponent } from './bare-search-bar/bare-search-bar.component';
 
 export const appRoutes: Routes = [
-  { path: '', component: SearchComponent },
+  { path: 'bare', component: BarePageComponent },
+  { path: '', component: MainPageComponent },
 ];
 
 declare let BUDGETKEY_NG2_COMPONENTS_THEME: any;
@@ -51,7 +55,10 @@ if (typeof(BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
     VerticalResultsComponent,
     SearchModeSelectorComponent,
     HorizontalResultsComponent,
-    SearchTagComponent
+    SearchTagComponent,
+    MainPageComponent,
+    BarePageComponent,
+    BareSearchBarComponent
   ],
   imports: [
     BrowserModule,

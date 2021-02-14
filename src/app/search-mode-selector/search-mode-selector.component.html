@@ -1,17 +1,21 @@
-<vertical-results 
-  *ngIf='state.docType.id!=="all"'
-  [state]='state'
-  (searching)='onSearching($event)'>
-</vertical-results>
-<ng-container *ngIf='state.docType.id==="all"'>
-  <ng-container *ngFor='let docType of sortedDocTypes()'>
-    <horizontal-results
-      [docType]='docType'
-      [state]='state'
-      [anySearching]='anySearching'
-      (searching)='onSingleSearching(docType.id, $event)'
-      (clicked)='state.docType = docType'
-    >
-    </horizontal-results>
+<div [class.bare]='bare'>
+  <vertical-results 
+    *ngIf='state.docType.id!=="all"'
+    [state]='state'
+    [bare]='bare'
+    (searching)='onSearching($event)'>
+  </vertical-results>
+  <ng-container *ngIf='state.docType.id==="all"'>
+    <ng-container *ngFor='let docType of sortedDocTypes()'>
+      <horizontal-results
+        [docType]='docType'
+        [state]='state'
+        [anySearching]='anySearching'
+        [bare]='bare'
+        (searching)='onSingleSearching(docType.id, $event)'
+        (clicked)='state.docType = docType'
+      >
+      </horizontal-results>
+    </ng-container>
   </ng-container>
-</ng-container>
+</div>

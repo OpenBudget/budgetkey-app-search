@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -18,6 +18,8 @@ const gtag: any = window['gtag'];
   styleUrls: ['./search.component.less']
 })
 export class SearchComponent implements OnInit {
+
+  @Input() bare = false;
 
   // SearchManager
   searchState: SearchState;
@@ -66,7 +68,7 @@ export class SearchComponent implements OnInit {
           this.subscriptionUrlParams += '&' + filterMenu.id + '=' + filterMenu.selected.id;
         }
       }
-      url = `/?q=${sp.term || ''}&dd=${sp.docType.id}&${this.subscriptionUrlParams}`;
+      url = `${window.location.pathname}?q=${sp.term || ''}&dd=${sp.docType.id}&${this.subscriptionUrlParams}`;
       this.location.replaceState(url);
       this.updateSubscriptionProperties(sp);
 

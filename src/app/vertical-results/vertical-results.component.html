@@ -1,6 +1,6 @@
 <div class="search_body">
   <ng-container *ngFor="let item of (searchManager.searchResults | async).docs; let i = index" >
-    <search-result [item]="item" [index]="i" [kind]="item.type"></search-result>
+    <search-result [item]="item" [index]="i" [kind]="item.type" [bare]='bare'></search-result>
     <div class='separator'></div>
   </ng-container>
   <div i18n="@@statusText" class="status" [innerHtml]='getStatusText()'></div>

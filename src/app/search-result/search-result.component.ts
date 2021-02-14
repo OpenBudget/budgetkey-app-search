@@ -14,6 +14,7 @@ interface Parameter {
   secondaryColor: StringOrFunc;
   tertiaryColor?: StringOrFunc;
   bgColor: StringOrFunc;
+  tagColor: StringOrFunc;
 
   // Top line:
   tag?: StringOrFunc;
@@ -50,6 +51,7 @@ export class SearchResultComponent implements OnInit {
   @Input() index: number;
   @Input() kind: string;
   @Input() horizontal = false;
+  @Input() bare = false;
 
   private PARAMETERS: { [s: string]: Parameter; } = {
     // // ENTITIES
@@ -59,6 +61,7 @@ export class SearchResultComponent implements OnInit {
       secondaryColor: '#e8f5ff',
       tertiaryColor: '#abbbc6',
       bgColor: '#ffffff',
+      tagColor: '#3e4e59',
       tag: ':kind_he',
       preAmount: () => `הכנסות&nbsp;מהמדינה ${this.threeYears()}&nbsp;-&nbsp;${this.thisYear()}`,
       amount: (x) => `${this.format_number(x.received_amount)} ₪`,
@@ -84,6 +87,7 @@ export class SearchResultComponent implements OnInit {
       secondaryColor: '#eaf9de',
       tertiaryColor: '#abba9f',
       bgColor: '#ffffff',
+      tagColor: '#235000',
       tag: ':kind_he',
       preAmount: (x) => (
         this.socialmapAmount() ?
@@ -120,6 +124,8 @@ export class SearchResultComponent implements OnInit {
       secondaryColor: '#fef2d2',
       tertiaryColor: '#564a2a',
       bgColor: '#ffffff',
+      tagColor: '#564a2a',
+
       tag: ':kind_he',
       postTag: ':details.status_municipal_2015',
       preAmount: () => `הכנסות&nbsp;מהמדינה ${this.threeYears()}&nbsp;-&nbsp;${this.thisYear()}`,
@@ -141,6 +147,8 @@ export class SearchResultComponent implements OnInit {
       secondaryColor: '#eee',
       tertiaryColor: '#444',
       bgColor: '#ffffff',
+      tagColor: '#444',
+
       tag: ':kind_he',
       preAmount: () => `הכנסות&nbsp;מהמדינה ${this.threeYears()}&nbsp;-&nbsp;${this.thisYear()}`,
       amount: (x) => `${this.format_number(x.received_amount)} ₪`,
@@ -164,6 +172,7 @@ export class SearchResultComponent implements OnInit {
       secondaryColor: '#e4dcf5',
       tertiaryColor: '#b4a0de',
       bgColor: '#ffffff',
+      tagColor: '#7a6b99',
 
       // Top line:
       tag: (x) => x.code[0] === 'C' ? 'נושא תקציבי' : 'סעיף תקציבי',
@@ -185,6 +194,7 @@ export class SearchResultComponent implements OnInit {
       primaryColor: '#19008f',
       secondaryColor: '#fffbf2',
       bgColor: '#fffefc',
+      tagColor: '#19008f',
 
       // Top line:
       tag: 'התקשרות רכש',
@@ -208,6 +218,7 @@ export class SearchResultComponent implements OnInit {
       primaryColor: '#235000',
       secondaryColor: '#fffbf2',
       bgColor: '#fffefc',
+      tagColor: '#235000',
 
       // Top line:
       tag: 'תמיכה תקציבית',
@@ -232,6 +243,7 @@ export class SearchResultComponent implements OnInit {
       primaryColor: '#19008f',
       secondaryColor: '#fffbf2',
       bgColor: '#fffbf2',
+      tagColor: '#19008f',
 
       // Top line:
       tag: ':tender_type_he',
@@ -260,6 +272,7 @@ export class SearchResultComponent implements OnInit {
       primaryColor: '#19008f',
       secondaryColor: '#fffbf2',
       bgColor: '#fffbf2',
+      tagColor: '#19008f',
 
       // Top line:
       tag: ':tender_type_he :simple_decision',
@@ -287,6 +300,7 @@ export class SearchResultComponent implements OnInit {
       primaryColor: '#235000',
       secondaryColor: '#fffbf2',
       bgColor: '#fffbf2',
+      tagColor: '#235000',
 
       // Top line:
       tag: ':tender_type_he :decision',
@@ -308,6 +322,7 @@ export class SearchResultComponent implements OnInit {
       primaryColor: '#235000',
       secondaryColor: '#fffbf2',
       bgColor: '#fffbf2',
+      tagColor: '#235000',
 
       // Top line:
       tag: ':tender_type_he',
@@ -331,6 +346,7 @@ export class SearchResultComponent implements OnInit {
       secondaryColor: '#fafafa',
       tertiaryColor: '#91a0c2',
       bgColor: '#ffffff',
+      tagColor: '#91a0c2',
 
       // Top line:
       tag: 'אנשים',
@@ -350,6 +366,7 @@ export class SearchResultComponent implements OnInit {
       primaryColor: '#7d7d7d',
       secondaryColor: '#f5f5f5',
       bgColor: '#ffffff',
+      tagColor: '#7d7d7d',
 
       // Top line:
       tag: 'העברה תקציבית',
@@ -406,6 +423,7 @@ export class SearchResultComponent implements OnInit {
       secondaryColor: '#ebe9f5',
       tertiaryColor: '#a4a1b3',
       bgColor: '#ffffff',
+      tagColor: '#19008f',
 
       // Top line:
       tag: ':kind_he',
@@ -437,6 +455,7 @@ export class SearchResultComponent implements OnInit {
       primaryColor: '#180a42',
       secondaryColor: '#fe8255',
       bgColor: '#ffffff',
+      tagColor: '#180a42',
 
       // Top line:
       tag: 'תחום פעילות',
@@ -453,6 +472,7 @@ export class SearchResultComponent implements OnInit {
       primaryColor: '#180a42',
       secondaryColor: '#fe8255',
       bgColor: '#ffffff',
+      tagColor: '#180a42',
 
       // Top line:
       tag: 'אזור פעילות',
@@ -469,6 +489,7 @@ export class SearchResultComponent implements OnInit {
   public p: Parameter;
 
   constructor(@Inject(THEME_ID_TOKEN) private theme_id: any) { }
+
   ngOnInit() {
     const parts = this.item.source.doc_id.split('/');
     this.p = <Parameter>{};
@@ -491,6 +512,11 @@ export class SearchResultComponent implements OnInit {
         }
         this.p[k] = v;
       }
+    }
+    if (this.bare) {
+      this.p.primaryColor = 'black';
+      this.p.secondaryColor = '#f9f9f9';
+      this.p.bgColor = 'white';
     }
   }
 
