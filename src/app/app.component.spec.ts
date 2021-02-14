@@ -16,6 +16,9 @@ import { SearchTagComponent } from './search-tag/search-tag.component';
 import { VerticalResultsComponent } from './vertical-results/vertical-results.component';
 import { HorizontalResultsComponent } from './horizontal-results/horizontal-results.component';
 import { SearchModeSelectorComponent } from './search-mode-selector/search-mode-selector.component';
+import { BarePageComponent } from './bare-page/bare-page.component';
+import { MainPageComponent } from './main-page/main-page.component';
+import { BareSearchBarComponent } from './bare-search-bar/bare-search-bar.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -40,7 +43,10 @@ describe('AppComponent', () => {
         VerticalResultsComponent,
         HorizontalResultsComponent,
         SearchModeSelectorComponent,
-        TimelineMenuComponent
+        TimelineMenuComponent,
+        MainPageComponent,
+        BarePageComponent,
+        BareSearchBarComponent,
       ],
       providers: [
         SearchService
