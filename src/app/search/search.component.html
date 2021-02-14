@@ -8,7 +8,7 @@
       ></search-tag>
     </ng-container>
     <div class='bare-found-results' i18n>נמצאו {{docTypes[0].amount | number}} תוצאות</div>
-    <a class='bare-more-results-link' href='https://next.obudget.org/s' i18n>הרחיבו את החיפוש באתר מפתח התקציב</a>
+    <a class='bare-more-results-link' href='https://next.obudget.org/s' target='_blank' i18n>הרחיבו את החיפוש באתר מפתח התקציב</a>
   </div>
   <div class='bare-search-controls'>
     <div class='bare-search-control'>
@@ -21,6 +21,7 @@
     <search-filter-menu-bar 
         *ngIf='searchState.docType.id!=="all"'
         [menus]="searchState.docType.filterMenu || []" 
+        [bare]='bare'
         (selected)="onSearchFilterMenuChange()" 
     >
     </search-filter-menu-bar>

@@ -8,6 +8,7 @@ import {FilterMenu} from 'budgetkey-ng2-components';
 })
 export class SearchFilterMenuBarComponent {
   @Input() menus: FilterMenu[];
+  @Input() bare = false;
   @Output() selected = new EventEmitter();
 
   constructor() {}

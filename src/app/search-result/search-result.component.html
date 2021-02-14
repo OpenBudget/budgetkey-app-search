@@ -30,9 +30,10 @@
              [style.color]='p.primaryColor'
             >
             <a [href]='href()' class='body-title' *ngIf='p.title'
+               [target]='bare ? "_blank" : "_self"'
                [style.color]='p.primaryColor'               
             >
-                <span [innerHtml]='p.title'></span>
+                <span [innerHtml]='p.title' [title]='p.title'></span>
                 <div class='fadeoff'
                     [style.background]='fadeoff()'
                 >

@@ -610,11 +610,7 @@ export class SearchResultComponent implements OnInit {
 
   href() {
     const doc_id = this.item.source.doc_id;
-    return 'https://next.obudget.org/i/' + doc_id + '?li=' + this.index + (this.theme_id ? '&theme=' + this.theme_id : '');
-  }
-
-  navigate() {
-    window.location.href = this.href();
+    return 'https://next.obudget.org/i/' + doc_id + '?li=' + this.index + (!this.bare && this.theme_id ? '&theme=' + this.theme_id : '');
   }
 
   remainingTime(x) {

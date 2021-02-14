@@ -1,4 +1,48 @@
 :host {
     display: block;
     padding: 40px 40px 0 40px;
+
+    .footer {
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 24px 40px;
+
+        .signup {
+            font-weight: normal;
+            font-size: 18px;
+            line-height: 25px;
+            text-decoration: underline;
+            cursor: pointer;
+            color: #FFFFFF;
+            padding: 8px 16px;
+            background: #ED6665;
+            border-radius: 8px;
+
+            img {
+                margin-left: 14px;
+            }
+        }
+        .credits {
+            span {
+                font-weight: normal;
+                font-size: 18px;
+                line-height: 25px;
+                color: #787878;
+                
+                a, a:hover, a:visited {
+                    text-decoration: underline !important;
+                    color: #FF5A5F;    
+                }
+            }
+            img {
+                margin-left: 12px;
+            }
+        }
+    }
 }
