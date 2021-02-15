@@ -1,4 +1,4 @@
 <div class='input'>
-  <input type='text' [placeholder]='config.placeholder' (keyup)='search.next($event.target.value)'>
+  <input type='text' [(ngModel)]='term' [placeholder]='config.placeholder' (keyup)='search.next($event.target.value)'>
   <img src='assets/img/bare-search-icon.svg'>
 </div>

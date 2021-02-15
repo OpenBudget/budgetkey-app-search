@@ -1,8 +1,17 @@
-<app-search [bare]='true'></app-search>
+<app-search [bare]='true' #search></app-search>
 <div class='footer'>
     <div class='signup'>
-        <img src='assets/img/envelope-icon.svg'>
-        <span i18n>הרשמו לעדכונים מאתר מפתח התקציב</span>
+        <ng-container *ngIf='search && search.searchState && search.searchState.term'>
+            <budgetkey-subscription-manager
+                    [term]='search.searchState.term'
+                    [docType]='all' 
+                    [externalTitle]='theme.siteName + ": " + search.searchState.term'
+                    [externalProperties]='search.subscriptionProperties'
+                    [externalUrl]='externalUrl()'
+            ></budgetkey-subscription-manager>    
+            <!-- <img src='assets/img/envelope-icon.svg'>
+            <span i18n>הרשמו לעדכונים מאתר מפתח התקציב</span> -->
+        </ng-container>
     </div>
     <div class='credits'>
         <img src='assets/img/budgetkey-red-key-logo.svg'>

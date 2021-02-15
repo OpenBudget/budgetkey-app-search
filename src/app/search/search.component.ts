@@ -7,6 +7,8 @@ import { THEME_TOKEN, LANG_TOKEN, SearchBarType } from 'budgetkey-ng2-components
 import { SearchParams } from '../model';
 import { TimeRanges } from '../time-ranges';
 import { SearchState } from '../search-state/search-state';
+import { AuthService } from 'budgetkey-ng2-auth';
+import { filter, first, switchMap } from 'rxjs/operators';
 
 
 const gtag: any = window['gtag'];
@@ -25,8 +27,8 @@ export class SearchComponent implements OnInit {
   searchState: SearchState;
 
   // Component state
-  private subscriptionProperties: any = {};
-  private subscriptionUrlParams: string;
+  public subscriptionProperties: any = {};
+  public subscriptionUrlParams: string;
   isSearching = false;
 
   // Timeline selection
@@ -38,18 +40,25 @@ export class SearchComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private location: Location,
+    private auth: AuthService,
     @Inject(THEME_TOKEN) private theme: any,
     @Inject(LANG_TOKEN) private lang: string
   ) {
     this.searchState = new SearchState(<SearchBarType[]>theme.searchBarConfig);
     this.periods = (new TimeRanges()).periods;
     this.docTypes = this.theme.searchBarConfig;
+    this.searchState.searchContext = theme.searchContext;
     this.lang = lang;
   }
 
   ngOnInit() {
-    this.searchState.searchQueue.subscribe((sp: SearchParams) => {
-      let url;
+    this.auth.getUser().pipe(
+      filter((x) => x !== null),
+      first(),
+      switchMap((user) => {
+        return this.searchState.searchQueue;
+      })
+    ).subscribe((sp: SearchParams) => {
       if (!sp) {
         return;
       }
@@ -70,7 +79,7 @@ export class SearchComponent implements OnInit {
           this.subscriptionUrlParams += '&' + filterMenu.id + '=' + filterMenu.selected.id;
         }
       }
-      url = `${this.route.snapshot.routeConfig.path}?q=${sp.term || ''}&dd=${sp.docType.id}&${this.subscriptionUrlParams}`;
+      const url = `${this.route.snapshot.routeConfig.path}?q=${sp.term || ''}&dd=${sp.docType.id}&${this.subscriptionUrlParams}`;
       this.location.replaceState(url);
       this.updateSubscriptionProperties(sp);
 

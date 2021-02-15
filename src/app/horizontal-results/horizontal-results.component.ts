@@ -51,6 +51,7 @@ export class HorizontalResultsComponent implements OnInit {
               term: sp.term,
               period: null,
               filters: this.docType.filters,
+              context: this.state.searchContext,
               ordering: sp.term ? null : this.docType.ordering
             });
           })

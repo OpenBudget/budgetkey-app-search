@@ -36,6 +36,9 @@ export class SearchService {
     if (sp.ordering) {
       url += `&order=${sp.ordering}`;
     }
+    if (sp.context) {
+      url += `&context=${sp.context}`;
+    }
 
     if (this.cache[url]) {
       const ret = this.cache[url];
@@ -76,6 +79,9 @@ export class SearchService {
     }
     if (sp.period && sp.period.value !== 'all') {
       url += `&from_date=${sp.period.start}&to_date=${sp.period.end}`;
+    }
+    if (sp.context) {
+      url += `&context=${sp.context}`;
     }
 
     if (this.cache[url]) {

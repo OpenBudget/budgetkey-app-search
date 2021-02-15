@@ -19,6 +19,7 @@ export class SearchParams {
             this.pageSize = other.pageSize;
             this.filters = other.filters;
             this.ordering = other.ordering;
+            this.context = other.context;
         }
     }
 
@@ -29,6 +30,7 @@ export class SearchParams {
     pageSize: number;
     filters: any;
     ordering: string;
+    context: string;
 }
 
 class TimeDistributionEntry {

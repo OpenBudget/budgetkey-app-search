@@ -14,6 +14,7 @@
     <div class='bare-search-control'>
       <label i18n>סינון התוצאות</label>
       <app-bare-search-bar
+            [term]='searchState.term'
             [config]='searchState.docType'
             (search)="onTermChanged($event )"
       ></app-bare-search-bar>

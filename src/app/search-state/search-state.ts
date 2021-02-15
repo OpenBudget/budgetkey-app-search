@@ -51,6 +51,7 @@ export class SearchState {
     _docType: SearchBarType;
     _filters: any;
     _period: any;
+    searchContext: string;
 
     private enabled = false;
 
@@ -107,6 +108,10 @@ export class SearchState {
         return this._period;
     }
 
+    setSearchContext(context: string) {
+        this.searchContext = Array.isArray(context) ? context.join(' ') : null;
+    }
+
     initiateSearch() {
         if (!this.enabled) {
             return;
@@ -117,6 +122,7 @@ export class SearchState {
         sp.docType = this._docType;
         sp.offset = 0;
         sp.pageSize = 10;
+        sp.context = this.searchContext;
         const filters = [];
         filters.push(sp.docType.filters);
         if (sp.docType.filterMenu) {
