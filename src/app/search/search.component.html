@@ -1,14 +1,18 @@
 <ng-container *ngIf='bare'>
-  <div class='bare-count-tags'>
-    <ng-container *ngFor='let docType of docTypes'>
-      <search-tag [name]='docType.name' [amount]='docType.amount' 
-                  [selected]='searchState.docType===docType'
-                  [bare]='bare'
-                  (click)='onDocTypeSelected(docType)'
-      ></search-tag>
-    </ng-container>
-    <div class='bare-found-results' i18n>נמצאו {{docTypes[0].amount | number}} תוצאות</div>
-    <a class='bare-more-results-link' href='https://next.obudget.org/s' target='_blank' i18n>הרחיבו את החיפוש באתר מפתח התקציב</a>
+  <div class='bare-header'>
+    <div class='bare-count-tags'>
+      <ng-container *ngFor='let docType of docTypes'>
+        <search-tag [name]='docType.name' [amount]='docType.amount' 
+                    [selected]='searchState.docType===docType'
+                    [bare]='bare'
+                    (click)='onDocTypeSelected(docType)'
+        ></search-tag>
+      </ng-container>
+    </div>
+    <div class='bare-info'>
+      <div class='bare-found-results' i18n>נמצאו {{docTypes[0].amount | number}} תוצאות</div>
+      <a class='bare-more-results-link' href='https://next.obudget.org/s' target='_blank' i18n>הרחיבו את החיפוש באתר מפתח התקציב</a>  
+    </div>
   </div>
   <div class='bare-search-controls'>
     <div class='bare-search-control'>

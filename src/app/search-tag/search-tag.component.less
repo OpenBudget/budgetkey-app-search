@@ -55,20 +55,27 @@
         line-height: 22px;
         color: #000000;
         margin: 0 0 0 24px;
-
-        div.search-tag-name {
-            border: none;
-            background-color: inherit;
-            border-bottom: 3px solid transparent;
-            border-radius: 0;
-            &.selected {
-                background-color: inherit;
-                color: #54364C;
-                border-color: #54364C;
-            }
+        @media only screen and (max-width: 600px) {
+            margin-left: 16px;
         }
-        div.search-tag-amount {
-            display: none;
+
+        div {
+            padding: 0;
+
+            &.search-tag-name {
+                border: none;
+                background-color: inherit;
+                border-bottom: 3px solid transparent;
+                border-radius: 0;
+                &.selected {
+                    background-color: inherit;
+                    color: #54364C;
+                    border-color: #54364C;
+                }
+            }
+            &.search-tag-amount {
+                display: none;
+            }
         }
     }
 

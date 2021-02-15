@@ -1,6 +1,9 @@
 :host {
     display: block;
     padding: 40px 40px 100px 40px;
+    @media only screen and (max-width: 600px) {
+        padding: 24px 24px 100px 24px;
+    }
 
     .footer {
         position: fixed;
@@ -8,10 +11,14 @@
         bottom: 0;
         left: 0;
         display: flex;
-        flex-flow: row;
+        flex-flow: row wrap;
         align-items: center;
         justify-content: space-between;
         padding: 24px 40px;
+        @media only screen and (max-width: 600px) {
+            padding: 16px 24px;
+            justify-content: center;
+        }
         background: #f9f9f9;
         box-shadow: 0 0px 10px 5px rgba(0,0,0,0.4);
 
@@ -31,6 +38,7 @@
             }
         }
         .credits {
+            text-align: center;
             span {
                 font-weight: normal;
                 font-size: 18px;
@@ -39,7 +47,8 @@
                 
                 a, a:hover, a:visited {
                     text-decoration: underline !important;
-                    color: #FF5A5F;    
+                    color: #FF5A5F;
+                    white-space: nowrap;
                 }
             }
             img {
