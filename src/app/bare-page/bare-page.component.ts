@@ -11,7 +11,7 @@ export class BarePageComponent implements OnInit {
 
   all: SearchBarType;
 
-  @ViewChild('search') search: SearchComponent; 
+  @ViewChild('search') search: SearchComponent;
 
   constructor(
     @Inject(THEME_TOKEN) private theme: any,
