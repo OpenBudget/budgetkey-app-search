@@ -83,7 +83,7 @@ export class SearchComponent implements OnInit {
       const locationSearch = window.location.search;
       if (locationSearch && locationSearch.length > 1) {
         const searchParams = new URLSearchParams(locationSearch.substring(1));
-        for (const f of ['subscribe', 'jwt']) {
+        for (const f of ['subscribe', 'jwt', 'nw']) {
           if (searchParams.has(f)) {
             url += `&${f}=${searchParams.get(f)}`;
           }
