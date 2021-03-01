@@ -79,7 +79,16 @@ export class SearchComponent implements OnInit {
           this.subscriptionUrlParams += '&' + filterMenu.id + '=' + filterMenu.selected.id;
         }
       }
-      const url = `${this.route.snapshot.routeConfig.path}?q=${sp.term || ''}&dd=${sp.docType.id}&${this.subscriptionUrlParams}`;
+      let url = `${this.route.snapshot.routeConfig.path}?q=${sp.term || ''}&dd=${sp.docType.id}&${this.subscriptionUrlParams}`;
+      const locationSearch = window.location.search;
+      if (locationSearch && locationSearch.length > 1) {
+        const searchParams = new URLSearchParams(locationSearch.substring(1));
+        for (const f of ['subscribe', 'jwt']) {
+          if (searchParams.has(f)) {
+            url += `&${f}=${searchParams.get(f)}`;
+          }
+        }
+      }
       this.location.replaceState(url);
       this.updateSubscriptionProperties(sp);
 
