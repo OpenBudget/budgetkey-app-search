@@ -1,17 +1,18 @@
-<div class='host' *ngIf='shouldShow()'>
+<div class='host' [class.shown]='shouldShow()'>
   <div class='title' (click)='titleClicked()'>
     {{searchManager.last.docType.name}}
     <span *ngIf='searchManager.last.docType.amount'>({{searchManager.last.docType.amount | number}})</span>
   </div>
   <div class='results'>
-    <div class='cards' (scroll)='scrollHandler($event)'>
+    <div class='right-fade' [class.visible]='showRightFade' (click)='scroll(1)'></div>
+    <div class='cards' #cards>
       <div class='precard'>{{searchManager.last.docType.description}}</div>
       <search-result 
           *ngFor="let item of (searchManager.searchResults | async).docs; let i = index"
           [item]="item" [index]="i" [kind]="item.type" [horizontal]='true' [bare]='bare'
       ></search-result>
     </div>
-    <div class='left-fade'></div>
+    <div class='left-fade' [class.visible]='showLeftFade' (click)='scroll(-1)'></div>
   </div>
   <div class='filtered' *ngIf='docTypes.length > 1'>
     <ng-container *ngFor='let docType of docTypes'>

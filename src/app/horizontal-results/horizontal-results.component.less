@@ -20,6 +20,11 @@
         margin-top: 30px;
     }
 
+    &:not(.shown) {
+        display: none;
+        margin: 0;
+    }
+
     .title {
         position: relative;
         display: block;
@@ -80,18 +85,43 @@
             }
 
             & > * {
-                transform: translatez(0);
+                transform: none;
+            }
+
+            &.refresh {
+                & > * {
+                    transform: translatez(0);
+                }
             }
         }
 
         .left-fade {
+            left: 0;
+            background: linear-gradient(to left, rgba(250, 250, 250, 0) 0%, rgba(250, 250, 250, 1) 100%), url(../../assets/img/chevron-left.svg) center/contain no-repeat;
+        }
+        .right-fade {
+            right: 0;
+            background: linear-gradient(to right, rgba(250, 250, 250, 0) 0%, rgba(250, 250, 250, 1) 100%), url(../../assets/img/chevron-right.svg) center/contain no-repeat;
+        }
+        .right-fade, .left-fade {
             height: ~'calc(100% - 10px)';
             top: 5px;
             position: absolute;
-            left: 0;
             width: 40px;
             pointer-events: none;
-            background: linear-gradient(to left, rgba(250, 250, 250, 0) 0%, rgba(250, 250, 250, 1) 100%);
+            z-index: -1;
+            opacity: 0;
+            transition-property: opacity z-index;
+            transition-duration: 250ms;
+            transition-timing-function: linear;
+            &.visible {
+                @media only screen and (min-width: 600px) {
+                    pointer-events: all;
+                    cursor: pointer;
+                }
+                opacity: 1;
+                z-index: 10;
+            }
         }
     }
     

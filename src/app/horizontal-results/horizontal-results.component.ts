@@ -1,17 +1,18 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { SearchBarType } from 'budgetkey-ng2-components';
 import { SearchState, mergeFilters } from '../search-state/search-state';
 import { SearchService } from '../api.service';
 import { SearchManager, SearchOutcome } from '../search-manager/search-manager';
 import { SearchParams, SearchResults } from '../model';
-import { take, skip, switchMap } from 'rxjs/operators';
+import { take, skip, switchMap, throttleTime, delay } from 'rxjs/operators';
+import { fromEvent, Subscription } from 'rxjs';
 
 @Component({
   selector: 'horizontal-results',
   templateUrl: './horizontal-results.component.html',
   styleUrls: ['./horizontal-results.component.less']
 })
-export class HorizontalResultsComponent implements OnInit {
+export class HorizontalResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Input() docType: SearchBarType;
   @Input() state: SearchState;
@@ -19,11 +20,15 @@ export class HorizontalResultsComponent implements OnInit {
   @Input() bare = false;
   @Output() searching = new EventEmitter<boolean>();
   @Output() clicked = new EventEmitter<boolean>();
+  @ViewChild('cards') cards: ElementRef;
 
   searchManager: SearchManager;
   lastOutcome: SearchOutcome;
   docTypes: SearchBarType[];
   gotMore = false;
+  subscriptions: Subscription[] = [];
+  showLeftFade = false;
+  showRightFade = false;
 
   constructor(
     private searchService: SearchService,
@@ -78,26 +83,52 @@ export class HorizontalResultsComponent implements OnInit {
       }
     );
 
-    this.searchManager.searchResults.subscribe((outcome) => {
-      this.lastOutcome = outcome;
-      this.searching.emit(outcome.isSearching);
-    });
+    this.subscriptions = [];
+    this.subscriptions.push(
+      this.searchManager.searchResults.subscribe((outcome) => {
+        this.lastOutcome = outcome;
+        this.searching.emit(outcome.isSearching);
+        const el = this.cards.nativeElement as HTMLElement;
+        this.showLeftFade = true;
+        el.classList.toggle('refresh');
+        setTimeout(() => {
+          el.classList.toggle('refresh');
+          this.scrollHandler(el);
+        }, 100);
+      })  
+    );
+  }
+
+  ngAfterViewInit() {
+    this.subscriptions.push(
+      fromEvent(this.cards.nativeElement, 'scroll').pipe(
+        throttleTime(150), delay(150)
+      ).subscribe((event: Event) => {
+        this.scrollHandler(event.target as HTMLElement);
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    while (this.subscriptions.length) {
+      this.subscriptions.shift().unsubscribe();
+    }
   }
 
   shouldShow() {
     return this.docType.id !== 'all' &&
-           this.lastOutcome &&
-           !this.lastOutcome.isSearching &&
-           !this.lastOutcome.isErrorInLastSearch &&
-           !this.anySearching &&
-           this.searchManager.last &&
-           this.searchManager.last.docType.amount &&
-           this.searchManager.last.docType['score'] > 0;
+            this.lastOutcome &&
+            !this.lastOutcome.isSearching &&
+            !this.lastOutcome.isErrorInLastSearch &&
+            !this.anySearching &&
+            this.searchManager.last &&
+            this.searchManager.last.docType.amount &&
+            this.searchManager.last.docType['score'] > 0;    
   }
 
-  scrollHandler(event) {
-    const target = event.target;
-    if (target.scrollLeft < 100) {
+  scrollHandler(target: HTMLElement) {
+    const left = target.scrollWidth + target.scrollLeft - target.offsetWidth;
+    if (left < 100) {
       if (!this.gotMore) {
         this.gotMore = true;
         this.searchManager.getMore();
@@ -106,6 +137,8 @@ export class HorizontalResultsComponent implements OnInit {
         });
       }
     }
+    this.showRightFade = target.scrollLeft < -320;
+    this.showLeftFade = left > 0;
   }
 
   titleClicked() {
@@ -122,4 +155,8 @@ export class HorizontalResultsComponent implements OnInit {
     this.clicked.emit(true);
   }
 
+  scroll(direction) {
+    const el = this.cards.nativeElement as HTMLElement;
+    el.scrollBy({left: el.offsetWidth*0.8*direction, behavior: 'smooth'});
+  }
 }
