@@ -95,7 +95,7 @@ export class HorizontalResultsComponent implements OnInit, OnDestroy, AfterViewI
           el.classList.toggle('refresh');
           this.scrollHandler(el);
         }, 100);
-      })  
+      })
     );
   }
 
@@ -123,7 +123,7 @@ export class HorizontalResultsComponent implements OnInit, OnDestroy, AfterViewI
             !this.anySearching &&
             this.searchManager.last &&
             this.searchManager.last.docType.amount &&
-            this.searchManager.last.docType['score'] > 0;    
+            this.searchManager.last.docType['score'] > 0;
   }
 
   scrollHandler(target: HTMLElement) {
@@ -157,6 +157,6 @@ export class HorizontalResultsComponent implements OnInit, OnDestroy, AfterViewI
 
   scroll(direction) {
     const el = this.cards.nativeElement as HTMLElement;
-    el.scrollBy({left: el.offsetWidth*0.8*direction, behavior: 'smooth'});
+    el.scrollBy({left: el.offsetWidth * 0.8 * direction, behavior: 'smooth'});
   }
 }
