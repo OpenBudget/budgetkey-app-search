@@ -1,7 +1,7 @@
 import { SearchService } from '../api.service';
 import { Subject, of, BehaviorSubject, Observable, from, merge } from 'rxjs';
 import { SearchParams, SearchResults, DocResultEntry } from '../model';
-import { debounceTime, switchMap, mergeMap, filter, map, last } from 'rxjs/operators';
+import { debounceTime, switchMap, mergeMap, filter, map, last, tap, catchError } from 'rxjs/operators';
 import { SearchBarType } from 'budgetkey-ng2-components';
 import { SearchState } from '../search-state/search-state';
 
@@ -20,7 +20,7 @@ export class SearchManager {
     // Fetch more
     private moreQueue = new Subject<SearchParams>();
     private done = false;
-    public last: SearchParams;
+    public last: SearchParams = new SearchParams();
 
     // Results
     allResults: DocResultEntry[] = [];
@@ -48,17 +48,20 @@ export class SearchManager {
                 switchMap((sp: SearchParams) => {
                     return this.doRequest(sp);
                 }),
-                mergeMap((x) => x)
+                switchMap((results: SearchResults) => {
+                    return this.processResults(results);
+                }),
+                switchMap((results: SearchResults) => {
+                    return this.processResults(results);
+                }),
+                catchError((err) => {
+                    this.updateResults([], false, true);
+                    console.log('Error while searching:', err);
+                    return of<SearchResults>(null);
+                })
             )
             .subscribe(
-                (results: SearchResults) => {
-                    this.processResults(results);
-                },
-                (error) => {
-                    this.updateResults([], false, true);
-                    console.log('Error while searching:', error);
-                    return of<SearchResults>(null);
-                }
+                () => { console.log('punt!'); }
             );
     }
 
@@ -77,23 +80,21 @@ export class SearchManager {
         this.searchResults.next(outcome);
     }
 
-    doRequest(sp: SearchParams): Observable<any> {
+    doRequest(sp: SearchParams): Observable<SearchResults> {
         // Do actual request
         if (sp.offset === 0) {
             this.updateResults([], true);
         }
-        const search = this.api.search(sp);
-        const calls = [search];
+        return this.api.search(sp);
+
+    }
+
+    doCountRequest(sp: SearchParams): Observable<any> {
         const toCount = this.docTypes.filter((dt: any) => dt !== sp.docType);
         if (toCount.length > 0) {
-            const count = this.api.count(sp, toCount);
-            calls.push(count);
+            return this.api.count(sp, toCount);
         }
-        // if (!this.theme.themeId) {
-        // let timeline = this.searchService.timeline(sp);
-        // calls.push(timeline);
-        // }
-        return from(calls);
+        return from([]);
     }
 
     processResults(results: SearchResults) {
@@ -117,11 +118,15 @@ export class SearchManager {
                 this.allResults = this.allResults.slice(0, results.params.offset);
                 this.allResults.push(...results.search_results);
                 this.updateResults(this.allResults, results.params !== this.last);
+                if (this.allResults.length && results.params.offset === 0) {
+                    return this.doCountRequest(results.params);
+                }
             }
             // if (results.timeline) {
             //   this.timeline = results.timeline;
             // }
         }
+        return from([]);
     }
 
 }

@@ -4,7 +4,7 @@ import { SearchState, mergeFilters } from '../search-state/search-state';
 import { SearchService } from '../api.service';
 import { SearchManager, SearchOutcome } from '../search-manager/search-manager';
 import { SearchParams, SearchResults } from '../model';
-import { take, skip, switchMap, throttleTime, delay } from 'rxjs/operators';
+import { take, skip, switchMap, throttleTime, delay, debounceTime } from 'rxjs/operators';
 import { fromEvent, Subscription } from 'rxjs';
 
 @Component({
@@ -48,6 +48,7 @@ export class HorizontalResultsComponent implements OnInit, OnDestroy, AfterViewI
     }
     this.state.searchQueue
         .pipe(
+          debounceTime(1000),
           switchMap((sp) => {
             return this.searchService.search({
               docType: this.docTypes[0],
