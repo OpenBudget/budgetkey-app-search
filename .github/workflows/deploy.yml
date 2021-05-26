@@ -20,7 +20,7 @@ jobs:
         TRAVIS_CI_OPERATOR: "1"
         DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}        
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        
+        GITHUB_TOKEN: ${{ secrets.K8S_GITHUB_TOKEN }}
       run: |
         ./ci.sh install
         ./ci.sh script
