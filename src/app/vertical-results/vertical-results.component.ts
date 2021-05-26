@@ -4,6 +4,7 @@ import { SearchManager, SearchOutcome } from '../search-manager/search-manager';
 import { SearchBarType, THEME_TOKEN } from 'budgetkey-ng2-components';
 import { SearchService } from '../api.service';
 import { take, skip } from 'rxjs/operators';
+import { fromEvent, Subscription } from 'rxjs';
 
 @Component({
   selector: 'vertical-results',
@@ -21,6 +22,7 @@ export class VerticalResultsComponent implements OnInit {
   // Autofetch control
   gotMore = false;
   lastOutcome: SearchOutcome;
+  more: Subscription;
 
   constructor(
     private searchService: SearchService,
@@ -40,19 +42,22 @@ export class VerticalResultsComponent implements OnInit {
       this.lastOutcome = outcome;
       this.searching.emit(outcome.isSearching);
     });
+
+    this.more = fromEvent(window, 'scroll').subscribe(() => {
+      if (window.innerHeight + window.pageYOffset + 300 > window.document.body.scrollHeight) {
+        if (!this.gotMore) {
+          this.gotMore = true;
+          this.searchManager.getMore();
+          this.searchManager.searchResults.pipe(take(2), skip(1)).subscribe(() => {
+            this.gotMore = false;
+          });
+        }
+      }  
+    })
   }
 
-  @HostListener('window:scroll', ['$event'])
-  scrollHandler(event) {
-    if (window.innerHeight + window.pageYOffset + 300 > window.document.body.scrollHeight) {
-      if (!this.gotMore) {
-        this.gotMore = true;
-        this.searchManager.getMore();
-        this.searchManager.searchResults.pipe(take(2), skip(1)).subscribe(() => {
-          this.gotMore = false;
-        });
-      }
-    }
+  ngOnDestroy() {
+    this.more.unsubscribe();
   }
 
   getStatusText() {

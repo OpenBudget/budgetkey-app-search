@@ -127,6 +127,9 @@ export class HorizontalResultsComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   scrollHandler(target: HTMLElement) {
+    if (target.offsetWidth < 300) {
+      return;
+    }
     const left = target.scrollWidth + target.scrollLeft - target.offsetWidth;
     if (left < 100) {
       if (!this.gotMore) {
