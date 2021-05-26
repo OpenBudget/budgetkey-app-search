@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject, HostListener, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Inject, HostListener, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { SearchState } from '../search-state/search-state';
 import { SearchManager, SearchOutcome } from '../search-manager/search-manager';
 import { SearchBarType, THEME_TOKEN } from 'budgetkey-ng2-components';
@@ -11,7 +11,7 @@ import { fromEvent, Subscription } from 'rxjs';
   templateUrl: './vertical-results.component.html',
   styleUrls: ['./vertical-results.component.less']
 })
-export class VerticalResultsComponent implements OnInit {
+export class VerticalResultsComponent implements OnInit, OnDestroy {
 
   @Input() state: SearchState;
   @Input() bare = false;
@@ -52,8 +52,8 @@ export class VerticalResultsComponent implements OnInit {
             this.gotMore = false;
           });
         }
-      }  
-    })
+      }
+    });
   }
 
   ngOnDestroy() {

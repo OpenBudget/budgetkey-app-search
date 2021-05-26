@@ -117,11 +117,11 @@ export class SearchComponent implements OnInit {
             break;
           }
         }
-
         // Term
         if (params['q']) {
           this.searchState.term = params['q'];
         }
+
         if (params['dd']) {
           for (const dt of this.docTypes) {
             if (dt.id === params['dd']) {
