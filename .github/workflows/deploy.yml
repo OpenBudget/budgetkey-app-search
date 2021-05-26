@@ -22,8 +22,7 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}        
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        
       run: |
-        docker pull "${DOCKER_IMAGE}:latest"
         ./ci.sh install
-        ./cui.sh script
+        ./ci.sh script
         ./ci.sh deploy
         ./ci.sh bump
