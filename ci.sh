@@ -37,8 +37,9 @@ elif [ "${1}" == "deploy" ]; then
     exit 0
 
 elif [ "${1}" == "bump" ]; then
+    TAG="${GITHUB_SHA}"
     docker run -e CLONE_PARAMS="--branch ${K8S_OPS_REPO_BRANCH} https://github.com/${K8S_OPS_REPO_SLUG}.git" \
-               -e YAML_UPDATE_JSON='{"'"${DEPLOY_VALUES_CHART_NAME}"'":{"'"${DEPLOY_VALUES_IMAGE_PROP}"'":"'"${DOCKER_IMAGE}:${tag}"'"}}' \
+               -e YAML_UPDATE_JSON='{"'"${DEPLOY_VALUES_CHART_NAME}"'":{"'"${DEPLOY_VALUES_IMAGE_PROP}"'":"'"${DOCKER_IMAGE}:${TAG}"'"}}' \
                -e YAML_UPDATE_FILE="${DEPLOY_YAML_UPDATE_FILE}" \
                -e GIT_USER_EMAIL="${DEPLOY_GIT_EMAIL}" \
                -e GIT_USER_NAME="${DEPLOY_GIT_USER}" \
