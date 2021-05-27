@@ -427,26 +427,25 @@ export class SearchResultComponent implements OnInit {
 
       // Top line:
       tag: ':kind_he',
-      partyFrom: (x) => x['publisher_name'] + '/' + x['history'][0]['nice_org_hierarchy'],
-      postTag: (x) => {
-        const h = x['history'];
-        if (h.length > 1) {
-          return 'פעיל בין ' + h[0].year + '-' + h[h.length - 1].year;
-        } else {
-          return 'פעיל ב-' + h[0].year;
+      partyFrom: (x) => x['office'] + '/' + x['unit'] + (x['subunit'] ? '/' + x['subunit'] : ''),
+      preAmount: (x) => {
+        const h = x['manualBudget'];
+        if (h && h.length > 0) {
+          return 'התקציב ב-' + h[0].year;
         }
       },
-      preAmount: (x) => {
-        const h = x['history'];
-        return 'התקציב ב-' + h[0].year;
+      amount: (x) => {
+        const h = x['manualBudget'];
+        if (h && h.length > 0) {
+          return `${this.format_number(h[0].allocated)} ₪`;
+        }
       },
-      amount: (x) => `${this.format_number(x.history[0].allocated_budget)} ₪`,
 
       // Main body:
-      title: ':activity_name',
+      title: ':name',
 
       // Bottom line:
-      bottomLineText: ':activity_description',
+      bottomLineText: ':description',
     },
     // // REPORTS
     // NGO Activity Report
