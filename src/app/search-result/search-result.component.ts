@@ -401,6 +401,7 @@ export class SearchResultComponent implements OnInit {
       secondaryColor: '#ebe9f5',
       tertiaryColor: '#a4a1b3',
       bgColor: '#ffffff',
+      tagColor: '#19008f',
 
       // Top line:
       tag: ':policy_type',
@@ -429,15 +430,19 @@ export class SearchResultComponent implements OnInit {
       tag: ':kind_he',
       partyFrom: (x) => x['office'] + '/' + x['unit'] + (x['subunit'] ? '/' + x['subunit'] : ''),
       preAmount: (x) => {
-        const h = x['manualBudget'];
-        if (h && h.length > 0) {
-          return 'התקציב ב-' + h[0].year;
+        const h = x['manualBudget'] || [];
+        for (const i of h) {
+          if (i.approved) {
+            return 'התקציב ב-' + i.year;
+          }
         }
       },
       amount: (x) => {
-        const h = x['manualBudget'];
-        if (h && h.length > 0) {
-          return `${this.format_number(h[0].allocated)} ₪`;
+        const h = x['manualBudget'] || [];
+        for (const i of h) {
+          if (i.approved) {
+            return `${this.format_number(i.approved)} ₪`;
+          }
         }
       },
 
