@@ -616,7 +616,7 @@ export class SearchResultComponent implements OnInit {
     const doc_id = this.item.source.doc_id;
     let base = 'https://next.obudget.org';
     if (doc_id.indexOf('activities/gov_social_service') === 0) {
-      base = 'https://www.socialpro.org';
+      base = 'https://www.socialpro.org.il';
     }
     return base + '/i/' + doc_id + '?li=' + this.index + (!this.bare && this.theme_id ? '&theme=' + this.theme_id : '');
   }
