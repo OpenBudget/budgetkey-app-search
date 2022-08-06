@@ -514,7 +514,7 @@ export class SearchResultComponent implements OnInit {
 
       // Bottom line:
       bottomLineText: ':nice-breadcrumbs',
-      bottomLineLabel: ':func_1_name',
+      bottomLineLabel: ':nice-category',
       bottomLineLabelStyle: 'circle'
     },
   };
