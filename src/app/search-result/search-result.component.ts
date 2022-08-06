@@ -488,6 +488,35 @@ export class SearchResultComponent implements OnInit {
       bottomLineText: '<strong>מספר ארגונים:</strong> :details.report.total.count',
     },
 
+    'muni_budgets': <Parameter>{
+      // Colors:
+      // .func-cls-1 { .budget-func-cls-color(#5C7899, #6092CC, #D7E7FA, #EBF2FA); } //Blue
+      // .func-cls-2 { .budget-func-cls-color(#7A6B99, #9281B8, #E4DCF5, #F1EDF7); } //Purple
+      // .func-cls-3 { .budget-func-cls-color(#6D8F89, #75BFB3, #CEF0EB, #EBF7F5); } //Cyan
+      // .func-cls-4 { .budget-func-cls-color(#A67453, #F0A16C, #FFD1B3, #FCF0E8); } //Orange
+      // .func-cls-5 { .budget-func-cls-color(#768275, #8EA38C, #D4E3D1, #ECF2EB); } //Greenish
+      // .func-cls-6 { .budget-func-cls-color(#998282, #C7B3B3, #EDE4E4, #F7F2F2); } //Sepia
+      // .func-cls-7 { .budget-func-cls-color(#8C8231, #F2E22E, #FFF7B3, #FCFADC); } //Yellow
+      // .func-cls-8 { .budget-func-cls-color(#313131, #2E2E2E, #B3B3B3, #DCDCDC); } //Yellow
+      primaryColor: '#7a6b99',
+      secondaryColor: '#e4dcf5',
+      tertiaryColor: '#b4a0de',
+      bgColor: '#ffffff',
+      tagColor: '#7a6b99',
+
+      // Top line:
+      tag: (x) => 'סעיף תקציבי',
+      amount: (x) => `${this.format_number(x.allocated)}&nbsp;₪`,
+
+      // Main body:
+      title: ':title',
+      mainId: (x) => 'קוד סעיף: :nice-code',
+
+      // Bottom line:
+      bottomLineText: ':nice-breadcrumbs',
+      bottomLineLabel: ':func_1_name',
+      bottomLineLabelStyle: 'circle'
+    },
   };
 
   public p: Parameter;
