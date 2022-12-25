@@ -294,6 +294,37 @@ export class SearchResultComponent implements OnInit {
       bottomLineLabelStyle: 'ribbon',
       bottomLineTextOpacity: '0.5'
     },
+    'muni_tenders': <Parameter>{
+      // Colors:
+      primaryColor: '#19008f',
+      secondaryColor: '#fffbf2',
+      bgColor: '#fffbf2',
+      tagColor: '#19008f',
+
+      // Top line:
+      tag: ':tender_type_he',
+
+      // Main body:
+      bodyStyle: 'dashing',
+      title: ':description',
+      partyFrom: ':publisher',
+      arrowKind: 'left-dashed',
+
+      // Bottom line:
+      bottomLineText: (x) => {
+        const parts = [];
+        if (x['publication_date']) {
+          parts.push(`תאריך פרסום: ${moment(x['publication_date']).format('DD/MM/YYYY')}`);
+        }
+        if (x['claim_date']) {
+          parts.push(`תאריך סגירה: ${moment(x['claim_date']).format('DD/MM/YYYY')}`);
+        }
+        return parts.join('   |   ');
+      },
+      bottomLineLabel: this.remainingTime,
+      bottomLineLabelStyle: 'ribbon',
+      bottomLineTextOpacity: '0.5'
+    },
     // Calls for Bids:
     'calls_for_bids': <Parameter>{
       // Colors:
